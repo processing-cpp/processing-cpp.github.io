@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C++ Mode for Processing 4</title>
+  <title>C++ Mode for Processing</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111; background: #fff; height: 100vh; overflow: hidden; }
@@ -18,9 +18,33 @@
     .nav-logo { display: flex; align-items: center; gap: 10px; }
     .nav-logo img { width: 28px; height: 28px; }
     .nav-logo span { font-size: 15px; font-weight: 500; }
-    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
     .nav-links a { font-size: 14px; color: #555; }
     .nav-links a:hover { color: #111; }
+    .search-wrap { position: relative; }
+    .search-wrap input {
+      border: 1px solid #ddd; border-radius: 6px;
+      padding: 6px 12px 6px 32px;
+      font-size: 13px; outline: none; width: 180px;
+      background: #f8f8f8; color: #111;
+      transition: border-color 0.2s, width 0.2s;
+    }
+    .search-wrap input:focus { border-color: #aaa; width: 220px; background: #fff; }
+    .search-wrap svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; stroke: #aaa; fill: none; pointer-events: none; }
+    .search-results {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 8px; width: 280px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      display: none; z-index: 200;
+      overflow: hidden;
+    }
+    .search-results.show { display: block; }
+    .search-result-item { padding: 10px 14px; font-size: 13px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #f8f8f8; }
+    .search-result-item .tag { font-size: 11px; color: #aaa; margin-left: 6px; }
+    .search-empty { padding: 12px 14px; font-size: 13px; color: #aaa; }
 
     .main {
       height: calc(100vh - 60px);
@@ -56,6 +80,13 @@
   </div>
   <div class="nav-links">
     <a href="reference.html">Reference</a>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </nav>
 
@@ -73,5 +104,58 @@
   </div>
 </div>
 
+<script>
+const data = [
+  { title: "Reference", desc: "API documentation", url: "reference.html", tag: "page" },
+  { title: "Examples", desc: "Sketch examples", url: "examples.html", tag: "page" },
+  { title: "About", desc: "About C++ Mode", url: "about.html", tag: "page" },
+  { title: "setup()", desc: "Called once at the start", url: "reference.html#setup", tag: "reference" },
+  { title: "draw()", desc: "Called every frame", url: "reference.html#draw", tag: "reference" },
+  { title: "size()", desc: "Set the canvas size", url: "reference.html#size", tag: "reference" },
+  { title: "background()", desc: "Clear the canvas with a color", url: "reference.html#background", tag: "reference" },
+  { title: "ellipse()", desc: "Draw an ellipse", url: "reference.html#ellipse", tag: "reference" },
+  { title: "rect()", desc: "Draw a rectangle", url: "reference.html#rect", tag: "reference" },
+  { title: "fill()", desc: "Set fill color", url: "reference.html#fill", tag: "reference" },
+  { title: "stroke()", desc: "Set stroke color", url: "reference.html#stroke", tag: "reference" },
+  { title: "noFill()", desc: "Disable fill", url: "reference.html#nofill", tag: "reference" },
+  { title: "noStroke()", desc: "Disable stroke", url: "reference.html#nostroke", tag: "reference" },
+  { title: "line()", desc: "Draw a line", url: "reference.html#line", tag: "reference" },
+  { title: "mouseX", desc: "Current mouse X position", url: "reference.html#mousex", tag: "reference" },
+  { title: "mouseY", desc: "Current mouse Y position", url: "reference.html#mousey", tag: "reference" },
+  { title: "mousePressed()", desc: "Called on mouse press", url: "reference.html#mousepressed", tag: "reference" },
+  { title: "keyPressed()", desc: "Called on key press", url: "reference.html#keypressed", tag: "reference" },
+  { title: "Bouncing ball", desc: "Basic animation with collision", url: "examples.html#bounce", tag: "example" },
+  { title: "Particle system", desc: "STL vectors with physics", url: "examples.html#particles", tag: "example" },
+  { title: "Perlin noise", desc: "Flow field using noise()", url: "examples.html#noise", tag: "example" },
+];
+
+const input = document.getElementById("search-input");
+const results = document.getElementById("search-results");
+
+input.addEventListener("input", function() {
+  const q = this.value.trim().toLowerCase();
+  results.innerHTML = "";
+  if (!q) { results.classList.remove("show"); return; }
+  const matches = data.filter(d =>
+    d.title.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (matches.length === 0) {
+    results.innerHTML = '<div class="search-empty">No results</div>';
+  } else {
+    matches.forEach(m => {
+      const div = document.createElement("div");
+      div.className = "search-result-item";
+      div.innerHTML = m.title + '<span class="tag">' + m.tag + '</span>';
+      div.onclick = () => { window.location = m.url; };
+      results.appendChild(div);
+    });
+  }
+  results.classList.add("show");
+});
+
+document.addEventListener("click", function(e) {
+  if (!e.target.closest(".search-wrap")) results.classList.remove("show");
+});
+</script>
 </body>
 </html>
