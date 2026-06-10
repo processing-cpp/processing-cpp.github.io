@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+
+    nav {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { width: 28px; height: 28px; }
+    .nav-logo span { font-size: 15px; font-weight: 500; }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: 14px; color: #555; }
+    .nav-links a:hover { color: #111; }
+
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .content h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .content h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .content p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .content code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 13px;
+      background: #f4f4f4;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #111;
+    }
+
+    footer {
+      border-top: 1px solid #e0e0e0;
+      padding: 2rem;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="assets/cpp-logo.png" alt="C++ Mode">
+    <span>C++ Mode</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="reference.html">Reference</a>
+    <a href="examples.html">Examples</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<div class="content">
+  <h1>About</h1>
+
+  <p>C++ Mode for Processing is a plugin for the Processing 4 IDE that lets you write sketches in C++ instead of Java. The goal is simple: bring the accessibility and immediacy of the Processing creative coding environment to the C++ language.</p>
+
+  <h2>Why C++ Mode?</h2>
+
+  <p>Learning C++ can feel daunting. The language is powerful but the barrier to getting something on the screen is high. You have to set up a build system, configure a window, initialize an OpenGL context, and write a lot of boilerplate before you draw a single circle.</p>
+
+  <p>Processing removes all of that friction for Java. C++ Mode does the same for C++. You open the IDE, type <code>ellipse(300, 300, 50, 50)</code>, hit Run, and a window appears. The full OpenGL setup, the event loop, the frame timing — it is all handled for you.</p>
+
+  <h2>A gentler path into C++</h2>
+
+  <p>If you already know Processing, you already know most of the API. <code>setup()</code>, <code>draw()</code>, <code>background()</code>, <code>mouseX</code>, <code>fill()</code> — it all works the same way. The only difference is that you are writing C++ now. That means you can focus on learning the language rather than fighting the environment.</p>
+
+  <p>C++ Mode is designed to be a gentle on-ramp. Start by writing sketches that look almost identical to your Processing Java sketches. Then gradually introduce C++ concepts as you go — structs, vectors, pointers, templates — at your own pace, in a context that is already familiar and visual.</p>
+
+  <h2>For everyone</h2>
+
+  <p>C++ Mode is for artists and designers who want to go deeper. It is for students who are learning C++ and want a creative way to practice. It is for developers who know C++ and want the immediacy of the Processing workflow. And it is for anyone who is curious about what their sketch looks like when it runs at full native speed.</p>
+
+  <p>Made by <a href="https://github.com/pepc84" style="border-bottom: 1px solid #ddd;">Jose Gonzalez Llamas</a>. Contributions welcome on <a href="https://github.com/processing-cpp/processing.cpp" style="border-bottom: 1px solid #ddd;">GitHub</a>.</p>
+</div>
+
+<footer>
+  <p>C++ Mode for Processing 4</p>
+</footer>
+
+</body>
+</html>
