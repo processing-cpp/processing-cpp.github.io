@@ -51,6 +51,10 @@
     .search-result-item .tag { font-size: 11px; color: #aaa; margin-left: 6px; }
     .search-empty { padding: 12px 14px; font-size: 13px; color: #aaa; }
 
+    .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: calc(100vh - 60px); border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
+    .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    .sidebar a:hover { color: #111; }
+    .page-body { margin-left: 180px; }
     .main {
       height: calc(100vh - 60px);
       display: flex; align-items: center;
@@ -93,7 +97,11 @@
     .right img { width: 380px; height: 380px; object-fit: contain; }
 
     @media (max-width: 768px) {
-      .main { flex-direction: column; padding: 3rem 2rem; }
+      .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: calc(100vh - 60px); border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
+    .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    .sidebar a:hover { color: #111; }
+    .page-body { margin-left: 180px; }
+    .main { flex-direction: column; padding: 3rem 2rem; }
       .right img { width: 200px; height: 200px; }
       body { overflow: auto; }
     }
@@ -117,6 +125,13 @@
   </div>
 </nav>
 
+<div class="sidebar">
+  <a href="reference.html">Reference</a>
+  <a href="examples.html">Examples</a>
+  <a href="about.html">About</a>
+</div>
+
+<div class="page-body">
 <div class="main">
   <div class="left">
     <h1>C++ Mode for<br><span class="proc">Processing</span></h1>

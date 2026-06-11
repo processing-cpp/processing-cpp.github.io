@@ -8,71 +8,21 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
-
-    nav {
-      border-bottom: 1px solid #e0e0e0;
-      padding: 0 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; height: 60px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
     .nav-logo img { width: 28px; height: 28px; }
     .nav-logo span { font-size: 15px; font-weight: 500; }
-    .nav-links { display: flex; gap: 2.5rem; }
-    .nav-links a { font-size: 14px; color: #555; }
-    .nav-links a:hover { color: #111; }
-
-
-
-    .content h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 3rem;
-    }
-
-    .content h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-top: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .content p {
-      font-size: 1rem;
-      color: #444;
-      line-height: 1.85;
-      margin-bottom: 1.25rem;
-    }
-
-    .content code {
-      font-family: "SF Mono", "Fira Code", monospace;
-      font-size: 13px;
-      background: #f4f4f4;
-      border-radius: 4px;
-      padding: 2px 6px;
-      color: #111;
-    }
-
-    footer {
-      border-top: 1px solid #e0e0e0;
-      padding: 2rem;
-      text-align: center;
-      font-size: 13px;
-      color: #888;
-    }
-  
     .layout { display: flex; min-height: calc(100vh - 60px); }
-    .sidebar {
-      width: 180px; min-width: 180px;
-      border-right: 1px solid #e0e0e0;
-      padding: 2rem 1.5rem;
-      display: flex; flex-direction: column; gap: 0.25rem;
-    }
-    .sidebar a { font-size: 14px; color: #555; padding: 0.35rem 0; display: block; }
+    .sidebar { width: 180px; min-width: 180px; border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
     .sidebar a:hover { color: #111; }
     .sidebar a.active { color: #111; font-weight: 500; }
-    .page-content { flex: 1; max-width: 720px; padding: 4rem 3rem; }
+    .content { max-width: 680px; padding: 4rem 3rem; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2.5rem; }
+    .content h2 { font-size: 1rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.75rem; }
+    .content p { font-size: 1rem; color: #444; line-height: 1.85; margin-bottom: 1.25rem; }
+    .content code { font-family: "SF Mono", "Fira Code", monospace; font-size: 13px; background: #f4f4f4; border-radius: 4px; padding: 2px 6px; color: #111; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
   </style>
 </head>
 <body>
@@ -82,45 +32,41 @@
     <img src="assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
   </a>
-  <div class="nav-links">
-    <a href="reference.html">Reference</a>
-    <a href="examples.html">Examples</a>
-    <a href="about.html">About</a>
-  </div>
 </nav>
 
 <div class="layout">
   <div class="sidebar">
-    <a href="reference.html" >Reference</a>
-    <a href="examples.html" >Examples</a>
-    <a href="about.html" class='active'>About</a>
+    <a href="reference.html">Reference</a>
+    <a href="examples.html">Examples</a>
+    <a href="about.html" class="active">About</a>
   </div>
-  <div class="page-content">
-  <h1>About</h1>
+  <div class="content">
+    <h1>About</h1>
 
-  <p>C++ Mode is a plugin for the Processing 4 IDE that lets you write sketches in C++ instead of Java. The idea is to take everything that makes Processing easy to pick up and bring it to C++.</p>
+    <p>C++ Mode is a plugin for the Processing 4 IDE that lets you write sketches in C++ instead of Java. The idea is to take everything that makes Processing easy to pick up and bring it to C++.</p>
 
-  <h2>Why C++ Mode?</h2>
+    <h2>Why C++ Mode?</h2>
 
-  <p>Getting started with C++ is hard. Before you can draw anything on screen you need to set up a build system, open a window, initialize OpenGL, and write a lot of setup code. Most people give up before they see anything.</p>
+    <p>Getting started with C++ is hard. Before you can draw anything on screen you need to set up a build system, open a window, initialize OpenGL, and write a lot of setup code. Most people give up before they see anything.</p>
 
-  <p>Processing solved this problem for Java. C++ Mode does the same thing for C++. You type <code>ellipse(300, 300, 50, 50)</code>, hit Run, and something appears on screen. The window, the event loop, the OpenGL context, all of it is taken care of.</p>
+    <p>Processing solved this problem for Java. C++ Mode does the same thing for C++. You type <code>ellipse(300, 300, 50, 50)</code>, hit Run, and something appears on screen. The window, the event loop, the OpenGL context, all of it is taken care of.</p>
 
-  <h2>A friendlier path into C++</h2>
+    <h2>A friendlier path into C++</h2>
 
-  <p>If you already know Processing, you already know most of the API. <code>setup()</code>, <code>draw()</code>, <code>background()</code>, <code>mouseX</code>, <code>fill()</code> all work the same way. The only difference is that you are now writing C++.</p>
+    <p>If you already know Processing, you already know most of the API. <code>setup()</code>, <code>draw()</code>, <code>background()</code>, <code>mouseX</code>, <code>fill()</code> all work the same way. The only difference is that you are now writing C++.</p>
 
-  <p>You can take it step by step. Start with sketches that look almost identical to what you would write in Java. Then start introducing C++ concepts at your own pace: structs, vectors, pointers, templates. The visual feedback makes it easier to understand what your code is actually doing.</p>
+    <p>You can take it step by step. Start with sketches that look almost identical to what you would write in Java. Then start introducing C++ concepts at your own pace: structs, vectors, pointers, templates. The visual feedback makes it easier to understand what your code is actually doing.</p>
 
-  <h2>Who is it for</h2>
+    <h2>Who is it for</h2>
 
-  <p>C++ Mode is for Processing users who are curious about C++ and want a familiar starting point. It is for students taking a C++ course who want to make something visual while they learn. It is for developers who already know C++ and want a fast creative coding environment. And it is for artists who want their sketches to run as fast as possible without giving up the simplicity of the Processing API.</p>
+    <p>C++ Mode is for Processing users who are curious about C++ and want a familiar starting point. It is for students taking a C++ course who want to make something visual while they learn. It is for developers who already know C++ and want a fast creative coding environment. And it is for artists who want their sketches to run as fast as possible without giving up the simplicity of the Processing API.</p>
 
-  <p>Made by <a href="https://github.com/pepc84" style="border-bottom: 1px solid #ddd;">Jose Gonzalez Llamas</a>. Contributions welcome on <a href="https://github.com/processing-cpp/processing.cpp" style="border-bottom: 1px solid #ddd;">GitHub</a>.</p>
+    <p>Made by <a href="https://github.com/pepc84" style="border-bottom: 1px solid #ddd;">Jose Gonzalez Llamas</a>. Contributions welcome on <a href="https://github.com/processing-cpp/processing.cpp" style="border-bottom: 1px solid #ddd;">GitHub</a>.</p>
+  </div>
 </div>
 
 <footer>
-  <p>C++ Mode for Processing 4</p>
+  <p>C++ Mode for Processing</p>
 </footer>
 
 </body>
