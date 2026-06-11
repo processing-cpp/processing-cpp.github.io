@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reflection - C++ Mode Examples</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { width: 28px; height: 28px; }
+    .nav-logo span { font-size: 15px; font-weight: 500; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; }
+    .sidebar-top { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; }
+    .sidebar-top a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    .sidebar-top a:hover { color: #111; }
+    .sidebar-top a.active { color: #111; font-weight: 500; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.5rem; font-size: 13px; font-weight: 600; color: #111; cursor: pointer; border-bottom: 1px solid #e0e0e0; user-select: none; }
+    .section-header:hover { background: #f8f8f8; }
+    .arrow { font-size: 11px; color: #aaa; }
+    .category { margin-bottom: 0.25rem; }
+    .category-title { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.5rem 0.25rem; }
+    .category a { display: block; font-size: 13px; color: #555; padding: 0.3rem 1.5rem; }
+    .category a:hover { color: #111; background: #f8f8f8; }
+    .category a.active { color: #111; font-weight: 500; background: #f4f4f4; }
+    .content { flex: 1; padding: 3rem 4rem; max-width: 900px; }
+    .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .desc { color: #555; line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
+    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; width: 640px; height: 360px; }
+    .preview-wrap canvas { display: block; width: 640px !important; height: 360px !important; }
+    .code-block { background: #f8f8f8; border-radius: 8px; overflow: hidden; }
+    .code-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #e0e0e0; font-size: 12px; color: #888; font-family: monospace; display: flex; align-items: center; justify-content: space-between; }
+    .copy-btn { font-size: 12px; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; }
+    .copy-btn:hover { background: #f0f0f0; }
+    .copy-btn.copied { color: #090; border-color: #090; }
+    pre { padding: 1.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+    .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
+    .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .preview-wrap { width: 100% !important; height: auto !important; }
+      .preview-wrap canvas { width: 100% !important; height: auto !important; }
+      pre { font-size: 12px; }
+    }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/cpp-logo.png" alt="C++ Mode">
+    <span>C++ Mode</span>
+  </a>
+  <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+</nav>
+<div class="layout">
+  <div class="sidebar" id="sidebar"><div class="sidebar-top">
+      <a href="../reference.html">Reference</a>
+      <a href="../examples.html">Examples</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="section-header" onclick="toggleSection('basics')">
+      <span>Basics</span><span class="arrow" id="basics-arrow">▾</span>
+    </div>
+    <div id="basics-section"><div class="category"><div class="category-title">Arrays</div><a href="array.html" >Array</a><a href="array-2d.html" >Array 2D</a><a href="array-objects.html" >Array Objects</a></div><div class="category"><div class="category-title">Camera</div><a href="move-eye.html" >Move Eye</a><a href="perspective.html" >Perspective</a><a href="perspective-vs-ortho.html" >Perspective vs Ortho</a></div><div class="category"><div class="category-title">Color</div><a href="brightness.html" >Brightness</a><a href="color-variables.html" >Color Variables</a><a href="hue.html" >Hue</a><a href="radial-gradient.html" >Radial Gradient</a><a href="relativity.html" >Relativity</a><a href="saturation.html" >Saturation</a><a href="simple-linear-gradient.html" >Simple Linear Gradient</a></div><div class="category"><div class="category-title">Control</div><a href="conditionals-1.html" >Conditionals 1</a><a href="conditionals-2.html" >Conditionals 2</a><a href="embedding-iteration.html" >Embedding Iteration</a><a href="iteration.html" >Iteration</a><a href="logical-operators.html" >Logical Operators</a></div><div class="category"><div class="category-title">Data</div><a href="characters-strings.html" >Characters Strings</a><a href="datatype-conversion.html" >Datatype Conversion</a><a href="integers-floats.html" >Integers Floats</a><a href="true-false.html" >True False</a><a href="variable-scope.html" >Variable Scope</a><a href="variables.html" >Variables</a></div><div class="category"><div class="category-title">Forms</div><a href="bezier.html" >Bezier</a><a href="pie-chart.html" >Pie Chart</a><a href="points-and-lines.html" >Points and Lines</a><a href="primitives-3d.html" >Primitives 3D</a><a href="regular-polygon.html" >Regular Polygon</a><a href="shape-primitives.html" >Shape Primitives</a><a href="star.html" >Star</a><a href="triangle-strip.html" >Triangle Strip</a></div><div class="category"><div class="category-title">Image</div><a href="alpha-mask.html" >Alpha Mask</a><a href="background-image.html" >Background Image</a><a href="create-image.html" >Create Image</a><a href="load-and-display-image.html" >Load and Display Image</a><a href="pointillism.html" >Pointillism</a><a href="request-image.html" >Request Image</a><a href="transparency.html" >Transparency</a></div><div class="category"><div class="category-title">Input</div><a href="clock.html" >Clock</a><a href="constrain.html" >Constrain</a><a href="easing.html" >Easing</a><a href="keyboard.html" >Keyboard</a><a href="keyboard-functions.html" >Keyboard Functions</a><a href="milliseconds.html" >Milliseconds</a><a href="mouse-1d.html" >Mouse 1D</a><a href="mouse-2d.html" >Mouse 2D</a><a href="mouse-functions.html" >Mouse Functions</a><a href="mouse-press.html" >Mouse Press</a><a href="mouse-signals.html" >Mouse Signals</a><a href="storing-input.html" >Storing Input</a></div><div class="category"><div class="category-title">Lights</div><a href="directional.html" >Directional</a><a href="mixture.html" >Mixture</a><a href="mixture-grid.html" >Mixture Grid</a><a href="on-off.html" >On Off</a><a href="reflection.html" class="active">Reflection</a><a href="spot.html" >Spot</a></div><div class="category"><div class="category-title">Math</div><a href="additive-wave.html" >Additive Wave</a><a href="arctangent.html" >Arctangent</a><a href="distance-1d.html" >Distance 1D</a><a href="distance-2d.html" >Distance 2D</a><a href="double-random.html" >Double Random</a><a href="graphing-2d-equations.html" >Graphing 2D Equations</a><a href="increment-decrement.html" >Increment Decrement</a><a href="linear-interpolation.html" >Linear Interpolation</a><a href="noise-1d.html" >Noise 1D</a><a href="noise-2d.html" >Noise 2D</a><a href="noise-3d.html" >Noise 3D</a><a href="noise-wave.html" >Noise Wave</a><a href="operator-precedence.html" >Operator Precedence</a><a href="polar-to-cartesian.html" >Polar to Cartesian</a><a href="random.html" >Random</a><a href="random-gaussian.html" >Random Gaussian</a><a href="sine.html" >Sine</a><a href="sine-cosine.html" >Sine Cosine</a><a href="sine-wave.html" >Sine Wave</a></div><div class="category"><div class="category-title">Objects</div><a href="composite-objects.html" >Composite Objects</a><a href="inheritance.html" >Inheritance</a><a href="multiple-constructors.html" >Multiple Constructors</a><a href="objects.html" >Objects</a></div><div class="category"><div class="category-title">Shape</div><a href="disable-style.html" >Disable Style</a><a href="get-child.html" >Get Child</a><a href="load-and-display-a-shape-illustration.html" >Load and Display a Shape Illustration</a><a href="load-and-display-an-obj-shape.html" >Load and Display an OBJ shape</a><a href="scale-shape-illustration.html" >Scale Shape Illustration</a><a href="shape-vertices.html" >Shape Vertices</a></div><div class="category"><div class="category-title">Structure</div><a href="coordinates.html" >Coordinates</a><a href="create-graphics.html" >Create Graphics</a><a href="functions.html" >Functions</a><a href="loop.html" >Loop</a><a href="no-loop.html" >No Loop</a><a href="recursion.html" >Recursion</a><a href="redraw.html" >Redraw</a><a href="setup-and-draw.html" >Setup and Draw</a><a href="statements-and-comments.html" >Statements and Comments</a><a href="width-and-height.html" >Width and Height</a></div><div class="category"><div class="category-title">Transform</div><a href="arm.html" >Arm</a><a href="rotate.html" >Rotate</a><a href="rotate-1.html" >Rotate 1</a><a href="rotate-push-pop.html" >Rotate Push Pop</a><a href="scale.html" >Scale</a><a href="translate.html" >Translate</a></div><div class="category"><div class="category-title">Typography</div><a href="letters.html" >Letters</a><a href="text-rotation.html" >Text Rotation</a><a href="words.html" >Words</a></div><div class="category"><div class="category-title">Web</div><a href="loading-images.html" >Loading Images</a><a href="loading-urls.html" >Loading URLs</a></div></div><div class="section-header" onclick="toggleSection('topics')">
+      <span>Topics</span><span class="arrow" id="topics-arrow">▸</span>
+    </div>
+    <div id="topics-section" style="display:none">
+      <div class="category"><div class="category-title" style="color:#ccc;">Coming soon</div></div>
+    </div></div>
+  <div class="content">
+    <h1>Reflection</h1>
+    
+    <div class="preview-wrap"><div id="p5-container"></div></div>
+    <div class="code-block">
+      <div class="code-header">
+        <span>reflection.cpp</span>
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+      </div>
+      <pre id="code-pre">/**
+ * Reflection 
+ * by Simon Greenwold. 
+ * 
+ * Vary the specular reflection component of a material
+ * with the horizontal position of the mouse. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  colorMode(RGB, 1);
+  fill(0.4f);
+}
+
+void draw() {
+  background(0);
+
+  translate(width / 2, height / 2);
+
+  // Set the specular color of lights that follow
+  lightSpecular(1.0f, 1.0f, 1.0f);
+  directionalLight(0.8f, 0.8f, 0.8f, 0, 0, -1);
+
+  float s = mouseX / (float)width;
+
+  specular(s, s, s);
+
+  sphere(120);
+}
+</pre>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script>
+
+function copyCode() {
+  navigator.clipboard.writeText(document.getElementById('code-pre').innerText).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function toggleSection(name) {
+  const sec = document.getElementById(name+'-section');
+  const arrow = document.getElementById(name+'-arrow');
+  const open = sec.style.display !== 'none';
+  sec.style.display = open ? 'none' : 'block';
+  arrow.textContent = open ? '▸' : '▾';
+}
+
+
+new p5(function(p) {
+  void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  colorMode(RGB, 1);
+  fill(0.4f);
+}
+
+void draw() {
+  background(0);
+
+  translate(width / 2, height / 2);
+
+  // Set the specular color of lights that follow
+  lightSpecular(1.0f, 1.0f, 1.0f);
+  directionalLight(0.8f, 0.8f, 0.8f, 0, 0, -1);
+
+  float s = mouseX / (float)width;
+
+  specular(s, s, s);
+
+  sphere(120);
+}
+}, 'p5-container');
+
+</script>
+</body>
+</html>
