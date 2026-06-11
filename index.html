@@ -51,12 +51,12 @@
     .search-result-item .tag { font-size: 11px; color: #aaa; margin-left: 6px; }
     .search-empty { padding: 12px 14px; font-size: 13px; color: #aaa; }
 
-    .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: calc(100vh - 60px); border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
+    .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: 80vh; border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
     .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
     .sidebar a:hover { color: #111; }
     .page-body { margin-left: 180px; }
     .main {
-      height: calc(100vh - 60px);
+      height: 80vh;
       display: flex; align-items: center;
       padding: 0 6rem;
       gap: 4rem;
@@ -88,16 +88,12 @@
     .left h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2.5rem; line-height: 1.2; }
     .left h1 .proc { font-family: "IBM Plex Sans", sans-serif; color: #0064ff; font-weight: 700; }
     .left nav-links { display: flex; flex-direction: column; gap: 1rem; }
-    .page-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 0; }
-    .page-links a { font-size: 1.1rem; color: #555; display: flex; align-items: center; gap: 8px; }
-    .page-links a:hover { color: #111; }
-    .page-links a::before { content: ''; width: 20px; height: 1px; background: #ccc; display: inline-block; }
 
     .right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
     .right img { width: 380px; height: 380px; object-fit: contain; }
 
     @media (max-width: 768px) {
-      .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: calc(100vh - 60px); border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
+      .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: 80vh; border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
     .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
     .sidebar a:hover { color: #111; }
     .page-body { margin-left: 180px; }
@@ -135,11 +131,6 @@
 <div class="main">
   <div class="left">
     <h1>C++ Mode for<br><span class="proc">Processing</span></h1>
-    <div class="page-links">
-      <a href="reference.html">Reference</a>
-      <a href="examples.html">Examples</a>
-      <a href="about.html">About</a>
-    </div>
   </div>
   <div class="right">
     <img src="assets/cpp-logo.png" alt="C++ Mode">
