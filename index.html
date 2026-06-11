@@ -4,28 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C++ Mode for Processing</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
-    @font-face {
-      font-family: 'ProcessingSans';
-      src: url('assets/ProcessingSansPro-Regular.ttf');
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
 
     nav {
       border-bottom: 1px solid #e0e0e0;
-      padding: 0 3rem;
+      padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      height: 60px; position: sticky; top: 0; background: #fff; z-index: 100;
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; }
     .nav-logo img { width: 28px; height: 28px; }
     .nav-logo span { font-size: 15px; font-weight: 500; }
-    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-    .nav-links a { font-size: 14px; color: #555; }
-    .nav-links a:hover { color: #111; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; }
+
     .search-wrap { position: relative; }
     .search-wrap input {
       border: 1px solid #ddd; border-radius: 6px;
@@ -41,8 +37,7 @@
       background: #fff; border: 1px solid #e0e0e0;
       border-radius: 8px; width: 280px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      display: none; z-index: 200;
-      overflow: hidden;
+      display: none; z-index: 200; overflow: hidden;
     }
     .search-results.show { display: block; }
     .search-result-item { padding: 10px 14px; font-size: 13px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
@@ -51,30 +46,40 @@
     .search-result-item .tag { font-size: 11px; color: #aaa; margin-left: 6px; }
     .search-empty { padding: 12px 14px; font-size: 13px; color: #aaa; }
 
-    .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: 80vh; border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+
+    .sidebar {
+      width: 220px; min-width: 220px;
+      border-right: 1px solid #e0e0e0;
+      padding: 2rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+      position: sticky; top: 60px;
+      height: calc(100vh - 60px);
+      background: #fff;
+    }
     .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
     .sidebar a:hover { color: #111; }
-    .page-body { margin-left: 180px; }
+
+    .page-body { flex: 1; }
+
     .main {
-      height: 80vh;
+      height: calc(100vh - 60px);
       display: flex; align-items: center;
-      padding: 0 6rem;
-      gap: 4rem;
+      padding: 0 5rem; gap: 4rem;
     }
-    .examples-section {
-      max-width: 960px; margin: 0 auto;
-      padding: 5rem 3rem;
-      border-top: 1px solid #e0e0e0;
-    }
+    .left { flex: 1; }
+    .left h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem; }
+    .left h1 .proc { font-family: "IBM Plex Sans", sans-serif; color: #0064ff; font-weight: 700; }
+    .left p { font-size: 1rem; color: #555; margin-bottom: 0; }
+    .left p a { color: #111; border-bottom: 1px solid #111; font-weight: 500; }
+    .right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+    .right img { width: 340px; height: 340px; object-fit: contain; }
+
+    .scroll-hint { text-align: center; padding: 1rem 0; color: #ccc; font-size: 22px; }
+
+    .examples-section { max-width: 960px; margin: 0 auto; padding: 5rem 3rem; border-top: 1px solid #e0e0e0; }
     .examples-section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 2.5rem; }
-    .examples-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+    .examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
     .example-card { background: #fff; overflow: hidden; }
     .example-canvas { width: 100%; aspect-ratio: 1; background: #000; display: block; }
     .example-info { padding: 1rem 1.25rem; border-top: 1px solid #e0e0e0; }
@@ -84,33 +89,31 @@
     .examples-footer a { font-size: 14px; color: #555; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
     .examples-footer a:hover { color: #111; border-color: #111; }
 
-    .left { flex: 1; }
-    .left h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2.5rem; line-height: 1.2; }
-    .left h1 .proc { font-family: "IBM Plex Sans", sans-serif; color: #0064ff; font-weight: 700; }
-    .left nav-links { display: flex; flex-direction: column; gap: 1rem; }
-
-    .right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
-    .right img { width: 380px; height: 380px; object-fit: contain; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
 
     @media (max-width: 768px) {
-      .sidebar { position: fixed; top: 60px; left: 0; width: 180px; height: 80vh; border-right: 1px solid #e0e0e0; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; background: #fff; z-index: 10; }
-    .sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
-    .sidebar a:hover { color: #111; }
-    .page-body { margin-left: 180px; }
-    .main { flex-direction: column; padding: 3rem 2rem; }
+      .hamburger { display: block; }
+      .sidebar {
+        position: fixed; top: 60px; left: -240px;
+        width: 240px; height: calc(100vh - 60px);
+        z-index: 200; transition: left 0.25s ease;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+      }
+      .sidebar.open { left: 0; }
+      .main { flex-direction: column; padding: 3rem 2rem; height: auto; }
       .right img { width: 200px; height: 200px; }
-      body { overflow: auto; }
+      .search-wrap { display: none; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="/ class="nav-logo">
+  <div class="nav-logo">
     <img src="assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
-  </a>
-  <div class="nav-links">
+  </div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -118,49 +121,107 @@
       <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
       <div class="search-results" id="search-results"></div>
     </div>
+    <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
   </div>
 </nav>
 
-<div class="sidebar">
-  <a href="/reference">Reference</a>
-  <a href="/examples">Examples</a>
-  <a href="/about">About</a>
+<div class="layout">
+  <div class="sidebar" id="sidebar">
+    <a href="/libraries">Libraries</a>
+    <a href="/reference">Reference</a>
+    <a href="/examples">Examples</a>
+    <a href="/about">About</a>
+  </div>
+
+  <div class="page-body">
+    <div class="main">
+      <div class="left">
+        <h1>C++ Mode for<br><span class="proc">Processing</span></h1>
+        <p>Explore the <a href="/reference">C++ Mode reference</a> for the full API.</p>
+      </div>
+      <div class="right">
+        <img src="assets/cpp-logo.png" alt="C++ Mode">
+      </div>
+    </div>
+
+    <div class="scroll-hint">↓</div>
+
+    <div class="examples-section">
+      <p style="font-size:0.95rem;color:#888;margin-bottom:0.5rem;">Explore the <a href="/reference" style="color:#111;border-bottom:1px solid #ddd;">C++ Mode reference</a> for the full API.</p>
+      <h2>Examples</h2>
+      <div class="examples-grid">
+        <div class="example-card">
+          <canvas class="example-canvas" id="c1"></canvas>
+          <div class="example-info"><h3>Bouncing ball</h3><p>Basic animation with collision detection</p></div>
+        </div>
+        <div class="example-card">
+          <canvas class="example-canvas" id="c2"></canvas>
+          <div class="example-info"><h3>Particle system</h3><p>STL vectors with per-particle physics</p></div>
+        </div>
+        <div class="example-card">
+          <canvas class="example-canvas" id="c3"></canvas>
+          <div class="example-info"><h3>Perlin noise</h3><p>Flow field using noise()</p></div>
+        </div>
+      </div>
+      <div class="examples-footer">
+        <a href="/examples">View all examples</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="page-body">
-<div class="main">
-  <div class="left">
-    <h1>C++ Mode for<br><span class="proc">Processing</span></h1>
-    <p style="margin-top:1.5rem;font-size:1rem;color:#555;">Explore the <a href="/reference" style="color:#111;border-bottom:1px solid #111;font-weight:500;">C++ Mode reference</a> for the full API.</p>
-  </div>
-  <div class="right">
-    <img src="assets/cpp-logo.png" alt="C++ Mode">
-  </div>
-</div>
+<footer><p>C++ Mode for Processing</p></footer>
 
-<div class="examples-section">
-  <h2>Examples</h2>
-  <div class="examples-grid">
-    <div class="example-card">
-      <canvas class="example-canvas" id="c1"></canvas>
-      <div class="example-info"><h3>Bouncing ball</h3><p>Basic animation with collision detection</p></div>
-    </div>
-    <div class="example-card">
-      <canvas class="example-canvas" id="c2"></canvas>
-      <div class="example-info"><h3>Particle system</h3><p>STL vectors with per-particle physics</p></div>
-    </div>
-    <div class="example-card">
-      <canvas class="example-canvas" id="c3"></canvas>
-      <div class="example-info"><h3>Perlin noise</h3><p>Flow field using noise()</p></div>
-    </div>
-  </div>
-  <div class="examples-footer">
-    <a href="/examples">View all examples</a>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script>
+const data = [
+  { title: "Libraries", url: "/libraries", tag: "page" },
+  { title: "Reference", url: "/reference", tag: "page" },
+  { title: "Examples", url: "/examples", tag: "page" },
+  { title: "About", url: "/about", tag: "page" },
+  { title: "setup()", url: "/reference", tag: "reference" },
+  { title: "draw()", url: "/reference", tag: "reference" },
+  { title: "size()", url: "/reference", tag: "reference" },
+  { title: "background()", url: "/reference", tag: "reference" },
+  { title: "ellipse()", url: "/reference", tag: "reference" },
+  { title: "rect()", url: "/reference", tag: "reference" },
+  { title: "fill()", url: "/reference", tag: "reference" },
+  { title: "stroke()", url: "/reference", tag: "reference" },
+  { title: "mouseX", url: "/reference", tag: "reference" },
+  { title: "mouseY", url: "/reference", tag: "reference" },
+  { title: "std::vector", url: "/libraries", tag: "library" },
+  { title: "std::map", url: "/libraries", tag: "library" },
+  { title: "std::string", url: "/libraries", tag: "library" },
+  { title: "std::thread", url: "/libraries", tag: "library" },
+];
+
+const input = document.getElementById("search-input");
+const results = document.getElementById("search-results");
+
+input.addEventListener("input", function() {
+  const q = this.value.trim().toLowerCase();
+  results.innerHTML = "";
+  if (!q) { results.classList.remove("show"); return; }
+  const matches = data.filter(d =>
+    d.title.toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (matches.length === 0) {
+    results.innerHTML = '<div class="search-empty">No results</div>';
+  } else {
+    matches.forEach(m => {
+      const div = document.createElement("div");
+      div.className = "search-result-item";
+      div.innerHTML = m.title + '<span class="tag">' + m.tag + '</span>';
+      div.onclick = () => { window.location = m.url; };
+      results.appendChild(div);
+    });
+  }
+  results.classList.add("show");
+});
+
+document.addEventListener("click", function(e) {
+  if (!e.target.closest(".search-wrap")) results.classList.remove("show");
+});
+
 new p5(function(p) {
   let x, y, vx, vy;
   p.setup = function() { p.createCanvas(300,300,p.document.getElementById('c1')); x=150;y=150;vx=2.5;vy=1.8;p.noStroke(); };
@@ -199,59 +260,6 @@ new p5(function(p) {
     }
     t+=0.003;
   };
-});
-</script>
-<script>
-const data = [
-  { title: "Reference", desc: "API documentation", url: "reference.html", tag: "page" },
-  { title: "Examples", desc: "Sketch examples", url: "examples.html", tag: "page" },
-  { title: "About", desc: "About C++ Mode", url: "about.html", tag: "page" },
-  { title: "setup()", desc: "Called once at the start", url: "reference.html#setup", tag: "reference" },
-  { title: "draw()", desc: "Called every frame", url: "reference.html#draw", tag: "reference" },
-  { title: "size()", desc: "Set the canvas size", url: "reference.html#size", tag: "reference" },
-  { title: "background()", desc: "Clear the canvas with a color", url: "reference.html#background", tag: "reference" },
-  { title: "ellipse()", desc: "Draw an ellipse", url: "reference.html#ellipse", tag: "reference" },
-  { title: "rect()", desc: "Draw a rectangle", url: "reference.html#rect", tag: "reference" },
-  { title: "fill()", desc: "Set fill color", url: "reference.html#fill", tag: "reference" },
-  { title: "stroke()", desc: "Set stroke color", url: "reference.html#stroke", tag: "reference" },
-  { title: "noFill()", desc: "Disable fill", url: "reference.html#nofill", tag: "reference" },
-  { title: "noStroke()", desc: "Disable stroke", url: "reference.html#nostroke", tag: "reference" },
-  { title: "line()", desc: "Draw a line", url: "reference.html#line", tag: "reference" },
-  { title: "mouseX", desc: "Current mouse X position", url: "reference.html#mousex", tag: "reference" },
-  { title: "mouseY", desc: "Current mouse Y position", url: "reference.html#mousey", tag: "reference" },
-  { title: "mousePressed()", desc: "Called on mouse press", url: "reference.html#mousepressed", tag: "reference" },
-  { title: "keyPressed()", desc: "Called on key press", url: "reference.html#keypressed", tag: "reference" },
-  { title: "Bouncing ball", desc: "Basic animation with collision", url: "examples.html#bounce", tag: "example" },
-  { title: "Particle system", desc: "STL vectors with physics", url: "examples.html#particles", tag: "example" },
-  { title: "Perlin noise", desc: "Flow field using noise()", url: "examples.html#noise", tag: "example" },
-];
-
-const input = document.getElementById("search-input");
-const results = document.getElementById("search-results");
-
-input.addEventListener("input", function() {
-  const q = this.value.trim().toLowerCase();
-  results.innerHTML = "";
-  if (!q) { results.classList.remove("show"); return; }
-  const matches = data.filter(d =>
-    d.title.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)
-  ).slice(0, 8);
-  if (matches.length === 0) {
-    results.innerHTML = '<div class="search-empty">No results</div>';
-  } else {
-    matches.forEach(m => {
-      const div = document.createElement("div");
-      div.className = "search-result-item";
-      div.innerHTML = m.title + '<span class="tag">' + m.tag + '</span>';
-      div.onclick = () => { window.location = m.url; };
-      results.appendChild(div);
-    });
-  }
-  results.classList.add("show");
-});
-
-document.addEventListener("click", function(e) {
-  if (!e.target.closest(".search-wrap")) results.classList.remove("show");
 });
 </script>
 </body>
