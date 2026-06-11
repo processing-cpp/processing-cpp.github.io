@@ -31,8 +31,8 @@
     .content { flex: 1; padding: 3rem 4rem; max-width: 860px; }
     .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
     .desc { color: #555; line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
-    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; background: #000; }
-    .preview-wrap canvas { display: block; max-width: 100%; }
+    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; display: inline-block; }
+    .preview-wrap canvas { display: block; }
     .code-block { background: #f8f8f8; border-radius: 8px; overflow: hidden; }
     .code-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #e0e0e0; font-size: 12px; color: #888; font-family: monospace; display: flex; align-items: center; justify-content: space-between; }
     .copy-btn { font-size: 12px; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; }
@@ -46,6 +46,8 @@
       .sidebar.open { left: 0; }
       .content { padding: 2rem 1.25rem; }
       pre { font-size: 12px; }
+      .preview-wrap { width: 100% !important; }
+      .preview-wrap canvas { width: 100% !important; height: auto !important; }
     }
 </style>
 </head>
@@ -77,7 +79,7 @@
   <div class="content">
     <h1>Array 2D</h1>
     <p class="desc">Demonstrates the syntax for creating a two-dimensional (2D) array. Values in a 2D array are accessed through two index values. 2D arrays are useful for storing images. In this example, each dot is colored in relation to its distance from the center of the image.</p>
-    <div class="preview-wrap"><div id="p5-container"></div></div>
+    <div class="preview-wrap" style="width:640px;height:360px;"><div id="p5-container"></div></div>
     <div class="code-block">
       <div class="code-header">
         <span>array-2d.cpp</span>
