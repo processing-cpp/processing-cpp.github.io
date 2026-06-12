@@ -113,7 +113,15 @@ function toggleSection(name) {
   arrow.textContent = open ? '▸' : '▾';
 }'''
 
+def fix_asset_paths(js_code):
+    base = "https://processing-cpp.github.io/assets/data/"
+    pat = re.compile(r"""load(Image|Font|Model)\s*\(\s*["']([^"']+)["']\s*\)""")
+    def replacer(m):
+        return f'load{m.group(1)}("{base}{m.group(2)}")'
+    return pat.sub(replacer, js_code)
+
 def make_iframe(js_code, w, h):
+    js_code = fix_asset_paths(js_code)
     safe = js_code.replace('</script>', '<\\/script>').replace('`','\\`')
     return f'''<div class="preview-wrap"><iframe id="sketch-frame" width="{w}" height="{h}"></iframe></div>
 <script>(function(){{const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{{margin:0;padding:0;}}body{{overflow:hidden;}}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\\/script></head><body><script>{safe}<\\/script></body></html>`);doc.close();}})();</script>'''
