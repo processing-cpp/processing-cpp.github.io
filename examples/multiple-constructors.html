@@ -69,48 +69,36 @@
     <h1>Multiple Constructors</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
 <script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>class Spot {
-public:
-  float x, y, radius;
-  
-  // First version of the Spot constructor;
-  // the fields are assigned default values
-  Spot() {
-    radius = 40;
-    x = width*0.25;
-    y = height*0.5;
-  }
-  
-  // Second version of the Spot constructor;
-  // the fields are assigned with parameters
-  Spot(float xpos, float ypos, float r) {
-    x = xpos;
-    y = ypos;
-    radius = r;
+  constructor(xpos = width * 0.25, ypos = height * 0.5, r = 40) {
+    this.x = xpos;
+    this.y = ypos;
+    this.radius = r;
   }
 
-  void display() {
-    ellipse(x, y, radius*2, radius*2);
+  display() {
+    ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
   }
-};
+}
 
-Spot* sp1;
-Spot* sp2;
+let sp1;
+let sp2;
 
-void setup() {
-  size(640, 360);
+function setup() {
+  createCanvas(640, 360);
+
   background(204);
   noLoop();
 
-  // Run the constructor without parameters
+  // Equivalent to Spot()
   sp1 = new Spot();
 
-  // Run the constructor with three parameters
-  sp2 = new Spot(width*0.5, height*0.5, 120);
+  // Equivalent to Spot(float xpos, float ypos, float r)
+  sp2 = new Spot(width * 0.5, height * 0.5, 120);
 }
 
-void draw() {
-  sp1->display();
-  sp2->display();
+function draw() {
+  sp1.display();
+  sp2.display();
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

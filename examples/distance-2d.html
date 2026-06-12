@@ -68,21 +68,24 @@
   <div class="content">
     <h1>Distance 2D</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>float max_distance;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let max_distance;
 
-void setup() {
-  size(640, 360); 
+function setup() {
+  createCanvas(640, 360);
   noStroke();
+
   max_distance = dist(0, 0, width, height);
 }
 
-void draw() {
+function draw() {
   background(0);
 
-  for(int i = 0; i <= width; i += 20) {
-    for(int j = 0; j <= height; j += 20) {
-      float size = dist(mouseX, mouseY, i, j);
-      size = size/max_distance * 66;
+  for (let i = 0; i <= width; i += 20) {
+    for (let j = 0; j <= height; j += 20) {
+      let size = dist(mouseX, mouseY, i, j);
+
+      size = (size / max_distance) * 66;
+
       ellipse(i, j, size, size);
     }
   }

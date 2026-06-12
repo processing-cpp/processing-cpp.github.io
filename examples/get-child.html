@@ -68,45 +68,46 @@
   <div class="content">
     <h1>Get Child</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>PShape* usa;
-PShape* michigan;
-PShape* ohio;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Fetch and manipulate SVG directly via DOM
+let svgDoc;
 
-void setup() {
-  size(640, 360);
+function setup() {
+  noLoop();
+  let container = document.getElementById('p5-container') || document.body;
+  container.style.background = '#fff';
 
-  usa = loadShape("usa-wikipedia.svg");
+  fetch('https://processing-cpp.github.io/assets/data/usa-wikipedia.svg')
+    .then(r => r.text())
+    .then(svgText => {
+      let parser = new DOMParser();
+      svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+      let svgEl = svgDoc.documentElement;
 
-  michigan = usa->getChild("MI");
-  ohio = usa->getChild("OH");
+      // Style the full map
+      svgEl.setAttribute('width', '640');
+      svgEl.setAttribute('height', '360');
+      svgEl.style.transform = 'translate(-600px, -180px) scale(1)';
+
+      // Highlight Michigan
+      let mi = svgEl.querySelector('#MI');
+      if (mi) {
+        mi.style.fill = '#003366';
+        mi.style.stroke = 'none';
+      }
+
+      // Highlight Ohio
+      let oh = svgEl.querySelector('#OH');
+      if (oh) {
+        oh.style.fill = '#990000';
+        oh.style.stroke = 'none';
+      }
+
+      container.innerHTML = '';
+      container.appendChild(svgEl);
+    });
 }
 
-void draw() {
-  background(255);
-  
-  // Draw the full map
-  shape(usa, -600, -180);
-  
-  // Disable the colors found in the SVG file
-  michigan->disableStyle();
-
-  // Set our own coloring
-  fill(0, 51, 102);
-  noStroke();
-
-  // Draw a single state
-  shape(michigan, -600, -180); // Wolverines!
-  
-  // Disable the colors found in the SVG file
-  ohio->disableStyle();
-
-  // Set our own coloring
-  fill(153, 0, 0);
-  noStroke();
-
-  // Draw a single state
-  shape(ohio, -600, -180);  // Buckeyes!
-}<\/script></body></html>`);doc.close();})();</script>
+function draw() {}<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">
         <span>get-child.pde</span>

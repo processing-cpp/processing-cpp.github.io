@@ -1,49 +1,40 @@
-/**
- * Get Child. 
- * 
- * SVG files can be made of many individual shapes. 
- * Each of these shapes (called a "child") has its own name 
- * that can be used to extract it from the "parent" file.
- * This example loads a map of the United States and creates
- * two new PShape objects by extracting the data from two states.
- */
+// Fetch and manipulate SVG directly via DOM
+let svgDoc;
 
-PShape* usa;
-PShape* michigan;
-PShape* ohio;
+function setup() {
+  noLoop();
+  let container = document.getElementById('p5-container') || document.body;
+  container.style.background = '#fff';
 
-void setup() {
-  size(640, 360);
+  fetch('https://processing-cpp.github.io/assets/data/usa-wikipedia.svg')
+    .then(r => r.text())
+    .then(svgText => {
+      let parser = new DOMParser();
+      svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+      let svgEl = svgDoc.documentElement;
 
-  usa = loadShape("usa-wikipedia.svg");
+      // Style the full map
+      svgEl.setAttribute('width', '640');
+      svgEl.setAttribute('height', '360');
+      svgEl.style.transform = 'translate(-600px, -180px) scale(1)';
 
-  michigan = usa->getChild("MI");
-  ohio = usa->getChild("OH");
+      // Highlight Michigan
+      let mi = svgEl.querySelector('#MI');
+      if (mi) {
+        mi.style.fill = '#003366';
+        mi.style.stroke = 'none';
+      }
+
+      // Highlight Ohio
+      let oh = svgEl.querySelector('#OH');
+      if (oh) {
+        oh.style.fill = '#990000';
+        oh.style.stroke = 'none';
+      }
+
+      container.innerHTML = '';
+      container.appendChild(svgEl);
+    });
 }
 
-void draw() {
-  background(255);
-  
-  // Draw the full map
-  shape(usa, -600, -180);
-  
-  // Disable the colors found in the SVG file
-  michigan->disableStyle();
-
-  // Set our own coloring
-  fill(0, 51, 102);
-  noStroke();
-
-  // Draw a single state
-  shape(michigan, -600, -180); // Wolverines!
-  
-  // Disable the colors found in the SVG file
-  ohio->disableStyle();
-
-  // Set our own coloring
-  fill(153, 0, 0);
-  noStroke();
-
-  // Draw a single state
-  shape(ohio, -600, -180);  // Buckeyes!
-}
+function draw() {}

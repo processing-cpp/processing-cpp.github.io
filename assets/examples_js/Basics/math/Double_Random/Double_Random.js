@@ -1,29 +1,23 @@
-/**
- * Double Random 
- * by Ira Greenberg.  
- * 
- * Using two random() calls and the point() function 
- * to create an irregular sawtooth line.
- */
+let totalPts = 300;
+let steps = totalPts + 1;
 
-int totalPts = 300;
-float steps = totalPts + 1;
-  
-void setup() {
-    size(640, 360);
-    stroke(255);
-    frameRate(1);
-} 
+function setup() {
+  createCanvas(640, 360);
+  stroke(255);
+  frameRate(1);
+}
 
-void draw() {
-    background(0);
+function draw() {
+  background(0);
 
-    float randVal = 0.0f;
+  let randVal = 0.0;
 
-    for (int i = 1; i < steps; i++) {
-        point((width / steps) * i,
-              (height / 2.0f) + random(-randVal, randVal));
+  for (let i = 1; i < steps; i++) {
+    point(
+      (width / steps) * i,
+      (height / 2.0) + random(-randVal, randVal)
+    );
 
-        randVal += random(-5.0f, 5.0f);
-    }
+    randVal += random(-5.0, 5.0);
+  }
 }

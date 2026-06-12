@@ -3,6 +3,7 @@ let zoff = 0.0;
 let zincrement = 0.02;
 
 function setup() {
+  pixelDensity(1);
   createCanvas(640, 360);
   frameRate(30);
 }
@@ -30,5 +31,6 @@ function draw() {
   }
 
   updatePixels();
+
   zoff += zincrement;
 }

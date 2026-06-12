@@ -1,53 +1,32 @@
-/**
- * Multiple constructors
- * 
- * A class can have multiple constructors that assign the fields in different ways. 
- * Sometimes it's beneficial to specify every aspect of an object's data by assigning 
- * parameters to the fields, but other times it might be appropriate to define only 
- * one or a few.
- */
-
 class Spot {
-public:
-  float x, y, radius;
-  
-  // First version of the Spot constructor;
-  // the fields are assigned default values
-  Spot() {
-    radius = 40;
-    x = width*0.25;
-    y = height*0.5;
-  }
-  
-  // Second version of the Spot constructor;
-  // the fields are assigned with parameters
-  Spot(float xpos, float ypos, float r) {
-    x = xpos;
-    y = ypos;
-    radius = r;
+  constructor(xpos = width * 0.25, ypos = height * 0.5, r = 40) {
+    this.x = xpos;
+    this.y = ypos;
+    this.radius = r;
   }
 
-  void display() {
-    ellipse(x, y, radius*2, radius*2);
+  display() {
+    ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
   }
-};
+}
 
-Spot* sp1;
-Spot* sp2;
+let sp1;
+let sp2;
 
-void setup() {
-  size(640, 360);
+function setup() {
+  createCanvas(640, 360);
+
   background(204);
   noLoop();
 
-  // Run the constructor without parameters
+  // Equivalent to Spot()
   sp1 = new Spot();
 
-  // Run the constructor with three parameters
-  sp2 = new Spot(width*0.5, height*0.5, 120);
+  // Equivalent to Spot(float xpos, float ypos, float r)
+  sp2 = new Spot(width * 0.5, height * 0.5, 120);
 }
 
-void draw() {
-  sp1->display();
-  sp2->display();
+function draw() {
+  sp1.display();
+  sp2.display();
 }
