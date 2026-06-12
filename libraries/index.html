@@ -3,93 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentation - C++ Mode for Processing</title>
+  <title>Libraries - C++ Mode for Processing</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
     nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; }
     .nav-logo img { width: 28px; height: 28px; }
     .nav-logo span { font-size: 15px; font-weight: 500; }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; }
-
+    .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; }
     .layout { display: flex; min-height: calc(100vh - 60px); }
-    .sidebar { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; padding: 2rem 0; position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; }
-    .sidebar-top { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid #e0e0e0; margin-bottom: 1rem; }
-    .sidebar-top a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
-    .sidebar-top a:hover { color: #111; }
-    .sidebar-top a.active { color: #111; font-weight: 500; }
-    .sidebar-section { padding: 0 1.5rem; }
-    .sidebar-section a { font-size: 13px; color: #555; padding: 0.3rem 0; display: block; }
-    .sidebar-section a:hover { color: #111; }
-
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
     .content { flex: 1; padding: 4rem; max-width: 820px; }
     .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 3rem; }
     .content h2 { font-size: 1.1rem; font-weight: 600; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; }
     .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
-
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 3rem; }
     .lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: #e0e0e0; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
     .lib-card { background: #fff; padding: 1.25rem 1.5rem; }
     .lib-card code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; font-weight: 600; color: #111; display: block; margin-bottom: 0.35rem; }
     .lib-card p { font-size: 13px; color: #888; line-height: 1.5; margin: 0; }
-
     .tip { background: #f8f8f8; border-left: 3px solid #111; border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 13px; color: #555; line-height: 1.7; }
     .tip code { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; background: #eee; border-radius: 3px; padding: 1px 5px; color: #111; }
-
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
-
     @media (max-width: 768px) {
       .hamburger { display: block; }
-      .sidebar { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
-      .sidebar.open { left: 0; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
       .content { padding: 2rem 1.25rem; }
     }
-  </style>
+</style>
 </head>
 <body>
-
 <nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
   </a>
-  <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+  <button class="hamburger" onclick="document.querySelector('.sidebar-outer').classList.toggle('open')">☰</button>
 </nav>
-
 <div class="layout">
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-top">
-      <a href="../documentation">Documentation</a>
+  <div class="sidebar-outer">
+    <div id="site-sidebar">
+      <a href="../libraries" class="active">Libraries</a>
       <a href="../reference">Reference</a>
       <a href="../examples">Examples</a>
       <a href="../about">About</a>
     </div>
-    <div class="sidebar-section">
-      <a href="#included">Included libraries</a>
-      <a href="#containers">Containers</a>
-      <a href="#algorithms">Algorithms</a>
-      <a href="#strings">Strings and IO</a>
-      <a href="#concurrency">Concurrency</a>
-      <a href="#utilities">Utilities</a>
-      <a href="#math">Math</a>
-    </div>
   </div>
-
   <div class="content">
-    <h1>Documentation</h1>
+    <h1>Libraries</h1>
     <p class="subtitle">Everything available in C++ Mode out of the box.</p>
 
     <div class="tip">
       None of these require an <code>#include</code>. They are all automatically available in every sketch through <code>Processing.h</code>.
     </div>
 
-    <h2 id="included">What is included</h2>
-    <p>C++ Mode includes the full C++ Standard Library automatically. You can use any of the following without writing a single <code>#include</code> at the top of your sketch.</p>
-    <p>If you want to use a third-party library, you can still add <code>#include</code> statements as normal.</p>
-
-    <h2 id="containers">Containers</h2>
+    <h2>Containers</h2>
     <div class="lib-grid">
       <div class="lib-card"><code>std::vector</code><p>Dynamic array. The most common container. Use instead of Java's ArrayList.</p></div>
       <div class="lib-card"><code>std::map</code><p>Key-value pairs sorted by key. Use instead of Java's HashMap.</p></div>
@@ -100,54 +75,51 @@
       <div class="lib-card"><code>std::stack</code><p>LIFO stack adapter.</p></div>
     </div>
 
-    <h2 id="algorithms">Algorithms</h2>
+    <h2>Algorithms</h2>
     <div class="lib-grid">
       <div class="lib-card"><code>std::sort</code><p>Sort any container. Works with lambdas for custom comparison.</p></div>
       <div class="lib-card"><code>std::find</code><p>Find an element in a range.</p></div>
       <div class="lib-card"><code>std::remove_if</code><p>Remove elements matching a condition. Commonly used with vectors.</p></div>
-      <div class="lib-card"><code>std::min / std::max</code><p>Min and max of two values. Also available as the Processing functions min() and max().</p></div>
+      <div class="lib-card"><code>std::min / std::max</code><p>Min and max of two values.</p></div>
       <div class="lib-card"><code>std::accumulate</code><p>Sum or fold a range of values.</p></div>
       <div class="lib-card"><code>std::transform</code><p>Apply a function to every element in a range.</p></div>
     </div>
 
-    <h2 id="strings">Strings and IO</h2>
+    <h2>Strings and IO</h2>
     <div class="lib-grid">
-      <div class="lib-card"><code>std::string</code><p>Text string. Use instead of Java's String. Supports +, ==, .size(), .substr() and more.</p></div>
-      <div class="lib-card"><code>std::stringstream</code><p>Build strings from mixed types. Useful for formatting numbers into text.</p></div>
+      <div class="lib-card"><code>std::string</code><p>Text string. Use instead of Java's String.</p></div>
+      <div class="lib-card"><code>std::stringstream</code><p>Build strings from mixed types.</p></div>
       <div class="lib-card"><code>std::ifstream</code><p>Read from files.</p></div>
       <div class="lib-card"><code>std::ofstream</code><p>Write to files.</p></div>
-      <div class="lib-card"><code>std::regex</code><p>Regular expressions for pattern matching in strings.</p></div>
-      <div class="lib-card"><code>std::cout / std::cerr</code><p>Print to the console. Also available as println() in Processing style.</p></div>
+      <div class="lib-card"><code>std::regex</code><p>Regular expressions for pattern matching.</p></div>
+      <div class="lib-card"><code>std::cout / std::cerr</code><p>Print to the console. Also available as println().</p></div>
     </div>
 
-    <h2 id="concurrency">Concurrency</h2>
+    <h2>Concurrency</h2>
     <div class="lib-grid">
-      <div class="lib-card"><code>std::thread</code><p>Run code on a separate thread. Useful for background loading or computation.</p></div>
+      <div class="lib-card"><code>std::thread</code><p>Run code on a separate thread.</p></div>
       <div class="lib-card"><code>std::mutex</code><p>Protect shared data between threads.</p></div>
       <div class="lib-card"><code>std::atomic</code><p>Thread-safe operations on single values.</p></div>
     </div>
 
-    <h2 id="utilities">Utilities</h2>
+    <h2>Utilities</h2>
     <div class="lib-grid">
-      <div class="lib-card"><code>std::optional</code><p>A value that may or may not be present. Avoids null pointers.</p></div>
+      <div class="lib-card"><code>std::optional</code><p>A value that may or may not be present.</p></div>
       <div class="lib-card"><code>std::variant</code><p>A value that can be one of several types.</p></div>
       <div class="lib-card"><code>std::tuple</code><p>A fixed-size collection of values of different types.</p></div>
       <div class="lib-card"><code>std::pair</code><p>Two values grouped together.</p></div>
-      <div class="lib-card"><code>std::memory (unique_ptr, shared_ptr)</code><p>Smart pointers for automatic memory management.</p></div>
+      <div class="lib-card"><code>std::unique_ptr / std::shared_ptr</code><p>Smart pointers for automatic memory management.</p></div>
       <div class="lib-card"><code>std::chrono</code><p>Time utilities. Measure durations and get the current time.</p></div>
     </div>
 
-    <h2 id="math">Math</h2>
+    <h2>Math</h2>
     <div class="lib-grid">
-      <div class="lib-card"><code>std::cmath</code><p>sin, cos, tan, sqrt, pow, abs, floor, ceil and more. Also available as Processing-style functions.</p></div>
-      <div class="lib-card"><code>std::random</code><p>Random number generation. Also available as random() in Processing style.</p></div>
-      <div class="lib-card"><code>std::numeric</code><p>Numeric utilities like iota, accumulate, inner_product.</p></div>
+      <div class="lib-card"><code>std::cmath</code><p>sin, cos, tan, sqrt, pow, abs, floor, ceil and more.</p></div>
+      <div class="lib-card"><code>std::random</code><p>Random number generation. Also available as random().</p></div>
+      <div class="lib-card"><code>std::numeric</code><p>iota, accumulate, inner_product and more.</p></div>
     </div>
-
   </div>
 </div>
-
 <footer><p>C++ Mode for Processing</p></footer>
-
 </body>
 </html>
