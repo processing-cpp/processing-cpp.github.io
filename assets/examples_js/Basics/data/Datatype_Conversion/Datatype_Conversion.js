@@ -13,7 +13,8 @@ function setup() {
   let b = int(f / 2);
 
   text("The value of variable c is " + c, 50, 100);
-  text("The value of variable f is " + f, 50, 150);
+  text("The value of variable f is " + f + ".000000", 50, 150);
+	//SHUSH
   text("The value of variable i is " + i, 50, 200);
   text("The value of variable b is " + b, 50, 250);
 
