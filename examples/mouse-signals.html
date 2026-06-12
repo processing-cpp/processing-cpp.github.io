@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mouse Signals - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -162,14 +161,24 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  int xvals[640];
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    int xvals[640];
 int yvals[640];
 int bvals[640];
 
@@ -182,45 +191,47 @@ void draw() {
     background(102);
   
     // Shift values left
-    for (int i = 1; i < p.width; i++) { 
+    for (int i = 1; i < width; i++) { 
         xvals[i - 1] = xvals[i]; 
         yvals[i - 1] = yvals[i];
         bvals[i - 1] = bvals[i];
     } 
 
     // Add new values
-    xvals[p.width - 1] = p.mouseX; 
-    yvals[p.width - 1] = p.mouseY;
+    xvals[width - 1] = mouseX; 
+    yvals[width - 1] = mouseY;
   
     if (_mousePressed == true) {
-        bvals[p.width - 1] = 0;
+        bvals[width - 1] = 0;
     } else {
-        bvals[p.width - 1] = p.height / 3;
+        bvals[width - 1] = height / 3;
     }
   
     fill(255);
     noStroke();
-    rect(0, p.height / 3, p.width, p.height / 3 + 1);
+    rect(0, height / 3, width, height / 3 + 1);
 
-    for (int i = 1; i < p.width; i++) {
+    for (int i = 1; i < width; i++) {
 
         // Draw the x-values
         stroke(255);
-        point(i, map(xvals[i], 0, p.width, 0, p.height / 3 - 1));
+        point(i, map(xvals[i], 0, width, 0, height / 3 - 1));
     
         // Draw the y-values
         stroke(0);
-        point(i, p.height / 3 + yvals[i] / 3);
+        point(i, height / 3 + yvals[i] / 3);
     
         // Draw the mouse presses
         stroke(255);
         line(i,
-             (2 * p.height / 3) + bvals[i],
+             (2 * height / 3) + bvals[i],
              i,
-             (2 * p.height / 3) + bvals[i - 1]);
+             (2 * height / 3) + bvals[i - 1]);
     }
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

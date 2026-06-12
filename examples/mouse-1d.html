@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mouse 1D - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -129,33 +128,45 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  p.setup = function() {
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    function setup() {
   createCanvas(640, 360);
   noStroke();
-  colorMode(RGB, p.height, p.height, p.height);
-  rectMode(p.CENTER);
+  colorMode(RGB, height, height, height);
+  rectMode(CENTER);
 }
 
-p.draw = function() {
+function draw() {
   background(0);
 
-  let r1 = map(p.mouseX, 0, p.width, 0, p.height);
-  let r2 = p.height - r1;
+  let r1 = map(mouseX, 0, width, 0, height);
+  let r2 = height - r1;
 
   fill(r1);
-  rect(p.width / 2 + r1 / 2, p.height / 2, r1, r1);
+  rect(width / 2 + r1 / 2, height / 2, r1, r1);
 
   fill(r2);
-  rect(p.width / 2 - r2 / 2, p.height / 2, r2, r2);
+  rect(width / 2 - r2 / 2, height / 2, r2, r2);
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

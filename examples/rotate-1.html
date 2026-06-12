@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rotate 1 - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -146,20 +145,30 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  float a = 0.0;
-float rSize;  // rectangle p.size
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    float a = 0.0;
+float rSize;  // rectangle size
 
 void setup() {
-    size(640, 360, p.P3D);
+    size(640, 360, P3D);
 
-    rSize = p.width / 6;
+    rSize = width / 6;
 
     noStroke();
     fill(204, 204);
@@ -170,11 +179,11 @@ void draw() {
 
     a += 0.005;
 
-    if (a > p.TWO_PI) {
+    if (a > TWO_PI) {
         a = 0.0;
     }
 
-    translate(p.width / 2, p.height / 2);
+    translate(width / 2, height / 2);
 
     rotateX(a);
     rotateY(a * 2.0);
@@ -188,7 +197,9 @@ void draw() {
     fill(0);
     rect(-rSize, -rSize, rSize * 2, rSize * 2);
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

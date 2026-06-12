@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No Loop - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -129,32 +128,44 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  float y = 180;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    float y = 180;
 
 // The statements in the setup() block 
 // run once when the program begins
 void setup() {
   size(640, 360);  // Size should be the first statement
-  stroke(255);  // Set p.line drawing p.color to white
+  stroke(255);  // Set line drawing color to white
   noLoop();
 }
 
 // In this example, the code in the draw() block 
 // runs only once because of the noLoop() in setup()
 void draw() { 
-  background(0);   // Set the p.background to black
-  line(0, y, p.width, y);  
+  background(0);   // Set the background to black
+  line(0, y, width, y);  
   y = y - 1; 
-  if (y < 0) { y = p.height; } 
+  if (y < 0) { y = height; } 
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

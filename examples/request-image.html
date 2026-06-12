@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Request Image - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -165,14 +164,24 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  let imgCount = 12;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    let imgCount = 12;
 let imgs = [];
 let loadStates = [];
 let imgW;
@@ -189,12 +198,12 @@ function checkLoadStates() {
 }
 
 function drawImages() {
-  let y = (p.height - imgs[0].height) / 2;
+  let y = (height - imgs[0].height) / 2;
 
   for (let i = 0; i < imgCount; i++) {
     image(
       imgs[i],
-      (p.width / imgCount) * i,
+      (width / imgCount) * i,
       y,
       imgs[i].height,
       imgs[i].height
@@ -210,17 +219,17 @@ function runLoaderAni() {
     ellipse(loaderX, loaderY, 10, 10);
 
     loaderX += 2;
-    loaderY = p.height / 2 + sin(theta) * (p.height / 8);
-    theta += p.PI / 22;
+    loaderY = height / 2 + sin(theta) * (height / 8);
+    theta += PI / 22;
 
-    if (loaderX > p.width + 5) loaderX = -5;
+    if (loaderX > width + 5) loaderX = -5;
   }
 }
 
-p.setup = function() {
+function setup() {
   createCanvas(640, 360);
 
-  imgW = p.width / imgCount;
+  imgW = width / imgCount;
 
   for (let i = 0; i < imgCount; i++) {
     loadStates[i] = false;
@@ -232,7 +241,7 @@ p.setup = function() {
   }
 }
 
-p.draw = function() {
+function draw() {
   background(0);
 
   runLoaderAni();
@@ -241,7 +250,9 @@ p.draw = function() {
     drawImages();
   }
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

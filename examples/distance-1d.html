@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Distance 1D - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -162,14 +161,24 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  float xpos1;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    float xpos1;
 float xpos2;
 float xpos3;
 float xpos4;
@@ -181,48 +190,50 @@ void setup()
     size(640, 360);
     noStroke();
 
-    xpos1 = p.width / 2;
-    xpos2 = p.width / 2;
-    xpos3 = p.width / 2;
-    xpos4 = p.width / 2;
+    xpos1 = width / 2;
+    xpos2 = width / 2;
+    xpos3 = width / 2;
+    xpos4 = width / 2;
 }
 
 void draw() 
 {
     background(0);
   
-    float mx = p.mouseX * 0.4f - p.width / 5.0f;
+    float mx = mouseX * 0.4f - width / 5.0f;
   
     fill(102);
-    rect(xpos2, 0, thick, p.height / 2);
+    rect(xpos2, 0, thick, height / 2);
 
     fill(204);
-    rect(xpos1, 0, thin, p.height / 2);
+    rect(xpos1, 0, thin, height / 2);
 
     fill(102);
-    rect(xpos4, p.height / 2, thick, p.height / 2);
+    rect(xpos4, height / 2, thick, height / 2);
 
     fill(204);
-    rect(xpos3, p.height / 2, thin, p.height / 2);
+    rect(xpos3, height / 2, thin, height / 2);
 	
     xpos1 += mx / 16;
     xpos2 += mx / 64;
     xpos3 -= mx / 16;
     xpos4 -= mx / 64;
   
-    if (xpos1 < -thin)  { xpos1 = p.width; }
-    if (xpos1 > p.width)  { xpos1 = -thin; }
+    if (xpos1 < -thin)  { xpos1 = width; }
+    if (xpos1 > width)  { xpos1 = -thin; }
 
-    if (xpos2 < -thick) { xpos2 = p.width; }
-    if (xpos2 > p.width)  { xpos2 = -thick; }
+    if (xpos2 < -thick) { xpos2 = width; }
+    if (xpos2 > width)  { xpos2 = -thick; }
 
-    if (xpos3 < -thin)  { xpos3 = p.width; }
-    if (xpos3 > p.width)  { xpos3 = -thin; }
+    if (xpos3 < -thin)  { xpos3 = width; }
+    if (xpos3 > width)  { xpos3 = -thin; }
 
-    if (xpos4 < -thick) { xpos4 = p.width; }
-    if (xpos4 > p.width)  { xpos4 = -thick; }
+    if (xpos4 < -thick) { xpos4 = width; }
+    if (xpos4 > width)  { xpos4 = -thick; }
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

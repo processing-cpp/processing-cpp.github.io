@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Composite Objects - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -220,20 +219,30 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  EggRing* er1;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    EggRing* er1;
 EggRing* er2;
 
 void setup() {
   size(640, 360);
-  er1 = new EggRing(p.width*0.45, p.height*0.5, 2, 120);
-  er2 = new EggRing(p.width*0.65, p.height*0.8, 10, 180);
+  er1 = new EggRing(width*0.45, height*0.5, 2, 120);
+  er2 = new EggRing(width*0.65, height*0.8, 10, 180);
 }
 
 void draw() {
@@ -263,7 +272,7 @@ public:
   void wobble() {
     tilt = cos(angle) / range;
     angle += 0.1;
-    //p.print (angle + "-");
+    //print (angle + "-");
   }
 
   void display() {
@@ -300,7 +309,7 @@ public:
   void grow() {
     if (on == true) {
       diameter += 0.5;
-      if (diameter > p.width*2) {
+      if (diameter > width*2) {
         diameter = 0.0;
       }
     }
@@ -337,7 +346,9 @@ public:
     }
   }
 };
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

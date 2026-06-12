@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perspective vs Ortho - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -142,50 +141,62 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  let showPerspective = false;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    let showPerspective = false;
 
-p.setup = function() {
-  createCanvas(600, 360, p.WEBGL);
+function setup() {
+  createCanvas(600, 360, WEBGL);
   fill(255);
   noStroke();
 }
 
-p.draw = function() {
+function draw() {
   lights();
   background(0);
 
-  let far = map(p.mouseX, 0, p.width, 120, 400);
+  let far = map(mouseX, 0, width, 120, 400);
 
   if (showPerspective) {
-    perspective(p.PI / 3, p.width / p.height, 10, far);
+    perspective(PI / 3, width / height, 10, far);
   } else {
     ortho(
-      -p.width / 2,
-      p.width / 2,
-      -p.height / 2,
-      p.height / 2,
+      -width / 2,
+      width / 2,
+      -height / 2,
+      height / 2,
       10,
       far
     );
   }
 
-  rotateX(-p.PI / 6);
-  rotateY(p.PI / 3);
+  rotateX(-PI / 6);
+  rotateY(PI / 3);
 
   box(180);
 }
 
-p.mousePressed = function() {
+function mousePressed() {
   showPerspective = !showPerspective;
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

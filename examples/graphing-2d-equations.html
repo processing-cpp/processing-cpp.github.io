@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Graphing 2D Equations - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -151,34 +150,44 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  void setup() {
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    void setup() {
     size(640, 360);
 }
 
 void draw() {
     loadPixels();
 
-    float n = (p.mouseX * 10.0f) / p.width;
+    float n = (mouseX * 10.0f) / width;
 
-    float w = 16.0f;        // 2D space p.width
-    float h = 16.0f;        // 2D space p.height
+    float w = 16.0f;        // 2D space width
+    float h = 16.0f;        // 2D space height
 
-    float dx = w / p.width;   // Increment x this amount per pixel
-    float dy = h / p.height;  // Increment y this amount per pixel
+    float dx = w / width;   // Increment x this amount per pixel
+    float dy = h / height;  // Increment y this amount per pixel
 
-    float x = -w / 2.0f;    // Start x at -1 * p.width / 2
+    float x = -w / 2.0f;    // Start x at -1 * width / 2
 
-    for (int i = 0; i < p.width; i++) {
-        float y = -h / 2.0f;  // Start y at -1 * p.height / 2
+    for (int i = 0; i < width; i++) {
+        float y = -h / 2.0f;  // Start y at -1 * height / 2
 
-        for (int j = 0; j < p.height; j++) {
+        for (int j = 0; j < height; j++) {
             float r = sqrt(x * x + y * y);   // Convert cartesian to polar
             float theta = atan2(y, x);       // Convert cartesian to polar
 
@@ -188,7 +197,7 @@ void draw() {
             //float val = sin(theta);                     
 
             // Map resulting value to grayscale value
-            pixels[i + j * p.width] = color((val + 1.0f) * 255.0f / 2.0f);
+            pixels[i + j * width] = color((val + 1.0f) * 255.0f / 2.0f);
 
             y += dy;  // Increment y
         }
@@ -198,7 +207,9 @@ void draw() {
 
     updatePixels();
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

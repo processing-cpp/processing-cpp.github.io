@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coordinates - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -142,22 +141,32 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  // Sets the screen to be 640 pixels wide and 360 pixels high
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    // Sets the screen to be 640 pixels wide and 360 pixels high
 size(640, 360);
 
-// Set the p.background to black and turn off the p.fill p.color
+// Set the background to black and turn off the fill color
 background(0);
 noFill();
 
 // The two parameters of the point() function define its location.
-// The first parameter is the x-coordinate and the p.second is the y-coordinate 
+// The first parameter is the x-coordinate and the second is the y-coordinate 
 stroke(255);
 
 point(320, 180);
@@ -166,19 +175,21 @@ point(320, 90);
 // Coordinates are used for drawing all shapes, not just points.
 // Parameters for different functions are used for different purposes.
 // For example, the first two parameters to line() specify 
-// the coordinates of the first endpoint and the p.second two parameters 
-// specify the p.second endpoint
+// the coordinates of the first endpoint and the second two parameters 
+// specify the second endpoint
 stroke(0, 153, 255);
 
 line(0, 120, 640, 120);
 
 // The first two parameters to rect() are the coordinates of the 
-// upper-left corner and the p.second pair is the p.width and p.height 
+// upper-left corner and the second pair is the width and height 
 // of the rectangle
 stroke(255, 153, 0);
 
 rect(160, 36, 320, 288);
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shape Vertices - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -150,14 +149,24 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  // The shape
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    // The shape
 PShape* uk;
 
 void setup() {
@@ -170,8 +179,8 @@ void setup() {
 void draw() {
   background(51);
 
-  // Center where we will p.draw all the vertices
-  translate(p.width/2 - uk->p.width/2, p.height/2 - uk->p.height/2);
+  // Center where we will draw all the vertices
+  translate(width/2 - uk->width/2, height/2 - uk->height/2);
   
   // Iterate over the children
   int children = uk->getChildCount();
@@ -185,15 +194,17 @@ void draw() {
     for (int j = 0; j < total; j++) {
       PVector v = child->getVertex(j);
 
-      // Cycling brightness for each p.vertex
-      stroke((p.frameCount + (i + 1) * j) % 255);
+      // Cycling brightness for each vertex
+      stroke((frameCount + (i + 1) * j) % 255);
 
       // Just a dot for each one
       point(v.x, v.y);
     }
   }
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

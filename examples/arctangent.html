@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arctangent - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -146,15 +145,25 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  struct Eye {
-    int x, y, p.size;
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    struct Eye {
+    int x, y, size;
     float angle = 0.0;
 
     Eye(int tx, int ty, int ts) : x(tx), y(ty), size(ts) {}
@@ -167,10 +176,10 @@ new p5(function(p) {
         pushMatrix();
         translate(x, y);
         fill(255); noStroke();
-        ellipse(0, 0, p.size, p.size);
+        ellipse(0, 0, size, size);
         rotate(angle);
         fill(153, 204, 0);
-        ellipse(p.size/4, 0, p.size/2, p.size/2);
+        ellipse(size/4, 0, size/2, size/2);
         popMatrix();
     }
 };
@@ -186,11 +195,13 @@ void setup() {
 
 void draw() {
     background(102);
-    e1.update(p.mouseX, p.mouseY); e1.display();
-    e2.update(p.mouseX, p.mouseY); e2.display();
-    e3.update(p.mouseX, p.mouseY); e3.display();
+    e1.update(mouseX, mouseY); e1.display();
+    e2.update(mouseX, mouseY); e2.display();
+    e3.update(mouseX, mouseY); e3.display();
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

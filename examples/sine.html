@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sine - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -132,19 +131,29 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  float diameter; 
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    float diameter; 
 float angle = 0.0f;
 
 void setup() {
   size(640, 360);
-  diameter = p.height - 10.0f;
+  diameter = height - 10.0f;
   noStroke();
   fill(255, 204, 0);
 }
@@ -154,16 +163,18 @@ void draw() {
   background(0);
 
   float d1 = 10.0f + (sin(angle) * diameter/2.0f) + diameter/2.0f;
-  float d2 = 10.0f + (sin(angle + p.PI/2.0f) * diameter/2.0f) + diameter/2.0f;
-  float d3 = 10.0f + (sin(angle + p.PI) * diameter/2.0f) + diameter/2.0f;
+  float d2 = 10.0f + (sin(angle + PI/2.0f) * diameter/2.0f) + diameter/2.0f;
+  float d3 = 10.0f + (sin(angle + PI) * diameter/2.0f) + diameter/2.0f;
   
-  ellipse(0.0f, p.height/2.0f, d1, d1);
-  ellipse(p.width/2.0f, p.height/2.0f, d2, d2);
-  ellipse((float)p.width, p.height/2.0f, d3, d3);
+  ellipse(0.0f, height/2.0f, d1, d1);
+  ellipse(width/2.0f, height/2.0f, d2, d2);
+  ellipse((float)width, height/2.0f, d3, d3);
   
   angle += 0.02f;
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>

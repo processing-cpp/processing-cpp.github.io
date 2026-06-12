@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sine Wave - C++ Mode Examples</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js'></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -54,7 +53,7 @@
 </style>
 </head>
 <body>
-<nav id="site-nav">
+<nav>
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -151,26 +150,36 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-function toggleSidebar() {
-  document.getElementById('sidebar-outer') && document.getElementById('sidebar-outer').classList.toggle('open');
-  document.querySelector('.sidebar-outer') && document.querySelector('.sidebar-outer').classList.toggle('open');
-}
 
 
-new p5(function(p) {
-  int xspacing = 16;   // How far apart should each horizontal location be spaced
+(function() {
+  // create a hidden iframe to run global p5 sketch isolated
+  const container = document.getElementById('p5-container');
+  const iframe = document.createElement('iframe');
+  iframe.style.border = 'none';
+  iframe.style.width = '640px';
+  iframe.style.height = '360px';
+  container.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>
+    int xspacing = 16;   // How far apart should each horizontal location be spaced
 int w;              // Width of entire wave
 
 float theta = 0.0;  // Start angle at 0
 float amplitude = 75.0;  // Height of wave
 float period = 500.0;  // How many pixels before the wave repeats
 float dx;  // Value for incrementing X, a function of period and xspacing
-float* yvalues;  // Using an array to store p.height values for the wave
+float* yvalues;  // Using an array to store height values for the wave
 
 void setup() {
   size(640, 360);
-  w = p.width + 16;
-  dx = (p.TWO_PI / period) * xspacing;
+  w = width + 16;
+  dx = (TWO_PI / period) * xspacing;
   yvalues = new float[w / xspacing];
 }
 
@@ -195,12 +204,14 @@ void calcWave() {
 void renderWave() {
   noStroke();
   fill(255);
-  // A simple way to p.draw the wave with an p.ellipse at each location
+  // A simple way to draw the wave with an ellipse at each location
   for (int x = 0; x < w / xspacing; x++) {
-    ellipse(x * xspacing, p.height/2 + yvalues[x], 16, 16);
+    ellipse(x * xspacing, height/2 + yvalues[x], 16, 16);
   }
 }
-}, 'p5-container');
+    <\/script></body></html>`);
+  doc.close();
+})();
 
 </script>
 </body>
