@@ -1,0 +1,21 @@
+{
+  "slug": "parseXML",
+  "name": "parseXML()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Parses an XML string and returns an XML object.",
+  "syntax": "XML parseXML(std::string src)",
+  "params": [
+    {
+      "name": "src",
+      "type": "std::string",
+      "desc": "XML string to parse"
+    }
+  ],
+  "returns": "XML",
+  "related": [
+    "loadXML",
+    "saveXML",
+    "XML_class"
+  ]
+}

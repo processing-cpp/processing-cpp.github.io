@@ -1,0 +1,55 @@
+{
+  "slug": "copy_fn",
+  "name": "copy()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Copies a region of the display window to another location on the display window.",
+  "syntax": "void copy(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh)",
+  "params": [
+    {
+      "name": "sx",
+      "type": "int",
+      "desc": "x-coordinate of source"
+    },
+    {
+      "name": "sy",
+      "type": "int",
+      "desc": "y-coordinate of source"
+    },
+    {
+      "name": "sw",
+      "type": "int",
+      "desc": "source width"
+    },
+    {
+      "name": "sh",
+      "type": "int",
+      "desc": "source height"
+    },
+    {
+      "name": "dx",
+      "type": "int",
+      "desc": "x-coordinate of destination"
+    },
+    {
+      "name": "dy",
+      "type": "int",
+      "desc": "y-coordinate of destination"
+    },
+    {
+      "name": "dw",
+      "type": "int",
+      "desc": "destination width"
+    },
+    {
+      "name": "dh",
+      "type": "int",
+      "desc": "destination height"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "blend_fn",
+    "PImage_class"
+  ]
+}

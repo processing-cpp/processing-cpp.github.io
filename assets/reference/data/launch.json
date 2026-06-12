@@ -1,0 +1,17 @@
+{
+  "slug": "launch",
+  "name": "launch()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Opens a file, URL, or application using the operating system's default handler.",
+  "syntax": "void launch(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path, URL, or application to launch"
+    }
+  ],
+  "returns": "void",
+  "related": []
+}

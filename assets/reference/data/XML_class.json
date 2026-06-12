@@ -1,0 +1,65 @@
+{
+  "slug": "XML_class",
+  "name": "XML",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Represents an XML element. Load with loadXML() or parseXML(). Access children and attributes by name.",
+  "syntax": "XML xml = loadXML(\"data.xml\")\nXML* child = xml.getChild(\"element\")",
+  "params": [],
+  "returns": "XML",
+  "related": [
+    "loadXML",
+    "parseXML",
+    "saveXML"
+  ],
+  "methods": [
+    {
+      "name": "getName()",
+      "desc": "Returns the name of the element"
+    },
+    {
+      "name": "getContent()",
+      "desc": "Returns the text content of the element"
+    },
+    {
+      "name": "getAttribute(std::string k)",
+      "desc": "Returns the value of an attribute"
+    },
+    {
+      "name": "getAttributeInt(std::string k)",
+      "desc": "Returns an attribute as int"
+    },
+    {
+      "name": "getAttributeFloat(std::string k)",
+      "desc": "Returns an attribute as float"
+    },
+    {
+      "name": "setAttribute(std::string k, std::string v)",
+      "desc": "Sets an attribute value"
+    },
+    {
+      "name": "setContent(std::string c)",
+      "desc": "Sets the text content"
+    },
+    {
+      "name": "addChild(std::string name)",
+      "desc": "Adds a child element"
+    },
+    {
+      "name": "getChild(int i)",
+      "desc": "Gets child by index"
+    },
+    {
+      "name": "getChild(std::string name)",
+      "desc": "Gets child by tag name"
+    },
+    {
+      "name": "getChildCount()",
+      "desc": "Returns number of children"
+    },
+    {
+      "name": "getChildren(std::string name)",
+      "desc": "Returns all children with given tag name"
+    }
+  ]
+}

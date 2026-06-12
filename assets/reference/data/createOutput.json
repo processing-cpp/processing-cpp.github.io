@@ -1,0 +1,20 @@
+{
+  "slug": "createOutput",
+  "name": "createOutput()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Opens a file for binary writing. Returns a std::ofstream pointer.",
+  "syntax": "std::ofstream* createOutput(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    }
+  ],
+  "returns": "std::ofstream*",
+  "related": [
+    "saveBytes",
+    "createInput"
+  ]
+}

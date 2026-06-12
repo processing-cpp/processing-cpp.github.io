@@ -1,0 +1,20 @@
+{
+  "slug": "createWriter",
+  "name": "createWriter()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Creates a PrintWriter object for writing text to a file.",
+  "syntax": "PrintWriter* createWriter(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    }
+  ],
+  "returns": "PrintWriter*",
+  "related": [
+    "PrintWriter_class",
+    "saveStrings"
+  ]
+}

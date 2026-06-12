@@ -1,0 +1,21 @@
+{
+  "slug": "mask_fn",
+  "name": "mask()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Applies a mask to a PImage. The mask image is a grayscale image where white pixels are opaque and black pixels are transparent.",
+  "syntax": "img.mask(const PImage& m)",
+  "params": [
+    {
+      "name": "m",
+      "type": "PImage",
+      "desc": "grayscale image to use as mask"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "PImage_class",
+    "loadPixels",
+    "filter"
+  ]
+}

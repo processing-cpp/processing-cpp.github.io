@@ -1,0 +1,74 @@
+{
+  "slug": "vector_class",
+  "name": "std::vector",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "A dynamic array from the C++ Standard Library. Available without any #include. In C++ Mode, std::vector replaces IntList, FloatList, StringList, and Java's ArrayList. It grows automatically and supports all the same operations.",
+  "syntax": "std::vector<int> nums\nstd::vector<float> values\nstd::vector<std::string> words\nstd::vector<Ball> balls",
+  "params": [],
+  "returns": "std::vector<T>",
+  "related": [
+    "map_class",
+    "append",
+    "concat",
+    "subset"
+  ],
+  "methods": [
+    {
+      "name": "push_back(T v)",
+      "desc": "Add element to end (like ArrayList.add())"
+    },
+    {
+      "name": "pop_back()",
+      "desc": "Remove last element"
+    },
+    {
+      "name": "size()",
+      "desc": "Number of elements"
+    },
+    {
+      "name": "empty()",
+      "desc": "True if the vector has no elements"
+    },
+    {
+      "name": "clear()",
+      "desc": "Remove all elements"
+    },
+    {
+      "name": "at(int i)",
+      "desc": "Access element with bounds check"
+    },
+    {
+      "name": "operator[](int i)",
+      "desc": "Access element without bounds check"
+    },
+    {
+      "name": "front()",
+      "desc": "First element"
+    },
+    {
+      "name": "back()",
+      "desc": "Last element"
+    },
+    {
+      "name": "begin() / end()",
+      "desc": "Iterators for use in range-for loops"
+    },
+    {
+      "name": "insert(iterator pos, T v)",
+      "desc": "Insert at position"
+    },
+    {
+      "name": "erase(iterator pos)",
+      "desc": "Remove element at position"
+    },
+    {
+      "name": "resize(int n)",
+      "desc": "Resize the vector"
+    },
+    {
+      "name": "reserve(int n)",
+      "desc": "Reserve capacity without resizing"
+    }
+  ]
+}

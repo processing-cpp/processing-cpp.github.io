@@ -1,0 +1,52 @@
+{
+  "slug": "HashMap_class",
+  "name": "HashMap",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "A templated key-value map. In C++ Mode, std::map and std::unordered_map from the standard library are often more idiomatic, but HashMap is available for Processing Java compatibility.",
+  "syntax": "HashMap<std::string, int> map\nmap.put(\"key\", 1)\nint v = map.get(\"key\")",
+  "params": [],
+  "returns": "HashMap<K,V>",
+  "related": [
+    "vector_class",
+    "map_class"
+  ],
+  "methods": [
+    {
+      "name": "put(K k, V v)",
+      "desc": "Inserts or updates a key-value pair"
+    },
+    {
+      "name": "get(K k)",
+      "desc": "Returns reference to value for key"
+    },
+    {
+      "name": "containsKey(K k)",
+      "desc": "Returns true if key exists"
+    },
+    {
+      "name": "remove(K k)",
+      "desc": "Removes a key-value pair"
+    },
+    {
+      "name": "size()",
+      "desc": "Returns number of entries"
+    },
+    {
+      "name": "isEmpty()",
+      "desc": "Returns true if empty"
+    },
+    {
+      "name": "clear()",
+      "desc": "Removes all entries"
+    },
+    {
+      "name": "keySet()",
+      "desc": "Returns a vector of all keys"
+    },
+    {
+      "name": "values()",
+      "desc": "Returns a vector of all values"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "slug": "Table_class",
+  "name": "Table",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Stores data in rows and columns like a spreadsheet. Load with loadTable(). Column names are set by the header row.",
+  "syntax": "Table* t = loadTable(\"data.csv\", \"header\")",
+  "params": [],
+  "returns": "Table",
+  "related": [
+    "loadTable",
+    "saveTable",
+    "TableRow_class"
+  ],
+  "methods": [
+    {
+      "name": "addColumn(std::string name)",
+      "desc": "Adds a column"
+    },
+    {
+      "name": "addRow()",
+      "desc": "Adds a new row, returns reference"
+    },
+    {
+      "name": "getRowCount()",
+      "desc": "Returns number of rows"
+    },
+    {
+      "name": "getColumnCount()",
+      "desc": "Returns number of columns"
+    },
+    {
+      "name": "getString(int row, int col)",
+      "desc": "Gets a cell value as string"
+    },
+    {
+      "name": "getString(int row, std::string col)",
+      "desc": "Gets a cell value by column name"
+    },
+    {
+      "name": "getInt(int row, int col)",
+      "desc": "Gets a cell value as int"
+    },
+    {
+      "name": "getFloat(int row, int col)",
+      "desc": "Gets a cell value as float"
+    },
+    {
+      "name": "setString(int row, int col, std::string v)",
+      "desc": "Sets a cell value"
+    },
+    {
+      "name": "setInt(int row, int col, int v)",
+      "desc": "Sets a cell value as int"
+    },
+    {
+      "name": "setFloat(int row, int col, float v)",
+      "desc": "Sets a cell value as float"
+    },
+    {
+      "name": "removeRow(int i)",
+      "desc": "Removes a row"
+    },
+    {
+      "name": "clearRows()",
+      "desc": "Removes all rows"
+    },
+    {
+      "name": "getColumnIndex(std::string name)",
+      "desc": "Returns index of a column by name"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "parseJSONObject",
+  "name": "parseJSONObject()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Parses a JSON string and returns a JSONValue object.",
+  "syntax": "JSONValue parseJSONObject(std::string s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "JSON string to parse"
+    }
+  ],
+  "returns": "JSONValue",
+  "related": [
+    "loadJSONObject",
+    "saveJSONObject"
+  ]
+}

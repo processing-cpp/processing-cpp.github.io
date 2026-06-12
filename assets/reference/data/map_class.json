@@ -1,0 +1,56 @@
+{
+  "slug": "map_class",
+  "name": "std::map",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "A sorted key-value container from the C++ Standard Library. Available without any #include. In C++ Mode, std::map replaces IntDict, FloatDict, StringDict, and Java's HashMap. Keys are kept in sorted order.",
+  "syntax": "std::map<std::string, int> ages\nstd::map<int, float> scores\nages[\"alice\"] = 30\nint a = ages[\"alice\"]",
+  "params": [],
+  "returns": "std::map<K,V>",
+  "related": [
+    "vector_class",
+    "HashMap_class"
+  ],
+  "methods": [
+    {
+      "name": "operator[](K k)",
+      "desc": "Access or insert value for key"
+    },
+    {
+      "name": "at(K k)",
+      "desc": "Access value with bounds check, throws if missing"
+    },
+    {
+      "name": "count(K k)",
+      "desc": "Returns 1 if key exists, 0 otherwise"
+    },
+    {
+      "name": "find(K k)",
+      "desc": "Returns iterator to element, or end() if not found"
+    },
+    {
+      "name": "insert({k, v})",
+      "desc": "Insert a key-value pair"
+    },
+    {
+      "name": "erase(K k)",
+      "desc": "Remove a key-value pair"
+    },
+    {
+      "name": "size()",
+      "desc": "Number of entries"
+    },
+    {
+      "name": "empty()",
+      "desc": "True if map has no entries"
+    },
+    {
+      "name": "clear()",
+      "desc": "Remove all entries"
+    },
+    {
+      "name": "begin() / end()",
+      "desc": "Iterators \u2014 each element is a std::pair<K,V>"
+    }
+  ]
+}
