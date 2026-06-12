@@ -68,24 +68,27 @@
   <div class="content">
     <h1>Recursion</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>void setup() {
-  size(640, 360);
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(640, 360);
   noStroke();
   noLoop();
 }
 
-void draw() {
-  drawCircle(width/2, 280, 6);
+function draw() {
+  drawCircle(width / 2, 280, 6);
 }
 
-void drawCircle(int x, int radius, int level) {                    
-  float tt = 126 * level/4.0;
+function drawCircle(x, radius, level) {
+  let tt = 126 * level / 4.0;
+
   fill(tt);
-  ellipse(x, height/2, radius*2, radius*2);      
-  if(level > 1) {
+  ellipse(x, height / 2, radius * 2, radius * 2);
+
+  if (level > 1) {
     level = level - 1;
-    drawCircle(x - radius/2, radius/2, level);
-    drawCircle(x + radius/2, radius/2, level);
+
+    drawCircle(x - radius / 2, radius / 2, level);
+    drawCircle(x + radius / 2, radius / 2, level);
   }
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">

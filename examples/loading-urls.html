@@ -68,51 +68,53 @@
   <div class="content">
     <h1>Loading URLs</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>bool overButton = false;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let overButton = false;
 
-void setup() {
-    size(640, 360);
+function setup() {
+  createCanvas(640, 360);
 }
 
-void draw() {
-    background(204);
+function draw() {
+  background(204);
 
-    if (overButton == true) {
-        fill(255);
-    } else {
-        noFill();
-    }
+  if (overButton) {
+    fill(255);
+  } else {
+    noFill();
+  }
 
-    rect(105, 60, 75, 75);
+  rect(105, 60, 75, 75);
 
-    line(135, 105, 155, 85);
-    line(140, 85, 155, 85);
-    line(155, 85, 155, 100);
+  line(135, 105, 155, 85);
+  line(140, 85, 155, 85);
+  line(155, 85, 155, 100);
 }
 
-void mousePressed() {
-    if (overButton) {
-        link("http://www.processing.org");
-    }
+function mousePressed() {
+  if (overButton) {
+    window.open("http://www.processing.org", "_blank");
+  }
 }
 
-void mouseMoved() {
-    checkButtons();
+function mouseMoved() {
+  checkButtons();
 }
 
-void mouseDragged() {
-    checkButtons();
+function mouseDragged() {
+  checkButtons();
 }
 
-void checkButtons() {
-    if (mouseX > 105 && mouseX < 180 &&
-        mouseY > 60 && mouseY < 135) {
-
-        overButton = true;
-
-    } else {
-        overButton = false;
-    }
+function checkButtons() {
+  if (
+    mouseX > 105 &&
+    mouseX < 180 &&
+    mouseY > 60 &&
+    mouseY < 135
+  ) {
+    overButton = true;
+  } else {
+    overButton = false;
+  }
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

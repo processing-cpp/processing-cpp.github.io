@@ -68,24 +68,21 @@
   <div class="content">
     <h1>Setup and Draw</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>int y = 180;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let y = 180;
 
-// The statements in the setup() block run once 
-// when the program begins
-void setup() {
-  size(640, 360);  // Size must be the first statement
-  stroke(255);  // Set line drawing color to white
+function setup() {
+  createCanvas(640, 360);
+  stroke(255);
 }
 
-// The statements in draw() are run until the program 
-// is stopped. Each statement is run in sequence from top 
-// to bottom and after the last line is read, the 
-// first line is run again.
-void draw() { 
-  background(0);  // Clear the screen with a black background
-  line(0, y, width, y); 
-  y = y - 1; 
-  if (y < 0) { 
+function draw() {
+  background(0);
+
+  line(0, y, width, y);
+
+  y = y - 1;
+
+  if (y < 0) {
     y = height;
   }
 }<\/script></body></html>`);doc.close();})();</script>

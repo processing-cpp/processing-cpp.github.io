@@ -68,37 +68,37 @@
   <div class="content">
     <h1>Arm</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>float x, y;
-float angle1 = 0.0;
-float angle2 = 0.0;
-float segLength = 100;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x, y;
+let angle1 = 0.0;
+let angle2 = 0.0;
+let segLength = 100;
 
-void setup() {
-    size(640, 360);
+function setup() {
+  createCanvas(640, 360);
 
-    strokeWeight(30);
-    stroke(255, 160);
+  strokeWeight(30);
+  stroke(255, 160);
 
-    x = width * 0.3;
-    y = height * 0.5;
+  x = width * 0.3;
+  y = height * 0.5;
 }
 
-void draw() {
-    background(0);
+function draw() {
+  background(0);
 
-    angle1 = (mouseX / float(width) - 0.5) * -PI;
-    angle2 = (mouseY / float(height) - 0.5) * PI;
+  angle1 = (mouseX / width - 0.5) * -PI;
+  angle2 = (mouseY / height - 0.5) * PI;
 
-    pushMatrix();
-    segment(x, y, angle1);
-    segment(segLength, 0, angle2);
-    popMatrix();
+  push();
+  segment(x, y, angle1);
+  segment(segLength, 0, angle2);
+  pop();
 }
 
-void segment(float x, float y, float a) {
-    translate(x, y);
-    rotate(a);
-    line(0, 0, segLength, 0);
+function segment(x, y, a) {
+  translate(x, y);
+  rotate(a);
+  line(0, 0, segLength, 0);
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

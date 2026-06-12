@@ -68,33 +68,36 @@
   <div class="content">
     <h1>Translate</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>float x, y;
-float dim = 80.0;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x = 0;
+let y;
+let dim = 80;
 
-void setup() {
-  size(640, 360);
+function setup() {
+  createCanvas(640, 360);
   noStroke();
 }
 
-void draw() {
+function draw() {
   background(102);
-  
+
   x = x + 0.8;
-  
+
   if (x > width + dim) {
     x = -dim;
-  } 
-  
-  translate(x, height/2-dim/2);
+  }
+
+  translate(x, height / 2 - dim / 2);
+
   fill(255);
-  rect(-dim/2, -dim/2, dim, dim);
-  
-  // Transforms accumulate. Notice how this rect moves 
-  // twice as fast as the other, but it has the same 
+  rect(-dim / 2, -dim / 2, dim, dim);
+
+  // Transforms accumulate. Notice how this rect moves
+  // twice as fast as the other, but it has the same
   // parameter for the x-axis value
   translate(x, dim);
+
   fill(0);
-  rect(-dim/2, -dim/2, dim, dim);
+  rect(-dim / 2, -dim / 2, dim, dim);
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

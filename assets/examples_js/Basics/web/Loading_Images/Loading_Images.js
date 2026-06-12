@@ -1,25 +1,19 @@
-/**
- * Loading Images. 
- * 
- * Processing applications can load images from the network. 
- */
+let img;
 
-PImage* img;
+function setup() {
+  createCanvas(640, 360);
 
-void setup() {
-    size(640, 360);
+  img = loadImage("https://processing.org/img/processing-web.png");
 
-    img = loadImage("https://processing.org/img/processing-web.png");
-
-    noLoop();
+  noLoop();
 }
 
-void draw() {
-    background(0);
+function draw() {
+  background(0);
 
-    if (img != nullptr) {
-        for (int i = 0; i < 5; i++) {
-            image(img, 0, img->height * i);
-        }
+  if (img) {
+    for (let i = 0; i < 5; i++) {
+      image(img, 0, img.height * i);
     }
+  }
 }

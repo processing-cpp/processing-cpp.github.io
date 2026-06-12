@@ -68,47 +68,46 @@
   <div class="content">
     <h1>Words</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>PFont* f;
-  
-void setup() {
-    size(640, 360);
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let f;
 
-    // Create the font
-    printArray(PFont::list());
+function setup() {
+  createCanvas(640, 360);
 
-    f = createFont("SpaceMono-Regular.ttf", 18);
+  // Load font (must exist in project folder or /assets)
+  f = loadFont("https://processing-cpp.github.io/assets/data/SpaceMono-Regular.ttf");
 
-    textFont(f);
+  textFont(f);
+  textSize(18);
 }
 
-void draw() {
-    background(102);
+function draw() {
+  background(102);
 
-    textAlign(RIGHT);
-    drawType(width * 0.25);
+  textAlign(RIGHT);
+  drawType(width * 0.25);
 
-    textAlign(CENTER);
-    drawType(width * 0.5);
+  textAlign(CENTER);
+  drawType(width * 0.5);
 
-    textAlign(LEFT);
-    drawType(width * 0.75);
+  textAlign(LEFT);
+  drawType(width * 0.75);
 }
 
-void drawType(float x) {
-    line(x, 0, x, 65);
-    line(x, 220, x, height);
+function drawType(x) {
+  line(x, 0, x, 65);
+  line(x, 220, x, height);
 
-    fill(0);
-    text("ichi", x, 95);
+  fill(0);
+  text("ichi", x, 95);
 
-    fill(51);
-    text("ni", x, 130);
+  fill(51);
+  text("ni", x, 130);
 
-    fill(204);
-    text("san", x, 165);
+  fill(204);
+  text("san", x, 165);
 
-    fill(255);
-    text("shi", x, 210);
+  fill(255);
+  text("shi", x, 210);
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

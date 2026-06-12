@@ -1,32 +1,23 @@
-/**
- * Loop. 
- * 
- * If noLoop() is run in setup(), the code in draw() 
- * is only run once. In this example, click the mouse 
- * to run the loop() function to cause the draw() the 
- * run continuously. 
- */
+let y = 180;
 
-float y = 180;
- 
-// The statements in the setup() function 
-// run once when the program begins
-void setup() {
-  size(640, 360);  // Size should be the first statement
-  stroke(255);     // Set stroke color to white
+function setup() {
+  createCanvas(640, 360);
+  stroke(255);
   noLoop();
 }
 
-void draw() { 
-  background(0);  // Set the background to black
-  line(0, y, width, y);  
-  y = y - 1; 
-  if (y < 0) { 
-    y = height; 
-  } 
-} 
+function draw() {
+  background(0);
 
-void mousePressed() {
-  loop();
+  line(0, y, width, y);
+
+  y = y - 1;
+
+  if (y < 0) {
+    y = height;
+  }
 }
 
+function mousePressed() {
+  loop();
+}

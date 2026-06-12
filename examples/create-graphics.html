@@ -68,30 +68,27 @@
   <div class="content">
     <h1>Create Graphics</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>PGraphics* pg;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let pg;
 
-void setup() {
-    size(640, 360);
-    pg = createGraphics(400, 200);
+function setup() {
+  createCanvas(640, 360);
+  pg = createGraphics(400, 200);
 }
 
-void draw() {
-    fill(0, 12);
-    rect(0, 0, width, height);
+function draw() {
+  fill(0, 12);
+  rect(0, 0, width, height);
 
-    fill(255);
-    noStroke();
-    ellipse(mouseX, mouseY, 60, 60);
+  fill(255);
+  noStroke();
+  ellipse(mouseX, mouseY, 60, 60);
 
-    pg->beginDraw();
-    pg->background(51);
-    pg->noFill();
-    pg->stroke(255);
-    pg->ellipse(mouseX - 120, mouseY - 60, 60, 60);
-    pg->endDraw();
+  pg.background(51);
+  pg.noFill();
+  pg.stroke(255);
+  pg.ellipse(mouseX - 120, mouseY - 60, 60, 60);
 
-    // Draw the offscreen buffer to the screen with image() 
-    image(pg, 120, 60);
+  image(pg, 120, 60);
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">

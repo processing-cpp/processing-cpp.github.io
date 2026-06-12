@@ -68,16 +68,18 @@
   <div class="content">
     <h1>Width and Height</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>void setup() {
-  size(640, 360);
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(640, 360);
 }
 
-void draw() {
+function draw() {
   background(127);
   noStroke();
-  for (int i = 0; i < height; i += 20) {
+
+  for (let i = 0; i < height; i += 20) {
     fill(129, 206, 15);
     rect(0, i, width, 10);
+
     fill(255);
     rect(i, 0, 10, height);
   }

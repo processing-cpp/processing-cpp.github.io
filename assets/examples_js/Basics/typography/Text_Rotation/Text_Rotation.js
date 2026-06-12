@@ -1,71 +1,65 @@
-/**
- * Text Rotation. 
- * 
- * Draws letters to the screen and rotates them at different angles.
- */
+let f;
+let angleRotate = 0;
 
-PFont* f;
+function setup() {
+  createCanvas(640, 360);
 
-float angleRotate = 0.0;
+  background(0);
 
-void setup() {
-    size(640, 360);
+  f = loadFont("SourceCodePro-Regular.ttf");
 
-    background(0);
-
-    // Create the font from the .ttf file in the data folder
-    f = createFont("SourceCodePro-Regular.ttf", 18);
-
-    textFont(f);
+  textFont(f);
+  textSize(18);
 }
 
-void draw() {
-    background(0);
+function draw() {
+  background(0);
 
-    strokeWeight(1);
-    stroke(153);
+  strokeWeight(1);
+  stroke(153);
+  fill(255);
 
-    pushMatrix();
+  push();
 
-    float angle1 = radians(45);
+  let angle1 = radians(45);
 
-    translate(100, 180);
-    rotate(angle1);
+  translate(100, 180);
+  rotate(angle1);
 
-    text("45 DEGREES", 0, 0);
-    line(0, 0, 150, 0);
+  text("45 DEGREES", 0, 0);
+  line(0, 0, 150, 0);
 
-    popMatrix();
+  pop();
 
-    pushMatrix();
+  push();
 
-    float angle2 = radians(270);
+  let angle2 = radians(270);
 
-    translate(200, 180);
-    rotate(angle2);
+  translate(200, 180);
+  rotate(angle2);
 
-    text("270 DEGREES", 0, 0);
-    line(0, 0, 150, 0);
+  text("270 DEGREES", 0, 0);
+  line(0, 0, 150, 0);
 
-    popMatrix();
+  pop();
 
-    pushMatrix();
+  push();
 
-    translate(440, 180);
-    rotate(radians(angleRotate));
+  translate(440, 180);
+  rotate(radians(angleRotate));
 
-    text(str(int(angleRotate) % 360) + " DEGREES", 0, 0);
+  text(int(angleRotate % 360) + " DEGREES", 0, 0);
 
-    line(0, 0, 150, 0);
+  line(0, 0, 150, 0);
 
-    popMatrix();
+  pop();
 
-    angleRotate += 0.25;
+  angleRotate += 0.25;
 
-    stroke(255, 0, 0);
-    strokeWeight(4);
+  stroke(255, 0, 0);
+  strokeWeight(4);
 
-    point(100, 180);
-    point(200, 180);
-    point(440, 180);
+  point(100, 180);
+  point(200, 180);
+  point(440, 180);
 }
