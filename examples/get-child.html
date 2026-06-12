@@ -77,12 +77,11 @@
       let svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
       let svgEl = svgDoc.documentElement;
 
-      // Get original viewBox to center properly
-      let vb = svgEl.getAttribute('viewBox') || '0 0 960 600';
-      svgEl.setAttribute('width', '640');
-      svgEl.setAttribute('height', '360');
-      svgEl.setAttribute('viewBox', vb);
-      svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svgEl.setAttribute('width', '1368');
+      svgEl.setAttribute('height', '936');
+      svgEl.style.position = 'absolute';
+      svgEl.style.left = '-600px';
+      svgEl.style.top = '-180px';
 
       let mi = svgEl.querySelector('#MI');
       if (mi) { mi.style.fill = '#003366'; mi.style.stroke = '#fff'; mi.style.strokeWidth = '1px'; }
@@ -93,6 +92,7 @@
       document.body.style.background = '#fff';
       document.body.style.margin = '0';
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'relative';
       document.body.appendChild(svgEl);
     });
 }
