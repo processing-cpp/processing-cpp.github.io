@@ -1,31 +1,36 @@
-/**
- * Create Image. 
- * 
- * The createImage() function provides a fresh buffer of pixels to play with.
- * This example creates an image gradient.
- */
+let img;
 
-PImage* img;
+function setup() {
+  createCanvas(640, 360);
 
-void setup() {
-    size(640, 360);
+  img = createImage(230, 230);
 
-    img = createImage(230, 230, ARGB);
+  img.loadPixels();
 
-    int total = img->width * img->height;
+  let total = img.width * img.height;
 
-    for (int i = 0; i < total; i++) {
-        float a = map(i, 0, total, 255, 0);
-        img->pixels[i] = color(0, 153, 204, a);
-    }
+  for (let i = 0; i < total; i++) {
+    let a = map(i, 0, total, 255, 0);
+
+    let index = i * 4;
+
+    img.pixels[index] = 0;
+    img.pixels[index + 1] = 153;
+    img.pixels[index + 2] = 204;
+    img.pixels[index + 3] = a;
+  }
+
+  img.updatePixels();
 }
 
-void draw() {
-    background(0);
+function draw() {
+  background(0);
 
-    image(img, 90, 80);
+  image(img, 90, 80);
 
-    image(img,
-          mouseX - img->width / 2,
-          mouseY - img->height / 2);
+  image(
+    img,
+    mouseX - img.width / 2,
+    mouseY - img.height / 2
+  );
 }

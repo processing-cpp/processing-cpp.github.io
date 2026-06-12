@@ -1,32 +1,30 @@
-float yoff = 0.0f;
+let yoff = 0.0;
 
-void setup() {
-    size(640, 360);
+function setup() {
+  createCanvas(640, 360);
 }
 
-void draw() {
-    background(51);
+function draw() {
+  background(51);
+  fill(255);
 
-    fill(255);
+  beginShape();
 
-    beginShape();
+  let xoff = 0.0;
 
-    float xoff = 0.0f;
+  for (let x = 0; x <= width; x += 10) {
+    let n = noise(xoff, yoff);
+    let y = map(n, 0, 1, 200, 300);
 
-    for (float x = 0.0f; x <= width; x += 10.0f) {
-        float n = noise(xoff, yoff);
-        float y = map(n, 0.0f, 1.0f, 200.0f, 300.0f);
+    vertex(x, y);
 
-        vertex(x, y);
+    xoff += 0.05;
+  }
 
-        xoff += 0.05f;
-    }
+  yoff += 0.01;
 
-    yoff += 0.01f;
+  vertex(width, height);
+  vertex(0, height);
 
-    // close the shape (important for fill to work)
-    vertex((float)width, (float)height);
-    vertex(0.0f, (float)height);
-
-    endShape(CLOSE);
+  endShape(CLOSE);
 }

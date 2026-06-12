@@ -1,31 +1,34 @@
-float increment = 0.01f;
-float zoff = 0.0f;
-float zincrement = 0.02f;
+let increment = 0.01;
+let zoff = 0.0;
+let zincrement = 0.02;
 
-void setup() {
-    size(640, 360);
-    frameRate(30);
+function setup() {
+  createCanvas(640, 360);
+  frameRate(30);
 }
 
-void draw() {
-    loadPixels();
+function draw() {
+  loadPixels();
 
-    float xoff = 0.0f;
+  let xoff = 0.0;
 
-    for (int x = 0; x < width; x++) {
-        xoff += increment;
-        float yoff = 0.0f;
+  for (let x = 0; x < width; x++) {
+    xoff += increment;
+    let yoff = 0.0;
 
-        for (int y = 0; y < height; y++) {
-            yoff += increment;
+    for (let y = 0; y < height; y++) {
+      yoff += increment;
 
-            float bright = noise(xoff, yoff, zoff) * 255.0f;
+      let bright = noise(xoff, yoff, zoff) * 255;
 
-            pixels[x + y * width] = color(bright, bright, bright);
-        }
+      let idx = (x + y * width) * 4;
+      pixels[idx] = bright;
+      pixels[idx + 1] = bright;
+      pixels[idx + 2] = bright;
+      pixels[idx + 3] = 255;
     }
+  }
 
-    updatePixels();
-
-    zoff += zincrement;
+  updatePixels();
+  zoff += zincrement;
 }

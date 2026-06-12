@@ -1,27 +1,24 @@
-/**
- * Directional. 
- * 
- * Move the mouse the change the direction of the light.
- */
-
-void setup() {
-    size(640, 360, P3D);
-    noStroke();
-    fill(204);
+function setup() {
+  createCanvas(640, 360, WEBGL);
+  noStroke();
+  fill(204);
 }
 
-void draw() {
-    noStroke(); 
-    background(0); 
+function draw() {
+  background(0);
 
-    float dirY = (mouseY / (float)height - 0.5f) * 2.0f;
-    float dirX = (mouseX / (float)width  - 0.5f) * 2.0f;
+  let dirY = (mouseY / height - 0.5) * 2;
+  let dirX = (mouseX / width - 0.5) * 2;
 
-    directionalLight(204, 204, 204, -dirX, -dirY, -1); 
+  directionalLight(204, 204, 204, -dirX, -dirY, -1);
 
-    translate(width / 2 - 100, height / 2, 0); 
-    sphere(80); 
+  push();
+  translate(-100, 0, 0);
+  sphere(80);
+  pop();
 
-    translate(200, 0, 0); 
-    sphere(80); 
+  push();
+  translate(100, 0, 0);
+  sphere(80);
+  pop();
 }

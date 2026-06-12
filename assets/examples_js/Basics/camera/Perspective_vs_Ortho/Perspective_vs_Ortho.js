@@ -1,40 +1,36 @@
-/**
- * Perspective vs. Ortho
- *
- * Move the mouse left to right to change the "far" 
- * parameter for the perspective() and ortho() functions.
- * This parameter sets the maximum distance from the 
- * origin away from the viewer and will clip the geometry.
- * Click a mouse button to switch between the perspective and
- * orthographic projections.
- */
+let showPerspective = false;
 
-
-bool showPerspective = false;
-
-void setup() {
-  size(600, 360, P3D);
-  noFill();
+function setup() {
+  createCanvas(600, 360, WEBGL);
   fill(255);
   noStroke();
 }
 
-void draw() {
+function draw() {
   lights();
   background(0);
-  float far = map(mouseX, 0, width, 120, 400);
-  if (showPerspective == true) {
-    perspective(PI/3.0, float(width)/float(height), 10, far);
+
+  let far = map(mouseX, 0, width, 120, 400);
+
+  if (showPerspective) {
+    perspective(PI / 3, width / height, 10, far);
   } else {
-    ortho(-width/2.0, width/2.0, -height/2.0, height/2.0, 10, far);
+    ortho(
+      -width / 2,
+      width / 2,
+      -height / 2,
+      height / 2,
+      10,
+      far
+    );
   }
-  translate(width/2, height/2, 0);
-  rotateX(-PI/6);
-  rotateY(PI/3);
+
+  rotateX(-PI / 6);
+  rotateY(PI / 3);
+
   box(180);
 }
 
-void mousePressed() {
+function mousePressed() {
   showPerspective = !showPerspective;
 }
-

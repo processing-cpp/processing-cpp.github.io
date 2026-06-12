@@ -1,28 +1,22 @@
-/**
- * Alpha Mask. 
- * 
- * Loads a "mask" for an image to specify the transparency 
- * in different parts of the image. The two images are blended
- * together using the mask() method of PImage. 
- */
+let img;
+let imgMask;
 
-PImage* img;
-PImage* imgMask;
+function setup() {
+  createCanvas(640, 360);
 
-void setup() {
-    size(640, 360);
+  img = loadImage("moonwalk.jpg");
+  imgMask = loadImage("mask.jpg");
 
-    img = loadImage("moonwalk.jpg");
-    imgMask = loadImage("mask.jpg");
-
-    img->mask(*imgMask);   // dereference because mask takes const PImage&
-
-    imageMode(CENTER);
+  imageMode(CENTER);
 }
 
-void draw() {
-    background(0, 102, 153);
+function draw() {
+  background(0, 102, 153);
+
+  if (img && imgMask) {
+    img.mask(imgMask);
 
     image(img, width / 2, height / 2);
     image(img, mouseX, mouseY);
+  }
 }

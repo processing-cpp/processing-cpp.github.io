@@ -1,64 +1,71 @@
-/**
- * Array Objects.
- *
- * Demonstrates the syntax for creating an array of custom objects.
- */
+class Module {
+  constructor(xOffset, yOffset, x, y, speed, unit) {
+    this.xOffset = xOffset;
+    this.yOffset = yOffset;
+    this.x = x;
+    this.y = y;
+    this.unit = unit;
+    this.xDirection = 1;
+    this.yDirection = 1;
+    this.speed = speed;
+  }
 
-struct Module {
-    int xOffset, yOffset;
-    float x, y;
-    int unit;
-    int xDirection, yDirection;
-    float speed;
+  update() {
+    this.x += this.speed * this.xDirection;
 
-    Module() : xOffset(0),yOffset(0),x(0),y(0),unit(0),xDirection(1),yDirection(1),speed(0) {}
-    Module(int xOffsetTemp, int yOffsetTemp, int xTemp, int yTemp, float speedTemp, int tempUnit)
-        : xOffset(xOffsetTemp), yOffset(yOffsetTemp), x(xTemp), y(yTemp),
-          unit(tempUnit), xDirection(1), yDirection(1), speed(speedTemp) {}
-
-    void update() {
-        x += speed * xDirection;
-        if (x >= unit || x <= 0) {
-            xDirection *= -1;
-            x += 1 * xDirection;
-            y += 1 * yDirection;
-        }
-        if (y >= unit || y <= 0) {
-            yDirection *= -1;
-            y += 1 * yDirection;
-        }
+    if (this.x >= this.unit || this.x <= 0) {
+      this.xDirection *= -1;
+      this.x += this.xDirection;
+      this.y += this.yDirection;
     }
 
-    void display() {
-        fill(255);
-        ellipse(xOffset + x, yOffset + y, 6, 6);
+    if (this.y >= this.unit || this.y <= 0) {
+      this.yDirection *= -1;
+      this.y += this.yDirection;
     }
-};
+  }
 
-int unit = 40;
-int count;
-Module* mods;
-
-void setup() {
-    size(640, 360);
-    noStroke();
-    int wideCount = width / unit;
-    int highCount = height / unit;
-    count = wideCount * highCount;
-    mods = new Module[count];
-
-    int index = 0;
-    for (int y = 0; y < highCount; y++) {
-        for (int x = 0; x < wideCount; x++) {
-            mods[index++] = Module(x*unit, y*unit, unit/2, unit/2, random(0.05f, 0.8f), unit);
-        }
-    }
+  display() {
+    fill(255);
+    ellipse(this.xOffset + this.x, this.yOffset + this.y, 6, 6);
+  }
 }
 
-void draw() {
-    background(0);
-    for (int i = 0; i < count; i++) {
-        mods[i].update();
-        mods[i].display();
+let unit = 40;
+let count;
+let mods;
+
+function setup() {
+  createCanvas(640, 360);
+  noStroke();
+
+  let wideCount = floor(width / unit);
+  let highCount = floor(height / unit);
+
+  count = wideCount * highCount;
+  mods = [];
+
+  for (let y = 0; y < highCount; y++) {
+    for (let x = 0; x < wideCount; x++) {
+      mods.push(
+        new Module(
+          x * unit,
+          y * unit,
+          unit / 2,
+          unit / 2,
+          random(0.05, 0.8),
+          unit
+        )
+      );
     }
+  }
+}
+
+function draw() {
+  background(0);
+
+  for (let i = 0; i < count; i++) {
+    mods[i].update();
+    mods[i].display();
+  }
 }

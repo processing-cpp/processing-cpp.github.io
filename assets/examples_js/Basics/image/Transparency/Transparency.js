@@ -1,27 +1,19 @@
-/**
- * Transparency. 
- * 
- * Move the pointer left and right across the image to change
- * its position. This program overlays one image over another 
- * by modifying the alpha value of the image with the tint() function. 
- */
+let img;
+let offset = 0;
+let easing = 0.05;
 
-PImage* img;
-float offset = 0;
-float easing = 0.05f;
-
-void setup() {
-  size(640, 360);
-
-  img = loadImage("moonwalk.jpg");  // Load an image into the program
+function setup() {
+  createCanvas(640, 360);
+  img = loadImage("moonwalk.jpg");
 }
 
-void draw() {
-  image(img, 0, 0);  // Display at full opacity
+function draw() {
+  image(img, 0, 0);
 
-  float dx = (mouseX - img->width / 2) - offset;
+  let dx = (mouseX - img.width / 2) - offset;
   offset += dx * easing;
 
-  tint(255, 127);  // Display at half opacity
+  tint(255, 127);
   image(img, offset, 0);
+  noTint();
 }

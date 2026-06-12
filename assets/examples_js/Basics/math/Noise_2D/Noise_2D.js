@@ -1,43 +1,34 @@
-/**
- * Noise2D 
- * by Daniel Shiffman.  
- * 
- * Using 2D noise to create simple texture. 
- */
- 
-float increment = 0.02f;
+let increment = 0.02;
 
-void setup() {
-    size(640, 360);
+function setup() {
+  createCanvas(640, 360);
 }
 
-void draw() {
-  
-    loadPixels();
+function draw() {
+  loadPixels();
 
-    float xoff = 0.0f; // Start xoff at 0
+  let xoff = 0.0;
 
-    float detail = map((float)mouseX, 0.0f, (float)width, 0.1f, 0.6f);
-    noiseDetail(8, detail);
-  
-    // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
-    for (int x = 0; x < width; x++) {
-        xoff += increment;   // Increment xoff 
-        float yoff = 0.0f;   // For every xoff, start yoff at 0
+  let detail = map(mouseX, 0, width, 0.1, 0.6);
+  noiseDetail(8, detail);
 
-        for (int y = 0; y < height; y++) {
-            yoff += increment; // Increment yoff
-      
-            // Calculate noise and scale by 255
-            float bright = noise(xoff, yoff) * 255.0f;
+  for (let x = 0; x < width; x++) {
+    xoff += increment;
+    let yoff = 0.0;
 
-            // Try using this line instead
-            //float bright = random(0.0f, 255.0f);
-      
-            // Set each pixel onscreen to a grayscale value
-            pixels[x + y * width] = color(bright);
-        }
+    for (let y = 0; y < height; y++) {
+      yoff += increment;
+
+      let bright = noise(xoff, yoff) * 255;
+
+      let index = (x + y * width) * 4;
+
+      pixels[index] = bright;
+      pixels[index + 1] = bright;
+      pixels[index + 2] = bright;
+      pixels[index + 3] = 255;
     }
-  
-    updatePixels();
+  }
+
+  updatePixels();
 }

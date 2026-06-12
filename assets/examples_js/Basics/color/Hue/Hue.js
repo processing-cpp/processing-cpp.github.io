@@ -1,32 +1,22 @@
-/**
- * Hue. 
- * 
- * Hue is the color reflected from or transmitted through an object 
- * and is typically referred to as the name of the color such as 
- * red, blue, or yellow. In this example, move the cursor vertically 
- * over each bar to alter its hue. 
- */
- 
-int barWidth = 20;
-int lastBar = -1;
+let barWidth = 20;
+let lastBar = -1;
 
-void setup() {
-    size(640, 360);
-    colorMode(HSB, height, height, height);  
-    noStroke();
-    background(0);
+function setup() {
+  createCanvas(640, 360);
+  colorMode(HSB, height, height, height);
+  noStroke();
+  background(0);
 }
 
-void draw() {
-    int whichBar = mouseX / barWidth;
+function draw() {
+  let whichBar = floor(mouseX / barWidth);
 
-    if (whichBar != lastBar) {
-        int barX = whichBar * barWidth;
+  if (whichBar !== lastBar) {
+    let barX = whichBar * barWidth;
 
-        // No casting, raw version
-        fill(mouseY, height, height);
+    fill(mouseY, height, height);
+    rect(barX, 0, barWidth, height);
 
-        rect(barX, 0, barWidth, height);
-        lastBar = whichBar;
-    }
+    lastBar = whichBar;
+  }
 }

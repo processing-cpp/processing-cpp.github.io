@@ -1,17 +1,8 @@
-/**
- * Pointillism
- * by Daniel Shiffman. 
- * 
- * Mouse horizontal location controls size of dots. 
- * Creates a simple pointillist effect using ellipses colored
- * according to pixels in an image. 
- */
+let img;
+let smallPoint, largePoint;
 
-PImage* img;
-int smallPoint, largePoint;
-
-void setup() {
-  size(640, 360);
+function setup() {
+  createCanvas(640, 360);
 
   img = loadImage("moonwalk.jpg");
 
@@ -23,14 +14,14 @@ void setup() {
   background(255);
 }
 
-void draw() {
-  float pointillize = map(mouseX, 0, width, smallPoint, largePoint);
+function draw() {
+  let pointillize = map(mouseX, 0, width, smallPoint, largePoint);
 
-  int x = int(random(img->width));
-  int y = int(random(img->height));
+  let x = floor(random(img.width));
+  let y = floor(random(img.height));
 
-  color pix = img->get(x, y);
+  let pix = img.get(x, y);
 
-  fill(pix, 128);
+  fill(red(pix), green(pix), blue(pix), 128);
   ellipse(x, y, pointillize, pointillize);
 }

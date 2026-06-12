@@ -1,44 +1,48 @@
-/**
- * Mixture Grid  
- * 
- * Display a 2D grid of boxes with three different kinds of lights. 
- */
-
-void setup() {
-    size(640, 360, P3D);
-    noStroke();
+function setup() {
+  createCanvas(640, 360, WEBGL);
+  noStroke();
 }
 
-void draw() {
-    defineLights();
-    background(0);
-  
-    for (int x = 0; x <= width; x += 60) {
-        for (int y = 0; y <= height; y += 60) {
-            pushMatrix();
-            translate(x, y);
+function draw() {
+  defineLights();
+  background(0);
 
-            rotateY(map(mouseX, 0, width, 0, PI));
-            rotateX(map(mouseY, 0, height, 0, PI));
+  for (let x = 0; x <= width; x += 60) {
+    for (let y = 0; y <= height; y += 60) {
+      push();
 
-            box(90);
-            popMatrix();
-        }
+      translate(
+        x - width / 2,
+        y - height / 2,
+        0
+      );
+
+      rotateY(map(mouseX, 0, width, 0, PI));
+      rotateX(map(mouseY, 0, height, 0, PI));
+
+      box(90);
+
+      pop();
     }
+  }
 }
 
-void defineLights() {
-    // Orange point light on the right
-    pointLight(150, 100, 0,
-               200.0f, -150.0f, 0.0f);
+function defineLights() {
+  pointLight(150, 100, 0, 200, -150, 0);
 
-    // Blue directional light from the left
-    directionalLight(0, 102, 255,
-                     1.0f, 0.0f, 0.0f);
+  directionalLight(0, 102, 255, 1, 0, 0);
 
-    // Yellow spotlight from the front
-    spotLight(255, 255, 109,
-              0.0f, 40.0f, 200.0f,
-              0.0f, -0.5f, -0.5f,
-              PI / 2.0f, 2.0f);
+  spotLight(
+    255,
+    255,
+    109,
+    0,
+    40,
+    200,
+    0,
+    -0.5,
+    -0.5,
+    PI / 2,
+    2
+  );
 }

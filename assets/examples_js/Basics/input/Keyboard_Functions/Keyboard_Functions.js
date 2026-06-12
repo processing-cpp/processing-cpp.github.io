@@ -1,93 +1,81 @@
-/**
- * Keyboard Functions 
- * by Martin Gomez 
- * 
- * Click on the window to give it focus and press the letter keys to type colors. 
- * The keyboard function keyPressed() is called whenever
- * a key is pressed. keyReleased() is another keyboard
- * function that is called when a key is released.
- * 
- * Original 'Color Typewriter' concept by John Maeda. 
- */
- 
-int maxHeight = 40;
-int minHeight = 20;
-int letterHeight = maxHeight; // Height of the letters
-int letterWidth = 20;         // Width of the letter
+let maxHeight = 40;
+let minHeight = 20;
+let letterHeight = maxHeight;
+let letterWidth = 20;
 
-int x = -20;                  // X position of the letters
-int y = 0;                    // Y position of the letters
+let x = -20;
+let y = 0;
 
-bool newletter = false;      
+let newletter = false;
 
-int numChars = 26;            // There are 26 characters in the alphabet
-color colors[26];             // C++ fixed-size array
+let numChars = 26;
+let colors = [];
 
-void setup() {
-    size(640, 360);
-    noStroke();
-    colorMode(HSB, numChars);
-    background(numChars / 2);
+function setup() {
+  createCanvas(640, 360);
+  noStroke();
+  colorMode(HSB, numChars);
 
-    // Set a hue value for each key
-    for (int i = 0; i < numChars; i++) {
-        colors[i] = color(i, numChars, numChars);    
-    }
+  background(numChars / 2);
+
+  for (let i = 0; i < numChars; i++) {
+    colors[i] = color(i, numChars, numChars);
+  }
 }
 
-void draw() {
-    if (newletter == true) {
-        int y_pos;
+function draw() {
+  if (newletter) {
+    let y_pos;
 
-        if (letterHeight == maxHeight) {
-            y_pos = y;
-            rect(x, y_pos, letterWidth, letterHeight);
-        } else {
-            y_pos = y + minHeight;
-            rect(x, y_pos, letterWidth, letterHeight);
-
-            fill(numChars / 2);
-            rect(x, y_pos - minHeight, letterWidth, letterHeight);
-        }
-
-        newletter = false;
-    }
-}
-
-void keyPressed() {
-    // If the key is between 'A' to 'Z' or 'a' to 'z'
-    if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
-
-        int keyIndex;
-
-        if (key <= 'Z') {
-            keyIndex = key - 'A';
-            letterHeight = maxHeight;
-            fill(colors[keyIndex]);
-        } else {
-            keyIndex = key - 'a';
-            letterHeight = minHeight;
-            fill(colors[keyIndex]);
-        }
-
+    if (letterHeight === maxHeight) {
+      y_pos = y;
+      fill(currentFill);
+      rect(x, y_pos, letterWidth, letterHeight);
     } else {
-        fill(0);
-        letterHeight = 10;
+      y_pos = y + minHeight;
+      rect(x, y_pos, letterWidth, letterHeight);
+
+      fill(numChars / 2);
+      rect(x, y_pos - minHeight, letterWidth, letterHeight);
     }
 
-    newletter = true;
+    newletter = false;
+  }
+}
 
-    // Update the "letter" position
-    x = x + letterWidth;
+let currentFill;
 
-    // Wrap horizontally
-    if (x > width - letterWidth) {
-        x = 0;
-        y += maxHeight;
+function keyPressed() {
+  if (
+    (key >= 'A' && key <= 'Z') ||
+    (key >= 'a' && key <= 'z')
+  ) {
+    let keyIndex;
+
+    if (key <= 'Z') {
+      keyIndex = key.charCodeAt(0) - 'A'.charCodeAt(0);
+      letterHeight = maxHeight;
+    } else {
+      keyIndex = key.charCodeAt(0) - 'a'.charCodeAt(0);
+      letterHeight = minHeight;
     }
 
-    // Wrap vertically
-    if (y > height - letterHeight) {
-        y = 0;
-    }
+    currentFill = colors[keyIndex];
+  } else {
+    currentFill = color(0);
+    letterHeight = 10;
+  }
+
+  newletter = true;
+
+  x += letterWidth;
+
+  if (x > width - letterWidth) {
+    x = 0;
+    y += maxHeight;
+  }
+
+  if (y > height - letterHeight) {
+    y = 0;
+  }
 }
