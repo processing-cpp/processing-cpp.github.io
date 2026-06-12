@@ -68,28 +68,24 @@
   <div class="content">
     <h1>Load and Display an OBJ shape</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
-<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>PShape* rocket;
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let rocket;
+let ry = 0;
 
-float ry;
-  
-void setup() {
-  size(640, 360, P3D);
-    
-  rocket = loadShape("rocket.obj");
+function preload() {
+  rocket = loadModel("rocket.obj", true);
 }
 
-void draw() {
+function setup() {
+  createCanvas(640, 360, WEBGL);
+}
+
+function draw() {
   background(0);
-
   lights();
-  
-  translate(width/2, height/2 + 100, -200);
-
+  translate(0, 100, -200);
   rotateZ(PI);
   rotateY(ry);
-
-  shape(rocket);
-  
+  model(rocket);
   ry += 0.02;
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
