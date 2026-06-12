@@ -30,8 +30,8 @@
     .category a.active { color: #111; font-weight: 500; background: #f4f4f4; }
     .content { flex: 1; padding: 3rem 4rem; max-width: 900px; }
     .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
-    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; width: 640px; height: 360px; }
-    .preview-wrap canvas { display: block; width: 640px !important; height: 360px !important; }
+    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; display: inline-block; }
+    .preview-wrap iframe { display: block; border: none; }
     .code-block { background: #f8f8f8; border-radius: 8px; overflow: hidden; }
     .code-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #e0e0e0; font-size: 12px; color: #888; font-family: monospace; display: flex; align-items: center; justify-content: space-between; }
     .copy-btn { font-size: 12px; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; }
@@ -46,14 +46,14 @@
       .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
       .sidebar-outer.open { left: 0; }
       .content { padding: 2rem 1.25rem; }
-      .preview-wrap { width: 100% !important; height: auto !important; }
-      .preview-wrap canvas { width: 100% !important; height: auto !important; }
+      .preview-wrap { max-width: 100%; }
+      .preview-wrap iframe { max-width: 100%; }
       pre { font-size: 12px; }
     }
 </style>
 </head>
 <body>
-<nav>
+<nav id="site-nav">
   <a href="../" class="nav-logo">
     <img src="../assets/cpp-logo.png" alt="C++ Mode">
     <span>C++ Mode</span>
@@ -74,7 +74,75 @@
   </div>
   <div class="content">
     <h1>Distance 1D</h1>
-    <div class="preview-wrap"><div id="p5-container"></div></div>
+    <div class="preview-wrap">
+  <iframe id="sketch-frame" width="640" height="360"></iframe>
+</div>
+<script>
+(function() {
+  const iframe = document.getElementById('sketch-frame');
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <style>*{margin:0;padding:0;}body{overflow:hidden;}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
+    </head><body>
+    <script>float xpos1;
+float xpos2;
+float xpos3;
+float xpos4;
+int thin = 8;
+int thick = 36;
+
+void setup() 
+{
+    size(640, 360);
+    noStroke();
+
+    xpos1 = width / 2;
+    xpos2 = width / 2;
+    xpos3 = width / 2;
+    xpos4 = width / 2;
+}
+
+void draw() 
+{
+    background(0);
+  
+    float mx = mouseX * 0.4f - width / 5.0f;
+  
+    fill(102);
+    rect(xpos2, 0, thick, height / 2);
+
+    fill(204);
+    rect(xpos1, 0, thin, height / 2);
+
+    fill(102);
+    rect(xpos4, height / 2, thick, height / 2);
+
+    fill(204);
+    rect(xpos3, height / 2, thin, height / 2);
+	
+    xpos1 += mx / 16;
+    xpos2 += mx / 64;
+    xpos3 -= mx / 16;
+    xpos4 -= mx / 64;
+  
+    if (xpos1 < -thin)  { xpos1 = width; }
+    if (xpos1 > width)  { xpos1 = -thin; }
+
+    if (xpos2 < -thick) { xpos2 = width; }
+    if (xpos2 > width)  { xpos2 = -thick; }
+
+    if (xpos3 < -thin)  { xpos3 = width; }
+    if (xpos3 > width)  { xpos3 = -thin; }
+
+    if (xpos4 < -thick) { xpos4 = width; }
+    if (xpos4 > width)  { xpos4 = -thick; }
+}<\/script>
+    </body></html>`);
+  doc.close();
+})();
+</script>
     <div class="code-block">
       <div class="code-header">
         <span>distance-1d.pde</span>
@@ -162,79 +230,7 @@ function toggleSection(name) {
   arrow.textContent = open ? '▸' : '▾';
 }
 
-
-(function() {
-  // create a hidden iframe to run global p5 sketch isolated
-  const container = document.getElementById('p5-container');
-  const iframe = document.createElement('iframe');
-  iframe.style.border = 'none';
-  iframe.style.width = '640px';
-  iframe.style.height = '360px';
-  container.appendChild(iframe);
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
-  doc.open();
-  doc.write(`<!DOCTYPE html><html><head>
-    <style>* {margin:0;padding:0;} body {overflow:hidden;}</style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
-    </head><body>
-    <script>
-    float xpos1;
-float xpos2;
-float xpos3;
-float xpos4;
-int thin = 8;
-int thick = 36;
-
-void setup() 
-{
-    size(640, 360);
-    noStroke();
-
-    xpos1 = width / 2;
-    xpos2 = width / 2;
-    xpos3 = width / 2;
-    xpos4 = width / 2;
-}
-
-void draw() 
-{
-    background(0);
-  
-    float mx = mouseX * 0.4f - width / 5.0f;
-  
-    fill(102);
-    rect(xpos2, 0, thick, height / 2);
-
-    fill(204);
-    rect(xpos1, 0, thin, height / 2);
-
-    fill(102);
-    rect(xpos4, height / 2, thick, height / 2);
-
-    fill(204);
-    rect(xpos3, height / 2, thin, height / 2);
-	
-    xpos1 += mx / 16;
-    xpos2 += mx / 64;
-    xpos3 -= mx / 16;
-    xpos4 -= mx / 64;
-  
-    if (xpos1 < -thin)  { xpos1 = width; }
-    if (xpos1 > width)  { xpos1 = -thin; }
-
-    if (xpos2 < -thick) { xpos2 = width; }
-    if (xpos2 > width)  { xpos2 = -thick; }
-
-    if (xpos3 < -thin)  { xpos3 = width; }
-    if (xpos3 > width)  { xpos3 = -thin; }
-
-    if (xpos4 < -thick) { xpos4 = width; }
-    if (xpos4 > width)  { xpos4 = -thick; }
-}
-    <\/script></body></html>`);
-  doc.close();
-})();
-
 </script>
+<script src="../assets/nav.js"></script>
 </body>
 </html>
