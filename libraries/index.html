@@ -67,8 +67,10 @@
     <h2>Containers</h2>
     <div class="lib-grid">
       <div class="lib-card"><code>std::vector</code><p>Dynamic array. The most common container. Use instead of Java's ArrayList.</p></div>
-      <div class="lib-card"><code>std::map</code><p>Key-value pairs sorted by key. Use instead of Java's HashMap.</p></div>
+      <div class="lib-card"><code>std::map</code><p>Key-value pairs sorted by key.</p></div>
+      <div class="lib-card"><code>std::unordered_map</code><p>Hash map. Faster lookups than std::map but unsorted.</p></div>
       <div class="lib-card"><code>std::set</code><p>Sorted collection of unique values.</p></div>
+      <div class="lib-card"><code>std::unordered_set</code><p>Hash set. Faster lookups than std::set but unsorted.</p></div>
       <div class="lib-card"><code>std::list</code><p>Doubly linked list. Fast insert and remove at any position.</p></div>
       <div class="lib-card"><code>std::deque</code><p>Double-ended queue. Fast insert and remove at both ends.</p></div>
       <div class="lib-card"><code>std::queue</code><p>FIFO queue adapter.</p></div>
@@ -83,6 +85,7 @@
       <div class="lib-card"><code>std::min / std::max</code><p>Min and max of two values.</p></div>
       <div class="lib-card"><code>std::accumulate</code><p>Sum or fold a range of values.</p></div>
       <div class="lib-card"><code>std::transform</code><p>Apply a function to every element in a range.</p></div>
+      <div class="lib-card"><code>std::iterator</code><p>Iterator utilities for working with ranges and containers.</p></div>
     </div>
 
     <h2>Strings and IO</h2>
@@ -93,13 +96,13 @@
       <div class="lib-card"><code>std::ofstream</code><p>Write to files.</p></div>
       <div class="lib-card"><code>std::regex</code><p>Regular expressions for pattern matching.</p></div>
       <div class="lib-card"><code>std::cout / std::cerr</code><p>Print to the console. Also available as println().</p></div>
+      <div class="lib-card"><code>std::iomanip</code><p>Format output — set precision, width, fill characters.</p></div>
     </div>
 
     <h2>Concurrency</h2>
     <div class="lib-grid">
       <div class="lib-card"><code>std::thread</code><p>Run code on a separate thread.</p></div>
-      <div class="lib-card"><code>std::mutex</code><p>Protect shared data between threads.</p></div>
-      <div class="lib-card"><code>std::atomic</code><p>Thread-safe operations on single values.</p></div>
+      <div class="lib-card"><code>std::functional</code><p>Function wrappers, std::function, std::bind, lambdas.</p></div>
     </div>
 
     <h2>Utilities</h2>
@@ -107,9 +110,9 @@
       <div class="lib-card"><code>std::optional</code><p>A value that may or may not be present.</p></div>
       <div class="lib-card"><code>std::variant</code><p>A value that can be one of several types.</p></div>
       <div class="lib-card"><code>std::tuple</code><p>A fixed-size collection of values of different types.</p></div>
-      <div class="lib-card"><code>std::pair</code><p>Two values grouped together.</p></div>
       <div class="lib-card"><code>std::unique_ptr / std::shared_ptr</code><p>Smart pointers for automatic memory management.</p></div>
       <div class="lib-card"><code>std::chrono</code><p>Time utilities. Measure durations and get the current time.</p></div>
+      <div class="lib-card"><code>std::cstdlib / std::ctime</code><p>C standard library utilities and time functions.</p></div>
     </div>
 
     <h2>Math</h2>
