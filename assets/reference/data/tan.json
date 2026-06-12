@@ -1,0 +1,20 @@
+{
+  "slug": "tan",
+  "name": "tan()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "Calculates the ratio of the sine and cosine of an angle.",
+  "syntax": "float tan(float angle)",
+  "params": [
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "angle in radians"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sin",
+    "cos"
+  ]
+}

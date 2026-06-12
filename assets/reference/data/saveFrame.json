@@ -1,0 +1,19 @@
+{
+  "slug": "saveFrame",
+  "name": "saveFrame()",
+  "cat": "Output",
+  "subcat": "Image",
+  "desc": "Saves a numbered image file. Use #### as a placeholder for the frame number.",
+  "syntax": "void saveFrame(std::string filename)",
+  "params": [
+    {
+      "name": "filename",
+      "type": "std::string",
+      "desc": "filename template, e.g. frame-####.png"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "save"
+  ]
+}

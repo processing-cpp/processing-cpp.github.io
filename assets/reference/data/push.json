@@ -1,0 +1,15 @@
+{
+  "slug": "push",
+  "name": "push()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Saves the current drawing style settings and transformations. Use pop() to restore.",
+  "syntax": "void push()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "pop",
+    "pushStyle",
+    "pushMatrix"
+  ]
+}

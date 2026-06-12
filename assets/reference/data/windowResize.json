@@ -1,0 +1,25 @@
+{
+  "slug": "windowResize",
+  "name": "windowResize()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Resizes the window to the specified dimensions.",
+  "syntax": "void windowResize(int w, int h)",
+  "params": [
+    {
+      "name": "w",
+      "type": "int",
+      "desc": "new width"
+    },
+    {
+      "name": "h",
+      "type": "int",
+      "desc": "new height"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "windowResizable",
+    "size"
+  ]
+}

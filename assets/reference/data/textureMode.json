@@ -1,0 +1,20 @@
+{
+  "slug": "textureMode",
+  "name": "textureMode()",
+  "cat": "Image",
+  "subcat": "Textures",
+  "desc": "Sets the coordinate space for texture mapping. IMAGE uses pixel coordinates, NORMAL uses 0.0 to 1.0.",
+  "syntax": "void textureMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "IMAGE or NORMAL"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "texture",
+    "textureWrap"
+  ]
+}

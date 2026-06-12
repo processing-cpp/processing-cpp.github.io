@@ -1,0 +1,20 @@
+{
+  "slug": "endShape",
+  "name": "endShape()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "The companion to beginShape(). Pass CLOSE to close the shape.",
+  "syntax": "void endShape()\nvoid endShape(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "CLOSE to close the shape (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "beginShape",
+    "vertex"
+  ]
+}

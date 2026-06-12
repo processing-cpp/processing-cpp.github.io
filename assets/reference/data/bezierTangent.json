@@ -1,0 +1,40 @@
+{
+  "slug": "bezierTangent",
+  "name": "bezierTangent()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Calculates the tangent of a point on a bezier curve.",
+  "syntax": "float bezierTangent(float a, float b, float c, float d, float t)",
+  "params": [
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "coordinate of first point"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "coordinate of first control point"
+    },
+    {
+      "name": "c",
+      "type": "float",
+      "desc": "coordinate of second control point"
+    },
+    {
+      "name": "d",
+      "type": "float",
+      "desc": "coordinate of second point"
+    },
+    {
+      "name": "t",
+      "type": "float",
+      "desc": "value between 0 and 1"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "bezier",
+    "bezierPoint"
+  ]
+}

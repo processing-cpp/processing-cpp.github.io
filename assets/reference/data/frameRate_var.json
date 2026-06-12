@@ -1,0 +1,14 @@
+{
+  "slug": "frameRate_var",
+  "name": "frameRate",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the approximate current frame rate.",
+  "syntax": "frameRate",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "frameRate_fn",
+    "frameCount"
+  ]
+}

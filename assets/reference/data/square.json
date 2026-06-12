@@ -1,0 +1,29 @@
+{
+  "slug": "square",
+  "name": "square()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a square to the screen.",
+  "syntax": "void square(float x, float y, float s)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate of the upper-left corner"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate of the upper-left corner"
+    },
+    {
+      "name": "s",
+      "type": "float",
+      "desc": "side length"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "rect"
+  ]
+}

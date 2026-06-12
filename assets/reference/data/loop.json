@@ -1,0 +1,15 @@
+{
+  "slug": "loop",
+  "name": "loop()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Causes Processing to continuously execute the code within draw().",
+  "syntax": "void loop()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "noLoop",
+    "draw",
+    "redraw"
+  ]
+}

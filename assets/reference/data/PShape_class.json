@@ -1,0 +1,65 @@
+{
+  "slug": "PShape_class",
+  "name": "PShape",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Datatype for storing shapes. Load with loadShape() or build programmatically with createShape().",
+  "syntax": "PShape* s = loadShape(\"file.svg\")\nPShape s = createShape()",
+  "params": [],
+  "returns": "PShape",
+  "related": [
+    "loadShape",
+    "createShape",
+    "shape"
+  ],
+  "methods": [
+    {
+      "name": "getChild(int i)",
+      "desc": "Get child shape by index"
+    },
+    {
+      "name": "getChild(std::string name)",
+      "desc": "Get child shape by name/id"
+    },
+    {
+      "name": "getChildCount()",
+      "desc": "Number of children"
+    },
+    {
+      "name": "getVertex(int i)",
+      "desc": "Get vertex by index as PVector"
+    },
+    {
+      "name": "getVertexCount()",
+      "desc": "Number of vertices"
+    },
+    {
+      "name": "setVertex(int i, float x, float y)",
+      "desc": "Set vertex position"
+    },
+    {
+      "name": "disableStyle()",
+      "desc": "Ignore the shape's own fill/stroke"
+    },
+    {
+      "name": "enableStyle()",
+      "desc": "Use the shape's own fill/stroke"
+    },
+    {
+      "name": "setFill(float r, float g, float b)",
+      "desc": "Set fill color"
+    },
+    {
+      "name": "setStroke(float r, float g, float b)",
+      "desc": "Set stroke color"
+    },
+    {
+      "name": "width",
+      "desc": "Bounding box width"
+    },
+    {
+      "name": "height",
+      "desc": "Bounding box height"
+    }
+  ]
+}

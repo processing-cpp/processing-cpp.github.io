@@ -1,0 +1,29 @@
+{
+  "slug": "mag",
+  "name": "mag()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the magnitude (length) of a vector. Supports 2D and 3D.",
+  "syntax": "float mag(float x, float y)\nfloat mag(float x, float y, float z)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x component"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y component"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z component (optional)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "dist"
+  ]
+}

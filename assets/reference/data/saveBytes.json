@@ -1,0 +1,25 @@
+{
+  "slug": "saveBytes",
+  "name": "saveBytes()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Writes a vector of bytes to a file.",
+  "syntax": "bool saveBytes(std::string path, std::vector<unsigned char> data)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "data",
+      "type": "std::vector<unsigned char>",
+      "desc": "bytes to write"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadBytes",
+    "saveStrings"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "sqrt",
+  "name": "sqrt()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the square root of a number.",
+  "syntax": "float sqrt(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "non-negative number"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sq",
+    "pow"
+  ]
+}

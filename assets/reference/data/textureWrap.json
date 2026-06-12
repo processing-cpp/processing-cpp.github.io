@@ -1,0 +1,20 @@
+{
+  "slug": "textureWrap",
+  "name": "textureWrap()",
+  "cat": "Image",
+  "subcat": "Textures",
+  "desc": "Defines if textures repeat or clamp when outside the texture boundary.",
+  "syntax": "void textureWrap(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "CLAMP or REPEAT"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "texture",
+    "textureMode"
+  ]
+}

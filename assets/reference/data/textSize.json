@@ -1,0 +1,21 @@
+{
+  "slug": "textSize",
+  "name": "textSize()",
+  "cat": "Typography",
+  "subcat": "Attributes",
+  "desc": "Sets the current font size. This size will be used in all subsequent calls to text().",
+  "syntax": "void textSize(float size)",
+  "params": [
+    {
+      "name": "size",
+      "type": "float",
+      "desc": "the size of the letters in pixels"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "text",
+    "textFont",
+    "textWidth"
+  ]
+}

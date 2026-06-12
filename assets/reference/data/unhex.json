@@ -1,0 +1,19 @@
+{
+  "slug": "unhex",
+  "name": "unhex()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Converts a hexadecimal string to an integer.",
+  "syntax": "int unhex(std::string s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "hex string"
+    }
+  ],
+  "returns": "int",
+  "related": [
+    "hex"
+  ]
+}

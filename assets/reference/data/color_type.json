@@ -1,0 +1,15 @@
+{
+  "slug": "color_type",
+  "name": "color",
+  "cat": "Data",
+  "subcat": "Primitive",
+  "desc": "Datatype for storing color values. Internally a 32-bit packed ARGB integer. Created with the color() function. Compatible with unsigned int.",
+  "syntax": "color c\ncolor c = color(r, g, b)\ncolor c = color(gray)",
+  "params": [],
+  "returns": "color",
+  "related": [
+    "color_fn",
+    "fill",
+    "stroke"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "noLoop",
+  "name": "noLoop()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Stops Processing from continuously executing the code within draw(). draw() is called once and then stops.",
+  "syntax": "void noLoop()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "loop",
+    "draw",
+    "redraw"
+  ]
+}

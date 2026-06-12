@@ -1,0 +1,14 @@
+{
+  "slug": "beginContour",
+  "name": "beginContour()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Use beginContour() and endContour() to cut out areas within a shape (like holes).",
+  "syntax": "void beginContour()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "endContour",
+    "beginShape"
+  ]
+}

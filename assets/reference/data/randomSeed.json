@@ -1,0 +1,19 @@
+{
+  "slug": "randomSeed",
+  "name": "randomSeed()",
+  "cat": "Math",
+  "subcat": "Random",
+  "desc": "Sets the seed value for random(). Repeated calls with the same seed will produce the same sequence.",
+  "syntax": "void randomSeed(long s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "long",
+      "desc": "seed value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "random"
+  ]
+}

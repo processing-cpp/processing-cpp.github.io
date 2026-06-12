@@ -1,0 +1,25 @@
+{
+  "slug": "concat",
+  "name": "concat()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Concatenates two std::vectors.",
+  "syntax": "std::vector<T> concat(std::vector<T> a, std::vector<T> b)",
+  "params": [
+    {
+      "name": "a",
+      "type": "std::vector<T>",
+      "desc": "first vector"
+    },
+    {
+      "name": "b",
+      "type": "std::vector<T>",
+      "desc": "second vector"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "append",
+    "splice"
+  ]
+}

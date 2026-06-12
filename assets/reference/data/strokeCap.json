@@ -1,0 +1,21 @@
+{
+  "slug": "strokeCap",
+  "name": "strokeCap()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the style for rendering line endings. Options: ROUND, SQUARE, PROJECT.",
+  "syntax": "void strokeCap(int cap)",
+  "params": [
+    {
+      "name": "cap",
+      "type": "int",
+      "desc": "ROUND, SQUARE, or PROJECT"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "stroke",
+    "strokeJoin",
+    "strokeWeight"
+  ]
+}

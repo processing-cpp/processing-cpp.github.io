@@ -1,0 +1,46 @@
+{
+  "slug": "stroke",
+  "name": "stroke()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the color used to draw lines and borders around shapes.",
+  "syntax": "void stroke(float gray)\nvoid stroke(float gray, float a)\nvoid stroke(float r, float g, float b)\nvoid stroke(float r, float g, float b, float a)\nvoid stroke(color c)",
+  "params": [
+    {
+      "name": "gray",
+      "type": "float",
+      "desc": "grayscale value"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "alpha (optional)"
+    },
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "a color value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noStroke",
+    "fill",
+    "strokeWeight"
+  ]
+}

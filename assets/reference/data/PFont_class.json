@@ -1,0 +1,21 @@
+{
+  "slug": "PFont_class",
+  "name": "PFont",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Datatype for storing fonts. Load with loadFont() or create with createFont().",
+  "syntax": "PFont font = loadFont(\"font.ttf\")\nPFont* font = createFont(\"Arial\", 24)",
+  "params": [],
+  "returns": "PFont",
+  "related": [
+    "loadFont",
+    "createFont",
+    "textFont"
+  ],
+  "methods": [
+    {
+      "name": "PFont::list()",
+      "desc": "Returns a vector of all available font names"
+    }
+  ]
+}

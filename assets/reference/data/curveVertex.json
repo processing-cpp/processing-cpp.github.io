@@ -1,0 +1,26 @@
+{
+  "slug": "curveVertex",
+  "name": "curveVertex()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Specifies vertex coordinates for curves inside beginShape()/endShape(). At least 4 points required.",
+  "syntax": "void curveVertex(float x, float y)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate of the vertex"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate of the vertex"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "beginShape",
+    "vertex",
+    "bezierVertex"
+  ]
+}

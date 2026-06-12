@@ -1,0 +1,14 @@
+{
+  "slug": "displayHeight",
+  "name": "displayHeight",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the full monitor height in pixels.",
+  "syntax": "displayHeight",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "displayWidth",
+    "height"
+  ]
+}

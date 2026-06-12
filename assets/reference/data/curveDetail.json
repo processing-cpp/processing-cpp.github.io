@@ -1,0 +1,20 @@
+{
+  "slug": "curveDetail",
+  "name": "curveDetail()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Sets the resolution at which curves display. Default is 20.",
+  "syntax": "void curveDetail(int d)",
+  "params": [
+    {
+      "name": "d",
+      "type": "int",
+      "desc": "resolution of the curve"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "curve",
+    "curveTightness"
+  ]
+}

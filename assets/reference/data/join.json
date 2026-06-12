@@ -1,0 +1,25 @@
+{
+  "slug": "join",
+  "name": "join()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Combines a vector of strings into one string using a separator.",
+  "syntax": "std::string join(std::vector<std::string> v, std::string sep)",
+  "params": [
+    {
+      "name": "v",
+      "type": "std::vector<std::string>",
+      "desc": "the strings to join"
+    },
+    {
+      "name": "sep",
+      "type": "std::string",
+      "desc": "separator string"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "split",
+    "splitTokens"
+  ]
+}

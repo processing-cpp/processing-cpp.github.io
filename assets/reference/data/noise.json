@@ -1,0 +1,31 @@
+{
+  "slug": "noise",
+  "name": "noise()",
+  "cat": "Math",
+  "subcat": "Random",
+  "desc": "Returns the Perlin noise value at specified coordinates. Produces smoother and more natural sequences than random().",
+  "syntax": "float noise(float x)\nfloat noise(float x, float y)\nfloat noise(float x, float y, float z)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate in noise space"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate (optional)"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z-coordinate (optional)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "noiseSeed",
+    "noiseDetail",
+    "random"
+  ]
+}

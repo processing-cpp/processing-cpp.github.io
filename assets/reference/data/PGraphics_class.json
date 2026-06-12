@@ -1,0 +1,44 @@
+{
+  "slug": "PGraphics_class",
+  "name": "PGraphics",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "An off-screen graphics buffer. Create with createGraphics(). Draw into it with beginDraw()/endDraw(), then display with image().",
+  "syntax": "PGraphics* pg = createGraphics(w, h)",
+  "params": [],
+  "returns": "PGraphics",
+  "related": [
+    "createGraphics",
+    "image"
+  ],
+  "methods": [
+    {
+      "name": "beginDraw()",
+      "desc": "Start drawing to the buffer"
+    },
+    {
+      "name": "endDraw()",
+      "desc": "Stop drawing to the buffer"
+    },
+    {
+      "name": "background(r,g,b)",
+      "desc": "Clear the buffer"
+    },
+    {
+      "name": "fill(r,g,b)",
+      "desc": "Set fill color"
+    },
+    {
+      "name": "stroke(r,g,b)",
+      "desc": "Set stroke color"
+    },
+    {
+      "name": "ellipse(x,y,w,h)",
+      "desc": "Draw ellipse"
+    },
+    {
+      "name": "rect(x,y,w,h)",
+      "desc": "Draw rectangle"
+    }
+  ]
+}

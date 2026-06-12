@@ -1,0 +1,26 @@
+{
+  "slug": "append",
+  "name": "append()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Expands a std::vector by one element and adds value to the end.",
+  "syntax": "std::vector<T> append(std::vector<T> arr, T val)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the vector to expand"
+    },
+    {
+      "name": "val",
+      "type": "T",
+      "desc": "the value to add"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "concat",
+    "expand",
+    "shorten"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "slug": "loadShader",
+  "name": "loadShader()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Loads a GLSL shader from a file. Pass the fragment shader path and optionally the vertex shader path.",
+  "syntax": "PShader* loadShader(std::string fragPath)\nPShader* loadShader(std::string fragPath, std::string vertPath)",
+  "params": [
+    {
+      "name": "fragPath",
+      "type": "std::string",
+      "desc": "path to fragment shader file"
+    },
+    {
+      "name": "vertPath",
+      "type": "std::string",
+      "desc": "path to vertex shader file (optional)"
+    }
+  ],
+  "returns": "PShader*",
+  "related": [
+    "shader",
+    "resetShader",
+    "PShader"
+  ]
+}

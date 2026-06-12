@@ -1,0 +1,15 @@
+{
+  "slug": "HALF_PI",
+  "name": "HALF_PI",
+  "cat": "Constants",
+  "subcat": "",
+  "desc": "HALF_PI is a mathematical constant with the value 1.57079632679489661923.",
+  "syntax": "HALF_PI",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "PI",
+    "TWO_PI",
+    "QUARTER_PI"
+  ]
+}

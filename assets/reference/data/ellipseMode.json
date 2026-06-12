@@ -1,0 +1,20 @@
+{
+  "slug": "ellipseMode",
+  "name": "ellipseMode()",
+  "cat": "Shape",
+  "subcat": "Attributes",
+  "desc": "Modifies the location from which ellipses are drawn. Default is CENTER.",
+  "syntax": "void ellipseMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "CENTER, RADIUS, CORNER, or CORNERS"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "ellipse",
+    "circle"
+  ]
+}

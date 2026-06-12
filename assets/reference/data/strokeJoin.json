@@ -1,0 +1,21 @@
+{
+  "slug": "strokeJoin",
+  "name": "strokeJoin()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the style of the joints which connect line segments. Options: MITER, BEVEL, ROUND.",
+  "syntax": "void strokeJoin(int join)",
+  "params": [
+    {
+      "name": "join",
+      "type": "int",
+      "desc": "MITER, BEVEL, or ROUND"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "stroke",
+    "strokeCap",
+    "strokeWeight"
+  ]
+}

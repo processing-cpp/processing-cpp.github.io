@@ -1,0 +1,15 @@
+{
+  "slug": "mouseY",
+  "name": "mouseY",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "The system variable mouseY always contains the current vertical position of the mouse.",
+  "syntax": "mouseY",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "mouseX",
+    "pmouseY",
+    "mousePressed_var"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "millis",
+  "name": "millis()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the number of milliseconds since the sketch started.",
+  "syntax": "unsigned long millis()",
+  "params": [],
+  "returns": "unsigned long",
+  "related": [
+    "second",
+    "minute",
+    "hour",
+    "frameCount"
+  ]
+}

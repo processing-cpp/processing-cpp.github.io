@@ -1,0 +1,25 @@
+{
+  "slug": "saveStrings",
+  "name": "saveStrings()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Writes an array of strings to a file, one per line.",
+  "syntax": "bool saveStrings(std::string path, std::vector<std::string> lines)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "lines",
+      "type": "std::vector<std::string>",
+      "desc": "strings to write"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadStrings",
+    "saveBytes"
+  ]
+}

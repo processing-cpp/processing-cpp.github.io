@@ -1,0 +1,14 @@
+{
+  "slug": "height",
+  "name": "height",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the height of the display window as set by size().",
+  "syntax": "height",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "width",
+    "size"
+  ]
+}

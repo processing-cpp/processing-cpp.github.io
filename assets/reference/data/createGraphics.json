@@ -1,0 +1,25 @@
+{
+  "slug": "createGraphics",
+  "name": "createGraphics()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Creates an off-screen rendering surface (PGraphics). Draw into it using beginDraw()/endDraw(), then display with image().",
+  "syntax": "PGraphics* createGraphics(int w, int h)",
+  "params": [
+    {
+      "name": "w",
+      "type": "int",
+      "desc": "width of the graphics buffer"
+    },
+    {
+      "name": "h",
+      "type": "int",
+      "desc": "height of the graphics buffer"
+    }
+  ],
+  "returns": "PGraphics*",
+  "related": [
+    "PGraphics_class",
+    "image"
+  ]
+}

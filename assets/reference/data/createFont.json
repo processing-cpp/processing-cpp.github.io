@@ -1,0 +1,30 @@
+{
+  "slug": "createFont",
+  "name": "createFont()",
+  "cat": "Typography",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Creates a PFont from a system font name and size.",
+  "syntax": "PFont* createFont(std::string name, float size, bool smooth)",
+  "params": [
+    {
+      "name": "name",
+      "type": "std::string",
+      "desc": "font name"
+    },
+    {
+      "name": "size",
+      "type": "float",
+      "desc": "font size"
+    },
+    {
+      "name": "smooth",
+      "type": "bool",
+      "desc": "whether to anti-alias (default true)"
+    }
+  ],
+  "returns": "PFont*",
+  "related": [
+    "loadFont",
+    "textFont"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "pushStyle",
+  "name": "pushStyle()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Saves the current style settings (fill, stroke, font, etc.) onto a stack.",
+  "syntax": "void pushStyle()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "popStyle",
+    "push",
+    "pop"
+  ]
+}

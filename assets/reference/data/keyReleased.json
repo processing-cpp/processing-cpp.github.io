@@ -1,0 +1,14 @@
+{
+  "slug": "keyReleased",
+  "name": "keyReleased()",
+  "cat": "Input",
+  "subcat": "Keyboard",
+  "desc": "Called once every time a key is released.",
+  "syntax": "void keyReleased()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "keyPressed_fn",
+    "key"
+  ]
+}

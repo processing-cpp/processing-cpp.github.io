@@ -1,0 +1,19 @@
+{
+  "slug": "textMode",
+  "name": "textMode()",
+  "cat": "Typography",
+  "subcat": "Attributes",
+  "desc": "Sets the way text draws to the screen, either as texture maps or as vector geometry.",
+  "syntax": "void textMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "MODEL or SHAPE"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "text"
+  ]
+}

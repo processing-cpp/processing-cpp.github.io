@@ -1,0 +1,30 @@
+{
+  "slug": "splice",
+  "name": "splice()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Inserts a value or vector of values into an existing vector at the given index.",
+  "syntax": "std::vector<T> splice(std::vector<T> arr, T val, int i)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the source vector"
+    },
+    {
+      "name": "val",
+      "type": "T",
+      "desc": "value to insert"
+    },
+    {
+      "name": "i",
+      "type": "int",
+      "desc": "position to insert at"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "concat",
+    "append"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "slug": "textFont",
+  "name": "textFont()",
+  "cat": "Typography",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Sets the current font for text rendering.",
+  "syntax": "void textFont(const PFont& font)\nvoid textFont(const PFont& font, float size)",
+  "params": [
+    {
+      "name": "font",
+      "type": "PFont",
+      "desc": "a PFont object"
+    },
+    {
+      "name": "size",
+      "type": "float",
+      "desc": "font size (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "loadFont",
+    "createFont",
+    "text"
+  ]
+}

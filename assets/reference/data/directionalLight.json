@@ -1,0 +1,47 @@
+{
+  "slug": "directionalLight",
+  "name": "directionalLight()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Adds a directional light. Comes uniformly from one direction, like sunlight.",
+  "syntax": "void directionalLight(float r, float g, float b, float nx, float ny, float nz)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "nx",
+      "type": "float",
+      "desc": "x direction"
+    },
+    {
+      "name": "ny",
+      "type": "float",
+      "desc": "y direction"
+    },
+    {
+      "name": "nz",
+      "type": "float",
+      "desc": "z direction"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "ambientLight",
+    "pointLight",
+    "spotLight"
+  ]
+}

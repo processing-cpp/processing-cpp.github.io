@@ -1,0 +1,21 @@
+{
+  "slug": "asin",
+  "name": "asin()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "The inverse of sin, returns the arc sine of a value.",
+  "syntax": "float asin(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "value between -1 and 1"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sin",
+    "acos",
+    "atan"
+  ]
+}

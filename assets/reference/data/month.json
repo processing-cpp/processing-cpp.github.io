@@ -1,0 +1,14 @@
+{
+  "slug": "month",
+  "name": "month()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current month as a value from 1 to 12.",
+  "syntax": "int month()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "day",
+    "year"
+  ]
+}

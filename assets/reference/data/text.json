@@ -1,0 +1,41 @@
+{
+  "slug": "text",
+  "name": "text()",
+  "cat": "Typography",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Draws text to the screen. With a bounding box (x, y, w, h), text wraps automatically.",
+  "syntax": "void text(std::string str, float x, float y)\nvoid text(std::string str, float x, float y, float w, float h)",
+  "params": [
+    {
+      "name": "str",
+      "type": "std::string",
+      "desc": "the string to display"
+    },
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width of text box (optional)"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height of text box (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "textSize",
+    "textFont",
+    "textAlign"
+  ]
+}

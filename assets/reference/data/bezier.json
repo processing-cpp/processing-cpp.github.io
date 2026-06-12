@@ -1,0 +1,55 @@
+{
+  "slug": "bezier",
+  "name": "bezier()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Draws a cubic bezier curve on the screen.",
+  "syntax": "void bezier(float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2)",
+  "params": [
+    {
+      "name": "x1",
+      "type": "float",
+      "desc": "x of start point"
+    },
+    {
+      "name": "y1",
+      "type": "float",
+      "desc": "y of start point"
+    },
+    {
+      "name": "cx1",
+      "type": "float",
+      "desc": "x of first control point"
+    },
+    {
+      "name": "cy1",
+      "type": "float",
+      "desc": "y of first control point"
+    },
+    {
+      "name": "cx2",
+      "type": "float",
+      "desc": "x of second control point"
+    },
+    {
+      "name": "cy2",
+      "type": "float",
+      "desc": "y of second control point"
+    },
+    {
+      "name": "x2",
+      "type": "float",
+      "desc": "x of end point"
+    },
+    {
+      "name": "y2",
+      "type": "float",
+      "desc": "y of end point"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "bezierVertex",
+    "curve"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "loadPixels",
+  "name": "loadPixels()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Loads the pixel data for the display window into the pixels[] array.",
+  "syntax": "void loadPixels()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "updatePixels",
+    "pixels",
+    "get",
+    "set"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "background",
+  "name": "background()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the color used for the background of the Processing window. Called in draw() to clear the canvas each frame.",
+  "syntax": "void background(float gray)\nvoid background(float gray, float a)\nvoid background(float r, float g, float b)\nvoid background(float r, float g, float b, float a)\nvoid background(color c)\nvoid background(const PImage& img)",
+  "params": [
+    {
+      "name": "gray",
+      "type": "float",
+      "desc": "grayscale value (0-255)"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "alpha (optional)"
+    },
+    {
+      "name": "img",
+      "type": "PImage",
+      "desc": "image to use as background"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "fill",
+    "stroke"
+  ]
+}

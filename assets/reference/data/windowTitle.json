@@ -1,0 +1,17 @@
+{
+  "slug": "windowTitle",
+  "name": "windowTitle()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Sets the title of the sketch window.",
+  "syntax": "void windowTitle(std::string t)",
+  "params": [
+    {
+      "name": "t",
+      "type": "std::string",
+      "desc": "the title string"
+    }
+  ],
+  "returns": "void",
+  "related": []
+}

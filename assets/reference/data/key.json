@@ -1,0 +1,15 @@
+{
+  "slug": "key",
+  "name": "key",
+  "cat": "Input",
+  "subcat": "Keyboard",
+  "desc": "The system variable key always contains the value of the most recently pressed key. For special keys, key == CODED and you must use keyCode.",
+  "syntax": "key",
+  "params": [],
+  "returns": "char",
+  "related": [
+    "keyCode",
+    "keyPressed_var",
+    "keyPressed_fn"
+  ]
+}

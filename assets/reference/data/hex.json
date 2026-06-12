@@ -1,0 +1,25 @@
+{
+  "slug": "hex",
+  "name": "hex()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Converts an integer to a hexadecimal string.",
+  "syntax": "std::string hex(int v)\nstd::string hex(int v, int digits)",
+  "params": [
+    {
+      "name": "v",
+      "type": "int",
+      "desc": "value to convert"
+    },
+    {
+      "name": "digits",
+      "type": "int",
+      "desc": "number of digits (optional)"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "unhex",
+    "binary"
+  ]
+}

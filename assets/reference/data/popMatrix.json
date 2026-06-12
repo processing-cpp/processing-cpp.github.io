@@ -1,0 +1,15 @@
+{
+  "slug": "popMatrix",
+  "name": "popMatrix()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Pops the current transformation matrix off the matrix stack.",
+  "syntax": "void popMatrix()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "pushMatrix",
+    "push",
+    "pop"
+  ]
+}

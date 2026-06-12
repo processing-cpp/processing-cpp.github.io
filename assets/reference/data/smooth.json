@@ -1,0 +1,13 @@
+{
+  "slug": "smooth",
+  "name": "smooth()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Draws all geometry with smooth (anti-aliased) edges. Enabled by default.",
+  "syntax": "void smooth()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "noSmooth"
+  ]
+}

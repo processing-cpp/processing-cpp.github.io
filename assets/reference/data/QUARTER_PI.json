@@ -1,0 +1,14 @@
+{
+  "slug": "QUARTER_PI",
+  "name": "QUARTER_PI",
+  "cat": "Constants",
+  "subcat": "",
+  "desc": "QUARTER_PI is a mathematical constant with the value 0.7853982.",
+  "syntax": "QUARTER_PI",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "PI",
+    "HALF_PI"
+  ]
+}

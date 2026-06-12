@@ -1,0 +1,42 @@
+{
+  "slug": "vertex",
+  "name": "vertex()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Adds a vertex to a shape defined with beginShape().",
+  "syntax": "void vertex(float x, float y)\nvoid vertex(float x, float y, float z)\nvoid vertex(float x, float y, float u, float v)\nvoid vertex(float x, float y, float z, float u, float v)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z-coordinate (optional, 3D)"
+    },
+    {
+      "name": "u",
+      "type": "float",
+      "desc": "horizontal texture coordinate (optional)"
+    },
+    {
+      "name": "v",
+      "type": "float",
+      "desc": "vertical texture coordinate (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "beginShape",
+    "endShape",
+    "bezierVertex",
+    "curveVertex"
+  ]
+}

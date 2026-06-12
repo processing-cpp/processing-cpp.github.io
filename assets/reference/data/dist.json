@@ -1,0 +1,29 @@
+{
+  "slug": "dist",
+  "name": "dist()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the distance between two points. Supports 2D and 3D.",
+  "syntax": "float dist(float x1, float y1, float x2, float y2)\nfloat dist(float x1, float y1, float z1, float x2, float y2, float z2)",
+  "params": [
+    {
+      "name": "x1/y1",
+      "type": "float",
+      "desc": "x,y of the first point"
+    },
+    {
+      "name": "x2/y2",
+      "type": "float",
+      "desc": "x,y of the second point"
+    },
+    {
+      "name": "z1/z2",
+      "type": "float",
+      "desc": "z-coordinates (optional, 3D)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "mag"
+  ]
+}

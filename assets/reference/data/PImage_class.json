@@ -1,0 +1,57 @@
+{
+  "slug": "PImage_class",
+  "name": "PImage",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Datatype for storing and manipulating images. Load with loadImage() or create with createImage().",
+  "syntax": "PImage* img = loadImage(\"file.png\")\nPImage* img = createImage(w, h, ARGB)",
+  "params": [],
+  "returns": "PImage",
+  "related": [
+    "loadImage",
+    "createImage",
+    "image"
+  ],
+  "methods": [
+    {
+      "name": "pixels[]",
+      "desc": "Array of color values for the image"
+    },
+    {
+      "name": "width",
+      "desc": "Width of the image in pixels"
+    },
+    {
+      "name": "height",
+      "desc": "Height of the image in pixels"
+    },
+    {
+      "name": "loadPixels()",
+      "desc": "Load pixel data into pixels[]"
+    },
+    {
+      "name": "updatePixels()",
+      "desc": "Update image from pixels[]"
+    },
+    {
+      "name": "get(int x, int y)",
+      "desc": "Get pixel color at position"
+    },
+    {
+      "name": "set(int x, int y, color c)",
+      "desc": "Set pixel color at position"
+    },
+    {
+      "name": "resize(int w, int h)",
+      "desc": "Resize the image"
+    },
+    {
+      "name": "filter(int mode)",
+      "desc": "Apply an image filter"
+    },
+    {
+      "name": "mask(PImage m)",
+      "desc": "Apply an alpha mask"
+    }
+  ]
+}

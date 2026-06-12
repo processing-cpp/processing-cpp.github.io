@@ -1,0 +1,25 @@
+{
+  "slug": "textAlign",
+  "name": "textAlign()",
+  "cat": "Typography",
+  "subcat": "Attributes",
+  "desc": "Sets the alignment for drawing text. The first parameter can be LEFT, CENTER, or RIGHT. The second parameter (optional) can be TOP, BOTTOM, CENTER, or BASELINE.",
+  "syntax": "void textAlign(int alignX)\nvoid textAlign(int alignX, int alignY)",
+  "params": [
+    {
+      "name": "alignX",
+      "type": "int",
+      "desc": "LEFT, CENTER, or RIGHT"
+    },
+    {
+      "name": "alignY",
+      "type": "int",
+      "desc": "TOP, BOTTOM, CENTER, or BASELINE (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "text",
+    "textSize"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "mousePressed_var",
+  "name": "mousePressed",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Variable storing whether any mouse button is currently pressed.",
+  "syntax": "mousePressed",
+  "params": [],
+  "returns": "bool",
+  "related": [
+    "mouseX",
+    "mouseY",
+    "mousePressed_fn",
+    "mouseButton"
+  ]
+}

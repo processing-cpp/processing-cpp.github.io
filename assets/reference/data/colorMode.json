@@ -1,0 +1,46 @@
+{
+  "slug": "colorMode",
+  "name": "colorMode()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Changes the way Processing interprets color data. Default is RGB with range 0-255.",
+  "syntax": "void colorMode(int mode)\nvoid colorMode(int mode, float max)\nvoid colorMode(int mode, float mH, float mS, float mB, float mA)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "RGB or HSB"
+    },
+    {
+      "name": "max",
+      "type": "float",
+      "desc": "range for all channels (optional)"
+    },
+    {
+      "name": "mH",
+      "type": "float",
+      "desc": "range for hue"
+    },
+    {
+      "name": "mS",
+      "type": "float",
+      "desc": "range for saturation"
+    },
+    {
+      "name": "mB",
+      "type": "float",
+      "desc": "range for brightness"
+    },
+    {
+      "name": "mA",
+      "type": "float",
+      "desc": "range for alpha"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "fill",
+    "stroke",
+    "background"
+  ]
+}

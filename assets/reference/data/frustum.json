@@ -1,0 +1,45 @@
+{
+  "slug": "frustum",
+  "name": "frustum()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Sets a perspective matrix as defined by the parameters. An off-axis frustum.",
+  "syntax": "void frustum(float left, float right, float bottom, float top, float near, float far)",
+  "params": [
+    {
+      "name": "left",
+      "type": "float",
+      "desc": "left coordinate of the clipping plane"
+    },
+    {
+      "name": "right",
+      "type": "float",
+      "desc": "right coordinate"
+    },
+    {
+      "name": "bottom",
+      "type": "float",
+      "desc": "bottom coordinate"
+    },
+    {
+      "name": "top",
+      "type": "float",
+      "desc": "top coordinate"
+    },
+    {
+      "name": "near",
+      "type": "float",
+      "desc": "near z-plane"
+    },
+    {
+      "name": "far",
+      "type": "float",
+      "desc": "far z-plane"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "perspective",
+    "ortho"
+  ]
+}

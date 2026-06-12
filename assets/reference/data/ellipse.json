@@ -1,0 +1,36 @@
+{
+  "slug": "ellipse",
+  "name": "ellipse()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws an ellipse (oval) to the screen. The first two parameters set the location, and the third and fourth parameters set the width and height.",
+  "syntax": "void ellipse(float cx, float cy, float w, float h)",
+  "params": [
+    {
+      "name": "cx",
+      "type": "float",
+      "desc": "x-coordinate of the center"
+    },
+    {
+      "name": "cy",
+      "type": "float",
+      "desc": "y-coordinate of the center"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width of the ellipse"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height of the ellipse"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "circle",
+    "arc",
+    "ellipseMode"
+  ]
+}

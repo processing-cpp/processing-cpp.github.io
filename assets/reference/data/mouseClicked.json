@@ -1,0 +1,14 @@
+{
+  "slug": "mouseClicked",
+  "name": "mouseClicked()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called after a mouse button is pressed and released.",
+  "syntax": "void mouseClicked()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "mousePressed_fn",
+    "mouseReleased"
+  ]
+}

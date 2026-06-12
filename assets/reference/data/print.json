@@ -1,0 +1,19 @@
+{
+  "slug": "print",
+  "name": "print()",
+  "cat": "Output",
+  "subcat": "Text_Area",
+  "desc": "Writes to the console. Does not add a newline. Accepts any type.",
+  "syntax": "void print(T v)",
+  "params": [
+    {
+      "name": "v",
+      "type": "any",
+      "desc": "the value to print"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "println"
+  ]
+}

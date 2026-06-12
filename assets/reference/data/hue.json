@@ -1,0 +1,21 @@
+{
+  "slug": "hue",
+  "name": "hue()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Extracts the hue value from a color (HSB mode).",
+  "syntax": "float hue(color c)",
+  "params": [
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "any color value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "saturation",
+    "brightness",
+    "colorMode"
+  ]
+}

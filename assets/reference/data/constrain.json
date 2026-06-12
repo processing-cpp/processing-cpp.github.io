@@ -1,0 +1,31 @@
+{
+  "slug": "constrain",
+  "name": "constrain()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Constrains a value to not exceed a maximum and minimum value.",
+  "syntax": "float constrain(float v, float lo, float hi)",
+  "params": [
+    {
+      "name": "v",
+      "type": "float",
+      "desc": "the value to constrain"
+    },
+    {
+      "name": "lo",
+      "type": "float",
+      "desc": "minimum limit"
+    },
+    {
+      "name": "hi",
+      "type": "float",
+      "desc": "maximum limit"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "min",
+    "max",
+    "map"
+  ]
+}

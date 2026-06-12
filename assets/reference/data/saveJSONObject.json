@@ -1,0 +1,30 @@
+{
+  "slug": "saveJSONObject",
+  "name": "saveJSONObject()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Saves a JSONValue to a file as formatted JSON.",
+  "syntax": "bool saveJSONObject(std::string path, JSONValue v, int indent)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "v",
+      "type": "JSONValue",
+      "desc": "the JSON value"
+    },
+    {
+      "name": "indent",
+      "type": "int",
+      "desc": "indentation spaces (default 2)"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadJSONObject",
+    "saveJSONArray"
+  ]
+}

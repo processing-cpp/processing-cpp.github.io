@@ -1,0 +1,20 @@
+{
+  "slug": "loadStrings",
+  "name": "loadStrings()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Reads the contents of a file and creates a vector of strings, one per line.",
+  "syntax": "std::vector<std::string> loadStrings(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    }
+  ],
+  "returns": "std::vector<std::string>",
+  "related": [
+    "saveStrings",
+    "loadBytes"
+  ]
+}

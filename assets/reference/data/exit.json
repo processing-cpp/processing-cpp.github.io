@@ -1,0 +1,13 @@
+{
+  "slug": "exit",
+  "name": "exit()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Quits the sketch. Internally calls exit_sketch().",
+  "syntax": "void exit()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "setup"
+  ]
+}

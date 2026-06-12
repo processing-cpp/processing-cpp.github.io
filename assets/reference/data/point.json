@@ -1,0 +1,29 @@
+{
+  "slug": "point",
+  "name": "point()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a point at the given coordinates.",
+  "syntax": "void point(float x, float y)\nvoid point(float x, float y, float z)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z-coordinate (optional, 3D)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "line"
+  ]
+}

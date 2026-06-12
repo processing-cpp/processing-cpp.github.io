@@ -1,0 +1,14 @@
+{
+  "slug": "deltaTime",
+  "name": "deltaTime",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Seconds elapsed since the last frame. Useful for frame-rate-independent animation.",
+  "syntax": "deltaTime",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "frameRate_var",
+    "millis"
+  ]
+}

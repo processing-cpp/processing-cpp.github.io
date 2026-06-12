@@ -1,0 +1,21 @@
+{
+  "slug": "str",
+  "name": "str()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Converts an int, float, bool, or char to a std::string.",
+  "syntax": "std::string str(int v)\nstd::string str(float v)\nstd::string str(bool v)\nstd::string str(char v)",
+  "params": [
+    {
+      "name": "v",
+      "type": "any",
+      "desc": "value to convert"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "trim",
+    "split",
+    "join"
+  ]
+}

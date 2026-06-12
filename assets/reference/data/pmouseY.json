@@ -1,0 +1,14 @@
+{
+  "slug": "pmouseY",
+  "name": "pmouseY",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "The vertical position of the mouse in the previous frame.",
+  "syntax": "pmouseY",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "pmouseX",
+    "mouseY"
+  ]
+}

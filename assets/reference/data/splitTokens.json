@@ -1,0 +1,25 @@
+{
+  "slug": "splitTokens",
+  "name": "splitTokens()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Splits a string into substrings using any character in the delimiters string.",
+  "syntax": "std::vector<std::string> splitTokens(std::string s, std::string delims)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "the string to split"
+    },
+    {
+      "name": "delims",
+      "type": "std::string",
+      "desc": "string of delimiter characters"
+    }
+  ],
+  "returns": "std::vector<std::string>",
+  "related": [
+    "split",
+    "join"
+  ]
+}

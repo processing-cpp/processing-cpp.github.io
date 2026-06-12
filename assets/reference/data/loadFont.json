@@ -1,0 +1,20 @@
+{
+  "slug": "loadFont",
+  "name": "loadFont()",
+  "cat": "Typography",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Loads a font from the sketch's data folder. Supports .ttf and .otf files.",
+  "syntax": "PFont loadFont(std::string filename)",
+  "params": [
+    {
+      "name": "filename",
+      "type": "std::string",
+      "desc": "name of the font file"
+    }
+  ],
+  "returns": "PFont",
+  "related": [
+    "textFont",
+    "createFont"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "brightness",
+  "name": "brightness()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Extracts the brightness value from a color (HSB mode).",
+  "syntax": "float brightness(color c)",
+  "params": [
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "any color value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "hue",
+    "saturation",
+    "colorMode"
+  ]
+}

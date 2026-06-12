@@ -1,0 +1,21 @@
+{
+  "slug": "createShape",
+  "name": "createShape()",
+  "cat": "Shape",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Creates a new PShape object. Optionally pass a kind constant.",
+  "syntax": "PShape createShape()\nPShape createShape(int kind)",
+  "params": [
+    {
+      "name": "kind",
+      "type": "int",
+      "desc": "shape kind (optional): POINTS, LINES, TRIANGLES, etc."
+    }
+  ],
+  "returns": "PShape",
+  "related": [
+    "loadShape",
+    "beginShape",
+    "PShape"
+  ]
+}

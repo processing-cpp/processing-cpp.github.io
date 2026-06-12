@@ -1,0 +1,20 @@
+{
+  "slug": "delay",
+  "name": "delay()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Halts the program for the specified number of milliseconds.",
+  "syntax": "void delay(int ms)",
+  "params": [
+    {
+      "name": "ms",
+      "type": "int",
+      "desc": "number of milliseconds to pause"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "millis",
+    "frameRate"
+  ]
+}

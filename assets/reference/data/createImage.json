@@ -1,0 +1,30 @@
+{
+  "slug": "createImage",
+  "name": "createImage()",
+  "cat": "Image",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Creates a new PImage (the datatype for storing images) with the given width and height.",
+  "syntax": "PImage* createImage(int w, int h, int mode)",
+  "params": [
+    {
+      "name": "w",
+      "type": "int",
+      "desc": "width in pixels"
+    },
+    {
+      "name": "h",
+      "type": "int",
+      "desc": "height in pixels"
+    },
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "ARGB or RGB"
+    }
+  ],
+  "returns": "PImage*",
+  "related": [
+    "loadImage",
+    "PImage"
+  ]
+}

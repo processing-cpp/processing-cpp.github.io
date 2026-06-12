@@ -1,0 +1,14 @@
+{
+  "slug": "resetShader",
+  "name": "resetShader()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Restores the default rendering pipeline, removing any applied shader.",
+  "syntax": "void resetShader()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "shader_fn",
+    "loadShader"
+  ]
+}

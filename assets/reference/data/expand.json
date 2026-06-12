@@ -1,0 +1,25 @@
+{
+  "slug": "expand",
+  "name": "expand()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Increases the size of a std::vector. With no second argument, doubles the size.",
+  "syntax": "std::vector<T> expand(std::vector<T> arr)\nstd::vector<T> expand(std::vector<T> arr, int n)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the vector to expand"
+    },
+    {
+      "name": "n",
+      "type": "int",
+      "desc": "new size (optional, default doubles)"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "append",
+    "shorten"
+  ]
+}

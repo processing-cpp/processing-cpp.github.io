@@ -1,0 +1,13 @@
+{
+  "slug": "noTint",
+  "name": "noTint()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Removes the current fill value for displaying images.",
+  "syntax": "void noTint()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "tint"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "quadraticVertex",
+  "name": "quadraticVertex()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Specifies a vertex with a single control point for quadratic bezier curves.",
+  "syntax": "void quadraticVertex(float cx, float cy, float x, float y)",
+  "params": [
+    {
+      "name": "cx",
+      "type": "float",
+      "desc": "x of control point"
+    },
+    {
+      "name": "cy",
+      "type": "float",
+      "desc": "y of control point"
+    },
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x of anchor point"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y of anchor point"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "bezierVertex",
+    "vertex"
+  ]
+}

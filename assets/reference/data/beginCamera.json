@@ -1,0 +1,14 @@
+{
+  "slug": "beginCamera",
+  "name": "beginCamera()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Opens a section of code that can include shapes to be rendered into the camera-space. Must be paired with endCamera().",
+  "syntax": "void beginCamera()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "endCamera",
+    "camera"
+  ]
+}

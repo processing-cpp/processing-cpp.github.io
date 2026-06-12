@@ -1,0 +1,15 @@
+{
+  "slug": "mousePressed_fn",
+  "name": "mousePressed()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called once after every time a mouse button is pressed.",
+  "syntax": "void mousePressed()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "mouseReleased",
+    "mouseClicked",
+    "mousePressed_var"
+  ]
+}

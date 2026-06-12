@@ -1,0 +1,19 @@
+{
+  "slug": "windowResizable",
+  "name": "windowResizable()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Makes the window resizable by the user.",
+  "syntax": "void windowResizable(bool r)",
+  "params": [
+    {
+      "name": "r",
+      "type": "bool",
+      "desc": "true to allow resizing"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "windowResize"
+  ]
+}

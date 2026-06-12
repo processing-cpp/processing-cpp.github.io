@@ -1,0 +1,20 @@
+{
+  "slug": "round",
+  "name": "round()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the integer closest to the parameter.",
+  "syntax": "float round(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "number to round"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "floor",
+    "ceil"
+  ]
+}

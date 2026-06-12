@@ -1,0 +1,30 @@
+{
+  "slug": "lerpColor",
+  "name": "lerpColor()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Calculates a color between two colors at a specific increment.",
+  "syntax": "color lerpColor(color c1, color c2, float t)",
+  "params": [
+    {
+      "name": "c1",
+      "type": "color",
+      "desc": "interpolate from this color"
+    },
+    {
+      "name": "c2",
+      "type": "color",
+      "desc": "interpolate to this color"
+    },
+    {
+      "name": "t",
+      "type": "float",
+      "desc": "between 0.0 and 1.0"
+    }
+  ],
+  "returns": "color",
+  "related": [
+    "lerp",
+    "color_fn"
+  ]
+}

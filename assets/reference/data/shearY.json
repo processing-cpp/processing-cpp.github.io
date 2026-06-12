@@ -1,0 +1,20 @@
+{
+  "slug": "shearY",
+  "name": "shearY()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Shears a shape around the y-axis the amount specified by the angle parameter.",
+  "syntax": "void shearY(float angle)",
+  "params": [
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "angle in radians"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "shearX",
+    "translate"
+  ]
+}

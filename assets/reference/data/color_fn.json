@@ -1,0 +1,41 @@
+{
+  "slug": "color_fn",
+  "name": "color()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Creates colors for storing in variables. Respects the current colorMode.",
+  "syntax": "color color(float gray)\ncolor color(float gray, float a)\ncolor color(float r, float g, float b)\ncolor color(float r, float g, float b, float a)",
+  "params": [
+    {
+      "name": "gray",
+      "type": "float",
+      "desc": "grayscale value"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "alpha (optional)"
+    }
+  ],
+  "returns": "color",
+  "related": [
+    "fill",
+    "stroke",
+    "lerpColor"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "sphereDetail",
+  "name": "sphereDetail()",
+  "cat": "Shape",
+  "subcat": "3D_Primitives",
+  "desc": "Controls the detail used to render a sphere by adjusting the number of vertices.",
+  "syntax": "void sphereDetail(int res)",
+  "params": [
+    {
+      "name": "res",
+      "type": "int",
+      "desc": "number of segments (higher = smoother)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "sphere"
+  ]
+}

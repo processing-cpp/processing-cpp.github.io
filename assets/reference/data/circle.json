@@ -1,0 +1,30 @@
+{
+  "slug": "circle",
+  "name": "circle()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a circle to the screen. By default, the first two parameters set the location of the center, and the third sets the shape's diameter.",
+  "syntax": "void circle(float cx, float cy, float d)",
+  "params": [
+    {
+      "name": "cx",
+      "type": "float",
+      "desc": "x-coordinate of the center"
+    },
+    {
+      "name": "cy",
+      "type": "float",
+      "desc": "y-coordinate of the center"
+    },
+    {
+      "name": "d",
+      "type": "float",
+      "desc": "diameter of the circle"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "ellipse",
+    "arc"
+  ]
+}

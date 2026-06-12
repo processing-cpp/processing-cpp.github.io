@@ -1,0 +1,50 @@
+{
+  "slug": "arc",
+  "name": "arc()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws an arc in the display window. Angles are given in radians.",
+  "syntax": "void arc(float cx, float cy, float w, float h, float start, float stop)\nvoid arc(float cx, float cy, float w, float h, float start, float stop, int mode)",
+  "params": [
+    {
+      "name": "cx",
+      "type": "float",
+      "desc": "x-coordinate of the center"
+    },
+    {
+      "name": "cy",
+      "type": "float",
+      "desc": "y-coordinate of the center"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width of the arc"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height of the arc"
+    },
+    {
+      "name": "start",
+      "type": "float",
+      "desc": "angle to start the arc (radians)"
+    },
+    {
+      "name": "stop",
+      "type": "float",
+      "desc": "angle to stop the arc (radians)"
+    },
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "OPEN, CHORD, or PIE (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "ellipse",
+    "ellipseMode"
+  ]
+}

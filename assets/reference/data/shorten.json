@@ -1,0 +1,20 @@
+{
+  "slug": "shorten",
+  "name": "shorten()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Decreases a std::vector by one element. Removes the last element.",
+  "syntax": "std::vector<T> shorten(std::vector<T> arr)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the vector to shorten"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "append",
+    "expand"
+  ]
+}

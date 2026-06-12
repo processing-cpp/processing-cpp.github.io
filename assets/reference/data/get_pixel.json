@@ -1,0 +1,25 @@
+{
+  "slug": "get_pixel",
+  "name": "get()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Reads the color of any pixel or grabs a section of a PImage.",
+  "syntax": "color get(int x, int y)",
+  "params": [
+    {
+      "name": "x",
+      "type": "int",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "int",
+      "desc": "y-coordinate"
+    }
+  ],
+  "returns": "color",
+  "related": [
+    "set_pixel",
+    "loadPixels"
+  ]
+}

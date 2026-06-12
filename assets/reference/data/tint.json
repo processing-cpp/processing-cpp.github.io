@@ -1,0 +1,40 @@
+{
+  "slug": "tint",
+  "name": "tint()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the fill value for displaying images. Images can be tinted to specified colors.",
+  "syntax": "void tint(float gray)\nvoid tint(float gray, float a)\nvoid tint(float r, float g, float b)\nvoid tint(float r, float g, float b, float a)",
+  "params": [
+    {
+      "name": "gray",
+      "type": "float",
+      "desc": "grayscale value"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "alpha (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noTint",
+    "image"
+  ]
+}

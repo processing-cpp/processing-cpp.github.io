@@ -1,0 +1,21 @@
+{
+  "slug": "loadImage",
+  "name": "loadImage()",
+  "cat": "Image",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Loads an image into a variable of type PImage. Supported formats: PNG, JPG, GIF, TGA. Images are loaded from the sketch's data folder.",
+  "syntax": "PImage* loadImage(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the image file"
+    }
+  ],
+  "returns": "PImage*",
+  "related": [
+    "image",
+    "createImage",
+    "PImage"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "curveTightness",
+  "name": "curveTightness()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Modifies the quality of curves drawn with curve(). Default is 0.",
+  "syntax": "void curveTightness(float t)",
+  "params": [
+    {
+      "name": "t",
+      "type": "float",
+      "desc": "amount of deformation from the original vertices"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "curve",
+    "curveDetail"
+  ]
+}

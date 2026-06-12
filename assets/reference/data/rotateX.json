@@ -1,0 +1,21 @@
+{
+  "slug": "rotateX",
+  "name": "rotateX()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Rotates around the x-axis. Use in P3D mode.",
+  "syntax": "void rotateX(float angle)",
+  "params": [
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "angle in radians"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "rotate",
+    "rotateY",
+    "rotateZ"
+  ]
+}

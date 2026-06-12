@@ -1,0 +1,30 @@
+{
+  "slug": "set_pixel",
+  "name": "set()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Changes the color of any pixel or writes an image directly to the display window.",
+  "syntax": "void set(int x, int y, color c)",
+  "params": [
+    {
+      "name": "x",
+      "type": "int",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "int",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "color value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "get_pixel",
+    "loadPixels"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "loadBytes",
+  "name": "loadBytes()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Reads the contents of a file into a vector of bytes.",
+  "syntax": "std::vector<unsigned char> loadBytes(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    }
+  ],
+  "returns": "std::vector<unsigned char>",
+  "related": [
+    "saveBytes",
+    "loadStrings"
+  ]
+}
