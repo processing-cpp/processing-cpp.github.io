@@ -86,27 +86,32 @@
     <style>*{margin:0;padding:0;}body{overflow:hidden;}</style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script>
     </head><body>
-    <script>int barWidth = 20;
-int lastBar = -1;
+    <script>let barWidth = 20;
+let lastBar = -1;
 
-void setup() {
-    size(640, 360);
-    colorMode(HSB, width, 100, height);
-    noStroke();
-    background(0);
+function setup() {
+  createCanvas(640, 360);
+
+  // HSB: hue ranges from 0 to width,
+  // saturation from 0 to 100,
+  // brightness from 0 to height
+  colorMode(HSB, width, 100, height);
+
+  noStroke();
+  background(0);
 }
 
-void draw() {
-    int whichBar = mouseX / barWidth;
+function draw() {
+  let whichBar = floor(mouseX / barWidth);
 
-    if (whichBar != lastBar) {
-        int barX = whichBar * barWidth;
+  if (whichBar !== lastBar) {
+    let barX = whichBar * barWidth;
 
-        fill(barX, 100, mouseY);
-        rect(barX, 0, barWidth, height);
+    fill(barX, 100, mouseY);
+    rect(barX, 0, barWidth, height);
 
-        lastBar = whichBar;
-    }
+    lastBar = whichBar;
+  }
 }<\/script>
     </body></html>`);
   doc.close();
@@ -145,7 +150,6 @@ void draw() {
 </div>
 <footer><p>C++ Mode for Processing</p></footer>
 <script>
-
 function copyCode() {
   navigator.clipboard.writeText(document.getElementById('code-pre').innerText).then(() => {
     const btn = document.querySelector('.copy-btn');
@@ -160,7 +164,6 @@ function toggleSection(name) {
   sec.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '▸' : '▾';
 }
-
 </script>
 <script src="../assets/nav.js"></script>
 </body>
