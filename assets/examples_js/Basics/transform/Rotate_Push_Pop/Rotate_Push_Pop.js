@@ -9,13 +9,15 @@ function setup() {
 
 function draw() {
   background(0, 0, 26);
-  lights();
+  ambientLight(60);
+  directionalLight(255, 255, 255, 0, 0, -1);
   for (let i = 0; i < num; i++) {
     let gray = map(i, 0, num - 1, 0, 255);
     push();
     fill(gray);
     rotateY(a + offset * i);
     rotateX(a / 2 + offset * i);
+    translate(0, 0, -50 * i);
     box(100);
     pop();
   }
