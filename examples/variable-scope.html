@@ -97,21 +97,18 @@ function setup() {
 
 function draw() {
   line(a, 0, a, height);
-
-  for (let a = 120; a < 200; a += 2) {
-    line(a, 0, a, height);
+  for (let i = 120; i < 200; i += 2) {
+    line(i, 0, i, height);
   }
-
-  let a = 300;
-  line(a, 0, a, height);
-
+  let b = 300;
+  line(b, 0, b, height);
   drawAnotherLine();
   drawYetAnotherLine();
 }
 
 function drawAnotherLine() {
-  let a = 320;
-  line(a, 0, a, height);
+  let c = 320;
+  line(c, 0, c, height);
 }
 
 function drawYetAnotherLine() {
