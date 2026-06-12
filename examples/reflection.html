@@ -71,20 +71,16 @@
 <script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
   createCanvas(640, 360, WEBGL);
   noStroke();
-  colorMode(RGB, 1);
-  fill(0.4);
 }
 
 function draw() {
-  background(0);
-
-  lightSpecular(1.0, 1.0, 1.0);
-  directionalLight(0.8, 0.8, 0.8, 0, 0, -1);
-
+  background(30);
   let s = mouseX / width;
-
-  specular(s, s, s);
-
+  ambientLight(60);
+  directionalLight(200, 200, 200, 0, 0, -1);
+  specularMaterial(255 * s, 255 * s, 255 * s);
+  shininess(100);
+  fill(100, 100, 100);
   sphere(120);
 }<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">

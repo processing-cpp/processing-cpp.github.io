@@ -1,19 +1,15 @@
 function setup() {
   createCanvas(640, 360, WEBGL);
   noStroke();
-  colorMode(RGB, 1);
-  fill(0.4);
 }
 
 function draw() {
-  background(0);
-
-  lightSpecular(1.0, 1.0, 1.0);
-  directionalLight(0.8, 0.8, 0.8, 0, 0, -1);
-
+  background(30);
   let s = mouseX / width;
-
-  specular(s, s, s);
-
+  ambientLight(60);
+  directionalLight(200, 200, 200, 0, 0, -1);
+  specularMaterial(255 * s, 255 * s, 255 * s);
+  shininess(100);
+  fill(100, 100, 100);
   sphere(120);
 }
