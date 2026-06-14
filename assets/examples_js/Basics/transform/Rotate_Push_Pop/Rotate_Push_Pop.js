@@ -9,8 +9,9 @@ function setup() {
 
 function draw() {
   background(0, 0, 26);
-  ambientLight(100);
-  directionalLight(255, 255, 255, 0.5, 0.5, -1);
+  pointLight(255, 255, 255, 0, 0, 300);
+  pointLight(180, 180, 180, 0, 0, -300);
+  ambientLight(80);
   for (let i = 0; i < num; i++) {
     let gray = map(i, 0, num - 1, 0, 255);
     push();
