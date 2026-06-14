@@ -1,0 +1,15 @@
+{
+  "slug": "releaseMouse",
+  "name": "releaseMouse()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Unlocks the cursor from the window and restores normal OS cursor behavior. Call after captureMouse() when the player opens a menu or pauses.",
+  "syntax": "void releaseMouse()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "captureMouse",
+    "mouseDX",
+    "mouseDY"
+  ]
+}

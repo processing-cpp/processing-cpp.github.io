@@ -1,0 +1,15 @@
+{
+  "slug": "mouseDY",
+  "name": "mouseDY",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Accumulated vertical mouse delta since the last frame. Updated on every raw cursor event, reset to 0 after draw(). Use this instead of mouseY-pmouseY for high-frequency input like FPS camera control.",
+  "syntax": "mouseDY",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "mouseDX",
+    "mouseY",
+    "pmouseY"
+  ]
+}

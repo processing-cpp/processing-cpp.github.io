@@ -1,0 +1,15 @@
+{
+  "slug": "captureMouse",
+  "name": "captureMouse()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Locks the cursor to the window and enables raw mouse input, removing OS acceleration. Essential for FPS-style games. Use releaseMouse() to unlock.",
+  "syntax": "void captureMouse()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "releaseMouse",
+    "mouseDX",
+    "mouseDY"
+  ]
+}
