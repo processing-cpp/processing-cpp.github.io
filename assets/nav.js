@@ -1,12 +1,10 @@
 (function() {
   const path = window.location.pathname;
-  const isRoot = path === '/' || path === '/index.html';
+  const isRoot = path === '/' || path.endsWith('/index.html') && path.split('/').length <= 2;
   const parts = path.replace(/\/$/, '').split('/').filter(Boolean);
   const prefix = (isRoot || parts.length === 0) ? '/' : '../';
 
-  function isActive(name) {
-    return path.includes('/' + name);
-  }
+  function isActive(name) { return path.includes('/' + name); }
 
   function link(name, label) {
     const active = isActive(name) ? ' class="active"' : '';
@@ -35,4 +33,9 @@
       ${link('about', 'About')}
     `;
   }
+
+  // Load search
+  const script = document.createElement('script');
+  script.src = prefix + 'assets/search.js';
+  document.head.appendChild(script);
 })();
