@@ -1,10 +1,10 @@
 {
   "slug": "keyPressed_var",
-  "name": "keyPressed",
+  "name": "_keyPressed",
   "cat": "Input",
   "subcat": "Keyboard",
   "desc": "The boolean system variable keyPressed is true if any key is pressed.",
-  "syntax": "keyPressed",
+  "syntax": "_keyPressed",
   "params": [],
   "returns": "bool",
   "related": [
