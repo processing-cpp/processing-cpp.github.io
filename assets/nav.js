@@ -1,11 +1,11 @@
 (function() {
+  const SITE = 'https://processing-cpp.github.io';
   const path = window.location.pathname;
-  const isRoot = path === '/' || path.endsWith('/index.html') && path.split('/').length <= 2;
   const parts = path.replace(/\/$/, '').split('/').filter(Boolean);
-  const prefix = (isRoot || parts.length === 0) ? '/' : '../';
+  const isRoot = parts.length === 0 || (parts.length === 1 && parts[0] === 'index.html');
+  const prefix = isRoot ? '/' : '../';
 
   function isActive(name) { return path.includes('/' + name); }
-
   function link(name, label) {
     const active = isActive(name) ? ' class="active"' : '';
     return `<a href="${prefix}${name}"${active}>${label}</a>`;
@@ -34,8 +34,10 @@
     `;
   }
 
-  // Load search
-  const script = document.createElement('script');
-  script.src = prefix + 'assets/search.js';
-  document.head.appendChild(script);
+  // Load search via absolute URL — works from any page depth
+  if (!document.getElementById('search-wrap')) {
+    const s = document.createElement('script');
+    s.src = SITE + '/assets/search.js';
+    document.head.appendChild(s);
+  }
 })();
