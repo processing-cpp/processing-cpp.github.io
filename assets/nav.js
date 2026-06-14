@@ -11,29 +11,23 @@
     return `<a href="${prefix}${name}"${active}>${label}</a>`;
   }
 
-  const logoHTML = `
-    <img src="${prefix}assets/cpp-logo.png" alt="C++ Mode">
-    <div class="nav-title">
-      <span class="nav-title-top">Processing</span>
-      <span class="nav-title-bottom">C++</span>
-    </div>
-  `;
-
   const nav = document.getElementById('site-nav');
   if (nav) {
-    const logoWrap = isRoot
-      ? `<div class="nav-logo">${logoHTML}</div>`
-      : `<a href="${prefix}" class="nav-logo">${logoHTML}</a>`;
     nav.innerHTML = `
-      ${logoWrap}
+      <a href="${SITE}" class="nav-logo">
+        <img src="${prefix}assets/cpp-logo.png" alt="Processing for C++">
+        <div class="nav-title">
+          <span class="nav-title-top">Processing</span>
+          <span class="nav-title-bottom">C++</span>
+        </div>
+      </a>
       <button class="hamburger" onclick="
-        document.querySelector('.sidebar-outer, .sidebar') &&
-        document.querySelector('.sidebar-outer, .sidebar').classList.toggle('open')
+        var s = document.querySelector('.sidebar-outer, .sidebar');
+        if(s) s.classList.toggle('open');
       ">☰</button>
     `;
   }
 
-  // Inject sidebar links into both #site-sidebar and .sidebar (main page)
   const sidebar = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
   if (sidebar) {
     sidebar.innerHTML = `
@@ -44,7 +38,6 @@
     `;
   }
 
-  // Inject shared nav styles
   if (!document.getElementById('nav-shared-style')) {
     const style = document.createElement('style');
     style.id = 'nav-shared-style';
@@ -65,19 +58,18 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #111;
         text-decoration: none;
       }
       .nav-logo img { width: 28px; height: 28px; }
       .nav-title {
         display: flex;
         flex-direction: column;
-        line-height: 1.1;
+        line-height: 1.15;
       }
       .nav-title-top {
         font-size: 13px;
-        font-weight: 600;
-        color: #111;
+        font-weight: 700;
+        color: #e8b400;
       }
       .nav-title-bottom {
         font-size: 13px;
@@ -100,7 +92,6 @@
     document.head.appendChild(style);
   }
 
-  // Load search via absolute URL
   if (!document.getElementById('search-wrap')) {
     const s = document.createElement('script');
     s.src = SITE + '/assets/search.js';
