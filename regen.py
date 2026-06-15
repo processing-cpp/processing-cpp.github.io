@@ -143,7 +143,7 @@ for cat, examples in data.items():
 </head>
 <body>
 <nav id="site-nav">
-  <a href="../" class="nav-logo"><img src="../assets/cpp-logo.png" alt="C++ Mode"><span>C++ Mode</span></a>
+  
   <button class="hamburger" onclick="document.querySelector('.sidebar-outer').classList.toggle('open')">☰</button>
 </nav>
 <div class="layout">
@@ -188,7 +188,7 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
 </head>
 <body>
 <nav id="site-nav">
-  <a href="/" class="nav-logo"><img src="../assets/cpp-logo.png" alt="C++ Mode"><span>C++ Mode</span></a>
+  
   <button class="hamburger" onclick="document.querySelector('.sidebar-outer').classList.toggle('open')">☰</button>
 </nav>
 <div class="layout">
