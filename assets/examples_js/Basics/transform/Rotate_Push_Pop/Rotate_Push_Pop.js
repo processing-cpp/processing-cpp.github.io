@@ -14,13 +14,16 @@ function draw() {
   directionalLight(255, 255, 255, 0, 0, -1);
   directionalLight(100, 100, 100, 0, 0, 1);
 
+  // Move camera closer — default WEBGL camera is too far
+  translate(0, 0, 150);
+
   for (let i = 0; i < num; i++) {
     let gray = map(i, 0, num - 1, 0, 255);
     push();
     fill(gray);
     rotateY(a + offset * i);
     rotateX(a / 2 + offset * i);
-    box(90);
+    box(150);
     pop();
   }
   a += 0.01;
