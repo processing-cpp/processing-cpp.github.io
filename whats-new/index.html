@@ -66,7 +66,7 @@
         <div class="wn-tag changed">Changed</div>
         <div class="wn-card-title">_mousePressed and _keyPressed</div>
         <div class="wn-card-body">
-          <p>In Processing Java, <code>mousePressed</code> is both a boolean variable (is the mouse held right now?) and an event callback function (called once on click). C++ does not allow a variable and a function to share the same name in the same scope, so the boolean variables are renamed with an underscore prefix to avoid the collision.</p>
+          <p>In Processing Java, <code>mousePressed</code> is both a boolean variable that tells you if the mouse is held right now, and an event callback function that fires once on click. C++ does not allow a variable and a function to share the same name in the same scope, so the boolean variables are renamed with an underscore prefix to avoid the collision.</p>
           <p>The event callbacks keep their original names unchanged. Only the state variables change.</p>
           <pre>// Check if mouse is currently held down:
 if (_mousePressed) { ... }
@@ -86,7 +86,7 @@ void keyReleased()  { ... }</pre>
         <div class="wn-tag removed">Replaced</div>
         <div class="wn-card-title">std::vector replaces IntList, FloatList, ArrayList</div>
         <div class="wn-card-body">
-          <p>Processing Java's typed list classes — <code>IntList</code>, <code>FloatList</code>, <code>StringList</code>, and <code>ArrayList</code> — are not available in C++ Mode. Use <code>std::vector</code> from the C++ Standard Library instead. It is faster, more flexible, works with any type including your own classes, and requires no imports.</p>
+          <p>Processing Java's typed list classes <code>IntList</code>, <code>FloatList</code>, <code>StringList</code>, and <code>ArrayList</code> are not available in C++ Mode. Use <code>std::vector</code> from the C++ Standard Library instead. It is faster, more flexible, works with any type including your own classes, and you do not need to import anything.</p>
           <pre>// Java Processing:
 IntList nums = new IntList();
 nums.append(42);
@@ -107,7 +107,7 @@ balls.push_back(Ball(x, y));</pre>
         <div class="wn-tag removed">Replaced</div>
         <div class="wn-card-title">std::map replaces IntDict, FloatDict, StringDict</div>
         <div class="wn-card-body">
-          <p>Processing Java's typed dictionary classes — <code>IntDict</code>, <code>FloatDict</code>, <code>StringDict</code> — are replaced by <code>std::map</code>. Keys are kept in sorted order. Works with any combination of key and value types.</p>
+          <p>Processing Java's typed dictionary classes <code>IntDict</code>, <code>FloatDict</code>, <code>StringDict</code> are replaced by <code>std::map</code>. Keys are kept in sorted order and it works with any combination of key and value types.</p>
           <pre>// Java Processing:
 StringDict d = new StringDict();
 d.set("name", "Pep");
@@ -127,8 +127,8 @@ if (d.count("name")) { ... }</pre>
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">captureMouse() and releaseMouse()</div>
         <div class="wn-card-body">
-          <p><code>captureMouse()</code> locks the cursor to the window and enables raw mouse input, completely bypassing OS acceleration and cursor boundaries. This is the standard approach for first-person and shooter games where the mouse needs to rotate a camera freely without hitting the edge of the screen.</p>
-          <p><code>releaseMouse()</code> restores normal cursor behavior. Call it when opening a menu, showing a dialog, or pausing the game.</p>
+          <p><code>captureMouse()</code> locks the cursor to the window and enables raw mouse input, completely bypassing OS acceleration and cursor boundaries. This is the right approach for first-person and shooter games where the mouse needs to rotate a camera freely without hitting the edge of the screen.</p>
+          <p><code>releaseMouse()</code> restores normal cursor behavior. Call it when you open a menu, show a dialog, or pause the game.</p>
           <pre>void setup() {
     size(640, 360, P3D);
     captureMouse();
@@ -148,8 +148,8 @@ void keyPressed() {
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">mouseDX and mouseDY</div>
         <div class="wn-card-body">
-          <p>Two new variables that accumulate raw mouse movement between frames. Unlike <code>mouseX - pmouseX</code>, these capture every cursor event that occurs between frames — so fast mouse movement is never dropped or lost at high frame rates.</p>
-          <p>They reset to <code>0</code> automatically after each <code>draw()</code> call. Use them for FPS camera rotation, turret aiming, or any input that needs to be frame-rate independent.</p>
+          <p>Two new variables that accumulate raw mouse movement between frames. Unlike <code>mouseX - pmouseX</code>, these capture every cursor event that occurs between frames so fast mouse movement is never dropped or lost at high frame rates.</p>
+          <p>They reset to <code>0</code> automatically after each <code>draw()</code> call. Use them for FPS camera rotation, turret aiming, or any other input that needs to be frame-rate independent.</p>
           <pre>float yaw = 0, pitch = 0;
 
 void setup() {
@@ -178,7 +178,7 @@ void draw() {
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">Full C++ Standard Library included</div>
         <div class="wn-card-body">
-          <p>Every C++ standard library header is included automatically. No <code>#include</code> is needed anywhere in your sketch. Use threads, algorithms, containers, and all modern C++ features directly.</p>
+          <p>Every C++ standard library header is included automatically. You do not need a single <code>#include</code> anywhere in your sketch. Threads, algorithms, containers, all of modern C++ is just there.</p>
           <pre>// All of this just works with no includes:
 std::vector&lt;float&gt; data = {3, 1, 2};
 std::sort(data.begin(), data.end());
