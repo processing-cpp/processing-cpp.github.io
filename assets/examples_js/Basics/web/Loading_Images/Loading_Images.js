@@ -1,7 +1,7 @@
 let img;
 
 function preload() {
-  img = loadImage('https://processing-cpp.github.io/assets/data/processing-web.png');
+  img = loadImage('processing-web.png');
 }
 
 function setup() {
