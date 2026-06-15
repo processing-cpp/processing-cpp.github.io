@@ -5,11 +5,15 @@
   const isRoot = parts.length === 0 || (parts.length === 1 && parts[0] === 'index.html');
   const prefix = isRoot ? '/' : '../';
 
-  function isActive(name) { return path.includes('/' + name); }
-  function link(name, label, extra) {
-    const active = isActive(name) ? ' class="active"' : '';
-    if (extra) return `<a href="${prefix}${name}"${active} style="${extra}">${label}</a>`;
-    return `<a href="${prefix}${name}"${active}>${label}</a>`;
+  function isActive(name) {
+    if (name === 'libraries#whats-new') return false;
+    return path.includes('/' + name);
+  }
+
+  function link(href, label, style) {
+    const active = isActive(href) ? ' class="active"' : '';
+    const s = style ? ` style="${style}"` : '';
+    return `<a href="${prefix}${href}"${active}${s}>${label}</a>`;
   }
 
   const nav = document.getElementById('site-nav');
@@ -32,12 +36,12 @@
   const sidebar = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
   if (sidebar) {
     sidebar.innerHTML = `
+      ${link('libraries#whats-new', "What's New", 'color:#e8b400;font-weight:700;')}
+      <div style="height:1px;background:#e0e0e0;margin:0.5rem 0;"></div>
       ${link('libraries', 'Libraries')}
       ${link('reference', 'Reference')}
       ${link('examples', 'Examples')}
       ${link('about', 'About')}
-      <div style="height:1px;background:#e0e0e0;margin:0.75rem 0;"></div>
-      ${link('libraries#whats-new', "What's New", 'color:#e8b400;font-weight:600;font-size:13px;')}
     `;
   }
 
@@ -69,16 +73,8 @@
         flex-direction: column;
         line-height: 1.15;
       }
-      .nav-title-top {
-        font-size: 13px;
-        font-weight: 700;
-        color: #e8b400;
-      }
-      .nav-title-bottom {
-        font-size: 13px;
-        font-weight: 700;
-        color: #e8b400;
-      }
+      .nav-title-top  { font-size: 13px; font-weight: 700; color: #e8b400; }
+      .nav-title-bottom { font-size: 13px; font-weight: 700; color: #e8b400; }
       .hamburger {
         background: none;
         border: none;
@@ -88,9 +84,7 @@
         display: none;
         margin-left: 0.5rem;
       }
-      @media (max-width: 768px) {
-        .hamburger { display: block; }
-      }
+      @media (max-width: 768px) { .hamburger { display: block; } }
     `;
     document.head.appendChild(style);
   }
