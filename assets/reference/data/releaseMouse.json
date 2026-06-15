@@ -11,5 +11,6 @@
     "captureMouse",
     "mouseDX",
     "mouseDY"
-  ]
+  ],
+  "impl": "void releaseMouse() {\n    if (gWindow) {\n        glfwSetInputMode(gWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);\n        glfwSetInputMode(gWindow, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);\n    }\n}"
 }

@@ -11,5 +11,6 @@
     "mouseDY",
     "mouseX",
     "pmouseX"
-  ]
+  ],
+  "impl": "// Accumulated horizontal mouse delta since last frame.\n// Updated on every raw cursor event, reset to 0 after draw().\nextern float mouseDX, mouseDY;\n\n// In cursor_pos_cb:\n//   mouseDX += (float)x - mouseX;\n// After draw():\n//   mouseDX = 0; mouseDY = 0;"
 }

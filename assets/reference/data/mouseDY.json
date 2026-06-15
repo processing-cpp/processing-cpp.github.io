@@ -11,5 +11,6 @@
     "mouseDX",
     "mouseY",
     "pmouseY"
-  ]
+  ],
+  "impl": "// Accumulated vertical mouse delta since last frame.\n// Updated on every raw cursor event, reset to 0 after draw().\nextern float mouseDX, mouseDY;"
 }
