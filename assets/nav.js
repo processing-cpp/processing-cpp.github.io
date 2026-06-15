@@ -5,10 +5,7 @@
   const isRoot = parts.length === 0 || (parts.length === 1 && parts[0] === 'index.html');
   const prefix = isRoot ? '/' : '../';
 
-  function isActive(name) {
-    if (name === 'libraries#whats-new') return false;
-    return path.includes('/' + name);
-  }
+  function isActive(name) { return path.includes('/' + name); }
 
   function link(href, label, style) {
     const active = isActive(href) ? ' class="active"' : '';
@@ -36,7 +33,7 @@
   const sidebar = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
   if (sidebar) {
     sidebar.innerHTML = `
-      ${link('libraries#whats-new', "What's New", 'color:#e8b400;font-weight:700;')}
+      ${link('whats-new', "What's New", 'color:#e8b400;font-weight:700;')}
       <div style="height:1px;background:#e0e0e0;margin:0.5rem 0;"></div>
       ${link('libraries', 'Libraries')}
       ${link('reference', 'Reference')}
@@ -61,29 +58,12 @@
         background: #fff;
         z-index: 100;
       }
-      .nav-logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-      }
+      .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
       .nav-logo img { width: 28px; height: 28px; }
-      .nav-title {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.15;
-      }
+      .nav-title { display: flex; flex-direction: column; line-height: 1.15; }
       .nav-title-top  { font-size: 13px; font-weight: 700; color: #e8b400; }
       .nav-title-bottom { font-size: 13px; font-weight: 700; color: #e8b400; }
-      .hamburger {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 22px;
-        padding: 4px 8px;
-        display: none;
-        margin-left: 0.5rem;
-      }
+      .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; margin-left: 0.5rem; }
       @media (max-width: 768px) { .hamburger { display: block; } }
     `;
     document.head.appendChild(style);

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's New - Processing for C++</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 3rem 4rem; max-width: 900px; }
+    .content h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .prelude { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 3rem; max-width: 640px; }
+    .prelude strong { color: #111; }
+    .prelude code { font-family: "SF Mono","Fira Code",monospace; background: #f4f4f4; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+    .wn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1px; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; margin-bottom: 4rem; }
+    .wn-card { padding: 2rem; background: #fff; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+    .wn-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-bottom: 0.6rem; }
+    .wn-tag.changed { background: #fff3cd; color: #856404; }
+    .wn-tag.new     { background: #d1e7dd; color: #0f5132; }
+    .wn-tag.removed { background: #f8d7da; color: #842029; }
+    .wn-card-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 0.75rem; }
+    .wn-card-body { font-size: 13px; color: #555; line-height: 1.75; }
+    .wn-card-body p { margin-bottom: 0.75rem; }
+    .wn-card-body code { font-family: "SF Mono","Fira Code",monospace; background: #f4f4f4; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: #111; }
+    .wn-card-body pre { background: #0d0d0d; color: #ccc; font-family: "SF Mono","Fira Code",monospace; font-size: 12px; line-height: 1.6; padding: 0.75rem 1rem; border-radius: 6px; margin-top: 0.75rem; overflow-x: auto; white-space: pre; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .wn-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="site-nav"></nav>
+
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+
+  <div class="content">
+    <h1>What's New</h1>
+    <p class="prelude">
+      C++ Mode is designed to feel as close to Processing Java as possible.
+      <strong>Most of what you already know works exactly the same.</strong>
+      <code>setup()</code>, <code>draw()</code>, <code>ellipse()</code>, <code>background()</code>,
+      <code>mouseX</code>, <code>mouseY</code>, <code>fill()</code>, <code>stroke()</code> — all identical.
+      The changes below are the only things you need to learn.
+      Everything else carries over from Processing Java without modification.
+    </p>
+
+    <div class="wn-grid">
+
+      <div class="wn-card">
+        <div class="wn-tag changed">Changed</div>
+        <div class="wn-card-title">_mousePressed and _keyPressed</div>
+        <div class="wn-card-body">
+          <p>In Processing Java, <code>mousePressed</code> is both a boolean variable (is the mouse held right now?) and an event callback function (called once on click). C++ does not allow a variable and a function to share the same name in the same scope, so the boolean variables are renamed with an underscore prefix to avoid the collision.</p>
+          <p>The event callbacks keep their original names unchanged. Only the state variables change.</p>
+          <pre>// Check if mouse is currently held down:
+if (_mousePressed) { ... }
+
+// Check if any key is currently held down:
+if (_keyPressed) { ... }
+
+// Event callbacks are unchanged:
+void mousePressed() { ... }
+void mouseReleased() { ... }
+void keyPressed()   { ... }
+void keyReleased()  { ... }</pre>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-tag removed">Replaced</div>
+        <div class="wn-card-title">std::vector replaces IntList, FloatList, ArrayList</div>
+        <div class="wn-card-body">
+          <p>Processing Java's typed list classes — <code>IntList</code>, <code>FloatList</code>, <code>StringList</code>, and <code>ArrayList</code> — are not available in C++ Mode. Use <code>std::vector</code> from the C++ Standard Library instead. It is faster, more flexible, works with any type including your own classes, and requires no imports.</p>
+          <pre>// Java Processing:
+IntList nums = new IntList();
+nums.append(42);
+int n = nums.get(0);
+
+// C++ Mode:
+std::vector&lt;int&gt; nums;
+nums.push_back(42);
+int n = nums[0];
+
+// Works with your own classes too:
+std::vector&lt;Ball&gt; balls;
+balls.push_back(Ball(x, y));</pre>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-tag removed">Replaced</div>
+        <div class="wn-card-title">std::map replaces IntDict, FloatDict, StringDict</div>
+        <div class="wn-card-body">
+          <p>Processing Java's typed dictionary classes — <code>IntDict</code>, <code>FloatDict</code>, <code>StringDict</code> — are replaced by <code>std::map</code>. Keys are kept in sorted order. Works with any combination of key and value types.</p>
+          <pre>// Java Processing:
+StringDict d = new StringDict();
+d.set("name", "Pep");
+String v = d.get("name");
+
+// C++ Mode:
+std::map&lt;std::string, std::string&gt; d;
+d["name"] = "Pep";
+std::string v = d["name"];
+
+// Check if key exists:
+if (d.count("name")) { ... }</pre>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-tag new">New</div>
+        <div class="wn-card-title">captureMouse() and releaseMouse()</div>
+        <div class="wn-card-body">
+          <p><code>captureMouse()</code> locks the cursor to the window and enables raw mouse input, completely bypassing OS acceleration and cursor boundaries. This is the standard approach for first-person and shooter games where the mouse needs to rotate a camera freely without hitting the edge of the screen.</p>
+          <p><code>releaseMouse()</code> restores normal cursor behavior. Call it when opening a menu, showing a dialog, or pausing the game.</p>
+          <pre>void setup() {
+    size(640, 360, P3D);
+    captureMouse();
+}
+
+void draw() {
+    // camera controlled by mouse freely
+}
+
+void keyPressed() {
+    if (key == ESC) releaseMouse();
+}</pre>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-tag new">New</div>
+        <div class="wn-card-title">mouseDX and mouseDY</div>
+        <div class="wn-card-body">
+          <p>Two new variables that accumulate raw mouse movement between frames. Unlike <code>mouseX - pmouseX</code>, these capture every cursor event that occurs between frames — so fast mouse movement is never dropped or lost at high frame rates.</p>
+          <p>They reset to <code>0</code> automatically after each <code>draw()</code> call. Use them for FPS camera rotation, turret aiming, or any input that needs to be frame-rate independent.</p>
+          <pre>float yaw = 0, pitch = 0;
+
+void setup() {
+    size(640, 360, P3D);
+    captureMouse();
+}
+
+void draw() {
+    yaw   += mouseDX * 0.002;
+    pitch += mouseDY * 0.002;
+    pitch  = constrain(pitch, -PI/2, PI/2);
+
+    camera(0, 0, 0,
+           cos(pitch) * sin(yaw),
+           sin(pitch),
+           cos(pitch) * cos(yaw),
+           0, 1, 0);
+    background(20);
+    lights();
+    box(100);
+}</pre>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-tag new">New</div>
+        <div class="wn-card-title">Full C++ Standard Library included</div>
+        <div class="wn-card-body">
+          <p>Every C++ standard library header is included automatically. No <code>#include</code> is needed anywhere in your sketch. Use threads, algorithms, containers, and all modern C++ features directly.</p>
+          <pre>// All of this just works with no includes:
+std::vector&lt;float&gt; data = {3, 1, 2};
+std::sort(data.begin(), data.end());
+
+std::thread t([] { doWork(); });
+t.detach();
+
+std::unordered_map&lt;std::string, int&gt; scores;
+std::optional&lt;int&gt; val = 42;</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer><p>Processing for C++</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

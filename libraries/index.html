@@ -38,80 +38,120 @@
  .content { padding: 2rem 1.25rem; }
  }
 
- .whats-new {
- border: 1px solid #e0e0e0;
- border-radius: 10px;
- margin-bottom: 3rem;
- overflow: hidden;
- }
- .wn-header {
- background: #f8f8f8;
- border-bottom: 1px solid #e0e0e0;
- padding: 1.5rem 2rem;
- }
- .wn-badge {
- display: inline-block;
- background: #e8b400;
- color: #fff;
- font-size: 11px;
- font-weight: 700;
- letter-spacing: 0.08em;
- padding: 2px 8px;
- border-radius: 4px;
- margin-bottom: 0.5rem;
- text-transform: uppercase;
- }
- .wn-header h2 {
- font-size: 1.3rem;
- font-weight: 700;
- margin-bottom: 0.25rem;
- color: #111;
- }
- .wn-sub { font-size: 0.9rem; color: #888; }
- .wn-grid {
- display: grid;
- grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
- gap: 0;
- }
- .wn-card {
- padding: 1.5rem 2rem;
- border-right: 1px solid #e0e0e0;
- border-bottom: 1px solid #e0e0e0;
- }
- .wn-card:nth-child(even) { border-right: none; }
- .wn-card-title {
- font-size: 14px;
- font-weight: 700;
- margin-bottom: 0.75rem;
- color: #111;
- }
- .wn-card-body {
- font-size: 13px;
- color: #555;
- line-height: 1.7;
- }
- .wn-card-body code {
- font-family: "SF Mono","Fira Code",monospace;
- background: #f4f4f4;
- padding: 1px 5px;
- border-radius: 3px;
- font-size: 12px;
- color: #111;
- }
- .wn-card-body pre {
- background: #0d0d0d;
- color: #ccc;
- font-family: "SF Mono","Fira Code",monospace;
- font-size: 12px;
- line-height: 1.6;
- padding: 0.75rem 1rem;
- border-radius: 6px;
- margin-top: 0.75rem;
- overflow-x: auto;
- white-space: pre;
- }
+ 
 
- </style>
+ 
+  
+  .wn-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .wn-tag.changed { background: #fff3cd; color: #856404; }
+  .wn-tag.new     { background: #d1e7dd; color: #0f5132; }
+  .wn-tag.removed { background: #f8d7da; color: #842029; }
+
+  
+  .whats-new {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+  .wn-header {
+    background: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 2rem 2rem 1.5rem;
+  }
+  .wn-badge {
+    display: inline-block;
+    background: #e8b400;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .wn-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #111;
+  }
+  .wn-prelude {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+    max-width: 680px;
+  }
+  .wn-prelude strong { color: #111; }
+  .wn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .wn-card {
+    padding: 1.75rem 2rem;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .wn-card:nth-child(even) { border-right: none; }
+  .wn-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .wn-card-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.75;
+  }
+  .wn-card-body p { margin-bottom: 0.75rem; }
+  .wn-card-body code {
+    font-family: "SF Mono","Fira Code",monospace;
+    background: #f4f4f4;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #111;
+  }
+  .wn-card-body pre {
+    background: #0d0d0d;
+    color: #ccc;
+    font-family: "SF Mono","Fira Code",monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-top: 0.75rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .wn-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .wn-tag.changed { background: #fff3cd; color: #856404; }
+  .wn-tag.new     { background: #d1e7dd; color: #0f5132; }
+  .wn-tag.removed { background: #f8d7da; color: #842029; }
+
+  </style>
 </head>
 <body>
 <nav id="site-nav"></nav>
