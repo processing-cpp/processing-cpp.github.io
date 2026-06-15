@@ -6,8 +6,9 @@
   const prefix = isRoot ? '/' : '../';
 
   function isActive(name) { return path.includes('/' + name); }
-  function link(name, label) {
+  function link(name, label, extra) {
     const active = isActive(name) ? ' class="active"' : '';
+    if (extra) return `<a href="${prefix}${name}"${active} style="${extra}">${label}</a>`;
     return `<a href="${prefix}${name}"${active}>${label}</a>`;
   }
 
@@ -35,6 +36,8 @@
       ${link('reference', 'Reference')}
       ${link('examples', 'Examples')}
       ${link('about', 'About')}
+      <div style="height:1px;background:#e0e0e0;margin:0.75rem 0;"></div>
+      ${link('libraries#whats-new', "What's New", 'color:#e8b400;font-weight:600;font-size:13px;')}
     `;
   }
 
