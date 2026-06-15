@@ -61,8 +61,8 @@
       .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
       .nav-logo img { width: 28px; height: 28px; }
       .nav-title { display: flex; flex-direction: column; line-height: 1.15; }
-      .nav-title-top  { font-size: 13px; font-weight: 700; color: #e8b400; }
-      .nav-title-bottom { font-size: 13px; font-weight: 700; color: #e8b400; }
+      .nav-title-top  { font-size: 14px; font-weight: 700; color: #e8b400; }
+      .nav-title-bottom { font-size: 14px; font-weight: 700; color: #e8b400; }
       .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; margin-left: 0.5rem; }
       @media (max-width: 768px) { .hamburger { display: block; } }
     `;
