@@ -67,17 +67,17 @@
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
 <script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let img;
 
+function preload() {
+  img = loadImage("https://processing-cpp.github.io/assets/data/https://processing-cpp.github.io/assets/data/processing-web.png");
+}
+
 function setup() {
   createCanvas(640, 360);
-
-  img = loadImage("https://processing-cpp.github.io/assets/data/https://processing.org/img/processing-web.png");
-
   noLoop();
 }
 
 function draw() {
   background(0);
-
   if (img) {
     for (let i = 0; i < 5; i++) {
       image(img, 0, img.height * i);

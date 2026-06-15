@@ -66,19 +66,25 @@
     <h1>Rotate Push Pop</h1>
     <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
 <script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let a = 0;
-let offset = PI / 24.0;
+let offset;
 let num = 12;
 
 function setup() {
   createCanvas(640, 360, WEBGL);
   noStroke();
+  offset = PI / 24.0;
 }
 
 function draw() {
   background(0, 0, 26);
+  ambientLight(150);
+  directionalLight(255, 255, 255, 0, 0, -1);
+  directionalLight(100, 100, 100, 0, 0, 1);
+
   for (let i = 0; i < num; i++) {
+    let gray = map(i, 0, num - 1, 0, 255);
     push();
-    normalMaterial();
+    fill(gray);
     rotateY(a + offset * i);
     rotateX(a / 2 + offset * i);
     box(90);
