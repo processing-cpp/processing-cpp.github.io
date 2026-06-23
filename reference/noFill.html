@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="fill.html">fill</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void noFill()                              {doFill=false;}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void noFill();
+
+inline void PGraphics::noFill()                                     { if(PApplet::g_papplet) PApplet::g_papplet-&gt;noFill(); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::noFill()                              {doFill=false;}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

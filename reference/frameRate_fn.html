@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="frameRate_var.html">frameRate_var</a><a href="frameCount.html">frameCount</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">extern float _frameRate;  // measured fps (read-only)</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void frameRate(int fps);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::frameRate(int fps){currentFrameRate=fps;targetFrameTime=1.0/fps;}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

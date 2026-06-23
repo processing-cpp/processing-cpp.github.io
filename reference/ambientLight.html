@@ -27,7 +27,35 @@ void ambientLight(float r, float g, float b, float x, float y, float z)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="lights.html">lights</a><a href="directionalLight.html">directionalLight</a><a href="pointLight.html">pointLight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void ambientLight(float r, float g, float b) { ambientLight(r,g,b,0,0,0); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void ambientLight(float r, float g, float b);
+
+void ambientLight(float r, float g, float b, float x, float y, float z);
+
+inline void PGraphics::ambientLight(float r, float g, float b)       { if(PApplet::g_papplet) PApplet::g_papplet-&gt;ambientLight(r,g,b); }
+
+inline void PGraphics::ambientLight(float r, float g, float b, float x, float y, float z) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;ambientLight(r,g,b,x,y,z); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::ambientLight(float r, float g, float b) { ambientLight(r,g,b,0,0,0); }
+
+void PApplet::ambientLight(float r, float g, float b) { ambientLight(r,g,b,0,0,0);
+
+void PApplet::ambientLight(float r, float g, float b, float x, float y, float z) {
+    if (lightIndex &gt;= 8) return;
+    GLenum lt = GL_LIGHT0 + lightIndex++;
+
+    GLfloat col[] = { lc(r), lc(g), lc(b), 1.0f };
+    GLfloat pos[] = { x, y, z, 1.0f };
+    GLfloat zero[]= { 0.0f, 0.0f, 0.0f, 1.0f };
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+    glEnable(lt);
+    glLightfv(lt, GL_AMBIENT,  col);
+    glLightfv(lt, GL_DIFFUSE,  zero);
+    glLightfv(lt, GL_SPECULAR, zero);
+    // Position is transformed by the current modelview (world space)
+    glLightfv(lt, GL_POSITION, pos);
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

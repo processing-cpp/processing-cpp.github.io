@@ -26,7 +26,13 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="pop.html">pop</a><a href="pushStyle.html">pushStyle</a><a href="pushMatrix.html">pushMatrix</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void push()       { glPushMatrix(); pushStyle(); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void push(int v) { append(v); }
+
+void push(float v) { append(v); }
+
+void push(const std::string&amp; v) { append(v); }
+
+void push();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::push()       { glPushMatrix(); pushStyle(); }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

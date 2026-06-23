@@ -26,10 +26,51 @@
     <span class="returns-badge">std::string</span>
     
     <h2>Related</h2><div class="related-links"><a href="split.html">split</a><a href="splitTokens.html">splitTokens</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::string join(const std::vector&lt;std::string&gt;&amp; v, const std::string&amp; sep) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::string join(const std::vector&lt;std::string&gt;&amp; v, const std::string&amp; sep) {
     std::string o;
     for (size_t i=0; i&lt;v.size(); i++) { if(i) o+=sep; o+=v[i]; }
     return o;
+}
+
+static String join(const std::string&amp; delim, std::initializer_list&lt;std::string&gt; parts) {
+        String result;
+        bool first = true;
+        for (const auto&amp; p : parts) {
+            if (!first) result += delim;
+            result += p;
+            first = false;
+        }
+        return result;
+    }
+
+template&lt;typename Container&gt;
+    static String join(const std::string&amp; delim, const Container&amp; parts) {
+        String result;
+        bool first = true;
+        for (const auto&amp; p : parts) {
+            if (!first) result += delim;
+            result += p;
+            first = false;
+        }
+        return result;
+    }
+
+std::string join(const std::string&amp; separator) const {
+        if (data.empty()) return "";
+        std::string r = std::to_string(data[0]);
+        for (size_t i = 1; i &lt; data.size(); i++) { r += separator; r += std::to_string(data[i]); }
+        return r;
+    }
+
+std::string join(const std::string&amp; separator) const {
+        if (data.empty()) return "";
+        std::string r = data[0];
+        for (size_t i = 1; i &lt; data.size(); i++) { r += separator; r += data[i]; }
+        return r;
+    }
+
+static std::string join(const std::vector&lt;std::string&gt;&amp; v, const std::string&amp; sep);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string PApplet::join(const std::vector&lt;std::string&gt;&amp; v, const std::string&amp; sep) {
+    std::string r; for (size_t i=0;i&lt;v.size();i++){if(i)r+=sep;r+=v[i];} return r;
 }</div>
   </div>
 </div>

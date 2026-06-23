@@ -26,7 +26,7 @@
     <span class="returns-badge">PFont</span>
     
     <h2>Related</h2><div class="related-links"><a href="textFont.html">textFont</a><a href="createFont.html">createFont</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PFont loadFont(const std::string&amp; filename) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PFont loadFont(const std::string&amp; filename);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PFont PApplet::loadFont(const std::string&amp; filename) {
     PFont f(filename, g_textSize);
     tryLoadTTF(filename, g_textSize);
     return f;

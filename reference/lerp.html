@@ -26,7 +26,27 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="map.html">map</a><a href="norm.html">norm</a><a href="lerpColor.html">lerpColor</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    PVector&amp; lerp(const PVector&amp; v, float t) { x+=(v.x-x)*t; y+=(v.y-y)*t; z+=(v.z-z)*t; return *this; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PVector&amp; lerp(const PVector&amp; v, float t) { x+=(v.x-x)*t; y+=(v.y-y)*t; z+=(v.z-z)*t; return *this; }
+
+PVector&amp; lerp(float _x, float _y, float _z, float t) { x+=(_x-x)*t; y+=(_y-y)*t; z+=(_z-z)*t; return *this; }
+
+static PVector lerp(const PVector&amp; a, const PVector&amp; b, float t) {
+        return PVector(a.x+(b.x-a.x)*t, a.y+(b.y-a.y)*t, a.z+(b.z-a.z)*t);
+    }
+
+static PColor lerp(const PColor&amp; c1, const PColor&amp; c2, float t) {
+        return PColor(c1.r+(c2.r-c1.r)*t, c1.g+(c2.g-c1.g)*t, c1.b+(c2.b-c1.b)*t, c1.a+(c2.a-c1.a)*t);
+    }
+
+float lerp(float,float,float);
+
+inline float lerp(A a,B b2,C t){ return _api::lerp((float)a,(float)b2,(float)t);
+
+static float lerp(float a, float b, float t) { return a+t*(b-a); }
+
+inline float lerp(float a,float b,float t){ return PApplet::lerp(a,b,t); }
+
+inline float lerp(float a,float b,float t){ return PApplet::lerp(a,b,t);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

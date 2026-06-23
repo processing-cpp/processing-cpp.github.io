@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="specular.html">specular</a><a href="lights.html">lights</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void lightSpecular(float r, float g, float b) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void lightSpecular(float r, float g, float b);
+
+inline void PGraphics::lightSpecular(float r, float g, float b)      { if(PApplet::g_papplet) PApplet::g_papplet-&gt;lightSpecular(r,g,b); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::lightSpecular(float r, float g, float b) {
     // Store as pending so subsequent light calls pick it up
     pendingSpecR = lc(r); pendingSpecG = lc(g); pendingSpecB = lc(b);
     // Also apply to any already-created lights

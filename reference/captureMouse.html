@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="releaseMouse.html">releaseMouse</a><a href="mouseDX.html">mouseDX</a><a href="mouseDY.html">mouseDY</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void captureMouse() {if(gWindow){glfwSetInputMode(gWindow,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void captureMouse();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::captureMouse() {if(gWindow){glfwSetInputMode(gWindow,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
     // Enable raw motion if supported (removes OS acceleration)
     if(glfwRawMouseMotionSupported())
         glfwSetInputMode(gWindow,GLFW_RAW_MOUSE_MOTION,GLFW_TRUE);}}</div>

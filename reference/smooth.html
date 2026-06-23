@@ -26,7 +26,23 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noSmooth.html">noSmooth</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void smooth()  {smoothing=true; glEnable(GL_LINE_SMOOTH);glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);glEnable(GL_POINT_SMOOTH);glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);glEnable(GL_MULTISAMPLE);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void smooth(int level = 2);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::smooth(int level) {
+    // The MAIN window's actual MSAA sample count is fixed at window-creation
+    // time (GLFW_SAMPLES is a window hint, can't change after the window
+    // exists) -- so smooth(level) can't retroactively change the main
+    // canvas's hardware sample count the way real Processing's P2D/P3D
+    // renderers can. What we CAN do: store the requested level (used by
+    // PGraphics buffers below, which DO get to choose their own sample
+    // count fresh at creation time), and toggle the same smoothing flags
+    // smooth() always has, regardless of which level was requested.
+    smoothing = true;
+    smoothLevel = level;
+    glEnable(GL_LINE_SMOOTH);glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
+    glEnable(GL_POINT_SMOOTH);glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
+    glEnable(GL_MULTISAMPLE);
+}
+
+smooth();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -26,9 +26,15 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="norm.html">norm</a><a href="lerp.html">lerp</a><a href="constrain.html">constrain</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline float map(float v, float i0, float i1, float o0, float o1) {
-    return o0 + (v-i0)*(o1-o0)/(i1-i0);
-}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float map(float,float,float,float,float);
+
+return _api::map((float)value,(float)start1,(float)stop1,(float)start2,(float)stop2);
+
+static float map(float v,float i0,float i1,float o0,float o1) { return o0+(v-i0)*(o1-o0)/(i1-i0); }
+
+inline float map(float v,float i0,float i1,float o0,float o1){ return PApplet::map(v,i0,i1,o0,o1); }
+
+inline float map(float v,float i0,float i1,float o0,float o1){ return PApplet::map(v,i0,i1,o0,o1);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

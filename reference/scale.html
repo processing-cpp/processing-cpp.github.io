@@ -27,7 +27,31 @@ void scale(float sx, float sy)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="translate.html">translate</a><a href="rotate.html">rotate</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void scale(float s)                    {glScalef(s,s,1);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void translate(float x, float y); void rotate(float a); void scale(float s);
+
+void scale(float,float);
+
+void scale(float s)                        { for(auto&amp; v:verts){ v.x*=s;v.y*=s;v.z*=s; } }
+
+void scale(float sx, float sy)             { for(auto&amp; v:verts){ v.x*=sx;v.y*=sy; } }
+
+inline void scale(A s1,B s2){ _api::scale((float)s1,(float)s2);
+
+void scale(float s);
+
+void scale(float sx, float sy);
+
+template&lt;typename A,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void scale(A s){ scale((float)s);
+
+template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void scale(A sx,B sy){ scale((float)sx,(float)sy);
+
+inline void scale(float s1,float s2){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;scale(s1,s2); }
+
+inline void PGraphics::scale(float s)                               { if(PApplet::g_papplet) PApplet::g_papplet-&gt;scale(s); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::scale(float s)                    {glScalef(s,s,1);}
+
+void PApplet::scale(float sx,float sy)          {glScalef(sx,sy,1);}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

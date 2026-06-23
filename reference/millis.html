@@ -26,11 +26,17 @@
     <span class="returns-badge">unsigned long</span>
     
     <h2>Related</h2><div class="related-links"><a href="second.html">second</a><a href="minute.html">minute</a><a href="hour.html">hour</a><a href="frameCount.html">frameCount</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline unsigned long millis() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline unsigned long millis() {
     using namespace std::chrono;
     static auto start = steady_clock::now();
     return static_cast&lt;unsigned long&gt;(duration_cast&lt;milliseconds&gt;(steady_clock::now()-start).count());
-}</div>
+}
+
+static unsigned long millis() {
+        static auto _start = std::chrono::steady_clock::now();
+        return (unsigned long)std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(
+            std::chrono::steady_clock::now() - _start).count();
+    }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -26,7 +26,19 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="println.html">println</a></div>
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">template&lt;typename T&gt; inline void print(const T&amp; v)    { std::cout &lt;&lt; v; std::cout.flush(); }
+
+void print() const {
+        for (int i = 0; i &lt; (int)data.size(); i++) printf("[%d] %d\n", i, data[i]);
+    }
+
+void print() const {
+        for (int i = 0; i &lt; (int)data.size(); i++) printf("[%d] %s\n", i, data[i].c_str());
+    }
+
+template&lt;typename T&gt; void print(const T&amp; v)   { f &lt;&lt; v; }
+
+template&lt;typename T&gt; static void print(const T&amp; v)   { std::cout &lt;&lt; v; std::cout.flush(); }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

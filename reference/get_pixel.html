@@ -26,7 +26,40 @@
     <span class="returns-badge">color</span>
     
     <h2>Related</h2><div class="related-links"><a href="set_pixel.html">set_pixel</a><a href="loadPixels.html">loadPixels</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color get(int x, int y) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">unsigned int get(int x, int y) const {
+        if (x&lt;0||x&gt;=width||y&lt;0||y&gt;=height) return 0;
+        return pixels[y*width+x];
+    }
+
+PImage get(int x, int y, int w, int h) const {
+        PImage out(w, h);
+        for (int iy=0; iy&lt;h; iy++)
+            for (int ix=0; ix&lt;w; ix++)
+                out.pixels[iy*w+ix] = get(x+ix, y+iy);
+        return out;
+    }
+
+int  get(int i)         const { return data[i]; }
+
+float get(int i)        const { return data[i]; }
+
+std::string get(int i)            const     { return data[i]; }
+
+T     get(int i)            const{ return data[i]; }
+
+T*    get(int i)             const{ return data[i]; }
+
+V&amp;    get(const K&amp; k)                     { return _data[k]; }
+
+int  get(const std::string&amp; k, int def=0) const     { auto it=data.find(k); return it!=data.end()?it-&gt;second:def; }
+
+float get(const std::string&amp; k, float def=0)  const     { auto it=data.find(k); return it!=data.end()?it-&gt;second:def; }
+
+std::string get(const std::string&amp; k, const std::string&amp; def="") const   { auto it=data.find(k); return it!=data.end()?it-&gt;second:def; }
+
+V&amp;   get(const K&amp; k)                     { return data[k]; }
+
+color get(int x, int y);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color PApplet::get(int x, int y) {
     unsigned char p[4];
     glReadPixels(x, winHeight - 1 - y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, p);
     return colorVal(p[0], p[1], p[2], p[3]);

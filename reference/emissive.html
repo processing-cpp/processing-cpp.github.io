@@ -27,10 +27,23 @@ void emissive(color c)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="ambient.html">ambient</a><a href="specular.html">specular</a><a href="shininess.html">shininess</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void emissive(float r, float g, float b) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void emissive(float r, float g, float b);
+
+void emissive(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::emissive(float r, float g, float b) {
     GLfloat col[] = { lc(r), lc(g), lc(b), 1.0f };
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, col);
-}</div>
+}
+
+void PApplet::emissive(color c) {
+    unsigned int v = c.value;
+    emissive((v &gt;&gt; 16 &amp; 0xFF) / 255.f,
+             (v &gt;&gt;  8 &amp; 0xFF) / 255.f,
+             (v       &amp; 0xFF) / 255.f);
+}
+
+emissive((v &gt;&gt; 16 &amp; 0xFF) / 255.f,
+             (v &gt;&gt;  8 &amp; 0xFF) / 255.f,
+             (v       &amp; 0xFF) / 255.f);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

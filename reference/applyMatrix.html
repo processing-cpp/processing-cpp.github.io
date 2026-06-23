@@ -26,7 +26,10 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="resetMatrix.html">resetMatrix</a><a href="pushMatrix.html">pushMatrix</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void applyMatrix(float n00,float n01,float n02,float n03,float n10,float n11,float n12,float n13,float n20,float n21,float n22,float n23,float n30,float n31,float n32,float n33){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void applyMatrix(float n00,float n01,float n02,float n03,
+                     float n10,float n11,float n12,float n13,
+                     float n20,float n21,float n22,float n23,
+                     float n30,float n31,float n32,float n33);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::applyMatrix(float n00,float n01,float n02,float n03,float n10,float n11,float n12,float n13,float n20,float n21,float n22,float n23,float n30,float n31,float n32,float n33){
     float m[]={n00,n10,n20,n30,n01,n11,n21,n31,n02,n12,n22,n32,n03,n13,n23,n33};
     glMultMatrixf(m);
 }</div>

@@ -26,7 +26,7 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="textDescent.html">textDescent</a><a href="textSize.html">textSize</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float textAscent() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float textAscent();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::textAscent() {
 #if PROCESSING_HAS_STB_TRUETYPE
     if (g_ttf.loaded) {
         float sc = stbtt_ScaleForMappingEmToPixels(&amp;g_ttf.info, g_textSize);

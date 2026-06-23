@@ -27,7 +27,157 @@ PImage* img = createImage(w, h, ARGB)</div>
     <span class="returns-badge">PImage</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>pixels[]</td><td>Array of color values for the image</td></tr><tr><td>width</td><td>Width of the image in pixels</td></tr><tr><td>height</td><td>Height of the image in pixels</td></tr><tr><td>loadPixels()</td><td>Load pixel data into pixels[]</td></tr><tr><td>updatePixels()</td><td>Update image from pixels[]</td></tr><tr><td>get(int x, int y)</td><td>Get pixel color at position</td></tr><tr><td>set(int x, int y, color c)</td><td>Set pixel color at position</td></tr><tr><td>resize(int w, int h)</td><td>Resize the image</td></tr><tr><td>filter(int mode)</td><td>Apply an image filter</td></tr><tr><td>mask(PImage m)</td><td>Apply an alpha mask</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadImage.html">loadImage</a><a href="createImage.html">createImage</a><a href="image.html">image</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    PImage* img = new PImage(w,h);</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PImage {
+public:
+    int  width  = 0;
+    int  height = 0;
+    std::vector&lt;unsigned int&gt; pixels;
+    GLuint texID = 0;
+    bool   dirty = false;
+
+    PImage() = default;
+    PImage(int w, int h) {
+        // Guard against bad dimensions from corrupted files or failed loads
+        if (w &gt; 0 &amp;&amp; h &gt; 0 &amp;&amp; w &lt; 16384 &amp;&amp; h &lt; 16384) {
+            width = w; height = h;
+            pixels.assign((size_t)w * h, 0xFF000000);
+        }
+    }
+
+    // Pixel read/write (bounds-checked)
+    unsigned int get(int x, int y) const {
+        if (x&lt;0||x&gt;=width||y&lt;0||y&gt;=height) return 0;
+        return pixels[y*width+x];
+    }
+    void set(int x, int y, unsigned int c) {
+        if (x&lt;0||x&gt;=width||y&lt;0||y&gt;=height) return;
+        pixels[y*width+x] = c;
+        dirty = true;
+    }
+
+    // These mirror the Processing Java API; dirty flag is used by updatePixels()
+    void loadPixels()   {}
+    void updatePixels() { dirty = true; }
+
+    // Upload CPU pixels to the GPU texture
+    void uploadTexture(); // defined in Processing.cpp
+
+    void resize(int w, int h) { width=w; height=h; pixels.assign(w*h, 0xFF000000); dirty=true; }
+
+    // Apply an image filter to all pixels
+    void filter(int mode) {
+        for (auto&amp; p : pixels) {
+            int r=(p&gt;&gt;16)&amp;0xFF, g=(p&gt;&gt;8)&amp;0xFF, b=p&amp;0xFF, a=(p&gt;&gt;24)&amp;0xFF;
+            if      (mode == GRAY)      { int gr=(r+g+b)/3; p=(a&lt;&lt;24)|(gr&lt;&lt;16)|(gr&lt;&lt;8)|gr; }
+            else if (mode == INVERT)    { p=(a&lt;&lt;24)|((255-r)&lt;&lt;16)|((255-g)&lt;&lt;8)|(255-b); }
+            else if (mode == THRESHOLD) { int gr=(r+g+b)/3; int t=gr&gt;127?255:0; p=(a&lt;&lt;24)|(t&lt;&lt;16)|(t&lt;&lt;8)|t; }
+        }
+        dirty = true;
+    }
+
+    // Extract a sub-image
+    PImage get(int x, int y, int w, int h) const {
+        PImage out(w, h);
+        for (int iy=0; iy&lt;h; iy++)
+            for (int ix=0; ix&lt;w; ix++)
+                out.pixels[iy*w+ix] = get(x+ix, y+iy);
+        return out;
+    }
+
+    // Copy from another image with scaling
+    void copy(const PImage&amp; src, int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh) {
+        for (int iy=0; iy&lt;dh; iy++)
+            for (int ix=0; ix&lt;dw; ix++) {
+                int srcX = sx+(int)(ix*(float)sw/dw);
+                int srcY = sy+(int)(iy*(float)sh/dh);
+                set(dx+ix, dy+iy, src.get(srcX, srcY));
+            }
+        dirty = true;
+    }
+
+    // Apply alpha mask from another grayscale image
+    void mask(const PImage&amp; m) {
+        for (int i=0; i&lt;width*height &amp;&amp; i&lt;(int)m.pixels.size(); i++) {
+            int a = (m.pixels[i]&gt;&gt;16)&amp;0xFF;
+            pixels[i] = (pixels[i]&amp;0x00FFFFFF)|(a&lt;&lt;24);
+        }
+        dirty = true;
+    }
+    void mask(const PImage* m) { if (m) mask(*m); }
+
+    // Destructor frees GPU texture
+    virtual ~PImage() { if (texID) glDeleteTextures(1, &amp;texID); }
+
+    // Non-copyable (owns GPU resource -- use PImage* for assignment)
+    PImage(const PImage&amp;) __attribute__((error(
+        "E0002: PImage value-style copying is not supported. "
+        "Declare PImage* instead of PImage. "
+        "See https://processing-cpp.github.io/error/E0002.html"
+    )));
+    PImage&amp; operator=(const PImage&amp;) __attribute__((error(
+        "E0002: PImage value-style assignment is not supported. "
+        "Declare PImage* instead of PImage. "
+        "See https://processing-cpp.github.io/error/E0002.html"
+    )));
+
+    // Movable
+    PImage(PImage&amp;&amp; o) noexcept
+        : width(o.width), height(o.height), pixels(std::move(o.pixels)),
+          texID(o.texID), dirty(o.dirty) { o.texID=0; }
+};
+
+PGraphics(int w, int h) : PImage(w, h) {
+        // Can't reach PApplet::g_papplet here -- PApplet's complete type
+        // isn't available yet at this point in the header (PGraphics is
+        // defined before it). Default directly to real Processing's own
+        // P2D/P3D default (smooth(2)) rather than reaching across that
+        // forward-reference gap. A sketch wanting a different level for
+        // its buffers can extend this later if needed.
+        samples = 0; // TEMPORARY: forced off to test if MSAA itself is the bug
+
+        // Resolve target: plain, non-multisampled FBO + texture --
+        // unchanged from before, just filled via a blit-resolve now.
+        glGenFramebuffers(1, &amp;fbo);
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        if (texID == 0) glGenTextures(1, &amp;texID);
+        glBindTexture(GL_TEXTURE_2D, texID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texID, 0);
+
+        glGenRenderbuffers(1, &amp;rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // Multisample render target: only created if antialiasing was
+        // actually requested. beginDraw() binds THIS one; endDraw() blits
+        // it down into the resolve target above.
+        if (samples &gt; 0) {
+            glGenFramebuffers(1, &amp;msaaFbo);
+            glBindFramebuffer(GL_FRAMEBUFFER, msaaFbo);
+            glGenRenderbuffers(1, &amp;msaaColorRbo);
+            glBindRenderbuffer(GL_RENDERBUFFER, msaaColorRbo);
+            glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, w, h);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, msaaColorRbo);
+            glGenRenderbuffers(1, &amp;msaaDepthRbo);
+            glBindRenderbuffer(GL_RENDERBUFFER, msaaDepthRbo);
+            glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH24_STENCIL8, w, h);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, msaaDepthRbo);
+            GLenum msaaStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (msaaStatus != GL_FRAMEBUFFER_COMPLETE) {
+                glDeleteFramebuffers(1, &amp;msaaFbo); msaaFbo = 0;
+                glDeleteRenderbuffers(1, &amp;msaaColorRbo); msaaColorRbo = 0;
+                glDeleteRenderbuffers(1, &amp;msaaDepthRbo); msaaDepthRbo = 0;
+                samples = 0;
+            }
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        }
+    }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">return new PImage();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

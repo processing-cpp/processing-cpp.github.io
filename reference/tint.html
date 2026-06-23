@@ -29,7 +29,73 @@ void tint(float r, float g, float b, float a)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noTint.html">noTint</a><a href="image.html">image</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void tint(const PColor&amp; c)      { tint(c.r, c.g, c.b, c.a); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void tint(const PColor&amp; c);
+
+void tint(float);
+
+void tint(float,float);
+
+void tint(float,float,float);
+
+void tint(float,float,float,float);
+
+{ _api::tint((float)gray);
+
+{ _api::tint((float)gray,(float)a);
+
+{ _api::tint((float)r,(float)g,(float)b);
+
+{ _api::tint((float)r,(float)g,(float)b,(float)a);
+
+void tint(float gray, float a);
+
+void tint(float gray);
+
+void tint(float r, float g, float b, float a);
+
+void tint(float r, float g, float b);
+
+template&lt;typename A, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void tint(A gray) { tint((float)gray);
+
+template&lt;typename A, typename B, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void tint(A gray, B a) { tint((float)gray,(float)a);
+
+template&lt;typename A, typename B, typename C, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&gt;&gt;
+    void tint(A r, B g, C b) { tint((float)r,(float)g,(float)b);
+
+template&lt;typename A, typename B, typename C, typename D, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void tint(A r, B g, C b, D a) { tint((float)r,(float)g,(float)b,(float)a);
+
+inline void tint(float g){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;tint(g); }
+
+inline void tint(float g,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;tint(g,a); }
+
+inline void tint(float r,float g,float b){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;tint(r,g,b); }
+
+inline void tint(float r,float g,float b,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;tint(r,g,b,a); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::tint(const PColor&amp; c)      { tint(c.r, c.g, c.b, c.a); }
+
+void PApplet::tint(const PColor&amp; c)      { tint(c.r, c.g, c.b, c.a);
+
+void PApplet::tint(float gray)           {tint(gray, colorMaxA);}
+
+void PApplet::tint(float gray)           {tint(gray, colorMaxA);
+
+void PApplet::tint(float gray, float a) {
+    // tint(gray, alpha) -- both in 0-255 range like Processing Java
+    tintR = tintG = tintB = gray / 255.f;
+    tintA = a / 255.f;
+    doTint = true;
+}
+
+void PApplet::tint(float r, float g, float b, float a) {
+    // tint(r, g, b, alpha) -- all in 0-255 range
+    tintR = r / 255.f;
+    tintG = g / 255.f;
+    tintB = b / 255.f;
+    tintA = a / 255.f;
+    doTint = true;
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="perspective.html">perspective</a><a href="printCamera.html">printCamera</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void printProjection(){float m[16];glGetFloatv(GL_PROJECTION_MATRIX,m);std::cout&lt;&lt;"Projection matrix:\n";for(int i=0;i&lt;4;i++){for(int j=0;j&lt;4;j++)std::cout&lt;&lt;m[j*4+i]&lt;&lt;" ";std::cout&lt;&lt;"\n";}}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void printProjection();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::printProjection(){float m[16];glGetFloatv(GL_PROJECTION_MATRIX,m);std::cout&lt;&lt;"Projection matrix:\n";for(int i=0;i&lt;4;i++){for(int j=0;j&lt;4;j++)std::cout&lt;&lt;m[j*4+i]&lt;&lt;" ";std::cout&lt;&lt;"\n";}}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

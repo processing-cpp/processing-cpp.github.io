@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noLights.html">noLights</a><a href="ambientLight.html">ambientLight</a><a href="directionalLight.html">directionalLight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void lights() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void lights();
+
+inline void PGraphics::lights()                                      { if(PApplet::g_papplet) PApplet::g_papplet-&gt;lights(); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::lights() {
     // Matches Processing Java lights() exactly:
     //   ambientLight(128, 128, 128)
     //   directionalLight(128, 128, 128,  0, 0, -1)
@@ -65,7 +67,32 @@
     // Set in eye space so light direction is fixed relative to camera
     glPushMatrix();
     glLoadIdentity();
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);</div>
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glPopMatrix();
+
+    lightIndex = 1;
+    {
+        GLint curFbo = 0;
+        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &amp;curFbo);
+        double mv[16];
+        glGetDoublev(GL_MODELVIEW_MATRIX, mv);
+        GLboolean depthTestOn = glIsEnabled(GL_DEPTH_TEST);
+        GLboolean lightingOn = glIsEnabled(GL_LIGHTING);
+        GLboolean colorMatOn = glIsEnabled(GL_COLOR_MATERIAL);
+        GLfloat curFillColor[4];
+        glGetFloatv(GL_CURRENT_COLOR, curFillColor);
+        PDEBUG("PApplet::lights() TRACE: curFbo=%d depthTest=%d lighting=%d colorMaterial=%d\n",
+               curFbo, depthTestOn, lightingOn, colorMatOn);
+        PDEBUG("  mv[0]=%.3f mv[5]=%.3f mv[10]=%.3f mv[12]=%.3f mv[13]=%.3f mv[14]=%.3f\n",
+               mv[0], mv[5], mv[10], mv[12], mv[13], mv[14]);
+        double proj[16];
+        glGetDoublev(GL_PROJECTION_MATRIX, proj);
+        PDEBUG("  proj[0]=%.3f proj[5]=%.3f proj[10]=%.3f proj[11]=%.3f proj[14]=%.3f\n",
+               proj[0], proj[5], proj[10], proj[11], proj[14]);
+        PDEBUG("  currentColor (glColor state at this moment): r=%.3f g=%.3f b=%.3f a=%.3f\n",
+               curFillColor[0], curFillColor[1], curFillColor[2], curFillColor[3]);
+    }
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -30,7 +30,73 @@ void stroke(color c)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noStroke.html">noStroke</a><a href="fill.html">fill</a><a href="strokeWeight.html">strokeWeight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void stroke(float gray,float a)            {setStrokeFromColor(makeColor(gray,a));}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void stroke(const PColor&amp; c);
+
+void noFill(); void stroke(float g);
+
+void noFill(); void stroke(float g); void stroke(float r, float g, float b);
+
+void stroke(float);
+
+void stroke(float,float);
+
+void stroke(float,float,float);
+
+void stroke(float,float,float,float);
+
+{ _api::stroke((float)gray);
+
+{ _api::stroke((float)gray,(float)a);
+
+{ _api::stroke((float)r,(float)g,(float)b);
+
+{ _api::stroke((float)r,(float)g,(float)b,(float)a);
+
+void stroke(float gray, float a);
+
+void stroke(float gray);
+
+void stroke(float r, float g, float b, float a);
+
+void stroke(float r, float g, float b);
+
+void stroke(color c);
+
+template&lt;typename A, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void stroke(A gray) { stroke((float)gray);
+
+template&lt;typename A, typename B, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void stroke(A gray, B a) { stroke((float)gray,(float)a);
+
+template&lt;typename A, typename B, typename C, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&gt;&gt;
+    void stroke(A r, B g, C b) { stroke((float)r,(float)g,(float)b);
+
+template&lt;typename A, typename B, typename C, typename D, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void stroke(A r, B g, C b, D a) { stroke((float)r,(float)g,(float)b,(float)a);
+
+inline void stroke(float g){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(g); }
+
+inline void stroke(float g,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(g,a); }
+
+inline void stroke(float r,float g,float b){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(r,g,b); }
+
+inline void stroke(float r,float g,float b,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(r,g,b,a); }
+
+inline void PGraphics::stroke(float g)                              { if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(g); }
+
+inline void PGraphics::stroke(float r, float g2, float b)           { if(PApplet::g_papplet) PApplet::g_papplet-&gt;stroke(r,g2,b); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::stroke(float gray,float a)            {setStrokeFromColor(makeColor(gray,a));}
+
+void PApplet::stroke(float gray)                    {setStrokeFromColor(makeColor(gray,colorMaxA));}
+
+void PApplet::stroke(float r,float g,float b,float a){setStrokeFromColor(makeColor(r,g,b,a));}
+
+void PApplet::stroke(float r,float g,float b)          {setStrokeFromColor(makeColor(r,g,b,colorMaxA));}
+
+void PApplet::stroke(color c)                       {setStrokeFromColor(c);}
+
+void PApplet::stroke(const PColor&amp; c)    { stroke(c.r, c.g, c.b, c.a); }
+
+void PApplet::stroke(const PColor&amp; c)    { stroke(c.r, c.g, c.b, c.a);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

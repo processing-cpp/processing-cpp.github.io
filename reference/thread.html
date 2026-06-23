@@ -26,7 +26,13 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="delay.html">delay</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    std::thread([img, path]{
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach(); }
+
+inline void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();
+
+void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach(); }
+
+void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::thread([img, path]{
         // Resolve search paths same as loadImage
         // Check PROCESSING_SKETCH_PATH env var set by IDE
     std::string _sketchDir;
@@ -65,7 +71,33 @@
             std::cerr &lt;&lt; "requestImage: file not found: " &lt;&lt; path &lt;&lt; "\n";
             return;
         }
-#ifdef PROCESSING_HAS_STB_IMAGE</div>
+#ifdef PROCESSING_HAS_STB_IMAGE
+        int w=0, h=0, ch=0;
+        unsigned char* data = stbi_load(found.c_str(), &amp;w, &amp;h, &amp;ch, 4);
+        if (!data || w&lt;=0 || h&lt;=0) {
+            img-&gt;width  = 0;
+            img-&gt;height = 0;
+            std::cerr &lt;&lt; "requestImage: failed to decode: " &lt;&lt; path &lt;&lt; "\n";
+            return;
+        }
+        img-&gt;pixels.resize((size_t)w * h);
+        for (int i = 0; i &lt; w*h; i++) {
+            unsigned char r=data[i*4+0], g=data[i*4+1],
+                          b=data[i*4+2], a=data[i*4+3];
+            img-&gt;pixels[i] = ((unsigned int)a&lt;&lt;24)|((unsigned int)r&lt;&lt;16)|
+                              ((unsigned int)g&lt;&lt;8)|(unsigned int)b;
+        }
+        stbi_image_free(data);
+        img-&gt;dirty  = true;
+        // Write width/height last so the sketch sees a consistent state
+        img-&gt;height = h;
+        img-&gt;width  = w;   // width != -1 signals "done"
+#else
+        img-&gt;width  = 0;
+        img-&gt;height = 0;
+        std::cerr &lt;&lt; "requestImage: rebuild with -DPROCESSING_HAS_STB_IMAGE: " &lt;&lt; path &lt;&lt; "\n";
+#endif
+    }).detach();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

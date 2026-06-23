@@ -26,7 +26,27 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="blend_fn.html">blend_fn</a><a href="PImage_class.html">PImage_class</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void copy(int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PVector  copy() const { return PVector(x, y, z); }
+
+PColor  copy() const { return PColor(r, g, b, a); }
+
+void copy(const PImage&amp; src, int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh) {
+        for (int iy=0; iy&lt;dh; iy++)
+            for (int ix=0; ix&lt;dw; ix++) {
+                int srcX = sx+(int)(ix*(float)sw/dw);
+                int srcY = sy+(int)(iy*(float)sh/dh);
+                set(dx+ix, dy+iy, src.get(srcX, srcY));
+            }
+        dirty = true;
+    }
+
+IntList copy() const { IntList r; r.data = data; return r; }
+
+FloatList copy() const { FloatList r; r.data = data; return r; }
+
+StringList copy() const { StringList r; r.data = data; return r; }
+
+void copy(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::copy(int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh){
     blend(sx,sy,sw,sh,dx,dy,dw,dh,BLEND);
 }</div>
   </div>

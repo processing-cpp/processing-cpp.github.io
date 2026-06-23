@@ -26,7 +26,9 @@
     <span class="returns-badge">XML</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadXML.html">loadXML</a><a href="saveXML.html">saveXML</a><a href="XML_class.html">XML_class</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">XML parseXML(const std::string&amp; src){ size_t i=0; return parseXMLNode(src,i); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static XML  parseXML(const std::string&amp; src);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">XML PApplet::parseXML(const std::string&amp; src){ size_t i=0; return parseXMLNode(src,i); }
+
+XML PApplet::loadXML(const std::string&amp; path){ return parseXML(readFileString(path));</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -27,7 +27,26 @@ void point(float x, float y, float z)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="line.html">line</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void point(float x, float y) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void point(float x, float y);
+
+void point(float,float);
+
+void point(float,float,float);
+
+inline void point(A x,B y){ _api::point((float)x,(float)y);
+
+inline void point(A x,B y,C z){ _api::point((float)x,(float)y,(float)z);
+
+void point(float x, float y, float z);
+
+template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void point(A x,B y){ point((float)x,(float)y);
+
+inline void point(float x,float y){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;point(x,y); }
+
+inline void point(float x,float y,float z){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;point(x,y,z); }
+
+inline void PGraphics::point(float x, float y)                      { if(PApplet::g_papplet) PApplet::g_papplet-&gt;point(x,y); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::point(float x, float y) {
     if (!doStroke) return;
     applyStroke();
     if (!smoothing &amp;&amp; strokeW &lt;= 1.0f) {
@@ -37,6 +56,14 @@ void point(float x, float y, float z)</div>
         glPointSize(strokeW);
         glBegin(GL_POINTS); glVertex2f(x, y); glEnd();
     }
+    restoreLighting();
+}
+
+void PApplet::point(float x, float y, float z) {
+    if (!doStroke) return;
+    applyStroke();
+    glPointSize(strokeW);
+    glBegin(GL_POINTS); glVertex3f(x, y, z); glEnd();
     restoreLighting();
 }</div>
   </div>

@@ -27,7 +27,7 @@ PShader* loadShader(std::string fragPath, std::string vertPath)</div>
     <span class="returns-badge">PShader*</span>
     
     <h2>Related</h2><div class="related-links"><a href="resetShader.html">resetShader</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShader* loadShader(const std::string&amp; fragPath,const std::string&amp; vertPath){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PShader* loadShader(const std::string&amp; fragPath, const std::string&amp; vertPath="");</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShader* PApplet::loadShader(const std::string&amp; fragPath,const std::string&amp; vertPath){
     std::string fSrc=readShaderFile(fragPath);
     std::string vSrc=vertPath.empty()?
         "#version 120\nvoid main(){gl_Position=ftransform();gl_TexCoord[0]=gl_MultiTexCoord0;gl_FrontColor=gl_Color;}":

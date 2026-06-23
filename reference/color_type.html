@@ -28,7 +28,57 @@ color c = color(gray)</div>
     <span class="returns-badge">color</span>
     
     <h2>Related</h2><div class="related-links"><a href="color_fn.html">color_fn</a><a href="fill.html">fill</a><a href="stroke.html">stroke</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color::color(int gray)              { value = makeColor((float)gray, colorMaxA).value; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">struct color {
+    unsigned int value;
+
+    color() : value(0xFF000000) {}         // default: opaque black
+    color(unsigned int v) : value(v) {}  // allows color pix = img-&gt;get(x,y)
+
+    // Defined in Processing.cpp so the colorMode globals are accessible.
+    //
+    // 3-arg and 4-arg int overloads were intentionally removed: they were
+    // pure pass-throughs that cast to float and called the exact same
+    // _makeColor() the float overloads call directly, so removing them
+    // changes no runtime behavior -- it only removes the possibility of
+    // ambiguous overload resolution on mixed-type calls like
+    // color(map(...), map(...), 50).
+    //
+    // 1-arg and 2-arg int overloads are KEPT: color(int) would otherwise be
+    // ambiguous between color(float) (grayscale) and color(unsigned int)
+    // (raw packed ARGB pixel value, e.g. color pix = img-&gt;get(x,y)) -- two
+    // different, equally-valid implicit conversions for the same int
+    // literal. color(int gray) as an EXACT match resolves that in favor
+    // of "grayscale", matching real Processing semantics.
+    color(int gray);
+    color(int gray, int a);
+    // Use explicit cast: color(0,153,204,(int)a) or color(0.f,153.f,204.f,a)
+    color(float gray);
+    color(float gray, float a);
+    color(float r, float g, float b);
+    color(float r, float g, float b, float a);
+
+    explicit operator unsigned int() const { return value; }
+    unsigned int toInt() const { return value; }
+    // In Processing Java, color IS int. Allow implicit color&lt;-&gt;int conversion
+    // so sketches can write: int c = color(255); int c = lerpColor(a,b,t);
+    operator int() const { return (int)value; }
+    // fromRaw: convert raw int (Java color int) directly to color value
+    static color fromRaw(int v) { color c; c.value=(unsigned int)v; return c; }
+    bool operator==(const color&amp; o) const { return value == o.value; }
+    bool operator!=(const color&amp; o) const { return value != o.value; }
+};
+
+return color((unsigned int)(((clamp8(a))&lt;&lt;24)|((clamp8(r))&lt;&lt;16)|((clamp8(g))&lt;&lt;8)|(clamp8(b))));</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color::color(int gray)              { value = _makeColor((float)gray, _colorMaxA()).value; }
+
+color::color(int gray, int a)       { value = _makeColor((float)gray, (float)a).value; }
+
+color::color(float gray)            { value = _makeColor(gray, _colorMaxA()).value; }
+
+color::color(float gray, float a)   { value = _makeColor(gray, a).value; }
+
+color::color(float r,float g,float b){ value = _makeColor(r,g,b,_colorMaxA()).value; }
+
+color::color(float r,float g,float b,float a){ value = _makeColor(r,g,b,a).value; }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

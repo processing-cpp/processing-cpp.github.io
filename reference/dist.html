@@ -27,7 +27,21 @@ float dist(float x1, float y1, float z1, float x2, float y2, float z2)</div>
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="mag.html">mag</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    float dist(const PVector&amp; v)                     const { float dx=x-v.x,dy=y-v.y,dz=z-v.z; return std::sqrt(dx*dx+dy*dy+dz*dz); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float dist(const PVector&amp; v)                     const { float dx=x-v.x,dy=y-v.y,dz=z-v.z; return std::sqrt(dx*dx+dy*dy+dz*dz); }
+
+static float dist(const PVector&amp; a, const PVector&amp; b) { return a.dist(b); }
+
+static float dist(const PVector&amp; a, const PVector&amp; b) { return a.dist(b);
+
+inline float dist(A x1,B y1,C x2,D y2){ return dist((float)x1,(float)y1,(float)x2,(float)y2);
+
+inline float dist(A x1,B y1,C z1,D x2,E y2,F z2){ return dist((float)x1,(float)y1,(float)z1,(float)x2,(float)y2,(float)z2);
+
+static float dist(float x1,float y1,float x2,float y2)
+        { float dx=x2-x1,dy=y2-y1; return std::sqrt(dx*dx+dy*dy); }
+
+static float dist(float x1,float y1,float z1,float x2,float y2,float z2)
+        { float dx=x2-x1,dy=y2-y1,dz=z2-z1; return std::sqrt(dx*dx+dy*dy+dz*dz); }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

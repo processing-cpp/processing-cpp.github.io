@@ -26,11 +26,26 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="circle.html">circle</a><a href="arc.html">arc</a><a href="ellipseMode.html">ellipseMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void ellipse(float cx, float cy, float w, float h) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void ellipse(float x, float y, float w, float h);
+
+void ellipse(float,float,float,float);
+
+inline void ellipse(A x,B y,C w,D h2){ _api::ellipse((float)x,(float)y,(float)w,(float)h2);
+
+void ellipse(float cx, float cy, float w, float h);
+
+template&lt;typename A,typename B,typename C,typename D,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void ellipse(A cx,B cy,C w,D h){ ellipse((float)cx,(float)cy,(float)w,(float)h);
+
+inline void ellipse(float x,float y,float w,float h){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;ellipse(x,y,w,h); }
+
+inline void PGraphics::ellipse(float x, float y, float w2, float h2){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;ellipse(x,y,w2,h2); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::ellipse(float cx, float cy, float w, float h) {
     float rx = w, ry = h;
     resolveEllipse(cx, cy, rx, ry);
     drawEllipseGeom(cx, cy, rx, ry);
-}</div>
+}
+
+ellipse(cx, cy, diameter, diameter);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -30,7 +30,98 @@ void fill(color c)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noFill.html">noFill</a><a href="stroke.html">stroke</a><a href="background.html">background</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void fill(float gray,float a)              {setFillFromColor(makeColor(gray,a));}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void fill(const PColor&amp; c);
+
+void fill(float g);
+
+void fill(float g); void fill(float r, float g, float b);
+
+void fill(float g); void fill(float r, float g, float b); void fill(float r, float g, float b, float a);
+
+inline void fill(color c, int a) { fill(c, (float)a); }
+
+inline void fill(color c, int a) { fill(c, (float)a);
+
+void fill(float);
+
+void fill(float,float);
+
+void fill(float,float,float);
+
+void fill(float,float,float,float);
+
+{ _api::fill((float)gray,(float)a);
+
+{ _api::fill((float)r,(float)g,(float)b);
+
+{ _api::fill((float)r,(float)g,(float)b,(float)a);
+
+{ _api::fill((float)gray);
+
+void fill(float gray, float a);
+
+void fill(float gray);
+
+void fill(float r, float g, float b, float a);
+
+void fill(float r, float g, float b);
+
+void fill(color c);
+
+void fill(color c, float a);
+
+void fill(color c, int a) { fill(c,(float)a); }
+
+void fill(color c, int a) { fill(c,(float)a);
+
+template&lt;typename A, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void fill(A gray) { fill((float)gray);
+
+template&lt;typename A, typename B, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void fill(A gray, B a) { fill((float)gray,(float)a);
+
+template&lt;typename A, typename B, typename C, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&gt;&gt;
+    void fill(A r, B g, C b) { fill((float)r,(float)g,(float)b);
+
+template&lt;typename A, typename B, typename C, typename D, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void fill(A r, B g, C b, D a) { fill((float)r,(float)g,(float)b,(float)a);
+
+inline void fill(float g){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(g); }
+
+inline void fill(float g,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(g,a); }
+
+inline void fill(float r,float g,float b){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(r,g,b); }
+
+inline void fill(float r,float g,float b,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(r,g,b,a); }
+
+inline void PGraphics::fill(float g)                                { if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(g); }
+
+inline void PGraphics::fill(float r, float g2, float b)             { if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(r,g2,b); }
+
+inline void PGraphics::fill(float r, float g2, float b, float a)    { if(PApplet::g_papplet) PApplet::g_papplet-&gt;fill(r,g2,b,a); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::fill(float gray,float a)              {setFillFromColor(makeColor(gray,a));}
+
+void PApplet::fill(float gray)                      {setFillFromColor(makeColor(gray,colorMaxA));}
+
+void PApplet::fill(float r,float g,float b,float a) {setFillFromColor(makeColor(r,g,b,a));}
+
+void PApplet::fill(float r,float g,float b)           {setFillFromColor(makeColor(r,g,b,colorMaxA));}
+
+void PApplet::fill(color c)                         {setFillFromColor(c);}
+
+void PApplet::fill(color c, float a) {
+    unsigned int v = c.value;
+    fillR = (v&gt;&gt;16&amp;0xFF)/255.f;
+    fillG = (v&gt;&gt;8 &amp;0xFF)/255.f;
+    fillB = (v    &amp;0xFF)/255.f;
+    fillA = std::min(255.f, std::max(0.f, a)) / 255.f;
+    doFill = true;
+}
+
+void PApplet::fill(const PColor&amp; c)      { fill(c.r, c.g, c.b, c.a); }
+
+void PApplet::fill(const PColor&amp; c)      { fill(c.r, c.g, c.b, c.a);
+
+std::fill(img-&gt;pixels.begin(),img-&gt;pixels.end(),0x00000000);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

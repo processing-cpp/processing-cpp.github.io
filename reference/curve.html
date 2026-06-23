@@ -26,7 +26,14 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="bezier.html">bezier</a><a href="curveVertex.html">curveVertex</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void curve(float x0,float y0,float x1,float y1,float x2,float y2,float x3,float y3){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void curve(float,float,float,float,float,float,float,float);
+
+curve((float)x0,(float)y0,(float)x1,(float)y1,
+          (float)x2,(float)y2,(float)x3,(float)y3);
+
+void curve(float x0,float y0,float x1,float y1,float x2,float y2,float x3,float y3);
+
+inline void curve(float x0,float y0,float x1,float y1,float x2,float y2,float x3,float y3){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;curve(x0,y0,x1,y1,x2,y2,x3,y3); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::curve(float x0,float y0,float x1,float y1,float x2,float y2,float x3,float y3){
     if(!doStroke)return;applyStroke();glLineWidth(strokeW);glBegin(GL_LINE_STRIP);
     float s=curveTightnessVal;
     for(int i=0;i&lt;=curveDetailVal;i++){

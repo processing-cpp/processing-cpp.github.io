@@ -26,9 +26,21 @@
     <span class="returns-badge">std::string</span>
     
     <h2>Related</h2><div class="related-links"><a href="split.html">split</a><a href="join.html">join</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::string trim(const std::string&amp; s) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::string trim(const std::string&amp; s) {
     size_t a=s.find_first_not_of(" \t\n\r"), b=s.find_last_not_of(" \t\n\r");
     return a==std::string::npos ? "" : s.substr(a, b-a+1);
+}
+
+String trim() const {
+        size_t start = find_first_not_of(" \t\n\r\f\v");
+        if (start == npos) return String("");
+        size_t end = find_last_not_of(" \t\n\r\f\v");
+        return String(substr(start, end - start + 1));
+    }
+
+static std::string trim(const std::string&amp; s);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string PApplet::trim(const std::string&amp; s) {
+    size_t a=s.find_first_not_of(" \t\n\r"), b=s.find_last_not_of(" \t\n\r");
+    return a==std::string::npos?"":s.substr(a,b-a+1);
 }</div>
   </div>
 </div>

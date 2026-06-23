@@ -27,10 +27,23 @@ void ambient(color c)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="lights.html">lights</a><a href="specular.html">specular</a><a href="emissive.html">emissive</a><a href="shininess.html">shininess</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void ambient(float r, float g, float b) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void ambient(float r, float g, float b);
+
+void ambient(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::ambient(float r, float g, float b) {
     GLfloat col[] = { lc(r), lc(g), lc(b), 1.0f };
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, col);
-}</div>
+}
+
+void PApplet::ambient(color c) {
+    unsigned int v = c.value;
+    ambient((v &gt;&gt; 16 &amp; 0xFF) / 255.f,
+            (v &gt;&gt;  8 &amp; 0xFF) / 255.f,
+            (v       &amp; 0xFF) / 255.f);
+}
+
+ambient((v &gt;&gt; 16 &amp; 0xFF) / 255.f,
+            (v &gt;&gt;  8 &amp; 0xFF) / 255.f,
+            (v       &amp; 0xFF) / 255.f);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

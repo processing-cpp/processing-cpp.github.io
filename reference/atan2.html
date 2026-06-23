@@ -26,7 +26,11 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="atan.html">atan</a><a href="sin.html">sin</a><a href="cos.html">cos</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    float heading() const { return std::atan2(y, x); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float heading() const { return std::atan2(y, x);
+
+static float atan2(float y, float x) { return std::atan2(y,x); }
+
+static float atan2(float y, float x) { return std::atan2(y,x);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

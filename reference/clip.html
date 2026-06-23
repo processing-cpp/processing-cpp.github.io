@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="noClip.html">noClip</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void clip(float x, float y, float w, float h) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void clip(float x, float y, float w, float h);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::clip(float x, float y, float w, float h) {
     // Scissor coordinates are in GL space (Y=0 at bottom), so flip Y
     glEnable(GL_SCISSOR_TEST);
     glScissor((int)x, winHeight - (int)(y + h), (int)w, (int)h);

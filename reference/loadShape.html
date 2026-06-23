@@ -26,7 +26,7 @@
     <span class="returns-badge">PShape*</span>
     
     <h2>Related</h2><div class="related-links"><a href="shape.html">shape</a><a href="createShape.html">createShape</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShape* loadShape(const std::string&amp; path){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PShape* loadShape(const std::string&amp; path);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShape* PApplet::loadShape(const std::string&amp; path){
     auto ext=[&amp;](const std::string&amp; e)-&gt;bool{
         return path.size()&gt;=e.size()&amp;&amp;path.substr(path.size()-e.size())==e;
     };

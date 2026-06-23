@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="perspective.html">perspective</a><a href="ortho.html">ortho</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void frustum(float l, float r, float b, float t, float n, float f) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void frustum(float l, float r, float b, float t, float n, float f);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::frustum(float l, float r, float b, float t, float n, float f) {
     glMatrixMode(GL_PROJECTION); glLoadIdentity();
     glFrustum(l, r, b, t, n, f);
     applyStandardModelview();

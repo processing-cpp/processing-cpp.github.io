@@ -26,10 +26,15 @@
     <span class="returns-badge">bool</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadStrings.html">loadStrings</a><a href="saveBytes.html">saveBytes</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline bool saveStrings(const std::string&amp; path, const std::vector&lt;std::string&gt;&amp; lines) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline bool saveStrings(const std::string&amp; path, const std::vector&lt;std::string&gt;&amp; lines) {
     std::ofstream f(path); if (!f) return false;
     for (auto&amp; l:lines) f&lt;&lt;l&lt;&lt;"\n";
     return true;
+}
+
+static bool saveStrings(const std::string&amp; path, const std::vector&lt;std::string&gt;&amp; lines);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">bool PApplet::saveStrings(const std::string&amp; path, const std::vector&lt;std::string&gt;&amp; lines) {
+    std::ofstream f(path); if (!f) return false;
+    for (auto&amp; l : lines) f &lt;&lt; l &lt;&lt; "\n"; return true;
 }</div>
   </div>
 </div>

@@ -26,7 +26,61 @@
     <span class="returns-badge">PShader</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>set(std::string name, float v)</td><td>Set a uniform float</td></tr><tr><td>set(std::string name, int v)</td><td>Set a uniform int</td></tr><tr><td>set(std::string name, float x, float y)</td><td>Set a uniform vec2</td></tr><tr><td>set(std::string name, float x, float y, float z)</td><td>Set a uniform vec3</td></tr><tr><td>bind()</td><td>Activate the shader</td></tr><tr><td>unbind()</td><td>Deactivate the shader</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadShader.html">loadShader</a><a href="shader_fn.html">shader_fn</a><a href="resetShader.html">resetShader</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    PShader* s=new PShader(vSrc,fSrc);</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PShader {
+public:
+    GLuint program = 0, vert = 0, frag = 0;
+    std::string vertSrc, fragSrc;
+    bool linked = false;
+
+    PShader() = default;
+    PShader(const std::string&amp; v, const std::string&amp; f) : vertSrc(v), fragSrc(f) {}
+
+    static GLuint compileShader(GLenum type, const std::string&amp; src) {
+        GLuint s = glCreateShader(type);
+        const char* c = src.c_str();
+        glShaderSource(s, 1, &amp;c, nullptr);
+        glCompileShader(s);
+        GLint ok; glGetShaderiv(s, GL_COMPILE_STATUS, &amp;ok);
+        if (!ok) { char log[512]; glGetShaderInfoLog(s,512,nullptr,log); std::cerr&lt;&lt;"Shader error: "&lt;&lt;log&lt;&lt;"\n"; }
+        return s;
+    }
+
+    void compile() {
+        vert    = compileShader(GL_VERTEX_SHADER,   vertSrc);
+        frag    = compileShader(GL_FRAGMENT_SHADER, fragSrc);
+        program = glCreateProgram();
+        glAttachShader(program,vert); glAttachShader(program,frag);
+        glLinkProgram(program);
+        GLint ok; glGetProgramiv(program,GL_LINK_STATUS,&amp;ok);
+        if (!ok) { char log[512]; glGetProgramInfoLog(program,512,nullptr,log); std::cerr&lt;&lt;"Link error: "&lt;&lt;log&lt;&lt;"\n"; }
+        linked = ok;
+    }
+
+    void bind()   { if (linked) glUseProgram(program); }
+    void unbind() { glUseProgram(0); }
+
+    void set(const std::string&amp; n, float v)                      { glUniform1f(glGetUniformLocation(program,n.c_str()),v); }
+    void set(const std::string&amp; n, int v)                        { glUniform1i(glGetUniformLocation(program,n.c_str()),v); }
+    void set(const std::string&amp; n, float x, float y)             { glUniform2f(glGetUniformLocation(program,n.c_str()),x,y); }
+    void set(const std::string&amp; n, float x, float y, float z)    { glUniform3f(glGetUniformLocation(program,n.c_str()),x,y,z); }
+    void set(const std::string&amp; n, float x, float y, float z, float w){ glUniform4f(glGetUniformLocation(program,n.c_str()),x,y,z,w); }
+
+    ~PShader() { if(program)glDeleteProgram(program); if(vert)glDeleteShader(vert); if(frag)glDeleteShader(frag); }
+    PShader(const PShader&amp;) __attribute__((error(
+        "E0003: PShader value-style copying is not supported. "
+        "Declare PShader* instead of PShader. "
+        "See https://processing-cpp.github.io/error/E0003.html"
+    )));
+    PShader&amp; operator=(const PShader&amp;) __attribute__((error(
+        "E0003: PShader value-style assignment is not supported. "
+        "Declare PShader* instead of PShader. "
+        "See https://processing-cpp.github.io/error/E0003.html"
+    )));
+    PShader(PShader&amp;&amp; o) noexcept
+        : program(o.program),vert(o.vert),frag(o.frag),
+          vertSrc(o.vertSrc),fragSrc(o.fragSrc),linked(o.linked)
+        { o.program=o.vert=o.frag=0; }
+};</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

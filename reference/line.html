@@ -27,7 +27,43 @@ void line(float x1, float y1, float z1, float x2, float y2, float z2)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="point.html">point</a><a href="strokeWeight.html">strokeWeight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void line(float x1, float y1, float x2, float y2) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void line(float x1, float y1, float x2, float y2);
+
+void line(float,float,float,float);
+
+void line(float,float,float,float,float,float);
+
+inline void line(A x1,B y1,C x2,D y2){ _api::line((float)x1,(float)y1,(float)x2,(float)y2);
+
+inline void line(A x1,B y1,C z1,D x2,E y2,F z2){ _api::line((float)x1,(float)y1,(float)z1,(float)x2,(float)y2,(float)z2);
+
+void line(float x1, float y1, float z1, float x2, float y2, float z2);
+
+template&lt;typename A,typename B,typename C,typename D,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void line(A x1,B y1,C x2,D y2){ line((float)x1,(float)y1,(float)x2,(float)y2);
+
+template&lt;typename A,typename B,typename C,typename D,typename E,typename F,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&amp;&amp;std::is_arithmetic_v&lt;E&gt;&amp;&amp;std::is_arithmetic_v&lt;F&gt;&gt;&gt;
+    void line(A x1,B y1,C z1,D x2,E y2,F z2){ line((float)x1,(float)y1,(float)z1,(float)x2,(float)y2,(float)z2);
+
+inline void line(float x1,float y1,float x2,float y2){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;line(x1,y1,x2,y2); }
+
+inline void line(float x1,float y1,float z1,float x2,float y2,float z2){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;line(x1,y1,z1,x2,y2,z2); }
+
+inline void PGraphics::line(float x1, float y1, float x2, float y2) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;line(x1,y1,x2,y2); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::line(float x1, float y1, float x2, float y2) {
+    {
+        GLint mvDepth=0, projDepth=0;
+        glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &amp;mvDepth);
+        glGetIntegerv(GL_PROJECTION_STACK_DEPTH, &amp;projDepth);
+        double mv[16], proj[16];
+        glGetDoublev(GL_MODELVIEW_MATRIX, mv);
+        glGetDoublev(GL_PROJECTION_MATRIX, proj);
+        GLint vp[4]; glGetIntegerv(GL_VIEWPORT, vp);
+        GLint curFbo=0; glGetIntegerv(GL_FRAMEBUFFER_BINDING, &amp;curFbo);
+        PDEBUG("PApplet::line(%.1f,%.1f,%.1f,%.1f) ENTRY: mvDepth=%d projDepth=%d curFbo=%d viewport=(%d,%d,%d,%d)\n",
+               x1,y1,x2,y2, mvDepth, projDepth, curFbo, vp[0],vp[1],vp[2],vp[3]);
+        PDEBUG("  mv[0]=%.3f mv[5]=%.3f mv[12]=%.3f mv[13]=%.3f\n", mv[0],mv[5],mv[12],mv[13]);
+        PDEBUG("  proj[0]=%.6f proj[5]=%.6f proj[12]=%.6f proj[13]=%.6f\n", proj[0],proj[5],proj[12],proj[13]);
+    }
     if (!doStroke) return;
     applyStroke();
     float w = strokeW;
@@ -66,7 +102,45 @@ void line(float x1, float y1, float z1, float x2, float y2, float z2)</div>
         for(int s=0;s&lt;=segs;s++){
             float a=s*TWO_PI/segs;
             glVertex2f(cx2+std::cos(a)*r, cy2+std::sin(a)*r);
-        }</div>
+        }
+        glEnd();
+    }
+    // Now draw color only where stencil=1
+    glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilOp(GL_KEEP,GL_KEEP,GL_KEEP);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    // Fill bounding box with stroke color
+    float minx=std::min(x1,x2)-r, maxx=std::max(x1,x2)+r;
+    float miny=std::min(y1,y2)-r, maxy=std::max(y1,y2)+r;
+    glBegin(GL_QUADS);
+    glVertex2f(minx,miny); glVertex2f(maxx,miny);
+    glVertex2f(maxx,maxy); glVertex2f(minx,maxy);
+    glEnd();
+    glDisable(GL_STENCIL_TEST);
+    restoreLighting();
+}
+
+void PApplet::line(float x1, float y1, float z1, float x2, float y2, float z2) {
+    if (!doStroke) return;
+    applyStroke();
+    glLineWidth(strokeW);
+    glBegin(GL_LINES); glVertex3f(x1,y1,z1); glVertex3f(x2,y2,z2); glEnd();
+    restoreLighting();
+}
+
+std::string line;
+
+line = charLine;
+
+line = tok;
+
+line = candidate;
+
+std::string curMat, line;
+
+std::string line(buf);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

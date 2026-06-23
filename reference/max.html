@@ -27,7 +27,19 @@ float max(float a, float b, float c)</div>
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="min.html">min</a><a href="constrain.html">constrain</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    float mx = max(r, max(g, b));</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">int max() const {
+        if (data.empty()) throw std::runtime_error("Cannot use max() on an empty IntList.");
+        return *std::max_element(data.begin(), data.end());
+    }
+
+float max() const {
+        if (data.empty()) throw std::runtime_error("Cannot use max() on an empty FloatList.");
+        return *std::max_element(data.begin(), data.end());
+    }
+
+static float max(float a,float b)          { return a&gt;b?a:b; }
+
+static float max(float a,float b,float c)  { float m=a&gt;b?a:b; return m&gt;c?m:c; }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">return max(r, max(g, b)) * colorMaxB;</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

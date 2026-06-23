@@ -26,7 +26,23 @@
     <span class="returns-badge">std::vector<T></span>
     
     <h2>Related</h2><div class="related-links"><a href="reverse_arr.html">reverse_arr</a></div>
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void sort()                   { std::sort(data.begin(),data.end()); }
+
+void sort()                   { std::sort(data.begin(),data.end());
+
+void sortReverse() { std::sort(data.begin(), data.end(), std::greater&lt;int&gt;());
+
+void  sort()                  { std::sort(data.begin(),data.end()); }
+
+void  sort()                  { std::sort(data.begin(),data.end());
+
+void sortReverse() { std::sort(data.begin(), data.end(), std::greater&lt;float&gt;());
+
+void        sort()                          { std::sort(data.begin(),data.end()); }
+
+void        sort()                          { std::sort(data.begin(),data.end());
+
+std::sort(fonts.begin(),fonts.end());</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

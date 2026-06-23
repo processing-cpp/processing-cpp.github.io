@@ -27,7 +27,64 @@ void box(float w, float h, float d)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="sphere.html">sphere</a><a href="size.html">size</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void box(float s){box(s,s,s);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void box(float size);
+
+void box(float w, float h, float d);
+
+inline void PGraphics::box(float size)                               { if(PApplet::g_papplet) PApplet::g_papplet-&gt;box(size); }
+
+inline void PGraphics::box(float w, float h, float d)                { if(PApplet::g_papplet) PApplet::g_papplet-&gt;box(w,h,d); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::box(float s){box(s,s,s);}
+
+void PApplet::box(float s){box(s,s,s);
+
+void PApplet::box(float bw,float bh,float bd){
+    {
+        GLint curFbo=0; glGetIntegerv(GL_FRAMEBUFFER_BINDING,&amp;curFbo);
+        GLboolean depthOn = glIsEnabled(GL_DEPTH_TEST);
+        GLint depthFunc=0; glGetIntegerv(GL_DEPTH_FUNC, &amp;depthFunc);
+        GLboolean depthMask; glGetBooleanv(GL_DEPTH_WRITEMASK, &amp;depthMask);
+        GLint vp[4]; glGetIntegerv(GL_VIEWPORT, vp);
+        PDEBUG("PApplet::box(%.1f,%.1f,%.1f) ENTRY: doFill=%d fillR=%.3f fillG=%.3f fillB=%.3f curFbo=%d\n",
+               bw,bh,bd, doFill, fillR, fillG, fillB, curFbo);
+        PDEBUG("  depthTest=%d depthFunc=0x%x depthWriteMask=%d viewport=(%d,%d,%d,%d)\n",
+               depthOn, depthFunc, depthMask, vp[0], vp[1], vp[2], vp[3]);
+    }
+    float hw=bw/2,hh=bh/2,hd=bd/2;
+    struct Face{ float nx,ny,nz; float v[4][3]; };
+    Face faces[]={
+        { 0, 0, 1,{{-hw,-hh,hd},{hw,-hh,hd},{hw,hh,hd},{-hw,hh,hd}}},
+        { 0, 0,-1,{{hw,-hh,-hd},{-hw,-hh,-hd},{-hw,hh,-hd},{hw,hh,-hd}}},
+        {-1, 0, 0,{{-hw,-hh,-hd},{-hw,-hh,hd},{-hw,hh,hd},{-hw,hh,-hd}}},
+        { 1, 0, 0,{{hw,-hh,hd},{hw,-hh,-hd},{hw,hh,-hd},{hw,hh,hd}}},
+        { 0,-1, 0,{{-hw,-hh,-hd},{hw,-hh,-hd},{hw,-hh,hd},{-hw,-hh,hd}}},
+        { 0, 1, 0,{{-hw,hh,hd},{hw,hh,hd},{hw,hh,-hd},{-hw,hh,-hd}}},
+    };
+    if(doFill){
+        applyFill();
+        glBegin(GL_QUADS);
+        for(auto&amp; f:faces){
+            glNormal3f(f.nx,f.ny,f.nz);
+            for(auto&amp; v:f.v) glVertex3f(v[0],v[1],v[2]);
+        }
+        glEnd();
+        {
+            GLenum err = glGetError();
+            PDEBUG("PApplet::box() AFTER glEnd(): glError=0x%x firstFaceVertex=(%.1f,%.1f,%.1f)\n",
+                   err, faces[0].v[0][0], faces[0].v[0][1], faces[0].v[0][2]);
+        }
+    }
+    if(doStroke){
+        applyStroke();glLineWidth(strokeW);
+        float vx[]={-hw,-hw,hw,hw,-hw,-hw,hw,hw};
+        float vy[]={-hh,hh,hh,-hh,-hh,hh,hh,-hh};
+        float vz[]={hd,hd,hd,hd,-hd,-hd,-hd,-hd};
+        int e[][2]={{0,1},{1,2},{2,3},{3,0},{4,5},{5,6},{6,7},{7,4},{0,4},{1,5},{2,6},{3,7}};
+        glBegin(GL_LINES);
+        for(auto&amp; ee:e){glVertex3f(vx[ee[0]],vy[ee[0]],vz[ee[0]]);glVertex3f(vx[ee[1]],vy[ee[1]],vz[ee[1]]);}
+        glEnd();
+        restoreLighting();
+    }
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

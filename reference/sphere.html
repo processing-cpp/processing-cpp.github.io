@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="box.html">box</a><a href="sphereDetail.html">sphereDetail</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void sphere(float r){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void sphere(float r);
+
+inline void PGraphics::sphere(float r)                               { if(PApplet::g_papplet) PApplet::g_papplet-&gt;sphere(r); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::sphere(float r){
     int stacks=sphereRes, slices=sphereRes;
     if(doFill){
         // Use Phong (per-pixel) shading when lighting is on for smooth highlights
@@ -65,7 +67,37 @@
         auto sv = [&amp;](float lat, float lng) {
             glVertex3f(r*std::cos(lat)*std::cos(lng),
                        r*std::sin(lat),
-                       r*std::cos(lat)*std::sin(lng));</div>
+                       r*std::cos(lat)*std::sin(lng));
+        };
+        glBegin(GL_LINES);
+        for(int i=0;i&lt;stacks;i++){
+            float lat0=PI*(-0.5f+(float)i/stacks);
+            float lat1=PI*(-0.5f+(float)(i+1)/stacks);
+            for(int j=0;j&lt;slices;j++){
+                float lng0=TWO_PI*(float)j/slices;
+                float lng1=TWO_PI*(float)(j+1)/slices;
+                // Four edges of the quad + one diagonal (like Processing Java)
+                // Bottom edge (latitude ring)
+                sv(lat0,lng0); sv(lat0,lng1);
+                // Left edge (longitude line)
+                sv(lat0,lng0); sv(lat1,lng0);
+                // Diagonal (gives the characteristic triangulated look)
+                sv(lat0,lng1); sv(lat1,lng0);
+            }
+        }
+        // Top latitude ring
+        {
+            float lat1=PI*(-0.5f+(float)stacks/stacks);
+            for(int j=0;j&lt;slices;j++){
+                float lng0=TWO_PI*(float)j/slices;
+                float lng1=TWO_PI*(float)(j+1)/slices;
+                sv(lat1,lng0); sv(lat1,lng1);
+            }
+        }
+        glEnd();
+        restoreLighting();
+    }
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

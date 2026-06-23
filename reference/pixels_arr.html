@@ -27,7 +27,10 @@ pixels[y * width + x]</div>
     <span class="returns-badge">std::vector<unsigned int></span>
     
     <h2>Related</h2><div class="related-links"><a href="loadPixels.html">loadPixels</a><a href="updatePixels.html">updatePixels</a><a href="get_pixel.html">get_pixel</a><a href="set_pixel.html">set_pixel</a></div>
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">std::vector&lt;unsigned int&gt; pixels;
+
+: width(o.width), height(o.height), pixels(std::move(o.pixels)),
+          texID(o.texID), dirty(o.dirty) { o.texID=0; }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">gi.pixels = rgba.data();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

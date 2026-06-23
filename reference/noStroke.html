@@ -26,7 +26,11 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="stroke.html">stroke</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void noStroke()                            {doStroke=false;}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void noFill(); void stroke(float g); void stroke(float r, float g, float b); void noStroke();
+
+void noStroke();
+
+inline void PGraphics::noStroke()                                   { if(PApplet::g_papplet) PApplet::g_papplet-&gt;noStroke(); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::noStroke()                            {doStroke=false;}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

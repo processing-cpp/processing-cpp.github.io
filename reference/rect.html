@@ -27,7 +27,29 @@ void rect(float x, float y, float w, float h, float r)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="square.html">square</a><a href="rectMode.html">rectMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void rect(float x, float y, float w, float h) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void rect(float x, float y, float w, float h);
+
+void rect(float,float,float,float);
+
+void rect(float,float,float,float,float);
+
+inline void rect(A x,B y,C w,D h2){ _api::rect((float)x,(float)y,(float)w,(float)h2);
+
+inline void rect(A x,B y,C w,D h2,E r){ _api::rect((float)x,(float)y,(float)w,(float)h2,(float)r);
+
+void rect(float x, float y, float w, float h, float r);
+
+template&lt;typename A,typename B,typename C,typename D,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void rect(A x,B y,C w,D h){ rect((float)x,(float)y,(float)w,(float)h);
+
+template&lt;typename A,typename B,typename C,typename D,typename E,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&amp;&amp;std::is_arithmetic_v&lt;E&gt;&gt;&gt;
+    void rect(A x,B y,C w,D h,E r){ rect((float)x,(float)y,(float)w,(float)h,(float)r);
+
+inline void rect(float x,float y,float w,float h){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;rect(x,y,w,h); }
+
+inline void rect(float x,float y,float w,float h,float r){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;rect(x,y,w,h,r); }
+
+inline void PGraphics::rect(float x, float y, float w2, float h2)   { if(PApplet::g_papplet) PApplet::g_papplet-&gt;rect(x,y,w2,h2); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::rect(float x, float y, float w, float h) {
     resolveRect(x, y, w, h);
 
     if (doFill) {
@@ -41,19 +63,82 @@ void rect(float x, float y, float w, float h, float r)</div>
     }
 
     if (doStroke) {
-        // Expand stroke outward by half strokeWeight so it sits outside the fill
-        float half = strokeW * 0.5f;
+        // Real Processing centers the stroke ON the rectangle's boundary
+        // (half the weight extends inward over the fill, half extends
+        // outward) -- NOT entirely outside it. The previous version drew
+        // the stroke loop expanded fully outward, which meant increasing
+        // strokeWeight never visually shrank the filled interior (it
+        // does in real Processing, since the inward half of a thick
+        // stroke covers part of the fill), and glLineWidth-rendered
+        // GL_LINE_LOOP gives flat, unmitered corners at large widths
+        // (visible gaps/seams at corners instead of a clean joined
+        // outline). Drawing the stroke as actual filled quad geometry --
+        // matching real Processing's approach -- fixes both: correct
+        // centering AND clean mitered corners via overlapping quads.
         applyStroke();
-        glLineWidth(strokeW);
-        glBegin(GL_LINE_LOOP);
-            glVertex2f(x - half,     y - half    );
-            glVertex2f(x + w + half, y - half    );
-            glVertex2f(x + w + half, y + h + half);
-            glVertex2f(x - half,     y + h + half);
+        float half = strokeW * 0.5f;
+        float xo = x - half, yo = y - half;       // outer edge
+        float xi = x + half, yi = y + half;       // inner edge (top-left side)
+        float xow = x + w + half, yoh = y + h + half; // outer edge (bottom-right side)
+        float xiw = x + w - half, yih = y + h - half; // inner edge (bottom-right side)
+        glBegin(GL_QUADS);
+            // Top edge
+            glVertex2f(xo,  yo); glVertex2f(xow, yo); glVertex2f(xow, yi); glVertex2f(xo,  yi);
+            // Bottom edge
+            glVertex2f(xo,  yih); glVertex2f(xow, yih); glVertex2f(xow, yoh); glVertex2f(xo,  yoh);
+            // Left edge (between top and bottom strips already drawn)
+            glVertex2f(xo,  yi); glVertex2f(xi,  yi); glVertex2f(xi,  yih); glVertex2f(xo,  yih);
+            // Right edge
+            glVertex2f(xiw, yi); glVertex2f(xow, yi); glVertex2f(xow, yih); glVertex2f(xiw, yih);
         glEnd();
         restoreLighting();
     }
-}</div>
+}
+
+void PApplet::rect(float x, float y, float w, float h, float r) {
+    resolveRect(x, y, w, h);
+
+    // Clamp radius so it never exceeds half the shortest side
+    r = min(r, min(w, h) * 0.5f);
+
+    const int cornerSegs = 8;  // segments per 90-degree corner arc
+
+    // Emit a corner arc: center (cx,cy), from angle sa to ea
+    auto corner = [&amp;](float cx, float cy, float sa, float ea) {
+        for (int i = 0; i &lt;= cornerSegs; i++) {
+            float a = sa + (ea - sa) * i / cornerSegs;
+            glVertex2f(cx + r * std::cos(a), cy + r * std::sin(a));
+        }
+    };
+
+    if (doFill) {
+        applyFill();
+        glBegin(GL_TRIANGLE_FAN);
+            // Fan center at rect midpoint
+            glVertex2f(x + w * 0.5f, y + h * 0.5f);
+            // Four corners in CCW order, closing back to the first arc point
+            corner(x + r,     y + r,     PI,             PI + HALF_PI);  // top-left
+            corner(x + w - r, y + r,     PI + HALF_PI,   TWO_PI      );  // top-right
+            corner(x + w - r, y + h - r, 0,              HALF_PI     );  // bottom-right
+            corner(x + r,     y + h - r, HALF_PI,        PI          );  // bottom-left
+            // Close the fan back to the first arc point (avoids gap/seam)
+            glVertex2f(x + r + r * std::cos(PI), y + r + r * std::sin(PI));
+        glEnd();
+    }
+
+    if (doStroke) {
+        applyStroke();
+        glLineWidth(strokeW);
+        glBegin(GL_LINE_LOOP);
+            corner(x + r,     y + r,     PI,           PI + HALF_PI);
+            corner(x + w - r, y + r,     PI + HALF_PI, TWO_PI      );
+            corner(x + w - r, y + h - r, 0,            HALF_PI     );
+            corner(x + r,     y + h - r, HALF_PI,      PI          );
+        glEnd();
+    }
+}
+
+void PApplet::square(float x,float y,float s){rect(x,y,s,s);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

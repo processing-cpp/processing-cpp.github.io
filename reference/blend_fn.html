@@ -26,7 +26,12 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="blendMode.html">blendMode</a><a href="copy_fn.html">copy_fn</a><a href="filter.html">filter</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void blend(int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh,int mode){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static PColor blend(const PColor&amp; src, const PColor&amp; dst) {
+        float sa = src.a/255.f;
+        return PColor(src.r*sa+dst.r*(1-sa), src.g*sa+dst.g*(1-sa), src.b*sa+dst.b*(1-sa), 255);
+    }
+
+void blend(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::blend(int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh,int mode){
     std::vector&lt;unsigned char&gt; src(sw*sh*4);
     glReadPixels(sx,winHeight-(sy+sh),sw,sh,GL_RGBA,GL_UNSIGNED_BYTE,src.data());
     std::vector&lt;unsigned char&gt; dst(dw*dh*4);
@@ -44,7 +49,9 @@
     glWindowPos2i(dx,winHeight-(dy+dh));
     glDrawPixels(dw,dh,GL_RGBA,GL_UNSIGNED_BYTE,dst.data());
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-}</div>
+}
+
+blend(sx,sy,sw,sh,dx,dy,dw,dh,BLEND);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

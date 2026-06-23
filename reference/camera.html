@@ -27,8 +27,23 @@ void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, fl
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="perspective.html">perspective</a><a href="ortho.html">ortho</a><a href="beginCamera.html">beginCamera</a><a href="endCamera.html">endCamera</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void camera(){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void camera();
+
+void camera(float ex,float ey,float ez,float cx,float cy,float cz,float ux,float uy,float uz);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::camera(){
     applyDefaultCamera();
+}
+
+void PApplet::camera(float ex,float ey,float ez,float cx,float cy,float cz,float ux,float uy,float uz){
+    float eyeZ = ((float)logicalH/2.0f) / std::tan(PI*60.0f/360.0f);
+    float near_ = eyeZ/10.0f, far_ = eyeZ*10.0f;
+    glMatrixMode(GL_PROJECTION); glLoadIdentity();
+    glScalef(1,-1,1);
+    _gluPerspective(60.0,(double)logicalW/logicalH,near_,far_);
+    glMatrixMode(GL_MODELVIEW); glLoadIdentity();
+    _gluLookAt(ex,ey,ez,cx,cy,cz,ux,uy,uz);
+    glFrontFace(GL_CW);
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 }</div>
   </div>
 </div>

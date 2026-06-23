@@ -29,7 +29,41 @@ std::string str(char v)</div>
     <span class="returns-badge">std::string</span>
     
     <h2>Related</h2><div class="related-links"><a href="trim.html">trim</a><a href="split.html">split</a><a href="join.html">join</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::string str(int v)   { return std::to_string(v); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">return ss.str();
+
+inline std::string str(int v)   { return std::to_string(v); }
+
+inline std::string str(float v) { return std::to_string(v); }
+
+inline std::string str(bool v)  { return v ? "true" : "false"; }
+
+inline std::string str(char v)  { return std::string(1, v); }
+
+inline std::string str(char16_t v)  { return std::string(1, (char)v); }
+
+inline std::string nf(float v, int digits)             { std::ostringstream ss; ss.precision(digits); ss&lt;&lt;std::fixed&lt;&lt;v; return ss.str();
+
+inline std::string nf(int v, int minDigits)            { std::ostringstream ss; ss&lt;&lt;std::setw(minDigits)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str();
+
+inline std::string hex(int v)                { std::ostringstream ss; ss&lt;&lt;std::uppercase&lt;&lt;std::hex&lt;&lt;v; return ss.str();
+
+inline std::string hex(int v, int digits)    { std::ostringstream ss; ss&lt;&lt;std::uppercase&lt;&lt;std::hex&lt;&lt;std::setw(digits)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str();
+
+static std::string str(int v)   { return std::to_string(v); }
+
+static std::string str(float v) { return std::to_string(v); }
+
+static std::string str(bool v)  { return v?"true":"false"; }
+
+static std::string str(char v)  { return std::string(1,v); }
+
+static std::string str(char16_t v)  { return std::string(1,(char)v); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">case JSONValue::FLOAT_T:  { std::ostringstream ss; ss&lt;&lt;v.n; return ss.str();
+
+std::ostringstream ss; ss&lt;&lt;std::fixed&lt;&lt;std::setprecision(digits)&lt;&lt;v; return ss.str();
+
+std::ostringstream ss; ss&lt;&lt;std::setw(d)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str();
+
+std::ostringstream ss; ss&lt;&lt;std::uppercase&lt;&lt;std::hex&lt;&lt;std::setw(8)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

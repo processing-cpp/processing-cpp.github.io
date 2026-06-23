@@ -27,11 +27,32 @@ void arc(float cx, float cy, float w, float h, float start, float stop, int mode
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="ellipse.html">ellipse</a><a href="ellipseMode.html">ellipseMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void arc(float cx, float cy, float w, float h, float startAngle, float endAngle) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void arc(float,float,float,float,float,float);
+
+void arc(float,float,float,float,float,float,int);
+
+inline void arc(A x,B y,C w,D h2,E start,F stop){ _api::arc((float)x,(float)y,(float)w,(float)h2,(float)start,(float)stop);
+
+inline void arc(A x,B y,C w,D h2,E start,F stop,G mode){ _api::arc((float)x,(float)y,(float)w,(float)h2,(float)start,(float)stop,(int)mode);
+
+void arc(float cx, float cy, float w, float h, float start, float stop);
+
+void arc(float cx, float cy, float w, float h, float start, float stop, int mode);
+
+inline void arc(float x,float y,float w,float h,float s,float e){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;arc(x,y,w,h,s,e); }
+
+inline void arc(float x,float y,float w,float h,float s,float e,int m){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;arc(x,y,w,h,s,e,m); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::arc(float cx, float cy, float w, float h, float startAngle, float endAngle) {
     float rx = w, ry = h;
     resolveEllipse(cx, cy, rx, ry);
     drawEllipseGeom(cx, cy, rx, ry, startAngle, endAngle);
-}</div>
+}
+
+void PApplet::arc(float cx, float cy, float w, float h, float startAngle, float endAngle, int /*mode*/) {
+    // mode = OPEN / CHORD / PIE -- basic implementation uses OPEN
+    arc(cx, cy, w, h, startAngle, endAngle);
+}
+
+arc(cx, cy, w, h, startAngle, endAngle);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -27,7 +27,23 @@ void println(T v)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="print.html">print</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline                       void println()             { std::cout &lt;&lt; "\n"; std::cout.flush(); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">template&lt;typename T&gt; inline void print(const T&amp; v)    { std::cout &lt;&lt; v; std::cout.flush(); }
+template&lt;typename T&gt; inline void println(const T&amp; v)  { std::cout &lt;&lt; v &lt;&lt; "\n"; std::cout.flush(); }
+
+template&lt;typename T&gt; inline void println(const T&amp; v)  { std::cout &lt;&lt; v &lt;&lt; "\n"; std::cout.flush(); }
+inline                       void println()             { std::cout &lt;&lt; "\n"; std::cout.flush(); }
+
+template&lt;typename T&gt; void print(const T&amp; v)   { f &lt;&lt; v; }
+    template&lt;typename T&gt; void println(const T&amp; v) { f &lt;&lt; v &lt;&lt; "\n"; }
+
+template&lt;typename T&gt; void println(const T&amp; v) { f &lt;&lt; v &lt;&lt; "\n"; }
+    void println() { f &lt;&lt; "\n"; }
+
+template&lt;typename T&gt; static void print(const T&amp; v)   { std::cout &lt;&lt; v; std::cout.flush(); }
+    template&lt;typename T&gt; static void println(const T&amp; v) { std::cout &lt;&lt; v &lt;&lt; "\n"; std::cout.flush(); }
+
+template&lt;typename T&gt; static void println(const T&amp; v) { std::cout &lt;&lt; v &lt;&lt; "\n"; std::cout.flush(); }
+    static void println() { std::cout &lt;&lt; "\n"; std::cout.flush(); }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

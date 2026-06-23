@@ -26,7 +26,11 @@
     <span class="returns-badge">std::string</span>
     
     <h2>Related</h2><div class="related-links"><a href="unbinary.html">unbinary</a><a href="hex.html">hex</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::string binary(int v)             { std::string s; for(int i=31;i&gt;=0;i--) s+=((v&gt;&gt;i)&amp;1)?'1':'0'; return s; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::string binary(int v)             { std::string s; for(int i=31;i&gt;=0;i--) s+=((v&gt;&gt;i)&amp;1)?'1':'0'; return s; }
+
+static std::string binary(int v);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string PApplet::binary(int v) {
+    std::string r; for(int i=31;i&gt;=0;i--) r+=((v&gt;&gt;i)&amp;1)?'1':'0'; return r;
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

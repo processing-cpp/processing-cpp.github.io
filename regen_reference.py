@@ -77,15 +77,29 @@ def render_returns(returns):
     return f'<h2>Returns</h2>\n    <span class="returns-badge">{returns}</span>'
 
 
-def render_impl(impl):
-    if not impl:
+def render_under_the_hood_block(label, code):
+    if not code:
         return ""
-    # impl is raw C++ source; escape for HTML but preserve as literal text
     return (
         '<h2>Under the Hood</h2>'
-        '<p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p>'
-        f'<div class="impl-block">{esc(impl)}</div>'
+        f'<p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From {label}:</p>'
+        f'<div class="impl-block">{esc(code)}</div>'
     )
+
+
+def render_impl(entry):
+    h_code = entry.get("under_the_hood_h")
+    cpp_code = entry.get("under_the_hood_cpp")
+    if h_code or cpp_code:
+        return render_under_the_hood_block("Processing.h", h_code) + render_under_the_hood_block(
+            "Processing.cpp", cpp_code
+        )
+    # Fall back to the legacy single field for entries not yet migrated
+    # by regen_under_the_hood.py.
+    legacy = entry.get("impl")
+    if not legacy:
+        return ""
+    return render_under_the_hood_block("Processing.cpp", legacy)
 
 
 def render_page(entry, sidebar_tree, entries_by_slug):
@@ -122,7 +136,7 @@ def render_page(entry, sidebar_tree, entries_by_slug):
     {render_returns(entry.get("returns"))}
     {render_methods(entry.get("methods"))}
     {render_related(entry.get("related"), entries_by_slug)}
-    {render_impl(entry.get("impl"))}
+    {render_impl(entry)}
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
@@ -189,7 +203,7 @@ def main():
     existing = glob.glob(os.path.join(OUT_DIR, "*.html"))
     for fp in existing:
         os.remove(fp)
-    print(f"Deleted {len(existing)} existing file(s) in reference/.")
+    print(f"Deleted {len(existing)} existing file(s) in {OUT_DIR}/.")
 
     with open(os.path.join(OUT_DIR, "index.html"), "w") as f:
         f.write(render_index(sidebar_tree, entries_by_slug))

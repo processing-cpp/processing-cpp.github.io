@@ -26,7 +26,7 @@
     <span class="returns-badge">std::string</span>
     
     <h2>Related</h2><div class="related-links"><a href="selectInput.html">selectInput</a><a href="selectOutput.html">selectOutput</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string selectFolder(const std::string&amp; prompt){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static std::string selectFolder(const std::string&amp; prompt="");</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string PApplet::selectFolder(const std::string&amp; prompt){
     std::string cmd="zenity --file-selection --directory --title=\""+prompt+"\" 2&gt;/dev/null";
     FILE* p=popen(cmd.c_str(),"r"); if(!p)return "";
     char buf[4096]=""; fgets(buf,sizeof(buf),p); pclose(p);

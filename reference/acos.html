@@ -26,7 +26,11 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="cos.html">cos</a><a href="asin.html">asin</a><a href="atan.html">atan</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">        float p = std::acos(2.0f * static_cast&lt;float&gt;(rand()) / RAND_MAX - 1.0f);</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">return std::acos(c);
+
+static float acos(float x)  { return std::acos(x); }
+
+static float acos(float x)  { return std::acos(x);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

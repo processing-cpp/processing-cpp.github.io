@@ -26,7 +26,7 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="modelX.html">modelX</a><a href="modelY.html">modelY</a><a href="screenZ.html">screenZ</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float modelZ(float x,float y,float z) {float mv[16];glGetFloatv(GL_MODELVIEW_MATRIX,mv);return mv[2]*x+mv[6]*y+mv[10]*z+mv[14];}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float modelZ(float x, float y, float z=0);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::modelZ(float x,float y,float z) {float mv[16];glGetFloatv(GL_MODELVIEW_MATRIX,mv);return mv[2]*x+mv[6]*y+mv[10]*z+mv[14];}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

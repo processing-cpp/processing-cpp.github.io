@@ -26,7 +26,63 @@
     <span class="returns-badge">std::vector<T></span>
     
     <h2>Related</h2><div class="related-links"><a href="concat.html">concat</a><a href="expand.html">expand</a><a href="shorten.html">shorten</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    void append(int v)            { data.push_back(v); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void append(int v)            { data.push_back(v); }
+
+void push(int v) { append(v);
+
+void append(const std::vector&lt;int&gt;&amp; values) { for (int v : values) append(v); }
+
+void append(const std::vector&lt;int&gt;&amp; values) { for (int v : values) append(v);
+
+void append(const IntList&amp; list) {
+        // Snapshot first: if 'list' is THIS SAME object (e.g. self-aliasing
+        // call list.append(list)), iterating list.data directly while
+        // append(v) grows this-&gt;data via push_back can reallocate the
+        // underlying buffer mid-loop, invalidating the range-for's
+        // captured begin()/end() iterators -- a use-after-free. Copying
+        // values out first makes append(self) safe and correct.
+        // (Found by stress-testing; confirmed via AddressSanitizer.)
+        std::vector&lt;int&gt; snapshot = list.data;
+        for (int v : snapshot) append(v);
+    }
+
+for (int v : snapshot) append(v);
+
+void  append(float v)         { data.push_back(v); }
+
+void push(float v) { append(v);
+
+void append(const std::vector&lt;float&gt;&amp; values) { for (float v : values) append(v); }
+
+void append(const std::vector&lt;float&gt;&amp; values) { for (float v : values) append(v);
+
+void append(const FloatList&amp; list) {
+        // Snapshot first -- see IntList::append(const IntList&amp;) comment;
+        // protects against self-aliasing (list.append(list)) reallocating
+        // mid-iteration and invalidating the iterators we're reading from.
+        std::vector&lt;float&gt; snapshot = list.data;
+        for (float v : snapshot) append(v);
+    }
+
+for (float v : snapshot) append(v);
+
+void        append(const std::string&amp; v)    { data.push_back(v); }
+
+void push(const std::string&amp; v) { append(v);
+
+void append(const std::vector&lt;std::string&gt;&amp; values) { for (auto&amp; v : values) append(v); }
+
+void append(const std::vector&lt;std::string&gt;&amp; values) { for (auto&amp; v : values) append(v);
+
+void append(const StringList&amp; list) {
+        // Snapshot first -- see IntList::append(const IntList&amp;) comment;
+        // protects against self-aliasing (list.append(list)) reallocating
+        // mid-iteration and invalidating the iterators we're reading from.
+        std::vector&lt;std::string&gt; snapshot = list.data;
+        for (auto&amp; v : snapshot) append(v);
+    }
+
+for (auto&amp; v : snapshot) append(v);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

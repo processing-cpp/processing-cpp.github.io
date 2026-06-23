@@ -26,7 +26,7 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="beginShape.html">beginShape</a><a href="vertex.html">vertex</a><a href="curveVertex.html">curveVertex</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void bezierVertex(float cx1,float cy1,float cx2,float cy2,float x,float y){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void bezierVertex(float cx1, float cy1, float cx2, float cy2, float x, float y);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::bezierVertex(float cx1,float cy1,float cx2,float cy2,float x,float y){
     if(!inShape||shapeVerts.empty())return;
     auto[x0,y0]=shapeVerts.back();const int sg=bezierDetailVal;
     for(int i=1;i&lt;=sg;i++){float t=i/(float)sg,u=1-t;

@@ -26,7 +26,7 @@
     <span class="returns-badge">PrintWriter</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>print(T v)</td><td>Writes a value without a newline</td></tr><tr><td>println(T v)</td><td>Writes a value followed by a newline</td></tr><tr><td>println()</td><td>Writes a blank line</td></tr><tr><td>flush()</td><td>Flushes the buffer to disk</td></tr><tr><td>close()</td><td>Closes the file</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="createWriter.html">createWriter</a><a href="saveStrings.html">saveStrings</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">class PrintWriter {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PrintWriter {
     std::ofstream f;
 public:
     explicit PrintWriter(const std::string&amp; path) : f(path) {}
@@ -35,7 +35,7 @@ public:
     void println() { f &lt;&lt; "\n"; }
     void flush()   { f.flush(); }
     void close()   { f.close(); }
-};</div>
+};</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PrintWriter* PApplet::createWriter(const std::string&amp; path){ return new PrintWriter(path);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

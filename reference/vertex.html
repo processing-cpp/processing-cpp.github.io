@@ -29,11 +29,63 @@ void vertex(float x, float y, float z, float u, float v)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="beginShape.html">beginShape</a><a href="endShape.html">endShape</a><a href="bezierVertex.html">bezierVertex</a><a href="curveVertex.html">curveVertex</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void vertex(float x, float y) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void beginShape(); void endShape(int mode=0); void vertex(float x, float y);
+
+void vertex(float,float);
+
+void vertex(float,float,float);
+
+void vertex(float,float,float,float);
+
+void vertex(float x,float y,float z=0,float u=0,float v=0) { verts.push_back({x,y,z,u,v}); }
+
+inline void vertex(A x,B y){ _api::vertex((float)x,(float)y);
+
+inline void vertex(A x,B y,C z){ _api::vertex((float)x,(float)y,(float)z);
+
+inline void vertex(A x,B y,C u,D v2){ _api::vertex((float)x,(float)y,(float)u,(float)v2);
+
+void vertex(float x, float y);
+
+void vertex(float x, float y, float z);
+
+void vertex(float x, float y, float u, float v);
+
+void vertex(float x, float y, float z, float u, float v);
+
+inline void vertex(float x,float y){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y); }
+
+inline void vertex(float x,float y,float z){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y,z); }
+
+inline void vertex(float x,float y,float u,float v){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y,u,v); }
+
+inline void PGraphics::vertex(float x, float y)                     { if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::vertex(float x, float y) {
     if (inContour) { contourVerts.push_back({x,y}); return; }
     if (!inShape)  return;
     shapeVerts.push_back({x, y});
     shapeVerts3D.push_back({x, y, 0.0f});
+}
+
+void PApplet::vertex(float x, float y, float z) {
+    if (inContour) { contourVerts.push_back({x,y}); return; }
+    if (!inShape)  return;
+    shapeVerts.push_back({x, y});
+    shapeVerts3D.push_back({x, y, z});
+    if (z != 0.0f) shape3D = true;
+}
+
+void PApplet::vertex(float x, float y, float u, float v) {
+    if (!inShape) return;
+    shapeVerts.push_back({x, y});
+    shapeVerts3D.push_back({x, y, 0.0f});
+    // UV stored for future texture mapping support
+}
+
+void PApplet::vertex(float x, float y, float z, float u, float v) {
+    if (!inShape) return;
+    shapeVerts.push_back({x, y});
+    shapeVerts3D.push_back({x, y, z});
+    if (z != 0.0f) shape3D = true;
 }</div>
   </div>
 </div>

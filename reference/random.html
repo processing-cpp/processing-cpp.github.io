@@ -27,9 +27,15 @@ float random(float low, float high)</div>
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="randomSeed.html">randomSeed</a><a href="noise.html">noise</a><a href="randomGaussian.html">randomGaussian</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float random(float lo, float hi) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float random(float lo, float hi);
+
+float random(float hi);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::random(float lo, float hi) {
     return lo + _rngDist(_rng) * (hi - lo);
-}</div>
+}
+
+float PApplet::random(float hi) { return random(0.f, hi); }
+
+float PApplet::random(float hi) { return random(0.f, hi);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

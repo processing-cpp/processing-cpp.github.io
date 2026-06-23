@@ -27,7 +27,13 @@ void endShape(int mode)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="beginShape.html">beginShape</a><a href="vertex.html">vertex</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void endShape(int mode){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void beginShape(); void endShape(int mode=0);
+
+void endShape(bool close=false)   { closed=close; }
+
+void endShape(int mode=0);
+
+inline void PGraphics::endShape(int mode)                           { if(PApplet::g_papplet) PApplet::g_papplet-&gt;endShape(mode); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::endShape(int mode){
     if(!inShape){return;}
     bool cl=(mode==CLOSE);
     int  n3 = (int)shapeVerts3D.size();
@@ -66,7 +72,138 @@ void endShape(int mode)</div>
             restoreLighting();
             inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
             return;
-        }</div>
+        }
+        if(shapeKind == LINES){
+            applyStroke(); glLineWidth(strokeW);
+            glBegin(GL_LINES);
+            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
+            glEnd();
+            restoreLighting();
+            inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
+            return;
+        }
+        // Draw stroke outlines -- shapeVerts was collected in vertex()
+        if(doStroke &amp;&amp; !shapeVerts.empty()){
+            applyStroke(); glLineWidth(strokeW);
+            int n=(int)shapeVerts.size();
+            // Use 3D verts for correct depth in transformed space
+            auto lv=[&amp;](int i)-&gt;std::array&lt;float,3&gt;{ return shapeVerts3D[i]; };
+            switch(shapeKind){
+                case TRIANGLE_STRIP:
+                    glBegin(GL_LINES);
+                    for(int i=0;i+2&lt;n;i++){
+                        auto a=lv(i),b=lv(i+1),c=lv(i+2);
+                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
+                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
+                        glVertex3f(c[0],c[1],c[2]);glVertex3f(a[0],a[1],a[2]);
+                    }
+                    glEnd();
+                    break;
+                case TRIANGLE_FAN:
+                    glBegin(GL_LINES);
+                    for(int i=1;i+1&lt;n;i++){
+                        auto a=lv(0),b=lv(i),c=lv(i+1);
+                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
+                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
+                        glVertex3f(c[0],c[1],c[2]);glVertex3f(a[0],a[1],a[2]);
+                    }
+                    glEnd();
+                    break;
+                case TRIANGLES:
+                    glBegin(GL_LINES);
+                    for(int i=0;i+2&lt;n;i+=3){
+                        auto a=lv(i),b=lv(i+1),c=lv(i+2);
+                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
+                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
+                        glVertex3f(c[0],c[1],c[2]);glVertex3f(a[0],a[1],a[2]);
+                    }
+                    glEnd();
+                    break;
+                case QUADS:
+                    glBegin(GL_LINES);
+                    for(int i=0;i+3&lt;n;i+=4){
+                        auto a=lv(i),b=lv(i+1),c=lv(i+2),d=lv(i+3);
+                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
+                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
+                        glVertex3f(c[0],c[1],c[2]);glVertex3f(d[0],d[1],d[2]);
+                        glVertex3f(d[0],d[1],d[2]);glVertex3f(a[0],a[1],a[2]);
+                    }
+                    glEnd();
+                    break;
+                case QUAD_STRIP:
+                    glBegin(GL_LINES);
+                    for(int i=0;i+3&lt;n;i+=2){
+                        auto a=lv(i),b=lv(i+1),c=lv(i+3),d=lv(i+2);
+                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
+                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
+                        glVertex3f(c[0],c[1],c[2]);glVertex3f(d[0],d[1],d[2]);
+                        glVertex3f(d[0],d[1],d[2]);glVertex3f(a[0],a[1],a[2]);
+                    }
+                    glEnd();
+                    break;
+                default:
+                    glBegin(cl?GL_LINE_LOOP:GL_LINE_STRIP);
+                    for(auto&amp; v:shapeVerts3D)glVertex3f(v[0],v[1],v[2]);
+                    glEnd();
+                    break;
+            }
+        }
+        restoreLighting();
+        inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
+        return;
+    }
+    if(shapeVerts.empty()){inShape=false;return;}
+
+    // Default beginShape() / endShape(CLOSE) path.
+    // Use stencil buffer to fill arbitrary (including concave) polygons correctly.
+    // This matches Java Processing's polygon fill behavior.
+    if(shapeKind==-1 || shapeKind==CLOSE){
+        if(doFill &amp;&amp; shapeVerts.size()&gt;=3){
+            glDisable(GL_CULL_FACE);
+
+            // Step 1: Write polygon to stencil buffer using odd-even fill rule
+            glEnable(GL_STENCIL_TEST);
+            glClear(GL_STENCIL_BUFFER_BIT);
+            glStencilFunc(GL_ALWAYS, 0, ~0);
+            glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT); // toggle stencil bit
+            glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE); // don't write color
+            glBegin(GL_TRIANGLE_FAN);
+            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
+            glEnd();
+            glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+            // Step 2: Draw fill color only where stencil != 0
+            glStencilFunc(GL_NOTEQUAL, 0, ~0);
+            glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+            applyFill();
+            // Draw a bounding quad covering the shape
+            float minx=shapeVerts3D[0][0], maxx=minx;
+            float miny=shapeVerts3D[0][1], maxy=miny;
+            float minz=shapeVerts3D[0][2], maxz=minz;
+            for(auto&amp; v:shapeVerts3D){
+                minx=std::min(minx,v[0]); maxx=std::max(maxx,v[0]);
+                miny=std::min(miny,v[1]); maxy=std::max(maxy,v[1]);
+                minz=std::min(minz,v[2]); maxz=std::max(maxz,v[2]);
+            }
+            float mz=(minz+maxz)*0.5f;
+            glBegin(GL_QUADS);
+            glVertex3f(minx,miny,mz); glVertex3f(maxx,miny,mz);
+            glVertex3f(maxx,maxy,mz); glVertex3f(minx,maxy,mz);
+            glEnd();
+
+            glDisable(GL_STENCIL_TEST);
+        }
+        if(doStroke){
+            applyStroke(); glLineWidth(strokeW);
+            glBegin(cl ? GL_LINE_LOOP : GL_LINE_STRIP);
+            // Use 3D coords so transforms (rotateX/Y) are respected
+            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
+            glEnd();
+            restoreLighting();
+        }
+    }
+    inShape=false; shapeVerts.clear(); shapeVerts3D.clear();
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

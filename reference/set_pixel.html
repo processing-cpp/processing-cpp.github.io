@@ -26,7 +26,49 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="get_pixel.html">get_pixel</a><a href="loadPixels.html">loadPixels</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void set(int x, int y, color c) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PVector&amp; set(float _x, float _y, float _z=0) { x=_x; y=_y; z=_z; return *this; }
+
+PVector&amp; set(const PVector&amp; v)               { x=v.x; y=v.y; z=v.z; return *this; }
+
+PColor&amp; set(float _r, float _g, float _b, float _a=255) { r=_r; g=_g; b=_b; a=_a; return *this; }
+
+PColor&amp; set(float gray, float _a=255)                   { r=g=b=gray; a=_a; return *this; }
+
+void set(int x, int y, unsigned int c) {
+        if (x&lt;0||x&gt;=width||y&lt;0||y&gt;=height) return;
+        pixels[y*width+x] = c;
+        dirty = true;
+    }
+
+set(dx+ix, dy+iy, src.get(srcX, srcY));
+
+void set(int i, int v)        { data[i]=v; }
+
+void  set(int i, float v)     { data[i]=v; }
+
+void        set(int i, const std::string&amp; v){ data[i]=v; }
+
+void  set(int i, const T&amp; v)    { data[i]=v; }
+
+void  set(int i, T* v)            { data[i]=v; }
+
+void set(const std::string&amp; k, int v)               { data[k]=v; }
+
+void  set(const std::string&amp; k, float v)                { data[k]=v; }
+
+void        set(const std::string&amp; k, const std::string&amp; v)              { data[k]=v; }
+
+void set(const std::string&amp; n, float v)                      { glUniform1f(glGetUniformLocation(program,n.c_str()),v); }
+
+void set(const std::string&amp; n, int v)                        { glUniform1i(glGetUniformLocation(program,n.c_str()),v); }
+
+void set(const std::string&amp; n, float x, float y)             { glUniform2f(glGetUniformLocation(program,n.c_str()),x,y); }
+
+void set(const std::string&amp; n, float x, float y, float z)    { glUniform3f(glGetUniformLocation(program,n.c_str()),x,y,z); }
+
+void set(const std::string&amp; n, float x, float y, float z, float w){ glUniform4f(glGetUniformLocation(program,n.c_str()),x,y,z,w); }
+
+void  set(int x, int y, color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::set(int x, int y, color c) {
     unsigned int v = c.value;
     unsigned char p[] = {
         (unsigned char)((v &gt;&gt; 16) &amp; 0xFF),  // R

@@ -28,7 +28,7 @@ PVector v(x, y, z)</div>
     <span class="returns-badge">PVector</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>mag()</td><td>Magnitude (length) of the vector</td></tr><tr><td>magSq()</td><td>Magnitude squared</td></tr><tr><td>add(PVector v)</td><td>Add another vector</td></tr><tr><td>sub(PVector v)</td><td>Subtract another vector</td></tr><tr><td>mult(float s)</td><td>Multiply by scalar</td></tr><tr><td>div(float s)</td><td>Divide by scalar</td></tr><tr><td>normalize()</td><td>Normalize to unit length</td></tr><tr><td>limit(float max)</td><td>Limit the magnitude</td></tr><tr><td>setMag(float m)</td><td>Set the magnitude</td></tr><tr><td>dot(PVector v)</td><td>Dot product</td></tr><tr><td>cross(PVector v)</td><td>Cross product</td></tr><tr><td>dist(PVector v)</td><td>Distance to another vector</td></tr><tr><td>heading()</td><td>Angle the vector makes with positive x-axis</td></tr><tr><td>angleBetween(PVector v)</td><td>Angle between two vectors</td></tr><tr><td>lerp(PVector v, float t)</td><td>Interpolate towards another vector</td></tr><tr><td>rotate(float angle)</td><td>Rotate by an angle (2D)</td></tr><tr><td>copy()</td><td>Return a copy</td></tr><tr><td>toString()</td><td>String representation</td></tr><tr><td>PVector::fromAngle(float a)</td><td>Create from angle (static)</td></tr><tr><td>PVector::random2D()</td><td>Random 2D unit vector (static)</td></tr><tr><td>PVector::random3D()</td><td>Random 3D unit vector (static)</td></tr></table>
     
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">class PVector {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PVector {
 public:
     float x, y, z;
 
@@ -123,7 +123,11 @@ public:
         ss &lt;&lt; "[ " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; ", " &lt;&lt; z &lt;&lt; " ]";
         return ss.str();
     }
-};</div>
+};
+
+return PVector(verts[i].x, verts[i].y, verts[i].z);
+
+inline PVector createVector(float x, float y, float z=0) { return PVector(x, y, z);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

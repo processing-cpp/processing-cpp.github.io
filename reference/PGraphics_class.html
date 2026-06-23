@@ -26,7 +26,236 @@
     <span class="returns-badge">PGraphics</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>beginDraw()</td><td>Start drawing to the buffer</td></tr><tr><td>endDraw()</td><td>Stop drawing to the buffer</td></tr><tr><td>background(r,g,b)</td><td>Clear the buffer</td></tr><tr><td>fill(r,g,b)</td><td>Set fill color</td></tr><tr><td>stroke(r,g,b)</td><td>Set stroke color</td></tr><tr><td>ellipse(x,y,w,h)</td><td>Draw ellipse</td></tr><tr><td>rect(x,y,w,h)</td><td>Draw rectangle</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="createGraphics.html">createGraphics</a><a href="image.html">image</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PGraphics* createGraphics(int w,int h){return new PGraphics(w,h);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PGraphics : public PImage {
+public:
+    GLuint fbo = 0; // framebuffer object
+    GLuint rbo = 0; // renderbuffer (depth+stencil)
+    bool   active = false;
+
+    // Independent per-buffer style state. Real Processing's PGraphics has
+    // its OWN fill/stroke/text/etc. settings, completely separate from the
+    // main canvas's -- setting fill() on the main canvas must never affect
+    // a PGraphics buffer, and vice versa. Previously every PGraphics method
+    // forwarded directly to the single global PApplet::g_papplet singleton,
+    // meaning style state silently bled between the main canvas and every
+    // buffer (e.g. a thick green main-canvas stroke would incorrectly show
+    // up on an ellipse drawn inside a buffer that never set its own
+    // stroke). beginDraw()/endDraw() now swap PApplet's current style out
+    // for this buffer's OWN remembered style, and swap it back after,
+    // exactly mirroring how Java's PGraphics keeps independent state.
+    struct StyleSnapshot {
+        // Defaults match PApplet's own real defaults (white fill, black
+        // stroke) -- these are also real Processing's documented
+        // beginDraw() defaults ("Sets the default properties"), NOT an
+        // arbitrary choice. The earlier version of this struct had
+        // fillR=0 (black fill), which is backwards -- every fresh
+        // PGraphics buffer with no explicit fill()/stroke() calls should
+        // look exactly like a freshly created Processing sketch: white
+        // fill, black stroke, weight 1.
+        float fillR=1, fillG=1, fillB=1, fillA=1;
+        float strokeR=0, strokeG=0, strokeB=0, strokeA=1;
+        float strokeW=1;
+        bool  doFill=true, doStroke=true, smoothing=true;
+        // BUG FIX: these were raw 0/0/0 literals, which silently meant
+        // CORNER mode (CORNER=0) for ellipseMode specifically, when real
+        // Processing's actual default is CENTER (=3). That made every
+        // fresh PGraphics buffer's ellipse() calls interpret their first
+        // two arguments as the bounding box's top-left corner instead of
+        // its center, shifting every default-mode ellipse by half its
+        // width/height toward the bottom-right. rectMode's and
+        // imageMode's real defaults ARE actually CORNER (=0), so those
+        // two were correct by coincidence -- only currentEllipseMode
+        // needed the real CENTER constant.
+        // Using literal values, not the CORNER/CENTER named constants:
+        // those constants are declared later in this file, after
+        // PGraphics's own definition, so they're not in scope yet here.
+        // CORNER=0, CENTER=3 (see the static constexpr declarations
+        // further down in this file).
+        int   currentRectMode=0 /*CORNER*/, currentEllipseMode=3 /*CENTER*/, currentImageMode=0 /*CORNER*/;
+        float tintR=1, tintG=1, tintB=1, tintA=1;
+        bool  doTint=false;
+        int   colorModeVal=0;
+        float colorMaxH=255.f, colorMaxS=255.f, colorMaxB=255.f, colorMaxA=255.f;
+        float g_textSize=14.0f;
+        int   g_textAlignX=0, g_textAlignY=0;
+        float g_textLeading=0.0f;
+        bool  initialized=false; // false until beginDraw() runs once and sets real Processing defaults
+    };
+    StyleSnapshot myStyle;       // this buffer's OWN persistent style
+    StyleSnapshot _savedMainStyle; // main canvas's style, stashed during beginDraw()..endDraw()
+
+    // Multisampled render target: PGraphics now matches real Processing's
+    // default antialiasing (smooth(2) on P2D/P3D) by rendering into a
+    // multisample renderbuffer-backed FBO, then resolving (blitting) down
+    // into the plain texture-backed FBO that drawPGraphicsRect samples
+    // from. Without this, the main canvas's window-level MSAA never
+    // applied to off-screen buffers at all.
+    GLuint msaaFbo = 0;
+    GLuint msaaColorRbo = 0;
+    GLuint msaaDepthRbo = 0;
+    int    samples = 0; // 0 = no multisampling
+    bool   is3D = false; // true if created via createGraphics(w,h,P3D)
+
+    PGraphics() = default;
+
+    PGraphics(int w, int h) : PImage(w, h) {
+        // Can't reach PApplet::g_papplet here -- PApplet's complete type
+        // isn't available yet at this point in the header (PGraphics is
+        // defined before it). Default directly to real Processing's own
+        // P2D/P3D default (smooth(2)) rather than reaching across that
+        // forward-reference gap. A sketch wanting a different level for
+        // its buffers can extend this later if needed.
+        samples = 0; // TEMPORARY: forced off to test if MSAA itself is the bug
+
+        // Resolve target: plain, non-multisampled FBO + texture --
+        // unchanged from before, just filled via a blit-resolve now.
+        glGenFramebuffers(1, &amp;fbo);
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        if (texID == 0) glGenTextures(1, &amp;texID);
+        glBindTexture(GL_TEXTURE_2D, texID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texID, 0);
+
+        glGenRenderbuffers(1, &amp;rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // Multisample render target: only created if antialiasing was
+        // actually requested. beginDraw() binds THIS one; endDraw() blits
+        // it down into the resolve target above.
+        if (samples &gt; 0) {
+            glGenFramebuffers(1, &amp;msaaFbo);
+            glBindFramebuffer(GL_FRAMEBUFFER, msaaFbo);
+            glGenRenderbuffers(1, &amp;msaaColorRbo);
+            glBindRenderbuffer(GL_RENDERBUFFER, msaaColorRbo);
+            glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, w, h);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, msaaColorRbo);
+            glGenRenderbuffers(1, &amp;msaaDepthRbo);
+            glBindRenderbuffer(GL_RENDERBUFFER, msaaDepthRbo);
+            glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH24_STENCIL8, w, h);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, msaaDepthRbo);
+            GLenum msaaStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (msaaStatus != GL_FRAMEBUFFER_COMPLETE) {
+                glDeleteFramebuffers(1, &amp;msaaFbo); msaaFbo = 0;
+                glDeleteRenderbuffers(1, &amp;msaaColorRbo); msaaColorRbo = 0;
+                glDeleteRenderbuffers(1, &amp;msaaDepthRbo); msaaDepthRbo = 0;
+                samples = 0;
+            }
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        }
+    }
+
+    PGraphics(int w, int h, bool threeD) : PGraphics(w, h) {
+        is3D = threeD;
+    }
+
+    GLint savedViewport[4] = {};
+    void beginDraw(); // defined after PApplet (needs its complete type for style swap)
+    void _endDrawImpl(); // body of endDraw(), out-of-line for the same reason
+    void endDraw() { _endDrawImpl(); }
+
+    // Drawing methods forwarded to Processing -- implemented after full decls
+    void background(float g); void background(float r, float g, float b); void background(float r, float g, float b, float a);
+    void fill(float g); void fill(float r, float g, float b); void fill(float r, float g, float b, float a);
+    void noFill(); void stroke(float g); void stroke(float r, float g, float b); void noStroke();
+    void strokeWeight(float w);
+    void ellipse(float x, float y, float w, float h);
+    void rect(float x, float y, float w, float h);
+    void line(float x1, float y1, float x2, float y2);
+    void point(float x, float y);
+    void triangle(float x1,float y1,float x2,float y2,float x3,float y3);
+    void text(const std::string&amp; s, float x, float y);
+    void textSize(float size);
+    void textAlign(int alignX);
+    void textAlign(int alignX, int alignY);
+    void translate(float x, float y, float z);
+    void rotateX(float angle);
+    void rotateY(float angle);
+    void rotateZ(float angle);
+    void box(float size);
+    void box(float w, float h, float d);
+    void sphere(float r);
+    void lights();
+    void noLights();
+    void ambientLight(float r, float g, float b);
+    void ambientLight(float r, float g, float b, float x, float y, float z);
+    void directionalLight(float r, float g, float b, float nx, float ny, float nz);
+    void pointLight(float r, float g, float b, float x, float y, float z);
+    void spotLight(float r, float g, float b, float x, float y, float z,
+                   float nx, float ny, float nz, float angle, float conc);
+    void lightFalloff(float c, float l, float q);
+    void lightSpecular(float r, float g, float b);
+    void translate(float x, float y); void rotate(float a); void scale(float s);
+    void pushMatrix(); void popMatrix();
+    void beginShape(); void endShape(int mode=0); void vertex(float x, float y);
+    void clear();
+
+    ~PGraphics() {
+        // Defensive cleanup: a PGraphics can be destroyed (via delete, or
+        // by going out of scope) while its beginDraw() was never matched
+        // with an endDraw() -- e.g. "pg = createGraphics(...)" reassigns
+        // a pointer, leaking the OLD PGraphics it pointed to if nothing
+        // explicitly deleted it first; if something DOES eventually
+        // delete it (or CppBuild auto-inserts a delete for exactly this
+        // case), the destructor running mid-beginDraw() needs to
+        // gracefully unwind that state rather than leaving the matrix
+        // stack unbalanced or GL bindings dangling on whatever context
+        // outlives this object.
+        if (active) {
+            PDEBUG("PGraphics::~PGraphics: destroying while still active "
+                   "(beginDraw() never matched with endDraw()) -- "
+                   "auto-closing now. this=%p\n", (void*)this);
+            _endDrawImpl();
+        }
+        if (msaaFbo)       glDeleteFramebuffers(1, &amp;msaaFbo);
+        if (msaaColorRbo)  glDeleteRenderbuffers(1, &amp;msaaColorRbo);
+        if (msaaDepthRbo)  glDeleteRenderbuffers(1, &amp;msaaDepthRbo);
+        if (fbo) glDeleteFramebuffers(1,  &amp;fbo);
+        if (rbo) glDeleteRenderbuffers(1, &amp;rbo);
+    }
+
+    PGraphics(const PGraphics&amp;) __attribute__((error(
+        "E0001: PGraphics value-style copying is not supported. "
+        "Declare PGraphics* instead of PGraphics. "
+        "See https://processing-cpp.github.io/error/E0001.html"
+    )));
+    PGraphics&amp; operator=(const PGraphics&amp;) __attribute__((error(
+        "E0001: PGraphics value-style assignment is not supported. "
+        "Declare PGraphics* instead of PGraphics. "
+        "See https://processing-cpp.github.io/error/E0001.html"
+    )));
+    // Allow assignment from pointer (PGraphics pg; pg = createGraphics(w,h))
+    // [E0001] REMOVED: the legacy "PGraphics pg; pg = createGraphics(...);"
+    // value-style assignment is no longer supported. PGraphics owns
+    // unique GPU resources (FBO, renderbuffers, texture) -- unlike
+    // PShape/PFont, which hold only plain CPU-side data and are safely
+    // copyable, copying or reassigning a PGraphics VALUE has no safe
+    // meaning. Declare it as a pointer instead:
+    //
+    //   PGraphics* pg;
+    //   pg = createGraphics(w, h);
+    //   pg-&gt;beginDraw();
+    //   ...
+    //   pg-&gt;endDraw();
+    //
+    // This explicit compile error is intentional: it tells you exactly
+    // what to fix, rather than silently compiling against a value-style
+    // declaration that would behave incorrectly or unsafely.
+    // See: https://processing-cpp.github.io/error/E0001
+    PGraphics&amp; operator=(PGraphics* p) __attribute__((error(
+        "E0001: PGraphics value-style assignment is not supported. "
+        "Declare PGraphics* instead of PGraphics. "
+        "See https://processing-cpp.github.io/error/E0001"
+    )));
+};</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PGraphics* PApplet::createGraphics(int w,int h){return new PGraphics(w,h);
+
+return new PGraphics(w, h, renderer == P3D);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

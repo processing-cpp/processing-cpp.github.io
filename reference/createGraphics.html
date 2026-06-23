@@ -26,7 +26,21 @@
     <span class="returns-badge">PGraphics*</span>
     
     <h2>Related</h2><div class="related-links"><a href="PGraphics_class.html">PGraphics_class</a><a href="image.html">image</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PGraphics* createGraphics(int w,int h){return new PGraphics(w,h);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PGraphics* createGraphics(int w, int h);
+
+PGraphics* createGraphics(int w, int h, int renderer);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PGraphics* PApplet::createGraphics(int w,int h){return new PGraphics(w,h);}
+
+PGraphics* PApplet::createGraphics(int w,int h,int renderer){
+    // The renderer argument genuinely matters: a P3D buffer needs
+    // beginDraw() to set up a real perspective projection with depth
+    // testing enabled, instead of the flat 2D ortho projection (depth
+    // range -1..1) used for plain 2D buffers -- without this, any 3D
+    // content drawn into the buffer (box(), sphere(), translate(...,z))
+    // gets clipped away entirely by the paper-thin depth range, and
+    // lighting/depth-testing never activates at all. See PGraphics::
+    // beginDraw()'s is3D branch for the actual projection setup.
+    return new PGraphics(w, h, renderer == P3D);
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

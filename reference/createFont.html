@@ -26,7 +26,7 @@
     <span class="returns-badge">PFont*</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadFont.html">loadFont</a><a href="textFont.html">textFont</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PFont* createFont(const std::string&amp; name, float size, bool /*smooth*/) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PFont* createFont(const std::string&amp; name, float size, bool smooth=true);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PFont* PApplet::createFont(const std::string&amp; name, float size, bool /*smooth*/) {
     PFont f(name, size);
     // Try as file path first, then common system paths
     // Strip extension from name if already present, to avoid double extensions
@@ -65,7 +65,45 @@
         // Windows system fonts
         std::string("C:/Windows/Fonts/") + name,
         std::string("C:/Windows/Fonts/") + nameNoExt + ".ttf",
-        std::string("C:/Windows/Fonts/") + nameNoExt + ".otf",</div>
+        std::string("C:/Windows/Fonts/") + nameNoExt + ".otf",
+        // macOS
+        std::string("/Library/Fonts/") + name,
+        std::string("/System/Library/Fonts/") + name,
+    };
+
+    // Also search system font dirs recursively (Linux: fc-list output)
+    #ifndef _WIN32
+    {
+        FILE* fc = popen(("fc-list : file | grep -i '" + nameNoExt + "' | head -5").c_str(), "r");
+        if (fc) {
+            char buf[512];
+            while (fgets(buf, sizeof(buf), fc)) {
+                std::string line(buf);
+                // fc-list format: /path/to/font.ttf: Family:style
+                size_t colon = line.find(':');
+                if (colon != std::string::npos) {
+                    std::string fpath = line.substr(0, colon);
+                    // strip whitespace
+                    fpath.erase(0, fpath.find_first_not_of(" \t"));
+                    fpath.erase(fpath.find_last_not_of(" \t\n\r") + 1);
+                    if (!fpath.empty()) paths.push_back(fpath);
+                }
+            }
+            pclose(fc);
+        }
+    }
+    #endif
+
+    bool found = false;
+    for (auto&amp; p : paths) {
+        if (tryLoadTTF(p, size)) { found = true; break; }
+    }
+    if (!found) {
+        std::cerr &lt;&lt; "[font] Could not find font: " &lt;&lt; name &lt;&lt; "\n";
+        std::cerr &lt;&lt; "[font] Put the .ttf file in your sketch's data/ folder\n";
+    }
+    _fontPool.push_back(std::move(f)); return &amp;_fontPool.back();
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

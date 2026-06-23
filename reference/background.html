@@ -31,7 +31,102 @@ void background(const PImage&amp; img)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="fill.html">fill</a><a href="stroke.html">stroke</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void background(float gray)           {background(gray, colorMaxA);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void background(const PColor&amp; c);
+
+void background(float g);
+
+void background(float g); void background(float r, float g, float b);
+
+void background(float g); void background(float r, float g, float b); void background(float r, float g, float b, float a);
+
+void background(float);
+
+void background(float,float);
+
+void background(float,float,float);
+
+void background(float,float,float,float);
+
+{ _api::background((float)gray);
+
+{ _api::background((float)gray,(float)a);
+
+{ _api::background((float)r,(float)g,(float)b);
+
+{ _api::background((float)r,(float)g,(float)b,(float)a);
+
+void background(float gray, float a=255.f);
+
+void background(float r, float g, float b, float a=255.f);
+
+void background(color c);
+
+void background(const PImage&amp; img);
+
+void background(const PImage* img) { if(img) background(*img); }
+
+void background(const PImage* img) { if(img) background(*img);
+
+template&lt;typename A, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void background(A gray) { background((float)gray);
+
+template&lt;typename A, typename B, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
+    void background(A gray, B a) { background((float)gray,(float)a);
+
+template&lt;typename A, typename B, typename C, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&gt;&gt;
+    void background(A r, B g, C b) { background((float)r,(float)g,(float)b);
+
+template&lt;typename A, typename B, typename C, typename D, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&amp;&amp;std::is_arithmetic_v&lt;C&gt;&amp;&amp;std::is_arithmetic_v&lt;D&gt;&gt;&gt;
+    void background(A r, B g, C b, D a) { background((float)r,(float)g,(float)b,(float)a);
+
+inline void background(float g){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(g); }
+
+inline void background(float g,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(g,a); }
+
+inline void background(float r,float g,float b){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(r,g,b); }
+
+inline void background(float r,float g,float b,float a){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(r,g,b,a); }
+
+inline void PGraphics::background(float g)                          { if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(g); }
+
+inline void PGraphics::background(float r, float g2, float b)       { if(PApplet::g_papplet) PApplet::g_papplet-&gt;background(r,g2,b,255); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::background(float gray, float a) {
+    _backgroundCalledThisFrame = true;
+    color c = makeColor(gray, a);
+    unsigned int v = c.value;
+    setBg((v&gt;&gt;16&amp;0xFF)/255.f, (v&gt;&gt;8&amp;0xFF)/255.f, (v&amp;0xFF)/255.f, (v&gt;&gt;24&amp;0xFF)/255.f);
+}
+
+void PApplet::background(float r, float g, float b, float a) {
+    _backgroundCalledThisFrame = true;
+    color c = makeColor(r, g, b, a);
+    unsigned int v = c.value;
+    setBg((v&gt;&gt;16&amp;0xFF)/255.f, (v&gt;&gt;8&amp;0xFF)/255.f, (v&amp;0xFF)/255.f, (v&gt;&gt;24&amp;0xFF)/255.f);
+}
+
+void PApplet::background(color c) {
+    _backgroundCalledThisFrame = true;
+    unsigned int v = c.value;
+    setBg((v&gt;&gt;16&amp;0xFF)/255.f, (v&gt;&gt;8&amp;0xFF)/255.f, (v&amp;0xFF)/255.f, (v&gt;&gt;24&amp;0xFF)/255.f);
+}
+
+void PApplet::background(const PImage&amp; img) {
+    _backgroundCalledThisFrame = true;
+    // Draw image as full-canvas background
+    if (img.width == 0 || img.height == 0) return;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION); glPushMatrix(); glLoadIdentity();
+    glOrtho(0, logicalW, logicalH, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW); glPushMatrix(); glLoadIdentity();
+    glDisable(GL_DEPTH_TEST);
+    drawImageRect(const_cast&lt;PImage&amp;&gt;(img), 0, 0, (float)logicalW, (float)logicalH);
+    glMatrixMode(GL_PROJECTION); glPopMatrix();
+    glMatrixMode(GL_MODELVIEW); glPopMatrix();
+    if (defaultP3D) glEnable(GL_DEPTH_TEST);
+}
+
+void PApplet::background(const PColor&amp; c){ background(c.r, c.g, c.b, c.a); }
+
+void PApplet::background(const PColor&amp; c){ background(c.r, c.g, c.b, c.a);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

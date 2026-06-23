@@ -26,7 +26,7 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="random.html">random</a><a href="randomSeed.html">randomSeed</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float randomGaussian(){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float randomGaussian();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::randomGaussian(){
     static float spare; static bool has=false;
     if(has){has=false;return spare;}
     float u,v,s;

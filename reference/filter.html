@@ -27,7 +27,44 @@ void filter(int mode, float param)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadPixels.html">loadPixels</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void filter(int mode) { filter(mode, 0.5f); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void filter(int mode) {
+        for (auto&amp; p : pixels) {
+            int r=(p&gt;&gt;16)&amp;0xFF, g=(p&gt;&gt;8)&amp;0xFF, b=p&amp;0xFF, a=(p&gt;&gt;24)&amp;0xFF;
+            if      (mode == GRAY)      { int gr=(r+g+b)/3; p=(a&lt;&lt;24)|(gr&lt;&lt;16)|(gr&lt;&lt;8)|gr; }
+            else if (mode == INVERT)    { p=(a&lt;&lt;24)|((255-r)&lt;&lt;16)|((255-g)&lt;&lt;8)|(255-b); }
+            else if (mode == THRESHOLD) { int gr=(r+g+b)/3; int t=gr&gt;127?255:0; p=(a&lt;&lt;24)|(t&lt;&lt;16)|(t&lt;&lt;8)|t; }
+        }
+        dirty = true;
+    }
+
+void filter(int mode);
+
+void filter(int mode, float param);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::filter(int mode) { filter(mode, 0.5f); }
+
+void PApplet::filter(int mode) { filter(mode, 0.5f);
+
+void PApplet::filter(int mode, float /*param*/) {
+    int total = winWidth * winHeight;
+    std::vector&lt;unsigned char&gt; buf(total * 4);
+    glReadPixels(0, 0, winWidth, winHeight, GL_RGBA, GL_UNSIGNED_BYTE, buf.data());
+
+    for (int i = 0; i &lt; total; i++) {
+        int r = buf[i*4], g = buf[i*4+1], b = buf[i*4+2];
+        int grey = (r + g + b) / 3;
+
+        if (mode == GRAY) {
+            buf[i*4] = buf[i*4+1] = buf[i*4+2] = (unsigned char)grey;
+        } else if (mode == INVERT) {
+            buf[i*4]   = 255 - r;
+            buf[i*4+1] = 255 - g;
+            buf[i*4+2] = 255 - b;
+        } else if (mode == THRESHOLD) {
+            unsigned char t = (grey &gt; 127) ? 255 : 0;
+            buf[i*4] = buf[i*4+1] = buf[i*4+2] = t;
+        }
+    }
+    glDrawPixels(winWidth, winHeight, GL_RGBA, GL_UNSIGNED_BYTE, buf.data());
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

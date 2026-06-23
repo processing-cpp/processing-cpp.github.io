@@ -26,9 +26,14 @@
     <span class="returns-badge">std::vector<unsigned char></span>
     
     <h2>Related</h2><div class="related-links"><a href="saveBytes.html">saveBytes</a><a href="loadStrings.html">loadStrings</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::vector&lt;unsigned char&gt; loadBytes(const std::string&amp; path) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::vector&lt;unsigned char&gt; loadBytes(const std::string&amp; path) {
     std::ifstream f(path,std::ios::binary);
     return std::vector&lt;unsigned char&gt;((std::istreambuf_iterator&lt;char&gt;(f)),std::istreambuf_iterator&lt;char&gt;());
+}
+
+static std::vector&lt;unsigned char&gt; loadBytes(const std::string&amp; path);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::vector&lt;unsigned char&gt; PApplet::loadBytes(const std::string&amp; path) {
+    std::ifstream f(path, std::ios::binary);
+    return std::vector&lt;unsigned char&gt;((std::istreambuf_iterator&lt;char&gt;(f)), std::istreambuf_iterator&lt;char&gt;());
 }</div>
   </div>
 </div>

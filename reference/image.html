@@ -27,7 +27,45 @@ void image(PImage* img, float x, float y, float w, float h)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadImage.html">loadImage</a><a href="imageMode.html">imageMode</a><a href="tint.html">tint</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void image(PGraphics&amp; pg, float x, float y){ drawPGraphicsRect(pg,x,y,(float)pg.width,(float)pg.height); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void image(PImage* img, float x, float y);
+
+void image(PImage* img, float x, float y, float w, float h);
+
+void image(const PImage&amp; img, float x, float y);
+
+void image(const PImage&amp; img, float x, float y, float w, float h);
+
+void image(const PImage* img, float x, float y) { if(img) image(*img,x,y); }
+
+void image(const PImage* img, float x, float y) { if(img) image(*img,x,y);
+
+void image(const PImage* img, float x, float y, float w, float h) { if(img) image(*img,x,y,w,h); }
+
+void image(const PImage* img, float x, float y, float w, float h) { if(img) image(*img,x,y,w,h);
+
+void image(PGraphics&amp; pg, float x, float y);
+
+void image(PGraphics&amp; pg, float x, float y, float w, float h);
+
+void image(PGraphics* pg, float x, float y) { if (pg) image(*pg, x, y); }
+
+void image(PGraphics* pg, float x, float y) { if (pg) image(*pg, x, y);
+
+void image(PGraphics* pg, float x, float y, float w, float h) { if (pg) image(*pg, x, y, w, h); }
+
+void image(PGraphics* pg, float x, float y, float w, float h) { if (pg) image(*pg, x, y, w, h);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::image(PGraphics&amp; pg, float x, float y){ drawPGraphicsRect(pg,x,y,(float)pg.width,(float)pg.height); }
+
+void PApplet::image(PGraphics&amp; pg, float x, float y, float w, float h){ drawPGraphicsRect(pg,x,y,w,h); }
+
+void PApplet::image(PImage* img, float x, float y) {
+    if(!img || img-&gt;width==0 || img-&gt;height==0) return;
+    drawImage_impl(img, x, y, (float)img-&gt;width, (float)img-&gt;height);
+}
+
+void PApplet::image(PImage* img, float x, float y, float w, float h) {
+    if(!img || img-&gt;width==0 || img-&gt;height==0) return;
+    drawImage_impl(img, x, y, w, h);
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -28,7 +28,23 @@ int v = map.get("key")</div>
     <span class="returns-badge">HashMap<K,V></span>
     <h2>Methods</h2><table class="methods-table"><tr><td>put(K k, V v)</td><td>Inserts or updates a key-value pair</td></tr><tr><td>get(K k)</td><td>Returns reference to value for key</td></tr><tr><td>containsKey(K k)</td><td>Returns true if key exists</td></tr><tr><td>remove(K k)</td><td>Removes a key-value pair</td></tr><tr><td>size()</td><td>Returns number of entries</td></tr><tr><td>isEmpty()</td><td>Returns true if empty</td></tr><tr><td>clear()</td><td>Removes all entries</td></tr><tr><td>keySet()</td><td>Returns a vector of all keys</td></tr><tr><td>values()</td><td>Returns a vector of all values</td></tr></table>
     
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">template&lt;typename K, typename V&gt;
+class HashMap {
+public:
+    std::map&lt;K,V&gt; data;
+
+    void put(const K&amp; k, const V&amp; v)         { data[k]=v; }
+    V&amp;   get(const K&amp; k)                     { return data[k]; }
+    bool containsKey(const K&amp; k)   const     { return data.count(k)&gt;0; }
+    bool containsValue(const V&amp; v) const     { for(auto&amp; p:data) if(p.second==v) return true; return false; }
+    void remove(const K&amp; k)                  { data.erase(k); }
+    int  size()                    const     { return (int)data.size(); }
+    bool isEmpty()                 const     { return data.empty(); }
+    void clear()                             { data.clear(); }
+    std::vector&lt;K&gt; keySet() const            { std::vector&lt;K&gt; r; for(auto&amp; p:data) r.push_back(p.first); return r; }
+    std::vector&lt;V&gt; values() const            { std::vector&lt;V&gt; r; for(auto&amp; p:data) r.push_back(p.second); return r; }
+    V&amp; operator[](const K&amp; k)               { return data[k]; }
+};</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

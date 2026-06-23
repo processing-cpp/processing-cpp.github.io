@@ -26,7 +26,9 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="hue.html">hue</a><a href="saturation.html">saturation</a><a href="colorMode.html">colorMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float brightness(color c) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float brightness() const { return std::fmax(r,std::fmax(g,b))/255.f*100.f; }
+
+float brightness(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::brightness(color c) {
     unsigned int v=c.value;
     float r=(v&gt;&gt;16&amp;0xFF)/255.f, g=(v&gt;&gt;8&amp;0xFF)/255.f, b=(v&amp;0xFF)/255.f;
     return max(r, max(g, b)) * colorMaxB;

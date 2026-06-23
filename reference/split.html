@@ -26,10 +26,31 @@
     <span class="returns-badge">std::vector<std::string></span>
     
     <h2>Related</h2><div class="related-links"><a href="splitTokens.html">splitTokens</a><a href="join.html">join</a><a href="trim.html">trim</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::vector&lt;std::string&gt; split(const std::string&amp; s, char d) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::vector&lt;std::string&gt; split(const std::string&amp; s, char d) {
     std::vector&lt;std::string&gt; o; std::stringstream ss(s); std::string t;
     while (std::getline(ss, t, d)) o.push_back(t);
     return o;
+}
+
+std::vector&lt;String&gt; split(const std::string&amp; delim) const {
+        std::vector&lt;String&gt; result;
+        if (delim.empty()) {
+            result.push_back(String(*this));
+            return result;
+        }
+        size_t start = 0, pos;
+        while ((pos = find(delim, start)) != npos) {
+            result.push_back(String(substr(start, pos - start)));
+            start = pos + delim.size();
+        }
+        result.push_back(String(substr(start)));
+        return result;
+    }
+
+static std::vector&lt;std::string&gt; split(const std::string&amp; s, char d);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::vector&lt;std::string&gt; PApplet::split(const std::string&amp; s, char delim) {
+    std::vector&lt;std::string&gt; r; std::string t;
+    for (char c : s) { if (c==delim){r.push_back(t);t.clear();}else t+=c; }
+    r.push_back(t); return r;
 }</div>
   </div>
 </div>

@@ -27,7 +27,7 @@ XML* child = xml.getChild("element")</div>
     <span class="returns-badge">XML</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>getName()</td><td>Returns the name of the element</td></tr><tr><td>getContent()</td><td>Returns the text content of the element</td></tr><tr><td>getAttribute(std::string k)</td><td>Returns the value of an attribute</td></tr><tr><td>getAttributeInt(std::string k)</td><td>Returns an attribute as int</td></tr><tr><td>getAttributeFloat(std::string k)</td><td>Returns an attribute as float</td></tr><tr><td>setAttribute(std::string k, std::string v)</td><td>Sets an attribute value</td></tr><tr><td>setContent(std::string c)</td><td>Sets the text content</td></tr><tr><td>addChild(std::string name)</td><td>Adds a child element</td></tr><tr><td>getChild(int i)</td><td>Gets child by index</td></tr><tr><td>getChild(std::string name)</td><td>Gets child by tag name</td></tr><tr><td>getChildCount()</td><td>Returns number of children</td></tr><tr><td>getChildren(std::string name)</td><td>Returns all children with given tag name</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadXML.html">loadXML</a><a href="parseXML.html">parseXML</a><a href="saveXML.html">saveXML</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">struct XML {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">struct XML {
     std::string name, content;
     std::map&lt;std::string,std::string&gt; attributes;
     std::vector&lt;XML&gt; children;

@@ -27,7 +27,7 @@ PFont* font = createFont("Arial", 24)</div>
     <span class="returns-badge">PFont</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>PFont::list()</td><td>Returns a vector of all available font names</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadFont.html">loadFont</a><a href="createFont.html">createFont</a><a href="textFont.html">textFont</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">struct PFont {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">struct PFont {
     static std::vector&lt;std::string&gt; list() {
         std::vector&lt;std::string&gt; fonts;
         std::vector&lt;std::string&gt; dirs = {"data",".","/usr/share/fonts","/usr/local/share/fonts"};

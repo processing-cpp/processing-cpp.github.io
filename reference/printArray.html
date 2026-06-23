@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="println.html">println</a></div>
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">template&lt;typename T&gt; inline void printArray(const std::vector&lt;T&gt;&amp; a) {
+    for (size_t i=0; i&lt;a.size(); i++) std::cout &lt;&lt; "[" &lt;&lt; i &lt;&lt; "] " &lt;&lt; a[i] &lt;&lt; "\n";
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

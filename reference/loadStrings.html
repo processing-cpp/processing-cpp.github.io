@@ -26,9 +26,21 @@
     <span class="returns-badge">std::vector<std::string></span>
     
     <h2>Related</h2><div class="related-links"><a href="saveStrings.html">saveStrings</a><a href="loadBytes.html">loadBytes</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::vector&lt;std::string&gt;     loadStrings(const std::string&amp; path) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::vector&lt;std::string&gt;     loadStrings(const std::string&amp; path) {
     std::vector&lt;std::string&gt; lines; std::ifstream f(path); std::string l;
     while (std::getline(f,l)) lines.push_back(l);
+    return lines;
+}
+
+static std::vector&lt;std::string&gt;   loadStrings(const std::string&amp; path);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::vector&lt;std::string&gt; PApplet::loadStrings(const std::string&amp; path) {
+    std::vector&lt;std::string&gt; lines;
+    std::string sketchDir;
+    if (const char* sp = std::getenv("PROCESSING_SKETCH_PATH")) sketchDir = std::string(sp) + "/";
+    std::ifstream f(path);
+    if (!f) f.open(sketchDir + path);
+    if (!f) f.open(sketchDir + "data/" + path);
+    std::string line;
+    while (std::getline(f, line)) lines.push_back(line);
     return lines;
 }</div>
   </div>

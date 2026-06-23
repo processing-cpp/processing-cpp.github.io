@@ -27,7 +27,19 @@ float min(float a, float b, float c)</div>
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="max.html">max</a><a href="constrain.html">constrain</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">    float mn = min(r, min(g, b));</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">int min() const {
+        if (data.empty()) throw std::runtime_error("Cannot use min() on an empty IntList.");
+        return *std::min_element(data.begin(), data.end());
+    }
+
+float min() const {
+        if (data.empty()) throw std::runtime_error("Cannot use min() on an empty FloatList.");
+        return *std::min_element(data.begin(), data.end());
+    }
+
+static float min(float a,float b)          { return a&lt;b?a:b; }
+
+static float min(float a,float b,float c)  { float m=a&lt;b?a:b; return m&lt;c?m:c; }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

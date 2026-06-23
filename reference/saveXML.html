@@ -26,7 +26,7 @@
     <span class="returns-badge">bool</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadXML.html">loadXML</a><a href="parseXML.html">parseXML</a><a href="XML_class.html">XML_class</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">bool saveXML(const std::string&amp; path,const XML&amp; x){ std::ofstream f(path);if(!f)return false;f&lt;&lt;x.toString();return true; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static bool saveXML(const std::string&amp; path, const XML&amp; x);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">bool PApplet::saveXML(const std::string&amp; path,const XML&amp; x){ std::ofstream f(path);if(!f)return false;f&lt;&lt;x.toString();return true; }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

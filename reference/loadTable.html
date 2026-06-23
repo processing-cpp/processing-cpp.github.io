@@ -26,7 +26,7 @@
     <span class="returns-badge">Table*</span>
     
     <h2>Related</h2><div class="related-links"><a href="saveTable.html">saveTable</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">Table* loadTable(const std::string&amp; path,const std::string&amp; options){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static Table* loadTable(const std::string&amp; path, const std::string&amp; options="header");</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">Table* PApplet::loadTable(const std::string&amp; path,const std::string&amp; options){
     Table* t=new Table();
     bool hasHeader=options.find("header")!=std::string::npos;
     char delim=path.find(".tsv")!=std::string::npos?'\t':',';

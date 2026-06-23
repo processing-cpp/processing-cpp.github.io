@@ -26,7 +26,18 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="stroke.html">stroke</a><a href="strokeCap.html">strokeCap</a><a href="strokeJoin.html">strokeJoin</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void strokeWeight(float w)                 {strokeW=w;}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void strokeWeight(float w);
+
+void strokeWeight(float);
+
+{ _api::strokeWeight((float)w);
+
+template&lt;typename A, typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&gt;&gt;
+    void strokeWeight(A w) { strokeWeight((float)w);
+
+inline void strokeWeight(float w){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;strokeWeight(w); }
+
+inline void PGraphics::strokeWeight(float w)                        { if(PApplet::g_papplet) PApplet::g_papplet-&gt;strokeWeight(w); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::strokeWeight(float w)                 {strokeW=w;}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

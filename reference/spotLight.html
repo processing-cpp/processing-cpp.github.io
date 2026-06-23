@@ -26,7 +26,10 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="lights.html">lights</a><a href="pointLight.html">pointLight</a><a href="directionalLight.html">directionalLight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void spotLight(float r, float g, float b,
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void spotLight(float r, float g, float b, float x, float y, float z,
+                   float nx, float ny, float nz, float angle, float conc);
+
+inline void PGraphics::spotLight(float r, float g, float b, float x, float y, float z, float nx, float ny, float nz, float angle, float conc) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;spotLight(r,g,b,x,y,z,nx,ny,nz,angle,conc); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::spotLight(float r, float g, float b,
                float x,  float y,  float z,
                float nx, float ny, float nz,
                float angle, float conc) {
@@ -65,7 +68,13 @@
     glLightf(lt, GL_LINEAR_ATTENUATION,    0.0f);
     glLightf(lt, GL_QUADRATIC_ATTENUATION, 0.0f);
 
-    // Position: NO Y-flip (modelview Scale already handles it correctly)</div>
+    // Position: NO Y-flip (modelview Scale already handles it correctly)
+    // Direction: Y-flip ny to compensate for Scale(1,-1,1) in modelview
+    GLfloat posW[] = { x,   y,  z,  1.0f };
+    GLfloat dirW[] = { nx, -ny, nz };
+    glLightfv(lt, GL_POSITION,       posW);
+    glLightfv(lt, GL_SPOT_DIRECTION, dirW);
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

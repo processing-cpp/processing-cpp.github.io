@@ -27,7 +27,15 @@ void textAlign(int alignX, int alignY)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="text.html">text</a><a href="textSize.html">textSize</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void textAlign(int alignX, int alignY) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void textAlign(int alignX);
+
+void textAlign(int alignX, int alignY);
+
+void textAlign(int alignX, int alignY=-1);
+
+inline void PGraphics::textAlign(int alignX)                         { if(PApplet::g_papplet) PApplet::g_papplet-&gt;textAlign(alignX,0); }
+
+inline void PGraphics::textAlign(int alignX, int alignY)             { if(PApplet::g_papplet) PApplet::g_papplet-&gt;textAlign(alignX,alignY); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::textAlign(int alignX, int alignY) {
     // Map standard constants (LEFT=37, RIGHT=39, CENTER=3) to align constants
     auto mapAlign=[](int a)-&gt;int{
         if(a==37||a==20) return LEFT_ALIGN;   // LEFT or LEFT_ALIGN

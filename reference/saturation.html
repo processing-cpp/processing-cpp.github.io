@@ -26,7 +26,13 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="hue.html">hue</a><a href="brightness.html">brightness</a><a href="colorMode.html">colorMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float saturation(color c) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float saturation() const {
+        float mx=std::fmax(r,std::fmax(g,b));
+        float mn=std::fmin(r,std::fmin(g,b));
+        return mx==0 ? 0 : ((mx-mn)/mx)*100.f;
+    }
+
+float saturation(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::saturation(color c) {
     unsigned int v = c.value;
     float r  = (v &gt;&gt; 16 &amp; 0xFF) / 255.f;
     float g  = (v &gt;&gt;  8 &amp; 0xFF) / 255.f;

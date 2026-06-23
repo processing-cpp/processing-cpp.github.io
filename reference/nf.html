@@ -27,7 +27,27 @@ std::string nf(float v, int left, int right)</div>
     <span class="returns-badge">std::string</span>
     
     
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::string nf(float v, int digits)             { std::ostringstream ss; ss.precision(digits); ss&lt;&lt;std::fixed&lt;&lt;v; return ss.str(); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::string nf(float v, int digits)             { std::ostringstream ss; ss.precision(digits); ss&lt;&lt;std::fixed&lt;&lt;v; return ss.str(); }
+
+inline std::string nf(int v, int minDigits)            { std::ostringstream ss; ss&lt;&lt;std::setw(minDigits)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str(); }
+
+inline std::string nf(float v, int left, int right)    {
+    std::ostringstream ss; ss&lt;&lt;std::fixed&lt;&lt;std::setprecision(right)&lt;&lt;v;
+    std::string s=ss.str(); size_t dot=s.find('.');
+    size_t intLen=(dot==std::string::npos)?s.size():dot;
+    while((int)intLen&lt;left){s="0"+s;intLen++;}
+    return s;
+}
+
+static std::string nf(float v, int digits);
+
+static std::string nf(int v, int d);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::string PApplet::nf(float v, int digits) {
+    std::ostringstream ss; ss&lt;&lt;std::fixed&lt;&lt;std::setprecision(digits)&lt;&lt;v; return ss.str();
+}
+
+std::string PApplet::nf(int v, int d) {
+    std::ostringstream ss; ss&lt;&lt;std::setw(d)&lt;&lt;std::setfill('0')&lt;&lt;v; return ss.str();
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

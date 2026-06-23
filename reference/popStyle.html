@@ -26,12 +26,14 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="pushStyle.html">pushStyle</a><a href="push.html">push</a><a href="pop.html">pop</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void popStyle() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void popStyle();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::popStyle() {
     if (!styleStack.empty()) {
         restoreStyle(styleStack.back());
         styleStack.pop_back();
     }
-}</div>
+}
+
+void PApplet::pop()        { glPopMatrix();  popStyle();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

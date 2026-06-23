@@ -26,7 +26,7 @@
     <span class="returns-badge">PImage*</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadImage.html">loadImage</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PImage* createImage(int w,int h,int mode){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PImage*    createImage(int w, int h, int mode=1);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PImage* PApplet::createImage(int w,int h,int mode){
     PImage* img = new PImage(w,h);
     if(mode==3/*ARGB*/) {
         std::fill(img-&gt;pixels.begin(),img-&gt;pixels.end(),0x00000000);

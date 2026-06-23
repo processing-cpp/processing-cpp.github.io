@@ -26,7 +26,7 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="frameRate_fn.html">frameRate_fn</a><a href="frameCount.html">frameCount</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">extern float _frameRate;  // measured fps (read-only)</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float _frameRate = 60.0f;</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">_frameRate=(float)(1.0/elapsed);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -26,7 +26,7 @@
     <span class="returns-badge">Table</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>addColumn(std::string name)</td><td>Adds a column</td></tr><tr><td>addRow()</td><td>Adds a new row, returns reference</td></tr><tr><td>getRowCount()</td><td>Returns number of rows</td></tr><tr><td>getColumnCount()</td><td>Returns number of columns</td></tr><tr><td>getString(int row, int col)</td><td>Gets a cell value as string</td></tr><tr><td>getString(int row, std::string col)</td><td>Gets a cell value by column name</td></tr><tr><td>getInt(int row, int col)</td><td>Gets a cell value as int</td></tr><tr><td>getFloat(int row, int col)</td><td>Gets a cell value as float</td></tr><tr><td>setString(int row, int col, std::string v)</td><td>Sets a cell value</td></tr><tr><td>setInt(int row, int col, int v)</td><td>Sets a cell value as int</td></tr><tr><td>setFloat(int row, int col, float v)</td><td>Sets a cell value as float</td></tr><tr><td>removeRow(int i)</td><td>Removes a row</td></tr><tr><td>clearRows()</td><td>Removes all rows</td></tr><tr><td>getColumnIndex(std::string name)</td><td>Returns index of a column by name</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadTable.html">loadTable</a><a href="saveTable.html">saveTable</a><a href="TableRow_class.html">TableRow_class</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">class Table {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class Table {
 public:
     std::vector&lt;std::string&gt;              columns;
     std::vector&lt;std::vector&lt;std::string&gt;&gt; rows;

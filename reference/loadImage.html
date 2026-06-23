@@ -26,7 +26,7 @@
     <span class="returns-badge">PImage*</span>
     
     <h2>Related</h2><div class="related-links"><a href="image.html">image</a><a href="createImage.html">createImage</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PImage* loadImage(const std::string&amp; path){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">PImage*    loadImage(const std::string&amp; path);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PImage* PApplet::loadImage(const std::string&amp; path){
     // Handle URLs: download with curl/wget and validate image magic bytes
     if (path.size()&gt;7 &amp;&amp; (path.substr(0,7)=="http://" || path.substr(0,8)=="https://")){
 #ifdef _WIN32
@@ -65,7 +65,64 @@
             system(("wget -q -O '"+tmp+"' '"+path+"'").c_str());
 #endif
         }
-        if(isValidImg()){</div>
+        if(isValidImg()){
+            PImage* r2=loadImage(tmp);
+            if(r2&amp;&amp;r2-&gt;width&gt;0) return r2;
+        }
+        fprintf(stderr,"[loadImage] URL download failed: %s\n",path.c_str());
+        return nullptr;
+    }
+    // Search paths: current dir, data/, files/, and sketch subdirs
+    // Check PROCESSING_SKETCH_PATH env var set by IDE
+    std::string _sketchDir;
+    if (const char* _sp = std::getenv("PROCESSING_SKETCH_PATH"))
+        _sketchDir = std::string(_sp) + "/";
+    // Also get the directory of the running executable
+    std::string _exeDir;
+    {
+        char _buf[4096] = {};
+#ifdef _WIN32
+        GetModuleFileNameA(nullptr, _buf, sizeof(_buf));
+        std::string _ep(_buf);
+        size_t _sl = _ep.find_last_of("\\\\");
+#else
+        ssize_t _len = readlink("/proc/self/exe", _buf, sizeof(_buf)-1);
+        if (_len &gt; 0) _buf[_len] = 0;
+        std::string _ep(_buf);
+        size_t _sl = _ep.find_last_of("/");
+#endif
+        if (_sl != std::string::npos) _exeDir = _ep.substr(0, _sl+1);
+    }
+    std::vector&lt;std::string&gt; tries = {
+        path,
+        "data/" + path,
+        "files/" + path,
+        "../data/" + path,
+        _sketchDir + path,
+        _sketchDir + "data/" + path,
+        _exeDir + path,
+        _exeDir + "data/" + path,    // in case running from a subdirectory
+    };
+#ifdef PROCESSING_HAS_STB_IMAGE
+    for (auto&amp; p : tries) {
+        int w, h, ch;
+        unsigned char* data = stbi_load(p.c_str(), &amp;w, &amp;h, &amp;ch, 4);
+        if (!data) continue;
+        PImage* img = new PImage(w, h);
+        for (int i = 0; i &lt; w*h; i++) {
+            unsigned char r=data[i*4+0], g=data[i*4+1], b=data[i*4+2], a=data[i*4+3];
+            img-&gt;pixels[i] = ((unsigned int)a&lt;&lt;24)|((unsigned int)r&lt;&lt;16)|((unsigned int)g&lt;&lt;8)|b;
+        }
+        stbi_image_free(data);
+        img-&gt;dirty = true;
+        return img;
+    }
+#endif
+    for (auto&amp; p : tries)
+        std::cerr &lt;&lt; "[loadImage] not found: " &lt;&lt; p &lt;&lt; "\n";
+    std::cerr &lt;&lt; "[loadImage] returning empty image -- check the path above\n";
+    return new PImage(); // return empty (not null) so -&gt; calls are safe
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

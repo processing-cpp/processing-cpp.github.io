@@ -28,7 +28,13 @@ void colorMode(int mode, float mH, float mS, float mB, float mA)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="fill.html">fill</a><a href="stroke.html">stroke</a><a href="background.html">background</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void colorMode(int mode, float mx) { colorModeVal=mode; colorMaxH=colorMaxS=colorMaxB=colorMaxA=mx; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void  colorMode(int mode, float mx=255.f);
+
+void  colorMode(int mode, float mH, float mS, float mB, float mA=255.f);
+
+int   colorMode;</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::colorMode(int mode, float mx) { colorModeVal=mode; colorMaxH=colorMaxS=colorMaxB=colorMaxA=mx; }
+
+void PApplet::colorMode(int mode, float mH, float mS, float mB, float mA) { colorModeVal=mode; colorMaxH=mH; colorMaxS=mS; colorMaxB=mB; colorMaxA=mA; }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -27,7 +27,9 @@ void ortho(float left, float right, float bottom, float top, float near, float f
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="perspective.html">perspective</a><a href="camera.html">camera</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void ortho() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void ortho();
+
+void ortho(float l, float r, float b, float t, float n, float f);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::ortho() {
     // Default ortho: 1:1 pixel mapping, origin at top-left, Y increases downward.
     // glOrtho(l, r, bottom, top, near, far):
     //   bottom = winHeight (screen bottom = large Y in Processing)
@@ -41,6 +43,22 @@ void ortho(float left, float right, float bottom, float top, float near, float f
     glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+}
+
+void PApplet::ortho(float l, float r, float b, float t, float n, float f) {
+    // Processing Java ortho() uses the SAME standard modelview as perspective()
+    // (eye at eyeZ above canvas center, looking at canvas center).
+    // Only the projection changes: orthographic instead of frustum.
+    // The Y-flip (glScalef 1,-1,1) is applied in projection space so that
+    // Processing's Y-down screen coordinate convention is preserved.
+    //
+    // With the standard camera, world point (w/2, h/2, 0) is at screen center.
+    // ortho(-w/2, w/2, -h/2, h/2) covers that range around the camera target.
+    // So translate(w/2, h/2) correctly lands at the center of the screen.
+    glMatrixMode(GL_PROJECTION); glLoadIdentity();
+    glScalef(1,-1,1);  // Y-flip before ortho (Java order)
+    glOrtho(l, r, b, t, n, f);
+    applyStandardModelview();
 }</div>
   </div>
 </div>

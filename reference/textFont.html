@@ -27,10 +27,27 @@ void textFont(const PFont&amp; font, float size)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadFont.html">loadFont</a><a href="createFont.html">createFont</a><a href="text.html">text</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void textFont(const PFont&amp; font) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void textFont(const PFont&amp; font);
+
+void textFont(const PFont&amp; font, float size);
+
+void textFont(const PFont* font) { if(font) textFont(*font); }
+
+void textFont(const PFont* font) { if(font) textFont(*font);
+
+void textFont(const PFont* font, float size) { if(font) textFont(*font,size); }
+
+void textFont(const PFont* font, float size) { if(font) textFont(*font,size);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::textFont(const PFont&amp; font) {
     currentFont = font;
     g_textSize  = font.size;
     tryLoadTTF(font.name, font.size);
+}
+
+void PApplet::textFont(const PFont&amp; font, float size) {
+    currentFont      = font;
+    currentFont.size = size;
+    g_textSize       = size;
+    tryLoadTTF(font.name, size);
 }</div>
   </div>
 </div>

@@ -27,7 +27,91 @@ PShape s = createShape()</div>
     <span class="returns-badge">PShape</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>getChild(int i)</td><td>Get child shape by index</td></tr><tr><td>getChild(std::string name)</td><td>Get child shape by name/id</td></tr><tr><td>getChildCount()</td><td>Number of children</td></tr><tr><td>getVertex(int i)</td><td>Get vertex by index as PVector</td></tr><tr><td>getVertexCount()</td><td>Number of vertices</td></tr><tr><td>setVertex(int i, float x, float y)</td><td>Set vertex position</td></tr><tr><td>disableStyle()</td><td>Ignore the shape's own fill/stroke</td></tr><tr><td>enableStyle()</td><td>Use the shape's own fill/stroke</td></tr><tr><td>setFill(float r, float g, float b)</td><td>Set fill color</td></tr><tr><td>setStroke(float r, float g, float b)</td><td>Set stroke color</td></tr><tr><td>width</td><td>Bounding box width</td></tr><tr><td>height</td><td>Bounding box height</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="loadShape.html">loadShape</a><a href="createShape.html">createShape</a><a href="shape.html">shape</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShape createShape(int kind){ return PShape(kind); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PShape {
+public:
+    struct Vertex { float x,y,z,u,v; };
+
+    std::vector&lt;Vertex&gt;  verts;
+    std::vector&lt;PShape&gt;  children;
+    int  kind   = -1;
+    bool closed = false;
+    bool visible = true;
+
+    float fillR=1,fillG=1,fillB=1,fillA=1;
+    float strokeR=0,strokeG=0,strokeB=0,strokeA=1,strokeW=1;
+    bool  hasFill=true, hasStroke=false;
+
+    PShape() = default;
+    explicit PShape(int k) : kind(k) {}
+    // Allow PShape bot = loadShape("file.svg") -- copies from pointer
+    PShape(const PShape* p) { if(p) *this = *p; }
+    PShape&amp; operator=(const PShape* p) { if(p) *this = *p; return *this; }
+
+    void beginShape(int k=-1)         { kind=k; verts.clear(); }
+    void endShape(bool close=false)   { closed=close; }
+    void vertex(float x,float y,float z=0,float u=0,float v=0) { verts.push_back({x,y,z,u,v}); }
+    void addChild(const PShape&amp; s)    { children.push_back(s); }
+    std::string name; // id/name attribute from SVG
+    std::vector&lt;int&gt; subpathStarts; // subpath start indices for multi-part fills
+    std::vector&lt;Vertex&gt; anchorVerts; // raw anchor points (M/L/C endpoints only) for getVertex()
+
+    PShape* getChild(int i)  { return i&lt;(int)children.size()?&amp;children[i]:nullptr; }
+    PShape* getChild(const std::string&amp; n) {
+        for(auto&amp; c:children) if(c.name==n) return &amp;c;
+        for(auto&amp; c:children){ PShape* r=c.getChild(n); if(r) return r; }
+        // Return a static empty shape rather than nullptr to prevent crashes
+        static PShape _empty;
+        fprintf(stderr,"[PShape] getChild('%s') not found\n", n.c_str());
+        return &amp;_empty;
+    }
+    PShape* getChild(const char* n) { return getChild(std::string(n)); }
+    int     getChildCount() const    { return (int)children.size(); }
+    PVector getVertex(int i) const   {
+        if(i&lt;0||i&gt;=(int)verts.size()) return PVector(0,0,0);
+        return PVector(verts[i].x, verts[i].y, verts[i].z);
+    }
+    void    setVertex(int i, float x, float y) {
+        if(i&gt;=0&amp;&amp;i&lt;(int)verts.size()){verts[i].x=x;verts[i].y=y;}
+    }
+    void    setVertex(int i, float x, float y, float z) {
+        if(i&gt;=0&amp;&amp;i&lt;(int)verts.size()){verts[i].x=x;verts[i].y=y;verts[i].z=z;}
+    }
+
+    // Bounding box (computed from verts + children)
+    float width  = 0;
+    float height = 0;
+    void computeBounds() {
+        float minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
+        for(auto&amp; v:verts){minx=std::min(minx,v.x);maxx=std::max(maxx,v.x);miny=std::min(miny,v.y);maxy=std::max(maxy,v.y);}
+        for(auto&amp; c:children){const_cast&lt;PShape&amp;&gt;(c).computeBounds();minx=std::min(minx,c.verts.empty()?minx:minx);
+            if(!c.verts.empty()){for(auto&amp; v:c.verts){minx=std::min(minx,v.x);maxx=std::max(maxx,v.x);miny=std::min(miny,v.y);maxy=std::max(maxy,v.y);}}}
+        width =(maxx&gt;-1e8)?(maxx-minx):0;
+        height=(maxy&gt;-1e8)?(maxy-miny):0;
+    }
+    int     getVertexCount() const    { return (int)verts.size(); }
+
+    void setFill(float r,float g,float b,float a=1)   { fillR=r;fillG=g;fillB=b;fillA=a;hasFill=true; }
+    void setStroke(float r,float g,float b,float a=1) { strokeR=r;strokeG=g;strokeB=b;strokeA=a;hasStroke=true; }
+    void setStrokeWeight(float w) { strokeW=w; }
+    void setVisible(bool v)       { visible=v; }
+
+    void translate(float x,float y,float z=0) { for(auto&amp; v:verts){ v.x+=x;v.y+=y;v.z+=z; } }
+    void scale(float s)                        { for(auto&amp; v:verts){ v.x*=s;v.y*=s;v.z*=s; } }
+    void scale(float sx, float sy)             { for(auto&amp; v:verts){ v.x*=sx;v.y*=sy; } }
+
+    // Style enable/disable -- controls whether shape uses its own fill/stroke
+    // or inherits from the current Processing fill()/stroke() state
+    bool styleEnabled = true;
+    void disableStyle() { styleEnabled = false; }
+    void enableStyle()  { styleEnabled = true;  }
+    GLuint texId = 0; // OpenGL texture ID for OBJ material textures
+};</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PShape PApplet::createShape(int kind){ return PShape(kind);
+
+if(found.empty()){std::cerr&lt;&lt;"loadShape: file not found: "&lt;&lt;path&lt;&lt;"\n";return new PShape();
+
+if(found.empty()){std::cerr&lt;&lt;"loadShape: OBJ not found: "&lt;&lt;path&lt;&lt;"\n";return new PShape();
+
+return new PShape();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

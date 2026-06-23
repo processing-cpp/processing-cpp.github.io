@@ -26,7 +26,21 @@
     <span class="returns-badge">int</span>
     
     <h2>Related</h2><div class="related-links"><a href="height.html">height</a><a href="size.html">size</a></div>
-    
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">public:
+    int  width  = 0;
+
+width = w;
+
+width=w;
+
+: width(o.width), height(o.height), pixels(std::move(o.pixels)),
+          texID(o.texID), dirty(o.dirty) { o.texID=0; }
+
+float width  = 0;
+
+width =(maxx&gt;-1e8)?(maxx-minx):0;
+
+int&amp; width  = logicalW;</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">gi.width  = img-&gt;width;</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

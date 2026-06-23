@@ -26,7 +26,28 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="push.html">push</a><a href="popStyle.html">popStyle</a><a href="popMatrix.html">popMatrix</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void pop()        { glPopMatrix();  popStyle();  }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">int  pop() {
+        if (data.empty()) throw std::runtime_error("Can't call pop() on an empty list");
+        int v = data.back();
+        data.pop_back();
+        return v;
+    }
+
+float pop() {
+        if (data.empty()) throw std::runtime_error("Can't call pop() on an empty list");
+        float v = data.back();
+        data.pop_back();
+        return v;
+    }
+
+std::string pop() {
+        if (data.empty()) throw std::runtime_error("Can't call pop() on an empty list");
+        std::string v = data.back();
+        data.pop_back();
+        return v;
+    }
+
+void pop();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::pop()        { glPopMatrix();  popStyle();  }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

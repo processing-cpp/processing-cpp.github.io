@@ -26,7 +26,7 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="curve.html">curve</a><a href="curveTangent.html">curveTangent</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float curvePoint(float a,float b,float c,float d,float t){float t2=t*t,t3=t2*t,s=curveTightnessVal;return 0.5f*((-s*t3+2*s*t2-s*t)*a+((2-s)*t3+(s-3)*t2+1)*b+((s-2)*t3+(3-2*s)*t2+s*t)*c+(s*t3-s*t2)*d);}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float curvePoint(float a, float b, float c, float d, float t);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::curvePoint(float a,float b,float c,float d,float t){float t2=t*t,t3=t2*t,s=curveTightnessVal;return 0.5f*((-s*t3+2*s*t2-s*t)*a+((2-s)*t3+(s-3)*t2+1)*b+((s-2)*t3+(3-2*s)*t2+s*t)*c+(s*t3-s*t2)*d);}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

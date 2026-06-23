@@ -26,14 +26,14 @@
     <span class="returns-badge">BufferedReader</span>
     <h2>Methods</h2><table class="methods-table"><tr><td>readLine()</td><td>Reads and returns the next line as std::string. Returns empty string at EOF.</td></tr><tr><td>ready()</td><td>Returns true if the file is open and has more data</td></tr><tr><td>close()</td><td>Closes the file</td></tr></table>
     <h2>Related</h2><div class="related-links"><a href="createReader.html">createReader</a><a href="loadStrings.html">loadStrings</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">class BufferedReader {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class BufferedReader {
     std::ifstream f;
 public:
     explicit BufferedReader(const std::string&amp; path) : f(path) {}
     bool        ready()    const { return f.is_open() &amp;&amp; f.good(); }
     std::string readLine()       { std::string l; std::getline(f,l); return f?l:""; }
     void        close()          { f.close(); }
-};</div>
+};</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">BufferedReader* PApplet::createReader(const std::string&amp; path){ return new BufferedReader(path);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -27,7 +27,169 @@ void text(std::string str, float x, float y, float w, float h)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="textSize.html">textSize</a><a href="textFont.html">textFont</a><a href="textAlign.html">textAlign</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void text(const std::string&amp; msg, float x, float y) { renderText(msg, x, y); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void text(const std::string&amp; s, float x, float y);
+
+void text(float,float,float);
+
+void text(const std::string&amp;,float,float);
+
+void text(const std::string&amp;,float,float,float,float);
+
+inline void text(const std::string&amp; s,A x,B y){ text(s,(float)x,(float)y);
+
+inline void text(const char* s,A x,B y){ text(std::string(s),(float)x,(float)y);
+
+inline void text(const std::string&amp; s,A x,B y,C w,D h2){ text(s,(float)x,(float)y,(float)w,(float)h2);
+
+inline void text(const char* s,A x,B y,C w,D h2){ text(std::string(s),(float)x,(float)y,(float)w,(float)h2);
+
+inline void text(V val,A x,B y){ text((float)val,(float)x,(float)y);
+
+template&lt;typename A,typename B&gt;
+inline void text(char c,A x,B y){ text(std::string(1,c),(float)x,(float)y); }
+
+template&lt;typename A,typename B&gt;
+inline void text(char c,A x,B y){ text(std::string(1,c),(float)x,(float)y);
+
+template&lt;typename A,typename B,typename C,typename D&gt;
+inline void text(char c,A x,B y,C w,D h2){ text(std::string(1,c),(float)x,(float)y,(float)w,(float)h2); }
+
+template&lt;typename A,typename B,typename C,typename D&gt;
+inline void text(char c,A x,B y,C w,D h2){ text(std::string(1,c),(float)x,(float)y,(float)w,(float)h2);
+
+void text(const std::string&amp; msg, float x, float y);
+
+void text(const std::string&amp; msg, float x, float y, float w, float h);
+
+void text(int val, float x, float y);
+
+void text(float val, float x, float y);
+
+void text(char c, float x, float y) { text(std::string(1,c), x, y); }
+
+void text(char c, float x, float y) { text(std::string(1,c), x, y);
+
+void text(char c, float x, float y, float w, float h) { text(std::string(1,c), x, y, w, h); }
+
+void text(char c, float x, float y, float w, float h) { text(std::string(1,c), x, y, w, h);
+
+template&lt;typename X,typename Y,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;X&gt;&amp;&amp;std::is_arithmetic_v&lt;Y&gt;&gt;&gt;
+    void text(char c, X x, Y y) { text(std::string(1,c),(float)x,(float)y);
+
+template&lt;typename X,typename Y,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;X&gt;&amp;&amp;std::is_arithmetic_v&lt;Y&gt;&gt;&gt;
+    void text(const std::string&amp; s,X x,Y y){ text(s,(float)x,(float)y);
+
+template&lt;typename X,typename Y,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;X&gt;&amp;&amp;std::is_arithmetic_v&lt;Y&gt;&gt;&gt;
+    void text(int v,X x,Y y){ text(v,(float)x,(float)y);
+
+template&lt;typename X,typename Y,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;X&gt;&amp;&amp;std::is_arithmetic_v&lt;Y&gt;&gt;&gt;
+    void text(float v,X x,Y y){ text(v,(float)x,(float)y);
+
+inline void text(float v,float x,float y){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;text(v,x,y); }
+
+inline void text(const std::string&amp; s,float x,float y){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;text(s,x,y); }
+
+inline void text(const std::string&amp; s,float x,float y,float w,float h){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;text(s,x,y,w,h); }
+
+inline void PGraphics::text(const std::string&amp; s, float x, float y) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;text(s,x,y); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::text(const std::string&amp; msg, float x, float y) { renderText(msg, x, y); }
+
+void PApplet::text(int   v, float x, float y) { renderText(std::to_string(v), x, y); }
+
+void PApplet::text(float v, float x, float y) {
+    std::ostringstream ss; ss &lt;&lt; v; renderText(ss.str(), x, y);
+}
+
+void PApplet::text(const std::string&amp; msg, float x, float y, float w, float h) {
+    if (msg.empty() || w &lt;= 0) return;
+    float leading = (g_textLeading &gt; 0) ? g_textLeading : g_textSize * 1.4f;
+    float maxY = (h &gt; 0) ? y + h : 1e9f;
+
+    // Split message into tokens: words and explicit newlines
+    std::vector&lt;std::string&gt; tokens;
+    {
+        std::string cur;
+        for (char c : msg) {
+            if (c == '\n') {
+                if (!cur.empty()) { tokens.push_back(cur); cur.clear(); }
+                tokens.push_back("\n");
+            } else if (c == ' ') {
+                if (!cur.empty()) { tokens.push_back(cur); cur.clear(); }
+            } else {
+                cur += c;
+            }
+        }
+        if (!cur.empty()) tokens.push_back(cur);
+    }
+
+    // Layout: accumulate words into lines, wrap when line width exceeds w
+    float cy = y;
+    std::string line;
+
+    auto flushLine = [&amp;](){
+        if (!line.empty() &amp;&amp; cy + g_textSize &lt;= maxY) {
+            renderText(line, x, cy);
+        }
+        line.clear();
+        cy += leading;
+    };
+
+    for (auto&amp; tok : tokens) {
+        if (tok == "\n") {
+            // Explicit newline: flush current line and advance
+            if (cy + g_textSize &lt;= maxY) renderText(line, x, cy);
+            line.clear();
+            cy += leading;
+            continue;
+        }
+        // Try adding this word to the current line
+        std::string candidate = line.empty() ? tok : line + " " + tok;
+        float cw = getLineWidth(candidate);
+
+        if (!line.empty() &amp;&amp; cw &gt; w) {
+            // Word doesn't fit: flush current line, start new line with this word
+            if (cy + g_textSize &lt;= maxY) renderText(line, x, cy);
+            line.clear();
+            cy += leading;
+            // If the word itself is wider than w, wrap it character by character
+            if (getLineWidth(tok) &gt; w) {
+                std::string charLine;
+                for (char c : tok) {
+                    std::string test2 = charLine + c;
+                    if (!charLine.empty() &amp;&amp; getLineWidth(test2) &gt; w) {
+                        if (cy + g_textSize &lt;= maxY) renderText(charLine, x, cy);
+                        charLine.clear();
+                        cy += leading;
+                    }
+                    charLine += c;
+                }
+                line = charLine;
+            } else {
+                line = tok;
+            }
+        } else if (line.empty() &amp;&amp; cw &gt; w) {
+            // First word on line is too wide: wrap char by char
+            std::string charLine;
+            for (char c : tok) {
+                std::string test2 = charLine + c;
+                if (!charLine.empty() &amp;&amp; getLineWidth(test2) &gt; w) {
+                    if (cy + g_textSize &lt;= maxY) renderText(charLine, x, cy);
+                    charLine.clear();
+                    cy += leading;
+                }
+                charLine += c;
+            }
+            line = charLine;
+        } else {
+            line = candidate;
+        }
+    }
+    // Flush remaining text
+    if (!line.empty() &amp;&amp; cy + g_textSize &lt;= maxY) {
+        renderText(line, x, cy);
+    }
+}
+
+std::string text;</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

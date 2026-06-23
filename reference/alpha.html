@@ -26,7 +26,11 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="red.html">red</a><a href="green.html">green</a><a href="blue.html">blue</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float alpha(color c)     { unsigned int v=c.value; return (v&gt;&gt;24&amp;0xFF)/255.0f*colorMaxA; }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float alpha(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::alpha(color c)     { unsigned int v=c.value; return (v&gt;&gt;24&amp;0xFF)/255.0f*colorMaxA; }
+
+float alpha=1.0f;
+
+alpha=std::stof(op);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

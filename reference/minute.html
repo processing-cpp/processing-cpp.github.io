@@ -26,7 +26,9 @@
     <span class="returns-badge">int</span>
     
     <h2>Related</h2><div class="related-links"><a href="second.html">second</a><a href="hour.html">hour</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline int minute() { std::time_t t=std::time(nullptr); return std::localtime(&amp;t)-&gt;tm_min;      }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline int minute() { std::time_t t=std::time(nullptr); return std::localtime(&amp;t)-&gt;tm_min;      }
+
+static int  minute() { std::time_t t=std::time(nullptr); return std::localtime(&amp;t)-&gt;tm_min;      }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

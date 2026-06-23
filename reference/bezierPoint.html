@@ -26,7 +26,9 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="bezier.html">bezier</a><a href="bezierTangent.html">bezierTangent</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float bezierPoint(float a,float b,float c,float d,float t){float u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d;}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">return bezierPoint((float)a,(float)b,(float)c,(float)d,(float)t);
+
+float bezierPoint(float a, float b, float c, float d, float t);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::bezierPoint(float a,float b,float c,float d,float t){float u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d;}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -26,9 +26,36 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="save.html">save</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void saveFrame(const std::string&amp; fn){
-    std::cout&lt;&lt;"saveFrame: "&lt;&lt;fn&lt;&lt;" (enable stb_image_write in Processing.cpp)\n";
-}</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void saveFrame(const std::string&amp; filename="frame-####.png");</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::saveFrame(const std::string&amp; filename) {
+    std::string fn = filename;
+    size_t pos = fn.find("####");
+    if (pos != std::string::npos) {
+        char buf[16];
+        snprintf(buf, sizeof(buf), "%04d", frameCount);
+        fn.replace(pos, 4, buf);
+    }
+    int w = pixelWidth  &gt; 0 ? pixelWidth  : logicalW;
+    int h = pixelHeight &gt; 0 ? pixelHeight : logicalH;
+    std::vector&lt;unsigned char&gt; px(w * h * 3);
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+    glReadPixels(0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, px.data());
+    for (int y = 0; y &lt; h / 2; y++)
+        for (int x = 0; x &lt; w * 3; x++)
+            std::swap(px[y*w*3+x], px[(h-1-y)*w*3+x]);
+    std::string ext = fn.size() &gt; 4 ? fn.substr(fn.size()-4) : "";
+    for (auto&amp; c : ext) c = tolower(c);
+    int ok = 0;
+    if (ext == ".png")                ok = stbi_write_png(fn.c_str(), w, h, 3, px.data(), w*3);
+    else if (ext == ".jpg" || ext == "jpeg") ok = stbi_write_jpg(fn.c_str(), w, h, 3, px.data(), 95);
+    else if (ext == ".bmp")           ok = stbi_write_bmp(fn.c_str(), w, h, 3, px.data());
+    else if (ext == ".tga" || ext == ".tif" || ext == ".tiff")
+                                      ok = stbi_write_tga(fn.c_str(), w, h, 3, px.data());
+    else { fn += ".png"; ok = stbi_write_png(fn.c_str(), w, h, 3, px.data(), w*3); }
+    if (ok) std::cout &lt;&lt; "Saved: " &lt;&lt; fn &lt;&lt; "\n";
+    else    std::cout &lt;&lt; "save: failed to write " &lt;&lt; fn &lt;&lt; "\n";
+}
+
+void PApplet::save(const std::string&amp; fn){saveFrame(fn);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

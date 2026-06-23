@@ -27,7 +27,19 @@ void shape(const PShape&amp; s, float x, float y, float w, float h)</div>
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadShape.html">loadShape</a><a href="createShape.html">createShape</a><a href="shapeMode.html">shapeMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void shape(const PShape&amp; s,float x,float y)          { drawPShape(s,x,y); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void shape(const PShape&amp; s, float x=0, float y=0);
+
+void shape(const PShape&amp; s, float x, float y, float w, float h);
+
+void shape(const PShape* s, float x=0, float y=0) { if(s) shape(*s,x,y); }
+
+void shape(const PShape* s, float x=0, float y=0) { if(s) shape(*s,x,y);
+
+void shape(const PShape* s, float x, float y, float w, float h) { if(s) shape(*s,x,y,w,h); }
+
+void shape(const PShape* s, float x, float y, float w, float h) { if(s) shape(*s,x,y,w,h);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::shape(const PShape&amp; s,float x,float y)          { drawPShape(s,x,y); }
+
+void PApplet::shape(const PShape&amp; s,float x,float y,float w,float h){ drawPShape(s,x,y,w,h); }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

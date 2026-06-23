@@ -26,7 +26,7 @@
     <span class="returns-badge">std::vector<std::string></span>
     
     <h2>Related</h2><div class="related-links"><a href="split.html">split</a><a href="join.html">join</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::vector&lt;std::string&gt; splitTokens(const std::string&amp; s, const std::string&amp; delims) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::vector&lt;std::string&gt; splitTokens(const std::string&amp; s, const std::string&amp; delims) {
     std::vector&lt;std::string&gt; o; std::string cur;
     for (char c:s) {
         if (delims.find(c)!=std::string::npos) { if(!cur.empty()){o.push_back(cur);cur.clear();} }
@@ -34,6 +34,12 @@
     }
     if (!cur.empty()) o.push_back(cur);
     return o;
+}
+
+static std::vector&lt;std::string&gt; splitTokens(const std::string&amp; s, const std::string&amp; d);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::vector&lt;std::string&gt; PApplet::splitTokens(const std::string&amp; s, const std::string&amp; delims) {
+    std::vector&lt;std::string&gt; r; std::string t;
+    for (char c : s) { if (delims.find(c)!=std::string::npos){if(!t.empty()){r.push_back(t);t.clear();}}else t+=c; }
+    if (!t.empty()) r.push_back(t); return r;
 }</div>
   </div>
 </div>

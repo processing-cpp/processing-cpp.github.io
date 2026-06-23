@@ -26,7 +26,7 @@
     <span class="returns-badge">std::vector<std::vector<std::string>></span>
     
     <h2>Related</h2><div class="related-links"><a href="match.html">match</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline std::vector&lt;std::vector&lt;std::string&gt;&gt; matchAll(const std::string&amp; s, const std::string&amp; pat) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline std::vector&lt;std::vector&lt;std::string&gt;&gt; matchAll(const std::string&amp; s, const std::string&amp; pat) {
     std::vector&lt;std::vector&lt;std::string&gt;&gt; out; std::regex re(pat);
     auto it=std::sregex_iterator(s.begin(),s.end(),re), end=std::sregex_iterator();
     for(;it!=end;++it){ std::vector&lt;std::string&gt; row; for(auto&amp; x:*it) row.push_back(x.str()); out.push_back(row); }

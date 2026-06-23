@@ -28,7 +28,11 @@ float noise(float x, float y, float z)</div>
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="noiseSeed.html">noiseSeed</a><a href="noiseDetail.html">noiseDetail</a><a href="random.html">random</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float noise(float x, float y, float z) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float noise(float x);
+
+float noise(float x, float y);
+
+float noise(float x, float y, float z);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::noise(float x, float y, float z) {
     if (!perlinInit) initPerlin(0);  // default seed 0 like Java
     if (x &lt; 0) x = -x;
     if (y &lt; 0) y = -y;
@@ -59,7 +63,15 @@ float noise(float x, float y, float z)</div>
         zi &lt;&lt;= 1; zf *= 2.0f; if (zf &gt;= 1.0f) { zi++; zf--; }
     }
     return r;
-}</div>
+}
+
+float PApplet::noise(float x)           { return noise(x, 0.0f, 0.0f); }
+
+float PApplet::noise(float x)           { return noise(x, 0.0f, 0.0f);
+
+float PApplet::noise(float x, float y)  { return noise(x, y,    0.0f); }
+
+float PApplet::noise(float x, float y)  { return noise(x, y,    0.0f);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

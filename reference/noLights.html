@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="lights.html">lights</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void noLights() {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void noLights();
+
+inline void PGraphics::noLights()                                    { if(PApplet::g_papplet) PApplet::g_papplet-&gt;noLights(); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::noLights() {
     glDisable(GL_LIGHTING);
     glDisable(GL_COLOR_MATERIAL);
     lightsEnabled = false;

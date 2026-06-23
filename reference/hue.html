@@ -26,7 +26,19 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="saturation.html">saturation</a><a href="brightness.html">brightness</a><a href="colorMode.html">colorMode</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float hue(color c){
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float hue() const {
+        float rf_=r/255.f, gf_=g/255.f, bf_=b/255.f;
+        float mx=std::fmax(rf_,std::fmax(gf_,bf_));
+        float mn=std::fmin(rf_,std::fmin(gf_,bf_));
+        float d=mx-mn;
+        if (d==0) return 0;
+        float h = (mx==rf_) ? (gf_-bf_)/d : (mx==gf_) ? 2.f+(bf_-rf_)/d : 4.f+(rf_-gf_)/d;
+        h *= 60.f;
+        if (h &lt; 0) h += 360.f;
+        return h;
+    }
+
+float hue(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::hue(color c){
     unsigned int v=c.value;
     float r=(v&gt;&gt;16&amp;0xFF)/255.f,g=(v&gt;&gt;8&amp;0xFF)/255.f,b=(v&amp;0xFF)/255.f;
     float mx=max(r,max(g,b)),mn=min(r,min(g,b)),d=mx-mn;

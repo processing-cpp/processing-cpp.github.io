@@ -26,7 +26,15 @@
     <span class="returns-badge">float</span>
     
     <h2>Related</h2><div class="related-links"><a href="min.html">min</a><a href="max.html">max</a><a href="map.html">map</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline float constrain(float v, float lo, float hi) { return v&lt;lo?lo:(v&gt;hi?hi:v); }</div>
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">float constrain(float,float,float);
+
+inline float constrain(V val,A lo,B hi){ return _api::constrain((float)val,(float)lo,(float)hi);
+
+static float constrain(float v,float lo,float hi) { return v&lt;lo?lo:(v&gt;hi?hi:v); }
+
+inline float constrain(float v,float lo,float hi){ return PApplet::constrain(v,lo,hi); }
+
+inline float constrain(float v,float lo,float hi){ return PApplet::constrain(v,lo,hi);</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

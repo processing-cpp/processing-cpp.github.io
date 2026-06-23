@@ -26,10 +26,17 @@
     <span class="returns-badge">bool</span>
     
     <h2>Related</h2><div class="related-links"><a href="loadBytes.html">loadBytes</a><a href="saveStrings.html">saveStrings</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">inline bool saveBytes(const std::string&amp; path, const std::vector&lt;unsigned char&gt;&amp; data) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline bool saveBytes(const std::string&amp; path, const std::vector&lt;unsigned char&gt;&amp; data) {
     std::ofstream f(path,std::ios::binary); if (!f) return false;
     f.write(reinterpret_cast&lt;const char*&gt;(data.data()),data.size());
     return true;
+}
+
+inline bool saveStream(const std::string&amp; path, const std::vector&lt;unsigned char&gt;&amp; data) { return saveBytes(path,data);
+
+static bool saveBytes(const std::string&amp; path, const std::vector&lt;unsigned char&gt;&amp; d);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">bool PApplet::saveBytes(const std::string&amp; path, const std::vector&lt;unsigned char&gt;&amp; data) {
+    std::ofstream f(path, std::ios::binary); if (!f) return false;
+    f.write(reinterpret_cast&lt;const char*&gt;(data.data()), data.size()); return true;
 }</div>
   </div>
 </div>

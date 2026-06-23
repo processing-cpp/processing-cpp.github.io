@@ -26,7 +26,7 @@
     <span class="returns-badge">color</span>
     
     <h2>Related</h2><div class="related-links"><a href="lerp.html">lerp</a><a href="color_fn.html">color_fn</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color lerpColor(color c1, color c2, float t) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">color lerpColor(color c1, color c2, float t);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color PApplet::lerpColor(color c1, color c2, float t) {
     unsigned int v1 = c1.value;
     unsigned int v2 = c2.value;
 

@@ -26,7 +26,9 @@
     <span class="returns-badge">void</span>
     
     <h2>Related</h2><div class="related-links"><a href="lights.html">lights</a><a href="ambientLight.html">ambientLight</a><a href="pointLight.html">pointLight</a><a href="spotLight.html">spotLight</a></div>
-    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void directionalLight(float r, float g, float b, float nx, float ny, float nz) {
+    <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void directionalLight(float r, float g, float b, float nx, float ny, float nz);
+
+inline void PGraphics::directionalLight(float r, float g, float b, float nx, float ny, float nz) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;directionalLight(r,g,b,nx,ny,nz); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::directionalLight(float r, float g, float b, float nx, float ny, float nz) {
     if (lightIndex &gt;= 8) return;
     GLenum lt = GL_LIGHT0 + lightIndex++;
 
