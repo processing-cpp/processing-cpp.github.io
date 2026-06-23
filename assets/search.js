@@ -18,7 +18,7 @@
 
     const style = document.createElement('style');
     style.textContent = `
-      #search-wrap { position: relative; margin-left: auto; padding-right: 1rem; }
+      #search-wrap { position: relative; padding-right: 1rem; margin-left: 1.25rem; }
       #search-input {
         width: 220px; padding: 6px 12px;
         border: 1px solid #e0e0e0; border-radius: 20px;
