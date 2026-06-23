@@ -78,3 +78,22 @@
   notes: >
     Use -> for calling methods on the shader itself, like
     shader->set(...).
+
+- code: E0004
+  title: Java-style array declarations aren't supported
+  type: Unsupported Java Syntax
+  summary: >
+    Writing "int[] a = new int[10];" the way you would in Java doesn't
+    work in C++. CppMode catches this specific pattern before compiling
+    and points you to the right way to write it instead.
+  fix: >
+    Use Array<T> instead, with the size in parentheses.
+  before: |
+    int[] a = new int[10];
+  after: |
+    Array<int> a(10);
+  notes: >
+    Array<int> behaves exactly like a Java int array: it starts out
+    filled with zeros, it has a fixed length, and reading or writing
+    past the end of it throws a clear error instead of silently
+    corrupting memory.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E0003: PShader needs to be a pointer - Processing for C++</title>
+  <title>E0004: Java-style array declarations aren&#x27;t supported - Processing for C++</title>
   <style>* { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
@@ -48,21 +48,17 @@
 <div class="layout">
   <div class="sidebar-outer">
     <div id="site-sidebar"></div>
-    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="active">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="">E0004 &middot; Java-style array declarations aren&#x27;t supported</a></div>
+    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="active">E0004 &middot; Java-style array declarations aren&#x27;t supported</a></div>
   </div>
   <div class="content">
-    <h1>E0003: PShader needs to be a pointer</h1>
-    <span class="err-code">Compiler Error</span>
+    <h1>E0004: Java-style array declarations aren&#x27;t supported</h1>
+    <span class="err-code">Unsupported Java Syntax</span>
     <h2>What it means</h2>
-    <p>A PShader holds onto a compiled program running on the graphics card. Copying isn&#x27;t allowed for the same reason as PGraphics and PImage.</p>
+    <p>Writing &quot;int[] a = new int[10];&quot; the way you would in Java doesn&#x27;t work in C++. CppMode catches this specific pattern before compiling and points you to the right way to write it instead.</p>
     <h2>How to fix it</h2>
-    <p>Use PShader* instead of PShader.</p>
-    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">PShader shader;
-shader = loadShader(&quot;frag.glsl&quot;);
-shader(shader);</div></div><div><span class="code-label after">After</span><div class="code-block after">PShader* shader;
-shader = loadShader(&quot;frag.glsl&quot;);
-shader(shader);</div></div></div>
-    <h2>Notes</h2><p>Use -&gt; for calling methods on the shader itself, like shader-&gt;set(...).</p>
+    <p>Use Array&lt;T&gt; instead, with the size in parentheses.</p>
+    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">int[] a = new int[10];</div></div><div><span class="code-label after">After</span><div class="code-block after">Array&lt;int&gt; a(10);</div></div></div>
+    <h2>Notes</h2><p>Array&lt;int&gt; behaves exactly like a Java int array: it starts out filled with zeros, it has a fixed length, and reading or writing past the end of it throws a clear error instead of silently corrupting memory.</p>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
