@@ -2,9 +2,20 @@
 # /error/<code>.html via regen_errors.py. Keep entries in this single
 # file so the whole list stays easy to scan and keep in sync with the
 # actual error messages in Processing.h.
+#
+# Fields:
+#   code    - e.g. E0001
+#   title   - short description shown as the page heading
+#   type    - label shown under the title (e.g. "Compiler Error",
+#             "Linker Error", "Runtime Error")
+#   summary - what the error means
+#   fix     - how to fix it
+#   before/after - optional code comparison
+#   notes   - optional extra notes
 
 - code: E0001
   title: PGraphics needs to be a pointer
+  type: Compiler Error
   summary: >
     A PGraphics buffer holds onto real graphics-card resources behind
     the scenes. Two copies of the same PGraphics could end up fighting
@@ -28,6 +39,7 @@
 
 - code: E0002
   title: PImage needs to be a pointer
+  type: Compiler Error
   summary: >
     Just like PGraphics, a PImage holds onto a graphics-card resource
     (the loaded image's texture). Copying isn't allowed for the same
@@ -48,6 +60,7 @@
 
 - code: E0003
   title: PShader needs to be a pointer
+  type: Compiler Error
   summary: >
     A PShader holds onto a compiled program running on the graphics
     card. Copying isn't allowed for the same reason as PGraphics and
@@ -65,4 +78,3 @@
   notes: >
     Use -> for calling methods on the shader itself, like
     shader->set(...).
-
