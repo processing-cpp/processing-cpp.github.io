@@ -83,47 +83,6 @@ void keyReleased()  { ... }</pre>
       </div>
 
       <div class="wn-card">
-        <div class="wn-tag removed">Replaced</div>
-        <div class="wn-card-title">std::vector replaces IntList, FloatList, ArrayList</div>
-        <div class="wn-card-body">
-          <p>Processing Java's typed list classes <code>IntList</code>, <code>FloatList</code>, <code>StringList</code>, and <code>ArrayList</code> are not available in C++ Mode. Use <code>std::vector</code> from the C++ Standard Library instead. It is faster, more flexible, works with any type including your own classes, and you do not need to import anything.</p>
-          <pre>// Java Processing:
-IntList nums = new IntList();
-nums.append(42);
-int n = nums.get(0);
-
-// C++ Mode:
-std::vector&lt;int&gt; nums;
-nums.push_back(42);
-int n = nums[0];
-
-// Works with your own classes too:
-std::vector&lt;Ball&gt; balls;
-balls.push_back(Ball(x, y));</pre>
-        </div>
-      </div>
-
-      <div class="wn-card">
-        <div class="wn-tag removed">Replaced</div>
-        <div class="wn-card-title">std::map replaces IntDict, FloatDict, StringDict</div>
-        <div class="wn-card-body">
-          <p>Processing Java's typed dictionary classes <code>IntDict</code>, <code>FloatDict</code>, <code>StringDict</code> are replaced by <code>std::map</code>. Keys are kept in sorted order and it works with any combination of key and value types.</p>
-          <pre>// Java Processing:
-StringDict d = new StringDict();
-d.set("name", "Pep");
-String v = d.get("name");
-
-// C++ Mode:
-std::map&lt;std::string, std::string&gt; d;
-d["name"] = "Pep";
-std::string v = d["name"];
-
-// Check if key exists:
-if (d.count("name")) { ... }</pre>
-        </div>
-      </div>
-
-      <div class="wn-card">
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">captureMouse() and releaseMouse()</div>
         <div class="wn-card-body">
