@@ -87,7 +87,7 @@ def render_page(e, errors, depth=1):
   </div>
   <div class="content">
     <h1>{e["code"]}: {esc(e["title"])}</h1>
-    <span class="err-code">Compiler Error</span>
+    <span class="err-code">{esc(e.get("type", "Compiler Error"))}</span>
     <h2>What it means</h2>
     <p>{esc(e["summary"])}</p>
     <h2>How to fix it</h2>
