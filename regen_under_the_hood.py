@@ -46,13 +46,16 @@ DATA_FILE = os.path.join(os.path.dirname(__file__), "assets", "reference.yml")
 def symbol_name_for(entry):
     """
     Derive the source-level symbol name from an entry's display name.
-    Only a trailing "()" is stripped (e.g. "abs()" -> "abs"). A leading
-    "_" (e.g. "_mousePressed", "_frameRate") is part of the real symbol
-    and is kept as-is. Names with no parens (e.g. "PVector", "mouseX",
-    "color") are used verbatim.
+    A trailing "()" (e.g. "abs()" -> "abs") or trailing "[]" (e.g.
+    "pixels[]" -> "pixels", used in the docs to indicate it's an array)
+    is stripped. A leading "_" (e.g. "_mousePressed", "_frameRate") is
+    part of the real symbol and is kept as-is. Names with no such
+    suffix (e.g. "PVector", "mouseX", "color") are used verbatim.
     """
     name = entry.get("name", "")
     if name.endswith("()"):
+        name = name[:-2]
+    elif name.endswith("[]"):
         name = name[:-2]
     return name.strip()
 
@@ -323,15 +326,21 @@ def _strip_comments(s):
 
 def looks_like_declaration_context(text, match_pos):
     """
-    True if the text immediately before `match_pos` plausibly ends a
-    return type / qualifier list for a function or variable declaration,
-    rather than being in the middle of an expression (a call site or a
-    read of a variable). This is a heuristic, not a real parser.
+    True if `match_pos` plausibly sits in a declaration -- either right
+    after a type/qualifier list ("float mouseX", "void foo("), or after
+    a comma within a multi-declarator statement of the same kind
+    ("float mouseX = 0, mouseY = 0, pmouseX" -- checking "pmouseX" here
+    must not be rejected just because an earlier declarator in the same
+    statement had an '=' in it). This is a heuristic, not a real parser.
 
-    The look-back window is the nearest previous statement/block
-    boundary (';', '{', '}') -- or start of file -- to match_pos, with
-    comments and preprocessor directive lines stripped out first so they
-    can't be mistaken for expression syntax.
+    Approach: find the nearest previous statement/block boundary
+    (';', '{', '}', or start of file). If the segment between that
+    boundary and match_pos contains a top-level comma (one not inside
+    any bracket/paren), only the text AFTER the last such comma needs
+    to look like a clean declarator (no '=', no operators) -- text
+    before that comma is allowed to contain '=' from earlier
+    declarators in the same chain. If there is no top-level comma, the
+    whole segment must look clean, as before.
     """
     boundary = max(
         text.rfind(";", 0, match_pos),
@@ -340,21 +349,34 @@ def looks_like_declaration_context(text, match_pos):
     )
     raw_segment = text[boundary + 1:match_pos]
     segment = _strip_comments(raw_segment)
-    # Drop preprocessor directive lines entirely (#include, #pragma, #define, ...)
     segment = "\n".join(
         line for line in segment.split("\n") if not line.strip().startswith("#")
     )
 
-    # Reject if the segment contains characters that only show up in
-    # expressions/calls, not in a return-type/qualifier list (assignment,
-    # arithmetic operators, array indexing, member access).
-    if re.search(r"[=+\-/%!\[\]]", segment):
+    # Find the last top-level comma (depth 0 w.r.t. (), [], {}) in segment.
+    depth = 0
+    last_top_comma = -1
+    for idx, ch in enumerate(segment):
+        if ch in "([{":
+            depth += 1
+        elif ch in ")]}":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            last_top_comma = idx
+
+    if last_top_comma != -1:
+        # Only the tail after the last top-level comma must look clean;
+        # text before it is allowed to contain '=' etc. from earlier
+        # declarators in the same multi-declarator statement.
+        check_segment = segment[last_top_comma + 1:]
+    else:
+        check_segment = segment
+
+    if re.search(r"[=+\-/%!\[\]]", check_segment):
         return False
-    if re.search(r"\.\w", segment):
+    if re.search(r"\.\w", check_segment):
         return False
-    # Reject if there's an unmatched '(' before us (we'd be inside a
-    # call's argument list, e.g. "foo(abs(x))" when checking "abs").
-    if segment.count("(") != segment.count(")"):
+    if check_segment.count("(") != check_segment.count(")"):
         return False
     return True
 
@@ -467,6 +489,30 @@ def extract_variable_decl(text, symbol, match_pos):
     start = boundary + 1
     while start < match_pos and text[start] in " \t\n":
         start += 1
+    # Skip past any leading // or /* */ comment lines between the
+    # boundary and the actual declaration, so a comment immediately
+    # preceding the line (e.g. "// mouseX, mouseY: cursor position")
+    # doesn't get swallowed into the captured statement.
+    line_re = re.compile(r"[^\n]*\n?")
+    while start < match_pos:
+        stripped = text[start:].lstrip(" \t")
+        if stripped.startswith("//"):
+            nl = text.find("\n", start)
+            if nl == -1 or nl >= match_pos:
+                break
+            start = nl + 1
+            while start < match_pos and text[start] in " \t\n":
+                start += 1
+            continue
+        if stripped.startswith("/*"):
+            end_comment = text.find("*/", start)
+            if end_comment == -1 or end_comment >= match_pos:
+                break
+            start = end_comment + 2
+            while start < match_pos and text[start] in " \t\n":
+                start += 1
+            continue
+        break
 
     end = find_statement_end(text, i)
     if end is None or end == -1:

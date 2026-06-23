@@ -2394,13 +2394,7 @@ entries:
   - keyPressed_var
   - keyPressed_fn
   impl: extern bool  _keyPressed;   // true while any key is held
-  under_the_hood_h: "// char16_t, not char -- Java's \"char\" is genuinely a 16-bit type\n    // (a UTF-16\
-    \ code unit), wide enough to hold CODED's real value\n    // (0xFFFF) without truncation. A C++ \"\
-    char\" is only 8 bits, so\n    // \"(char)CODED\" always truncated down to 0xFF regardless of what\n\
-    \    // CODED's declared value was. char16_t is the real, character-\n    // semantic C++ type for\
-    \ exactly this situation -- str()/String\n    // concatenation get dedicated overloads (see below)\
-    \ so key still\n    // displays/concatenates as a character, matching Java's actual\n    // behavior,\
-    \ rather than falling back to int's numeric formatting.\n    char16_t key = 0;"
+  under_the_hood_h: char16_t key = 0;
   under_the_hood_cpp: 'std::string key=parseString(s,i);
 
 
@@ -2606,7 +2600,7 @@ entries:
   - pmouseY
   - mousePressed_var
   impl: extern float mouseX, mouseY;
-  under_the_hood_h: null
+  under_the_hood_h: float mouseX = 0, mouseY = 0, pmouseX = 0, pmouseY = 0;
   under_the_hood_cpp: null
 - slug: pmouseX
   name: pmouseX
@@ -2619,7 +2613,7 @@ entries:
   - pmouseY
   - mouseX
   impl: extern float pmouseX, pmouseY; // previous frame mouse position
-  under_the_hood_h: null
+  under_the_hood_h: float mouseX = 0, mouseY = 0, pmouseX = 0, pmouseY = 0;
   under_the_hood_cpp: pmouseX=mouseX;
 - slug: pmouseY
   name: pmouseY
@@ -2632,7 +2626,7 @@ entries:
   - pmouseX
   - mouseY
   impl: extern float pmouseX, pmouseY; // previous frame mouse position
-  under_the_hood_h: null
+  under_the_hood_h: float mouseX = 0, mouseY = 0, pmouseX = 0, pmouseY = 0;
   under_the_hood_cpp: pmouseY=mouseY;
 - slug: mouseDX
   name: mouseDX
@@ -2669,7 +2663,7 @@ entries:
   - pmouseY
   impl: extern float mouseDX, mouseDY;  // accumulated delta since last frame   // current mouse position
     (screen coords)
-  under_the_hood_h: null
+  under_the_hood_h: float mouseDX = 0, mouseDY = 0;
   under_the_hood_cpp: 'mouseDY = 0;
 
 
@@ -2701,9 +2695,7 @@ entries:
   - QUARTER_PI
   - TAU
   impl: static constexpr float PI         = static_cast<float>(M_PI);
-  under_the_hood_h: '// Math constants (float precision)
-
-    static constexpr float PI         = static_cast<float>(M_PI);'
+  under_the_hood_h: static constexpr float PI         = static_cast<float>(M_PI);
   under_the_hood_cpp: null
 - slug: QUARTER_PI
   name: QUARTER_PI
@@ -3569,8 +3561,9 @@ entries:
   - updatePixels
   - get_pixel
   - set_pixel
-  under_the_hood_h: null
-  under_the_hood_cpp: null
+  under_the_hood_h: "std::vector<unsigned int> pixels;\n\n: width(o.width), height(o.height), pixels(std::move(o.pixels)),\n\
+    \          texID(o.texID), dirty(o.dirty) { o.texID=0; }"
+  under_the_hood_cpp: gi.pixels = rgba.data();
 - slug: set_pixel
   name: set()
   cat_tag: Image / Pixels
@@ -8660,7 +8653,7 @@ entries:
   - displayWidth
   - height
   impl: extern int  displayWidth, displayHeight; // full monitor resolution
-  under_the_hood_h: null
+  under_the_hood_h: int   displayWidth = 0, displayHeight = 0;
   under_the_hood_cpp: displayHeight=vm->height;
 - slug: displayWidth
   name: displayWidth
@@ -8696,7 +8689,7 @@ entries:
   related:
   - frameRate_var
   impl: extern int   frameCount;
-  under_the_hood_h: "// set true if background() was called this frame\n\n    int   frameCount = 1;"
+  under_the_hood_h: int   frameCount = 1;
   under_the_hood_cpp: null
 - slug: frameRate_var
   name: _frameRate
@@ -8755,22 +8748,9 @@ entries:
   related:
   - width
   - size
-  under_the_hood_h: 'int  height = 0;
-
-
-    height = h;
-
-
-    height=h;
-
-
-    float height = 0;
-
-
-    height=(maxy>-1e8)?(maxy-miny):0;
-
-
-    int& height = logicalH;'
+  under_the_hood_h: "int  height = 0;\n\nheight = h;\n\nheight=h;\n\n: width(o.width), height(o.height),\
+    \ pixels(std::move(o.pixels)),\n          texID(o.texID), dirty(o.dirty) { o.texID=0; }\n\nfloat height\
+    \ = 0;\n\nheight=(maxy>-1e8)?(maxy-miny):0;\n\nint& height = logicalH;"
   under_the_hood_cpp: 'gi.height = img->height;
 
 
@@ -8826,7 +8806,7 @@ entries:
   - pixelWidth
   - pixelDensity
   impl: extern int  pixelWidth, pixelHeight;  // framebuffer size (HiDPI may differ)
-  under_the_hood_h: null
+  under_the_hood_h: int   pixelWidth = 0, pixelHeight = 0;
   under_the_hood_cpp: 'pixelHeight=h;
 
 
@@ -8846,8 +8826,13 @@ entries:
   - pixelDensity
   impl: extern int  pixelWidth, pixelHeight;  // framebuffer size (HiDPI may differ)
   under_the_hood_h: int   pixelWidth = 0, pixelHeight = 0;
-  under_the_hood_cpp: "// remember what the sketch requested\n    pixelWidth=w;\n\npixelWidth=fw;\n\n\
-    pixelWidth=fw2;"
+  under_the_hood_cpp: 'pixelWidth=w;
+
+
+    pixelWidth=fw;
+
+
+    pixelWidth=fw2;'
 - slug: releaseMouse
   name: releaseMouse()
   cat_tag: Environment
@@ -8982,10 +8967,8 @@ entries:
   - height
   - size
   under_the_hood_h: "public:\n    int  width  = 0;\n\nwidth = w;\n\nwidth=w;\n\n: width(o.width), height(o.height),\
-    \ pixels(std::move(o.pixels)),\n          texID(o.texID), dirty(o.dirty) { o.texID=0; }\n\n// Bounding\
-    \ box (computed from verts + children)\n    float width  = 0;\n\nwidth =(maxx>-1e8)?(maxx-minx):0;\n\
-    \n// width/height: direct accessors (no reference members — they break copy ctor)\n    int& width\
-    \  = logicalW;"
+    \ pixels(std::move(o.pixels)),\n          texID(o.texID), dirty(o.dirty) { o.texID=0; }\n\nfloat width\
+    \  = 0;\n\nwidth =(maxx>-1e8)?(maxx-minx):0;\n\nint& width  = logicalW;"
   under_the_hood_cpp: gi.width  = img->width;
 - slug: windowMoved
   name: windowMoved()
