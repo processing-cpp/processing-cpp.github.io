@@ -3,7 +3,11 @@
   const path = window.location.pathname;
   const parts = path.replace(/\/$/, '').split('/').filter(Boolean);
   const isRoot = parts.length === 0 || (parts.length === 1 && parts[0] === 'index.html');
-  const prefix = isRoot ? '/' : '../';
+  // Depth = number of directory levels below site root. A trailing
+  // "index.html" or "<file>.html" segment doesn't count as a directory level.
+  const hasTrailingFile = parts.length > 0 && parts[parts.length - 1].endsWith('.html');
+  const depth = isRoot ? 0 : (hasTrailingFile ? parts.length - 1 : parts.length);
+  const prefix = depth === 0 ? '/' : '../'.repeat(depth);
 
   function isActive(name) { return path.includes('/' + name); }
 
@@ -12,6 +16,11 @@
     const s = style ? ` style="${style}"` : '';
     return `<a href="${prefix}${href}"${active}${s}>${label}</a>`;
   }
+
+  const isReferencePage = parts.includes('reference');
+  const errorsLink = isReferencePage
+    ? `<a href="${prefix}error/index.html" class="nav-errors-link">Errors</a>`
+    : '';
 
   const nav = document.getElementById('site-nav');
   if (nav) {
@@ -23,10 +32,13 @@
           <span class="nav-title-bottom">C++</span>
         </div>
       </a>
-      <button class="hamburger" onclick="
-        var s = document.querySelector('.sidebar-outer, .sidebar');
-        if(s) s.classList.toggle('open');
-      ">☰</button>
+      <div class="nav-right">
+        ${errorsLink}
+        <button class="hamburger" onclick="
+          var s = document.querySelector('.sidebar-outer, .sidebar');
+          if(s) s.classList.toggle('open');
+        ">☰</button>
+      </div>
     `;
   }
 
@@ -63,6 +75,9 @@
       .nav-title { display: flex; flex-direction: column; line-height: 1.15; }
       .nav-title-top  { font-size: 14px; font-weight: 700; color: #e8b400; }
       .nav-title-bottom { font-size: 14px; font-weight: 700; color: #e8b400; }
+      .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+      .nav-errors-link { font-size: 14px; color: #555; }
+      .nav-errors-link:hover { color: #111; }
       .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; margin-left: 0.5rem; }
       @media (max-width: 768px) { .hamburger { display: block; } }
     `;

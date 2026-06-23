@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E0001: PGraphics needs to be a pointer - Processing for C++</title>
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; }
+    .nav-logo img { width: 28px; height: 28px; }
+    .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .err-sidebar { flex: 1; overflow-y: auto; padding: 0.5rem 0; }
+    .err-sidebar-title { font-size: 11px; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.85rem 1.5rem 0.25rem; }
+    .err-sidebar a { display: block; font-size: 12px; color: #555; padding: 0.25rem 1.5rem; font-family: "SF Mono","Fira Code",monospace; }
+    .err-sidebar a:hover { color: #111; background: #f8f8f8; }
+    .err-sidebar a.active { color: #111 !important; font-weight: 600; background: #f4f4f4; }
+    .content { flex: 1; padding: 3rem 4rem; max-width: 820px; }
+    .content h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.25rem; font-family: "SF Mono","Fira Code",monospace; }
+    .err-code { font-size: 12px; color: #aaa; margin-bottom: 2rem; display: block; font-family: "SF Mono","Fira Code",monospace; }
+    .content h2 { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .code-block { background: #f8f8f8; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 0.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.8; white-space: pre; overflow-x: auto; }
+    .code-block.before { border-left: 3px solid #d4534f; }
+    .code-block.after { border-left: 3px solid #2f9e5c; }
+    .code-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; display: block; }
+    .code-label.before { color: #d4534f; }
+    .code-label.after { color: #2f9e5c; }
+    .code-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .code-pair { grid-template-columns: 1fr; }
+    }</style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="active">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="">E0003 &middot; PShader needs to be a pointer</a></div>
+  </div>
+  <div class="content">
+    <h1>E0001: PGraphics needs to be a pointer</h1>
+    <span class="err-code">Compiler Error</span>
+    <h2>What it means</h2>
+    <p>A PGraphics buffer holds onto real graphics-card resources behind the scenes. Two copies of the same PGraphics could end up fighting over those resources, so copying isn&#x27;t allowed.</p>
+    <h2>How to fix it</h2>
+    <p>Use PGraphics* instead of PGraphics.</p>
+    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">PGraphics pg;
+pg = createGraphics(400, 300);
+pg.beginDraw();
+pg.background(255);
+pg.endDraw();</div></div><div><span class="code-label after">After</span><div class="code-block after">PGraphics* pg;
+pg = createGraphics(400, 300);
+pg-&gt;beginDraw();
+pg-&gt;background(255);
+pg-&gt;endDraw();</div></div></div>
+    <h2>Notes</h2><p>Once pg is a pointer, use -&gt; instead of the dot you&#x27;d use in Java.</p>
+  </div>
+</div>
+<footer><p>Processing for C++</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

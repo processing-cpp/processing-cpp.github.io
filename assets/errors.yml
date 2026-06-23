@@ -1,0 +1,68 @@
+# CppMode compiler error reference. Each entry becomes a static page at
+# /error/<code>.html via regen_errors.py. Keep entries in this single
+# file so the whole list stays easy to scan and keep in sync with the
+# actual error messages in Processing.h.
+
+- code: E0001
+  title: PGraphics needs to be a pointer
+  summary: >
+    A PGraphics buffer holds onto real graphics-card resources behind
+    the scenes. Two copies of the same PGraphics could end up fighting
+    over those resources, so copying isn't allowed.
+  fix: >
+    Use PGraphics* instead of PGraphics.
+  before: |
+    PGraphics pg;
+    pg = createGraphics(400, 300);
+    pg.beginDraw();
+    pg.background(255);
+    pg.endDraw();
+  after: |
+    PGraphics* pg;
+    pg = createGraphics(400, 300);
+    pg->beginDraw();
+    pg->background(255);
+    pg->endDraw();
+  notes: >
+    Once pg is a pointer, use -> instead of the dot you'd use in Java.
+
+- code: E0002
+  title: PImage needs to be a pointer
+  summary: >
+    Just like PGraphics, a PImage holds onto a graphics-card resource
+    (the loaded image's texture). Copying isn't allowed for the same
+    reason.
+  fix: >
+    Use PImage* instead of PImage.
+  before: |
+    PImage img;
+    img = loadImage("photo.jpg");
+    image(img, 0, 0);
+  after: |
+    PImage* img;
+    img = loadImage("photo.jpg");
+    image(img, 0, 0);
+  notes: >
+    image() already accepts the pointer directly, so you only need ->
+    when reading something off the image itself, like img->width.
+
+- code: E0003
+  title: PShader needs to be a pointer
+  summary: >
+    A PShader holds onto a compiled program running on the graphics
+    card. Copying isn't allowed for the same reason as PGraphics and
+    PImage.
+  fix: >
+    Use PShader* instead of PShader.
+  before: |
+    PShader shader;
+    shader = loadShader("frag.glsl");
+    shader(shader);
+  after: |
+    PShader* shader;
+    shader = loadShader("frag.glsl");
+    shader(shader);
+  notes: >
+    Use -> for calling methods on the shader itself, like
+    shader->set(...).
+
