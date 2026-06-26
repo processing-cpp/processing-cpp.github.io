@@ -1,4 +1,4 @@
-import os, re
+import os, re, json
 
 base_cpp = "/home/pep/Projects/processing-cpp.github.io/assets/examples/Basics"
 base_js  = "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics"
@@ -176,6 +176,84 @@ for cat, examples in data.items():
         with open(os.path.join(out_dir, ex["slug"]+".html"),"w") as f:
             f.write(page)
 
+THUMBS_MANIFEST = "/home/pep/Projects/processing-cpp.github.io/assets/examples_thumbs/manifest.json"
+
+
+def load_thumb_manifest():
+    if not os.path.exists(THUMBS_MANIFEST):
+        print(f"NOTE: {THUMBS_MANIFEST} not found -- run generate_example_thumbnails.py "
+              f"first to populate the examples gallery with real thumbnails. "
+              f"examples/index.html will fall back to the plain placeholder text for now.")
+        return None
+    with open(THUMBS_MANIFEST) as f:
+        return json.load(f)
+
+
+def build_examples_gallery(manifest, data):
+    """Build the Processing.org-style thumbnail gallery: one section per
+    category, each example shown as a clickable card with its thumbnail,
+    grouped and ordered the same way the sidebar already groups them."""
+    if not manifest:
+        return '<div class="welcome"><h1>Examples</h1><p>Short programs exploring the basics of creative coding with C++ Mode. Select an example from the left.</p></div>'
+
+    thumb_by_slug = {}
+    for m in manifest:
+        # examples_js uses Title_Case folder names -> slug is lowercased/dashed
+        # elsewhere in this script via example.replace("_","-").lower(), so
+        # match on that same derived slug to look the thumbnail up per example.
+        thumb_by_slug[m["slug"]] = m
+
+    sections = []
+    for cat, examples in data.items():
+        cards = []
+        for ex in examples:
+            thumb = thumb_by_slug.get(ex["slug"])
+            if thumb:
+                thumb_src = f'../assets/examples_thumbs/{thumb["category"]}/{thumb["thumb"]}'
+            else:
+                thumb_src = ""  # no thumbnail generated yet for this example
+            img_html = (
+                f'<img src="{thumb_src}" alt="{ex["name"]}" loading="lazy">'
+                if thumb_src else
+                '<div class="gallery-thumb-missing"></div>'
+            )
+            cards.append(
+                f'<a class="gallery-card" href="{ex["slug"]}.html">'
+                f'<div class="gallery-thumb">{img_html}</div>'
+                f'<div class="gallery-card-title">{ex["name"]}</div>'
+                f"</a>"
+            )
+        sections.append(
+            f'<div class="gallery-section"><h2>{cat.replace("_"," ").title()}</h2>'
+            f'<div class="gallery-grid">{"".join(cards)}</div></div>'
+        )
+
+    return (
+        '<div class="gallery-intro"><h1>Examples</h1>'
+        "<p>Short programs exploring the basics of creative coding with C++ Mode.</p></div>"
+        + "".join(sections)
+    )
+
+
+gallery_css = '''
+    .gallery-intro { margin-bottom: 2.5rem; }
+    .gallery-intro h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .gallery-intro p { color: #555; }
+    .gallery-section { margin-bottom: 3rem; }
+    .gallery-section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.25rem; }
+    .gallery-card { display: block; }
+    .gallery-thumb { width: 100%; aspect-ratio: 1; background: #111; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-thumb-missing { width: 100%; height: 100%; background: #1a1a1a; }
+    .gallery-card-title { font-size: 13px; color: #555; margin-top: 0.5rem; text-align: center; }
+    .gallery-card:hover .gallery-thumb { border-color: #aaa; }
+    .gallery-card:hover .gallery-card-title { color: #111; }
+'''
+
+thumb_manifest = load_thumb_manifest()
+gallery_html = build_examples_gallery(thumb_manifest, data)
+
 ex_sidebar = build_page_sidebar()
 with open(os.path.join(out_dir,"index.html"),"w") as f:
     f.write(f'''<!DOCTYPE html>
@@ -184,7 +262,7 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Examples - C++ Mode for Processing</title>
-  <style>{shared_css}</style>
+  <style>{shared_css}{gallery_css}</style>
 </head>
 <body>
 <nav id="site-nav">
@@ -201,7 +279,7 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
     </div>
     <div class="sidebar-examples">{ex_sidebar}</div>
   </div>
-  <div class="content"><div class="welcome"><h1>Examples</h1><p>Short programs exploring the basics of creative coding with C++ Mode. Select an example from the left.</p></div></div>
+  <div class="content">{gallery_html}</div>
 </div>
 <footer><p>C++ Mode for Processing</p></footer>
 <script>{shared_js}</script>
@@ -210,3 +288,124 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
 </html>''')
 
 print(f"done — {sum(len(v) for v in data.values())} examples generated")
+
+# ---------------------------------------------------------------------------
+# Homepage random example previews
+#
+# Picks 3 random examples (from the same `data` built above) that have no
+# external asset dependencies (loadImage/loadFont/etc.), forces their
+# canvas to a small fixed square (so they fit the homepage's tiny preview
+# boxes regardless of what size the original sketch requests), and embeds
+# each one as an isolated iframe -- same technique already used for the
+# full-size example pages, just shrunk down. This replaces the old
+# hand-written instance-mode sketches that used to live inline in
+# index.html (which had a p.document bug and weren't randomized at all).
+# ---------------------------------------------------------------------------
+import random
+
+HOMEPAGE_PREVIEW_SIZE = 300  # px, square; matches .example-canvas's CSS aspect-ratio:1 box
+
+_data_loading_re = re.compile(r"loadImage|loadFont|loadModel|loadStrings|loadJSON|loadTable|requestImage|loadXML")
+_canvas_size_re = re.compile(r"(createCanvas|size)\s*\(\s*\d+\s*,\s*\d+\s*((?:,[^)]*)?)\)")
+
+
+def force_square_canvas(js_code, size):
+    """Rewrite any createCanvas(w,h[,...])/size(w,h) call to a fixed
+    square size, so the sketch renders at the small homepage preview size
+    regardless of what resolution it originally asked for. Any extra
+    arguments after the width/height (e.g. a renderer like WEBGL) are
+    preserved. If the sketch has neither call (rare), nothing is changed
+    -- p5 defaults to 100x100 in that case, an acceptable degraded
+    fallback rather than a crash."""
+    return _canvas_size_re.sub(lambda m: f"{m.group(1)}({size},{size}{m.group(2)})", js_code, count=1)
+
+
+def make_preview_iframe(js_code, canvas_id, size):
+    js_code = fix_asset_paths(js_code)
+    js_code = force_square_canvas(js_code, size)
+    safe = js_code.replace("</script>", "<\\/script>").replace("`", "\\`")
+    return (
+        f'<iframe class="example-canvas" id="{canvas_id}" width="{size}" height="{size}" '
+        f'style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" '
+        f'scrolling="no"></iframe>'
+        f"<script>(function(){{"
+        f"const iframe=document.getElementById('{canvas_id}');"
+        f"const doc=iframe.contentDocument||iframe.contentWindow.document;"
+        f"doc.open();"
+        f'doc.write(`<!DOCTYPE html><html><head><style>*{{margin:0;padding:0;}}body{{overflow:hidden;}}</style>'
+        f'<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\\/script></head>'
+        f"<body><script>{safe}<\\/script></body></html>`);"
+        f"doc.close();"
+        f"}})();</script>"
+    )
+
+
+def pick_random_homepage_examples(data, count=3):
+    pool = []
+    for cat, examples in data.items():
+        for ex in examples:
+            if not ex["js"].strip():
+                continue
+            if _data_loading_re.search(ex["js"]):
+                continue  # skip anything that loads external assets -- too
+                          # likely to render blank/broken in a tiny decorative box
+            pool.append({**ex, "category": cat.replace("_", " ").title()})
+    if len(pool) < count:
+        return pool
+    return random.sample(pool, count)
+
+
+def update_homepage_examples(repo_root, data):
+    index_path = os.path.join(repo_root, "index.html")
+    if not os.path.exists(index_path):
+        print(f"WARNING: {index_path} not found, skipping homepage example update.")
+        return
+
+    with open(index_path) as f:
+        html = f.read()
+
+    picks = pick_random_homepage_examples(data, count=3)
+    if len(picks) < 3:
+        print(f"WARNING: only found {len(picks)} eligible examples for the homepage, expected 3.")
+
+    canvas_ids = ["c1", "c2", "c3"]
+    replaced_count = 0
+    for canvas_id, ex in zip(canvas_ids, picks):
+        iframe_html = make_preview_iframe(ex["js"], canvas_id, HOMEPAGE_PREVIEW_SIZE)
+        card_re = re.compile(
+            rf'<canvas class="example-canvas" id="{canvas_id}"></canvas>\s*'
+            rf'<div class="example-info"><h3>[^<]*</h3><p>[^<]*</p></div>'
+        )
+        replacement = (
+            f"{iframe_html}\n"
+            f'          <div class="example-info"><h3>{ex["name"]}</h3>'
+            f'<p>{ex["category"]} example</p></div>'
+        )
+        html, n = card_re.subn(replacement, html, count=1)
+        if n == 0:
+            print(f"WARNING: could not find homepage card markup for {canvas_id}, skipping.")
+        else:
+            replaced_count += 1
+
+    # Only remove the old inline <script>...new p5(...)...</script> block
+    # if every card was actually replaced with a working iframe -- if the
+    # eligible example pool ever comes up short (fewer than 3 candidates),
+    # leave the old script in place so any un-replaced canvas still has
+    # something driving it, rather than going permanently blank.
+    if replaced_count == len(canvas_ids):
+        html = re.sub(
+            r"<script>\s*new p5\(function\(p\)[\s\S]*?</script>\s*(?=<script src=\"\./assets/nav\.js\"></script>)",
+            "",
+            html,
+            count=1,
+        )
+    else:
+        print(f"NOTE: only {replaced_count}/{len(canvas_ids)} homepage cards replaced; keeping the old inline sketch script as a fallback for the rest.")
+
+    with open(index_path, "w") as f:
+        f.write(html)
+
+    print(f"Updated homepage with {len(picks)} random example preview(s): " + ", ".join(p["name"] for p in picks))
+
+
+update_homepage_examples(os.path.dirname(out_dir), data)

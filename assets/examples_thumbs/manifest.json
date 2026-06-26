@@ -1,0 +1,834 @@
+[
+  {
+    "category": "arrays",
+    "slug": "array",
+    "name": "Array",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/arrays/Array/Array.js",
+    "thumb": "array.png",
+    "placeholder": false
+  },
+  {
+    "category": "arrays",
+    "slug": "array-2d",
+    "name": "Array 2D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/arrays/Array_2D/Array_2D.js",
+    "thumb": "array-2d.png",
+    "placeholder": false
+  },
+  {
+    "category": "arrays",
+    "slug": "array-objects",
+    "name": "Array Objects",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/arrays/Array_Objects/Array_Objects.js",
+    "thumb": "array-objects.png",
+    "placeholder": false
+  },
+  {
+    "category": "camera",
+    "slug": "move-eye",
+    "name": "Move Eye",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/camera/Move_Eye/Move_Eye.js",
+    "thumb": "move-eye.png",
+    "placeholder": false
+  },
+  {
+    "category": "camera",
+    "slug": "perspective",
+    "name": "Perspective",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/camera/Perspective/Perspective.js",
+    "thumb": "perspective.png",
+    "placeholder": false
+  },
+  {
+    "category": "camera",
+    "slug": "perspective-vs-ortho",
+    "name": "Perspective vs Ortho",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/camera/Perspective_vs_Ortho/Perspective_vs_Ortho.js",
+    "thumb": "perspective-vs-ortho.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "brightness",
+    "name": "Brightness",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Brightness/Brightness.js",
+    "thumb": "brightness.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "color-variables",
+    "name": "Color Variables",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Color_Variables/Color_Variables.js",
+    "thumb": "color-variables.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "hue",
+    "name": "Hue",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Hue/Hue.js",
+    "thumb": "hue.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "radial-gradient",
+    "name": "Radial Gradient",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Radial_Gradient/Radial_Gradient.js",
+    "thumb": "radial-gradient.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "relativity",
+    "name": "Relativity",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Relativity/Relativity.js",
+    "thumb": "relativity.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "saturation",
+    "name": "Saturation",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Saturation/Saturation.js",
+    "thumb": "saturation.png",
+    "placeholder": false
+  },
+  {
+    "category": "color",
+    "slug": "simple-linear-gradient",
+    "name": "Simple Linear Gradient",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/color/Simple_Linear_Gradient/Simple_Linear_Gradient.js",
+    "thumb": "simple-linear-gradient.png",
+    "placeholder": false
+  },
+  {
+    "category": "control",
+    "slug": "conditionals-1",
+    "name": "Conditionals 1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/control/Conditionals_1/Conditionals_1.js",
+    "thumb": "conditionals-1.png",
+    "placeholder": false
+  },
+  {
+    "category": "control",
+    "slug": "conditionals-2",
+    "name": "Conditionals 2",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/control/Conditionals_2/Conditionals_2.js",
+    "thumb": "conditionals-2.png",
+    "placeholder": false
+  },
+  {
+    "category": "control",
+    "slug": "embedding-iteration",
+    "name": "Embedding Iteration",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/control/Embedding_Iteration/Embedding_Iteration.js",
+    "thumb": "embedding-iteration.png",
+    "placeholder": false
+  },
+  {
+    "category": "control",
+    "slug": "iteration",
+    "name": "Iteration",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/control/Iteration/Iteration.js",
+    "thumb": "iteration.png",
+    "placeholder": false
+  },
+  {
+    "category": "control",
+    "slug": "logical-operators",
+    "name": "Logical Operators",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/control/Logical_Operators/Logical_Operators.js",
+    "thumb": "logical-operators.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "characters-strings",
+    "name": "Characters Strings",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/Characters_Strings/Characters_Strings.js",
+    "thumb": "characters-strings.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "datatype-conversion",
+    "name": "Datatype Conversion",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/Datatype_Conversion/Datatype_Conversion.js",
+    "thumb": "datatype-conversion.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "integers-floats",
+    "name": "Integers Floats",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/Integers_Floats/Integers_Floats.js",
+    "thumb": "integers-floats.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "true-false",
+    "name": "True False",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/True_False/True_False.js",
+    "thumb": "true-false.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "variable-scope",
+    "name": "Variable Scope",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/Variable_Scope/Variable_Scope.js",
+    "thumb": "variable-scope.png",
+    "placeholder": false
+  },
+  {
+    "category": "data",
+    "slug": "variables",
+    "name": "Variables",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/data/Variables/Variables.js",
+    "thumb": "variables.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "bezier",
+    "name": "Bezier",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Bezier/Bezier.js",
+    "thumb": "bezier.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "pie-chart",
+    "name": "Pie Chart",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Pie_Chart/Pie_Chart.js",
+    "thumb": "pie-chart.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "points-and-lines",
+    "name": "Points and Lines",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Points_and_Lines/Points_and_Lines.js",
+    "thumb": "points-and-lines.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "primitives-3d",
+    "name": "Primitives 3D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Primitives_3D/Primitives_3D.js",
+    "thumb": "primitives-3d.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "regular-polygon",
+    "name": "Regular Polygon",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Regular_Polygon/Regular_Polygon.js",
+    "thumb": "regular-polygon.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "shape-primitives",
+    "name": "Shape Primitives",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Shape_Primitives/Shape_Primitives.js",
+    "thumb": "shape-primitives.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "star",
+    "name": "Star",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Star/Star.js",
+    "thumb": "star.png",
+    "placeholder": false
+  },
+  {
+    "category": "forms",
+    "slug": "triangle-strip",
+    "name": "Triangle Strip",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/forms/Triangle_Strip/Triangle_Strip.js",
+    "thumb": "triangle-strip.png",
+    "placeholder": false
+  },
+  {
+    "category": "image",
+    "slug": "alpha-mask",
+    "name": "Alpha Mask",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Alpha_Mask/Alpha_Mask.js",
+    "thumb": "alpha-mask.svg",
+    "placeholder": true
+  },
+  {
+    "category": "image",
+    "slug": "background-image",
+    "name": "Background Image",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Background_Image/Background_Image.js",
+    "thumb": "background-image.svg",
+    "placeholder": true
+  },
+  {
+    "category": "image",
+    "slug": "create-image",
+    "name": "Create Image",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Create_Image/Create_Image.js",
+    "thumb": "create-image.png",
+    "placeholder": false
+  },
+  {
+    "category": "image",
+    "slug": "load-and-display-image",
+    "name": "Load and Display Image",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Load_and_Display_Image/Load_and_Display_Image.js",
+    "thumb": "load-and-display-image.svg",
+    "placeholder": true
+  },
+  {
+    "category": "image",
+    "slug": "pointillism",
+    "name": "Pointillism",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Pointillism/Pointillism.js",
+    "thumb": "pointillism.svg",
+    "placeholder": true
+  },
+  {
+    "category": "image",
+    "slug": "request-image",
+    "name": "Request Image",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Request_Image/Request_Image.js",
+    "thumb": "request-image.svg",
+    "placeholder": true
+  },
+  {
+    "category": "image",
+    "slug": "transparency",
+    "name": "Transparency",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Transparency/Transparency.js",
+    "thumb": "transparency.svg",
+    "placeholder": true
+  },
+  {
+    "category": "input",
+    "slug": "clock",
+    "name": "Clock",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Clock/Clock.js",
+    "thumb": "clock.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "constrain",
+    "name": "Constrain",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Constrain/Constrain.js",
+    "thumb": "constrain.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "easing",
+    "name": "Easing",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Easing/Easing.js",
+    "thumb": "easing.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "keyboard",
+    "name": "Keyboard",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Keyboard/Keyboard.js",
+    "thumb": "keyboard.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "keyboard-functions",
+    "name": "Keyboard Functions",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Keyboard_Functions/Keyboard_Functions.js",
+    "thumb": "keyboard-functions.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "milliseconds",
+    "name": "Milliseconds",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Milliseconds/Milliseconds.js",
+    "thumb": "milliseconds.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "mouse-1d",
+    "name": "Mouse 1D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Mouse_1D/Mouse_1D.js",
+    "thumb": "mouse-1d.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "mouse-2d",
+    "name": "Mouse 2D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Mouse_2D/Mouse_2D.js",
+    "thumb": "mouse-2d.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "mouse-functions",
+    "name": "Mouse Functions",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Mouse_Functions/Mouse_Functions.js",
+    "thumb": "mouse-functions.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "mouse-press",
+    "name": "Mouse Press",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Mouse_Press/Mouse_Press.js",
+    "thumb": "mouse-press.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
+    "slug": "storing-input",
+    "name": "Storing Input",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Storing_Input/Storing_Input.js",
+    "thumb": "storing-input.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "directional",
+    "name": "Directional",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Directional/Directional.js",
+    "thumb": "directional.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "mixture",
+    "name": "Mixture",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Mixture/Mixture.js",
+    "thumb": "mixture.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "mixture-grid",
+    "name": "Mixture Grid",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Mixture_Grid/Mixture_Grid.js",
+    "thumb": "mixture-grid.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "on-off",
+    "name": "On Off",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/On_Off/On_Off.js",
+    "thumb": "on-off.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "reflection",
+    "name": "Reflection",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Reflection/Reflection.js",
+    "thumb": "reflection.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "additive-wave",
+    "name": "Additive Wave",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Additive_Wave/Additive_Wave.js",
+    "thumb": "additive-wave.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "arctangent",
+    "name": "Arctangent",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Arctangent/Arctangent.js",
+    "thumb": "arctangent.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "distance-1d",
+    "name": "Distance 1D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Distance_1D/Distance_1D.js",
+    "thumb": "distance-1d.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "distance-2d",
+    "name": "Distance 2D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Distance_2D/Distance_2D.js",
+    "thumb": "distance-2d.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "double-random",
+    "name": "Double Random",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Double_Random/Double_Random.js",
+    "thumb": "double-random.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "graphing-2d-equations",
+    "name": "Graphing 2D Equations",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Graphing_2D_Equations/Graphing_2D_Equations.js",
+    "thumb": "graphing-2d-equations.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "increment-decrement",
+    "name": "Increment Decrement",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Increment_Decrement/Increment_Decrement.js",
+    "thumb": "increment-decrement.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "linear-interpolation",
+    "name": "Linear Interpolation",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Linear_Interpolation/Linear_Interpolation.js",
+    "thumb": "linear-interpolation.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "noise-1d",
+    "name": "Noise 1D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Noise_1D/Noise_1D.js",
+    "thumb": "noise-1d.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "noise-2d",
+    "name": "Noise 2D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Noise_2D/Noise_2D.js",
+    "thumb": "noise-2d.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "noise-3d",
+    "name": "Noise 3D",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Noise_3D/Noise_3D.js",
+    "thumb": "noise-3d.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "noise-wave",
+    "name": "Noise Wave",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Noise_Wave/Noise_Wave.js",
+    "thumb": "noise-wave.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "operator-precedence",
+    "name": "Operator Precedence",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Operator_Precedence/Operator_Precedence.js",
+    "thumb": "operator-precedence.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "polar-to-cartesian",
+    "name": "Polar to Cartesian",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Polar_to_Cartesian/Polar_to_Cartesian.js",
+    "thumb": "polar-to-cartesian.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "random",
+    "name": "Random",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Random/Random.js",
+    "thumb": "random.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "random-gaussian",
+    "name": "Random Gaussian",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Random_Gaussian/Random_Gaussian.js",
+    "thumb": "random-gaussian.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "sine",
+    "name": "Sine",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Sine/Sine.js",
+    "thumb": "sine.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "sine-cosine",
+    "name": "Sine Cosine",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Sine_Cosine/Sine_Cosine.js",
+    "thumb": "sine-cosine.png",
+    "placeholder": false
+  },
+  {
+    "category": "math",
+    "slug": "sine-wave",
+    "name": "Sine Wave",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/math/Sine_Wave/Sine_Wave.js",
+    "thumb": "sine-wave.png",
+    "placeholder": false
+  },
+  {
+    "category": "objects",
+    "slug": "composite-objects",
+    "name": "Composite Objects",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/objects/Composite_Objects/Composite_Objects.js",
+    "thumb": "composite-objects.png",
+    "placeholder": false
+  },
+  {
+    "category": "objects",
+    "slug": "inheritance",
+    "name": "Inheritance",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/objects/Inheritance/Inheritance.js",
+    "thumb": "inheritance.png",
+    "placeholder": false
+  },
+  {
+    "category": "objects",
+    "slug": "multiple-constructors",
+    "name": "Multiple Constructors",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/objects/Multiple_Constructors/Multiple_Constructors.js",
+    "thumb": "multiple-constructors.png",
+    "placeholder": false
+  },
+  {
+    "category": "objects",
+    "slug": "objects",
+    "name": "Objects",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/objects/Objects/Objects.js",
+    "thumb": "objects.png",
+    "placeholder": false
+  },
+  {
+    "category": "shape",
+    "slug": "disable-style",
+    "name": "Disable Style",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Disable_Style/Disable_Style.js",
+    "thumb": "disable-style.svg",
+    "placeholder": true
+  },
+  {
+    "category": "shape",
+    "slug": "load-and-display-a-shape-illustration",
+    "name": "Load and Display a Shape Illustration",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Load_and_Display_a_Shape_Illustration/Load_and_Display_a_Shape_Illustration.js",
+    "thumb": "load-and-display-a-shape-illustration.svg",
+    "placeholder": true
+  },
+  {
+    "category": "shape",
+    "slug": "load-and-display-an-obj-shape",
+    "name": "Load and Display an OBJ shape",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Load_and_Display_an_OBJ_shape/Load_and_Display_an_OBJ_shape.js",
+    "thumb": "load-and-display-an-obj-shape.svg",
+    "placeholder": true
+  },
+  {
+    "category": "shape",
+    "slug": "scale-shape-illustration",
+    "name": "Scale Shape Illustration",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Scale_Shape_Illustration/Scale_Shape_Illustration.js",
+    "thumb": "scale-shape-illustration.svg",
+    "placeholder": true
+  },
+  {
+    "category": "shape",
+    "slug": "shape-vertices",
+    "name": "Shape Vertices",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Shape_Vertices/Shape_Vertices.js",
+    "thumb": "shape-vertices.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "coordinates",
+    "name": "Coordinates",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Coordinates/Coordinates.js",
+    "thumb": "coordinates.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "create-graphics",
+    "name": "Create Graphics",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Create_Graphics/Create_Graphics.js",
+    "thumb": "create-graphics.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "functions",
+    "name": "Functions",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Functions/Functions.js",
+    "thumb": "functions.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "loop",
+    "name": "Loop",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Loop/Loop.js",
+    "thumb": "loop.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "no-loop",
+    "name": "No Loop",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/No_Loop/No_Loop.js",
+    "thumb": "no-loop.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "recursion",
+    "name": "Recursion",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Recursion/Recursion.js",
+    "thumb": "recursion.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "redraw",
+    "name": "Redraw",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Redraw/Redraw.js",
+    "thumb": "redraw.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "setup-and-draw",
+    "name": "Setup and Draw",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Setup_and_Draw/Setup_and_Draw.js",
+    "thumb": "setup-and-draw.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "statements-and-comments",
+    "name": "Statements and Comments",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Statements_and_Comments/Statements_and_Comments.js",
+    "thumb": "statements-and-comments.png",
+    "placeholder": false
+  },
+  {
+    "category": "structure",
+    "slug": "width-and-height",
+    "name": "Width and Height",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/structure/Width_and_Height/Width_and_Height.js",
+    "thumb": "width-and-height.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "arm",
+    "name": "Arm",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Arm/Arm.js",
+    "thumb": "arm.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "rotate",
+    "name": "Rotate",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Rotate/Rotate.js",
+    "thumb": "rotate.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "rotate-1",
+    "name": "Rotate 1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Rotate_1/Rotate_1.js",
+    "thumb": "rotate-1.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "rotate-push-pop",
+    "name": "Rotate Push Pop",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Rotate_Push_Pop/Rotate_Push_Pop.js",
+    "thumb": "rotate-push-pop.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "scale",
+    "name": "Scale",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Scale/Scale.js",
+    "thumb": "scale.png",
+    "placeholder": false
+  },
+  {
+    "category": "transform",
+    "slug": "translate",
+    "name": "Translate",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/transform/Translate/Translate.js",
+    "thumb": "translate.png",
+    "placeholder": false
+  },
+  {
+    "category": "typography",
+    "slug": "letters",
+    "name": "Letters",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Letters/Letters.js",
+    "thumb": "letters.svg",
+    "placeholder": true
+  },
+  {
+    "category": "typography",
+    "slug": "text-rotation",
+    "name": "Text Rotation",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Text_Rotation/Text_Rotation.js",
+    "thumb": "text-rotation.svg",
+    "placeholder": true
+  },
+  {
+    "category": "typography",
+    "slug": "words",
+    "name": "Words",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Words/Words.js",
+    "thumb": "words.svg",
+    "placeholder": true
+  },
+  {
+    "category": "web",
+    "slug": "loading-images",
+    "name": "Loading Images",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/web/Loading_Images/Loading_Images.js",
+    "thumb": "loading-images.svg",
+    "placeholder": true
+  },
+  {
+    "category": "web",
+    "slug": "loading-urls",
+    "name": "Loading URLs",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/web/Loading_URLs/Loading_URLs.js",
+    "thumb": "loading-urls.png",
+    "placeholder": false
+  }
+]
