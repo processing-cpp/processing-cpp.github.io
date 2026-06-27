@@ -1,8 +1,7 @@
 import os, re, json
 
-base_cpp = "/home/pep/Projects/processing-cpp.github.io/assets/examples/Basics"
-base_js  = "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics"
-categories = sorted(os.listdir(base_cpp))
+EXAMPLES_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples"
+EXAMPLES_JS_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples_js"
 
 def strip_comment(code):
     code = code.strip()
@@ -19,37 +18,116 @@ def get_canvas_size(js_code):
     if m: return int(m.group(1)), int(m.group(2))
     return 640, 360
 
-data = {}
-for cat in categories:
-    cat_path = os.path.join(base_cpp, cat)
-    if not os.path.isdir(cat_path): continue
-    data[cat] = []
-    for example in sorted(os.listdir(cat_path)):
-        ex_path = os.path.join(cat_path, example)
-        if not os.path.isdir(ex_path): continue
-        pde = os.path.join(ex_path, example + ".pde")
-        if not os.path.exists(pde): continue
-        with open(pde) as f:
-            code = f.read()
-        js_file = os.path.join(base_js, cat, example, example + ".js")
-        js_code = ""
-        w, h = 640, 360
-        if os.path.exists(js_file):
-            with open(js_file) as f:
-                js_code = strip_comment(f.read())
-            w, h = get_canvas_size(js_code)
-        slug = example.replace("_", "-").lower()
-        data[cat].append({"id": cat+"_"+example, "name": example.replace("_"," "), "slug": slug, "code": code, "js": js_code, "w": w, "h": h})
+def scan_section(section_name):
+    """
+    Scans assets/examples/<section_name>/<category>/<Example>/<Example>.pde
+    (and the matching assets/examples_js/<section_name>/... for the JS
+    translation, if it exists yet) into the same {category: [examples]}
+    shape the rest of this script already expects from `data`.
+
+    Used for both "Basics" (the only section with content today) and
+    "Topics" (currently empty placeholder folders -- this picks it up
+    automatically the moment real .pde/.js files are added, with zero
+    further changes needed here).
+    """
+    base_cpp = os.path.join(EXAMPLES_ROOT, section_name)
+    base_js = os.path.join(EXAMPLES_JS_ROOT, section_name)
+    if not os.path.isdir(base_cpp):
+        return {}
+
+    section_data = {}
+    for cat in sorted(os.listdir(base_cpp)):
+        cat_path = os.path.join(base_cpp, cat)
+        if not os.path.isdir(cat_path):
+            continue
+        examples = []
+        for example in sorted(os.listdir(cat_path)):
+            ex_path = os.path.join(cat_path, example)
+            if not os.path.isdir(ex_path):
+                continue
+            pde = os.path.join(ex_path, example + ".pde")
+            if not os.path.exists(pde):
+                continue
+            with open(pde) as f:
+                code = f.read()
+            js_file = os.path.join(base_js, cat, example, example + ".js")
+            js_code = ""
+            w, h = 640, 360
+            if os.path.exists(js_file):
+                with open(js_file) as f:
+                    js_code = strip_comment(f.read())
+                w, h = get_canvas_size(js_code)
+            slug = example.replace("_", "-").lower()
+            examples.append({
+                "id": section_name + "_" + cat + "_" + example,
+                "name": example.replace("_", " "),
+                "slug": slug,
+                "code": code,
+                "js": js_code,
+                "w": w,
+                "h": h,
+            })
+        if examples:  # skip categories that exist as empty folders with no real content yet
+            section_data[cat] = examples
+    return section_data
+
+
+# Every top-level folder under assets/examples/ is treated as a section
+# (e.g. "Basics", "Topics") -- discovered automatically, not hardcoded, so
+# adding real content under an existing empty Topics/<category>/ folder
+# is all that's needed to make it show up here; no script change required.
+SECTION_NAMES = sorted(os.listdir(EXAMPLES_ROOT)) if os.path.isdir(EXAMPLES_ROOT) else []
+sections = {}
+for _section_name in SECTION_NAMES:
+    if not os.path.isdir(os.path.join(EXAMPLES_ROOT, _section_name)):
+        continue
+    scanned = scan_section(_section_name)
+    if scanned:  # only keep sections that actually have at least one real example
+        sections[_section_name] = scanned
+
+# `data` is kept as an alias for the first/primary section (normally
+# "Basics") for backwards compatibility with anything below that hasn't
+# been updated to iterate over `sections` yet.
+data = sections.get("Basics", {})
 
 def build_page_sidebar(active_id=""):
-    s = '<div class="section-header" onclick="toggleSection(\'basics\')"><span>Basics</span><span class="arrow" id="basics-arrow">▾</span></div><div id="basics-section">'
-    for cat, examples in data.items():
-        s += f'<div class="category"><div class="category-title">{cat.replace("_"," ").title()}</div>'
-        for ex in examples:
-            active = 'class="active"' if ex["id"] == active_id else ""
-            s += f'<a href="{ex["slug"]}.html" {active}>{ex["name"]}</a>'
+    s = ""
+    for i, (section_name, section_data) in enumerate(sections.items()):
+        key = section_name.lower()
+        # First section starts open, the rest start collapsed -- matches
+        # the original Basics-open/Topics-collapsed behavior.
+        open_by_default = (i == 0)
+        arrow = "▾" if open_by_default else "▸"
+        display = "block" if open_by_default else "none"
+        s += (
+            f'<div class="section-header" onclick="toggleSection(\'{key}\')">'
+            f'<span>{section_name}</span><span class="arrow" id="{key}-arrow">{arrow}</span></div>'
+            f'<div id="{key}-section" style="display:{display}">'
+        )
+        for cat, examples in section_data.items():
+            s += f'<div class="category"><div class="category-title">{cat.replace("_"," ").title()}</div>'
+            for ex in examples:
+                active = 'class="active"' if ex["id"] == active_id else ""
+                s += f'<a href="{ex["slug"]}.html" {active}>{ex["name"]}</a>'
+            s += '</div>'
         s += '</div>'
-    s += '</div><div class="section-header" onclick="toggleSection(\'topics\')"><span>Topics</span><span class="arrow" id="topics-arrow">▸</span></div><div id="topics-section" style="display:none"><div class="category"><div class="category-title" style="color:#ccc;">Coming soon</div></div></div>'
+
+    # Any section folder that exists but has no real example content yet
+    # (e.g. Topics before its .pde/.js files are added) still gets a
+    # collapsed "Coming soon" entry, so the sidebar doesn't just silently
+    # omit it.
+    empty_sections = [
+        name for name in SECTION_NAMES
+        if name not in sections and os.path.isdir(os.path.join(EXAMPLES_ROOT, name))
+    ]
+    for name in empty_sections:
+        key = name.lower()
+        s += (
+            f'<div class="section-header" onclick="toggleSection(\'{key}\')">'
+            f'<span>{name}</span><span class="arrow" id="{key}-arrow">▸</span></div>'
+            f'<div id="{key}-section" style="display:none">'
+            f'<div class="category"><div class="category-title" style="color:#ccc;">Coming soon</div></div></div>'
+        )
     return s
 
 shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
@@ -112,9 +190,9 @@ function toggleSection(name) {
 
 def fix_asset_paths(js_code):
     base = "https://processing-cpp.github.io/assets/data/"
-    pat = re.compile(r"""load(Image|Font|Model)\s*\(\s*["']([^"']+)["']\s*\)""")
+    pat = re.compile(r"""load(Image|Font|Model)\s*\(\s*["']([^"']+)["']\s*((?:,[^)]*)?)\)""")
     def replacer(m):
-        return f'load{m.group(1)}("{base}{m.group(2)}")'
+        return f'load{m.group(1)}("{base}{m.group(2)}"{m.group(3)})'
     return pat.sub(replacer, js_code)
 
 def make_iframe(js_code, w, h):
@@ -128,12 +206,13 @@ for fname in os.listdir(out_dir):
     if fname != "index.html":
         os.remove(os.path.join(out_dir, fname))
 
-for cat, examples in data.items():
-    for ex in examples:
-        escaped = ex["code"].replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
-        has_js = bool(ex["js"].strip())
-        preview = make_iframe(ex["js"], ex["w"], ex["h"]) if has_js else ""
-        page = f'''<!DOCTYPE html>
+for section_name, section_data in sections.items():
+    for cat, examples in section_data.items():
+        for ex in examples:
+            escaped = ex["code"].replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
+            has_js = bool(ex["js"].strip())
+            preview = make_iframe(ex["js"], ex["w"], ex["h"]) if has_js else ""
+            page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -173,8 +252,8 @@ for cat, examples in data.items():
 <script src="../assets/nav.js"></script>
 </body>
 </html>'''
-        with open(os.path.join(out_dir, ex["slug"]+".html"),"w") as f:
-            f.write(page)
+            with open(os.path.join(out_dir, ex["slug"]+".html"),"w") as f:
+                f.write(page)
 
 THUMBS_MANIFEST = "/home/pep/Projects/processing-cpp.github.io/assets/examples_thumbs/manifest.json"
 
@@ -189,10 +268,11 @@ def load_thumb_manifest():
         return json.load(f)
 
 
-def build_examples_gallery(manifest, data):
-    """Build the Processing.org-style thumbnail gallery: one section per
-    category, each example shown as a clickable card with its thumbnail,
-    grouped and ordered the same way the sidebar already groups them."""
+def build_examples_gallery(manifest, sections):
+    """Build the Processing.org-style thumbnail gallery: one heading per
+    section (Basics, Topics, ...), with one sub-section per category
+    inside it, each example shown as a clickable card with its
+    thumbnail -- grouped and ordered the same way the sidebar does."""
     if not manifest:
         return '<div class="welcome"><h1>Examples</h1><p>Short programs exploring the basics of creative coding with C++ Mode. Select an example from the left.</p></div>'
 
@@ -203,35 +283,41 @@ def build_examples_gallery(manifest, data):
         # match on that same derived slug to look the thumbnail up per example.
         thumb_by_slug[m["slug"]] = m
 
-    sections = []
-    for cat, examples in data.items():
-        cards = []
-        for ex in examples:
-            thumb = thumb_by_slug.get(ex["slug"])
-            if thumb:
-                thumb_src = f'../assets/examples_thumbs/{thumb["category"]}/{thumb["thumb"]}'
-            else:
-                thumb_src = ""  # no thumbnail generated yet for this example
-            img_html = (
-                f'<img src="{thumb_src}" alt="{ex["name"]}" loading="lazy">'
-                if thumb_src else
-                '<div class="gallery-thumb-missing"></div>'
+    section_blocks = []
+    for section_name, section_data in sections.items():
+        cat_blocks = []
+        for cat, examples in section_data.items():
+            cards = []
+            for ex in examples:
+                thumb = thumb_by_slug.get(ex["slug"])
+                if thumb:
+                    thumb_src = f'../assets/examples_thumbs/{thumb["category"]}/{thumb["thumb"]}'
+                else:
+                    thumb_src = ""  # no thumbnail generated yet for this example
+                img_html = (
+                    f'<img src="{thumb_src}" alt="{ex["name"]}" loading="lazy">'
+                    if thumb_src else
+                    '<div class="gallery-thumb-missing"></div>'
+                )
+                cards.append(
+                    f'<a class="gallery-card" href="{ex["slug"]}.html">'
+                    f'<div class="gallery-thumb">{img_html}</div>'
+                    f'<div class="gallery-card-title">{ex["name"]}</div>'
+                    f"</a>"
+                )
+            cat_blocks.append(
+                f'<div class="gallery-section"><h2>{cat.replace("_"," ").title()}</h2>'
+                f'<div class="gallery-grid">{"".join(cards)}</div></div>'
             )
-            cards.append(
-                f'<a class="gallery-card" href="{ex["slug"]}.html">'
-                f'<div class="gallery-thumb">{img_html}</div>'
-                f'<div class="gallery-card-title">{ex["name"]}</div>'
-                f"</a>"
-            )
-        sections.append(
-            f'<div class="gallery-section"><h2>{cat.replace("_"," ").title()}</h2>'
-            f'<div class="gallery-grid">{"".join(cards)}</div></div>'
+        section_blocks.append(
+            f'<div class="gallery-section-group"><h1 class="gallery-section-title">{section_name}</h1>'
+            + "".join(cat_blocks) + "</div>"
         )
 
     return (
         '<div class="gallery-intro"><h1>Examples</h1>'
         "<p>Short programs exploring the basics of creative coding with C++ Mode.</p></div>"
-        + "".join(sections)
+        + "".join(section_blocks)
     )
 
 
@@ -239,6 +325,8 @@ gallery_css = '''
     .gallery-intro { margin-bottom: 2.5rem; }
     .gallery-intro h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
     .gallery-intro p { color: #555; }
+    .gallery-section-group { margin-bottom: 2rem; }
+    .gallery-section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #111; }
     .gallery-section { margin-bottom: 3rem; }
     .gallery-section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.25rem; }
@@ -252,7 +340,7 @@ gallery_css = '''
 '''
 
 thumb_manifest = load_thumb_manifest()
-gallery_html = build_examples_gallery(thumb_manifest, data)
+gallery_html = build_examples_gallery(thumb_manifest, sections)
 
 ex_sidebar = build_page_sidebar()
 with open(os.path.join(out_dir,"index.html"),"w") as f:
@@ -287,7 +375,7 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
 </body>
 </html>''')
 
-print(f"done — {sum(len(v) for v in data.values())} examples generated")
+print(f"done — {sum(len(v) for section_data in sections.values() for v in section_data.values())} examples generated across {len(sections)} section(s): {', '.join(sections.keys())}")
 
 # ---------------------------------------------------------------------------
 # Homepage random example previews
@@ -340,22 +428,23 @@ def make_preview_iframe(js_code, canvas_id, size):
     )
 
 
-def pick_random_homepage_examples(data, count=3):
+def pick_random_homepage_examples(sections, count=3):
     pool = []
-    for cat, examples in data.items():
-        for ex in examples:
-            if not ex["js"].strip():
-                continue
-            if _data_loading_re.search(ex["js"]):
-                continue  # skip anything that loads external assets -- too
-                          # likely to render blank/broken in a tiny decorative box
-            pool.append({**ex, "category": cat.replace("_", " ").title()})
+    for section_name, section_data in sections.items():
+        for cat, examples in section_data.items():
+            for ex in examples:
+                if not ex["js"].strip():
+                    continue
+                if _data_loading_re.search(ex["js"]):
+                    continue  # skip anything that loads external assets -- too
+                              # likely to render blank/broken in a tiny decorative box
+                pool.append({**ex, "category": cat.replace("_", " ").title()})
     if len(pool) < count:
         return pool
     return random.sample(pool, count)
 
 
-def update_homepage_examples(repo_root, data):
+def update_homepage_examples(repo_root, sections):
     index_path = os.path.join(repo_root, "index.html")
     if not os.path.exists(index_path):
         print(f"WARNING: {index_path} not found, skipping homepage example update.")
@@ -364,7 +453,7 @@ def update_homepage_examples(repo_root, data):
     with open(index_path) as f:
         html = f.read()
 
-    picks = pick_random_homepage_examples(data, count=3)
+    picks = pick_random_homepage_examples(sections, count=3)
     if len(picks) < 3:
         print(f"WARNING: only found {len(picks)} eligible examples for the homepage, expected 3.")
 
@@ -408,4 +497,4 @@ def update_homepage_examples(repo_root, data):
     print(f"Updated homepage with {len(picks)} random example preview(s): " + ", ".join(p["name"] for p in picks))
 
 
-update_homepage_examples(os.path.dirname(out_dir), data)
+update_homepage_examples(os.path.dirname(out_dir), sections)
