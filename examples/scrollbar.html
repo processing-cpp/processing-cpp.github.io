@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollbar - C++ Mode Examples</title>
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .sidebar-examples { flex: 1; overflow-y: auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.5rem; font-size: 13px; font-weight: 600; color: #111; cursor: pointer; border-bottom: 1px solid #e0e0e0; user-select: none; }
+    .section-header:hover { background: #f8f8f8; }
+    .arrow { font-size: 11px; color: #aaa; }
+    .category { margin-bottom: 0.25rem; }
+    .category-title { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.5rem 0.25rem; }
+    .category a { display: block; font-size: 13px; color: #555; padding: 0.3rem 1.5rem; }
+    .category a:hover { color: #111; background: #f8f8f8; }
+    .category a.active { color: #111; font-weight: 500; background: #f4f4f4; }
+    .content { flex: 1; padding: 3rem 4rem; max-width: 900px; }
+    .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; display: inline-block; }
+    .preview-wrap iframe { display: block; border: none; }
+    .code-block { background: #f8f8f8; border-radius: 8px; overflow: hidden; }
+    .code-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #e0e0e0; font-size: 12px; color: #888; font-family: monospace; display: flex; align-items: center; justify-content: space-between; }
+    .copy-btn { font-size: 12px; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; }
+    .copy-btn:hover { background: #f0f0f0; }
+    .copy-btn.copied { color: #090; border-color: #090; }
+    pre { padding: 1.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+    .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
+    .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .preview-wrap { max-width: 100%; }
+      .preview-wrap iframe { max-width: 100%; }
+      pre { font-size: 12px; }
+    }</style>
+</head>
+<body>
+<nav id="site-nav">
+  
+  <button class="hamburger" onclick="document.querySelector('.sidebar-outer').classList.toggle('open')">☰</button>
+</nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar">
+      <a href="../libraries">Libraries</a>
+      <a href="../reference">Reference</a>
+      <a href="../examples">Examples</a>
+      <a href="../about">About</a>
+    </div>
+    <div class="sidebar-examples"><div class="section-header" onclick="toggleSection('basics')"><span>Basics</span><span class="arrow" id="basics-arrow">▾</span></div><div id="basics-section" style="display:block"><div class="category"><div class="category-title">Arrays</div><a href="array.html" >Array</a><a href="array-2d.html" >Array 2D</a><a href="array-objects.html" >Array Objects</a></div><div class="category"><div class="category-title">Camera</div><a href="move-eye.html" >Move Eye</a><a href="perspective.html" >Perspective</a><a href="perspective-vs-ortho.html" >Perspective vs Ortho</a></div><div class="category"><div class="category-title">Color</div><a href="brightness.html" >Brightness</a><a href="color-variables.html" >Color Variables</a><a href="hue.html" >Hue</a><a href="radial-gradient.html" >Radial Gradient</a><a href="relativity.html" >Relativity</a><a href="saturation.html" >Saturation</a><a href="simple-linear-gradient.html" >Simple Linear Gradient</a></div><div class="category"><div class="category-title">Control</div><a href="conditionals-1.html" >Conditionals 1</a><a href="conditionals-2.html" >Conditionals 2</a><a href="embedding-iteration.html" >Embedding Iteration</a><a href="iteration.html" >Iteration</a><a href="logical-operators.html" >Logical Operators</a></div><div class="category"><div class="category-title">Data</div><a href="characters-strings.html" >Characters Strings</a><a href="datatype-conversion.html" >Datatype Conversion</a><a href="integers-floats.html" >Integers Floats</a><a href="true-false.html" >True False</a><a href="variable-scope.html" >Variable Scope</a><a href="variables.html" >Variables</a></div><div class="category"><div class="category-title">Forms</div><a href="bezier.html" >Bezier</a><a href="pie-chart.html" >Pie Chart</a><a href="points-and-lines.html" >Points and Lines</a><a href="primitives-3d.html" >Primitives 3D</a><a href="regular-polygon.html" >Regular Polygon</a><a href="shape-primitives.html" >Shape Primitives</a><a href="star.html" >Star</a><a href="triangle-strip.html" >Triangle Strip</a></div><div class="category"><div class="category-title">Image</div><a href="alpha-mask.html" >Alpha Mask</a><a href="background-image.html" >Background Image</a><a href="create-image.html" >Create Image</a><a href="load-and-display-image.html" >Load and Display Image</a><a href="pointillism.html" >Pointillism</a><a href="request-image.html" >Request Image</a><a href="transparency.html" >Transparency</a></div><div class="category"><div class="category-title">Input</div><a href="clock.html" >Clock</a><a href="constrain.html" >Constrain</a><a href="easing.html" >Easing</a><a href="keyboard.html" >Keyboard</a><a href="keyboard-functions.html" >Keyboard Functions</a><a href="milliseconds.html" >Milliseconds</a><a href="mouse-1d.html" >Mouse 1D</a><a href="mouse-2d.html" >Mouse 2D</a><a href="mouse-functions.html" >Mouse Functions</a><a href="mouse-press.html" >Mouse Press</a><a href="mouse-signals.html" >Mouse Signals</a><a href="storing-input.html" >Storing Input</a></div><div class="category"><div class="category-title">Lights</div><a href="directional.html" >Directional</a><a href="mixture.html" >Mixture</a><a href="mixture-grid.html" >Mixture Grid</a><a href="on-off.html" >On Off</a><a href="reflection.html" >Reflection</a><a href="spot.html" >Spot</a></div><div class="category"><div class="category-title">Math</div><a href="additive-wave.html" >Additive Wave</a><a href="arctangent.html" >Arctangent</a><a href="distance-1d.html" >Distance 1D</a><a href="distance-2d.html" >Distance 2D</a><a href="double-random.html" >Double Random</a><a href="graphing-2d-equations.html" >Graphing 2D Equations</a><a href="increment-decrement.html" >Increment Decrement</a><a href="linear-interpolation.html" >Linear Interpolation</a><a href="noise-1d.html" >Noise 1D</a><a href="noise-2d.html" >Noise 2D</a><a href="noise-3d.html" >Noise 3D</a><a href="noise-wave.html" >Noise Wave</a><a href="operator-precedence.html" >Operator Precedence</a><a href="polar-to-cartesian.html" >Polar to Cartesian</a><a href="random.html" >Random</a><a href="random-gaussian.html" >Random Gaussian</a><a href="sine.html" >Sine</a><a href="sine-cosine.html" >Sine Cosine</a><a href="sine-wave.html" >Sine Wave</a></div><div class="category"><div class="category-title">Objects</div><a href="composite-objects.html" >Composite Objects</a><a href="inheritance.html" >Inheritance</a><a href="multiple-constructors.html" >Multiple Constructors</a><a href="objects.html" >Objects</a></div><div class="category"><div class="category-title">Shape</div><a href="disable-style.html" >Disable Style</a><a href="get-child.html" >Get Child</a><a href="load-and-display-a-shape-illustration.html" >Load and Display a Shape Illustration</a><a href="load-and-display-an-obj-shape.html" >Load and Display an OBJ shape</a><a href="scale-shape-illustration.html" >Scale Shape Illustration</a><a href="shape-vertices.html" >Shape Vertices</a></div><div class="category"><div class="category-title">Structure</div><a href="coordinates.html" >Coordinates</a><a href="create-graphics.html" >Create Graphics</a><a href="functions.html" >Functions</a><a href="loop.html" >Loop</a><a href="no-loop.html" >No Loop</a><a href="recursion.html" >Recursion</a><a href="redraw.html" >Redraw</a><a href="setup-and-draw.html" >Setup and Draw</a><a href="statements-and-comments.html" >Statements and Comments</a><a href="width-and-height.html" >Width and Height</a></div><div class="category"><div class="category-title">Transform</div><a href="arm.html" >Arm</a><a href="rotate.html" >Rotate</a><a href="rotate-1.html" >Rotate 1</a><a href="rotate-push-pop.html" >Rotate Push Pop</a><a href="scale.html" >Scale</a><a href="translate.html" >Translate</a></div><div class="category"><div class="category-title">Typography</div><a href="letters.html" >Letters</a><a href="text-rotation.html" >Text Rotation</a><a href="words.html" >Words</a></div><div class="category"><div class="category-title">Web</div><a href="loading-images.html" >Loading Images</a><a href="loading-urls.html" >Loading URLs</a></div></div><div class="section-header" onclick="toggleSection('topics')"><span>Topics</span><span class="arrow" id="topics-arrow">▸</span></div><div id="topics-section" style="display:none"><div class="category"><div class="category-title">Advanced Data</div><a href="arraylist-of-objects.html" >ArrayList of objects</a><a href="intlist-lottery-example.html" >IntList Lottery example</a><a href="loading-json-data.html" >Loading JSON Data</a><a href="loading-tabular-data.html" >Loading Tabular Data</a></div><div class="category"><div class="category-title">Animation</div><a href="animated-sprite.html" >Animated Sprite</a><a href="sequential.html" >Sequential</a></div><div class="category"><div class="category-title">Cellular Automata</div><a href="game-of-life.html" >Game Of Life</a><a href="wolfram.html" >Wolfram</a></div><div class="category"><div class="category-title">Drawing</div><a href="continuous-lines.html" >Continuous Lines</a><a href="pattern.html" >Pattern</a><a href="pulses.html" >Pulses</a></div><div class="category"><div class="category-title">File Io</div><a href="load-file1.html" >Load File1</a><a href="load-file2.html" >Load File2</a><a href="save-one-image.html" >Save One Image</a></div><div class="category"><div class="category-title">Fractals And L-Systems</div><a href="koch.html" >Koch</a><a href="mandelbrot.html" >Mandelbrot</a><a href="penrose-snowflake.html" >Penrose Snowflake</a><a href="penrose-tile.html" >Penrose Tile</a><a href="pentigree.html" >Pentigree</a><a href="tree.html" >Tree</a></div><div class="category"><div class="category-title">Gui</div><a href="button.html" >Button</a><a href="handles.html" >Handles</a><a href="rollover.html" >Rollover</a><a href="scrollbar.html" class="active">Scrollbar</a></div></div></div>
+  </div>
+  <div class="content">
+    <h1>Scrollbar</h1>
+    
+    <div class="code-block">
+      <div class="code-header">
+        <span>scrollbar.pde</span>
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+      </div>
+      <pre id="code-pre">/**
+ * Scrollbar.
+ *
+ * Move the scrollbars left and right to change the positions of the images.
+ */
+//True if a mouse button was pressed while no other button was.
+boolean firstMousePress = false;
+HScrollbar hs1, hs2;  // Two scrollbars
+PImage* img1 = nullptr;
+PImage* img2 = nullptr;  // Two images to load
+void setup() {
+  size(640, 360);
+  noStroke();
+  hs1 = new HScrollbar(0, height/2-8, width, 16, 16);
+  hs2 = new HScrollbar(0, height/2+8, width, 16, 16);
+  // Load images
+  img1 = loadImage("seedTop.jpg");
+  img2 = loadImage("seedBottom.jpg");
+}
+void draw() {
+  background(255);
+  // Get the position of the img1 scrollbar
+  // and convert to a value to display the img1 image
+  float img1Pos = hs1.getPos()-width/2;
+  fill(255);
+  image(img1, width/2-img1-&gt;width/2 + img1Pos*1.5, 0);
+  // Get the position of the img2 scrollbar
+  // and convert to a value to display the img2 image
+  float img2Pos = hs2.getPos()-width/2;
+  fill(255);
+  image(img2, width/2-img2-&gt;width/2 + img2Pos*1.5, height/2);
+  hs1.update();
+  hs2.update();
+  hs1.display();
+  hs2.display();
+  stroke(0);
+  line(0, height/2, width, height/2);
+  //After it has been used in the sketch, set it back to false
+  if (firstMousePress) {
+    firstMousePress = false;
+  }
+}
+void mousePressed() {
+  if (!firstMousePress) {
+    firstMousePress = true;
+  }
+}
+class HScrollbar {
+  int swidth, sheight;    // width and height of bar
+  float xpos, ypos;       // x and y position of bar
+  float spos, newspos;    // x position of slider
+  float sposMin, sposMax; // max and min values of slider
+  int loose;              // how loose/heavy
+  boolean over;           // is the mouse over the slider?
+  boolean locked;
+  float ratio;
+  HScrollbar (float xp, float yp, int sw, int sh, int l) {
+    swidth = sw;
+    sheight = sh;
+    int widthtoheight = sw - sh;
+    ratio = (float)sw / (float)widthtoheight;
+    xpos = xp;
+    ypos = yp-sheight/2;
+    spos = xpos + swidth/2 - sheight/2;
+    newspos = spos;
+    sposMin = xpos;
+    sposMax = xpos + swidth - sheight;
+    loose = l;
+  }
+  void update() {
+    if (overEvent()) {
+      over = true;
+    } else {
+      over = false;
+    }
+    if (firstMousePress &amp;&amp; over) {
+      locked = true;
+    }
+    if (!_mousePressed) {
+      locked = false;
+    }
+    if (locked) {
+      newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
+    }
+    if (abs(newspos - spos) &gt; 1) {
+      spos = spos + (newspos-spos)/loose;
+    }
+  }
+  float constrain(float val, float minv, float maxv) {
+    return min(max(val, minv), maxv);
+  }
+  boolean overEvent() {
+    if (mouseX &gt; xpos &amp;&amp; mouseX &lt; xpos+swidth &amp;&amp;
+      mouseY &gt; ypos &amp;&amp; mouseY &lt; ypos+sheight) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  void display() {
+    noStroke();
+    fill(204);
+    rect(xpos, ypos, swidth, sheight);
+    if (over || locked) {
+      fill(0, 0, 0);
+    } else {
+      fill(102, 102, 102);
+    }
+    rect(spos, ypos, sheight, sheight);
+  }
+  float getPos() {
+    // Convert spos to be values between
+    // 0 and the total width of the scrollbar
+    return spos * ratio;
+  }
+}
+</pre>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script>function copyCode() {
+  navigator.clipboard.writeText(document.getElementById('code-pre').innerText).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function toggleSection(name) {
+  const sec = document.getElementById(name+'-section');
+  const arrow = document.getElementById(name+'-arrow');
+  const open = sec.style.display !== 'none';
+  sec.style.display = open ? 'none' : 'block';
+  arrow.textContent = open ? '▸' : '▾';
+}</script>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

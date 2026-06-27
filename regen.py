@@ -331,9 +331,9 @@ gallery_css = '''
     .gallery-section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.25rem; }
     .gallery-card { display: block; }
-    .gallery-thumb { width: 100%; aspect-ratio: 1; background: #111; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; }
-    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .gallery-thumb-missing { width: 100%; height: 100%; background: #1a1a1a; }
+    .gallery-thumb { width: 100%; background: #111; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; line-height: 0; }
+    .gallery-thumb img { width: 100%; height: auto; display: block; }
+    .gallery-thumb-missing { width: 100%; aspect-ratio: 16/9; background: #1a1a1a; }
     .gallery-card-title { font-size: 13px; color: #555; margin-top: 0.5rem; text-align: center; }
     .gallery-card:hover .gallery-thumb { border-color: #aaa; }
     .gallery-card:hover .gallery-card-title { color: #111; }

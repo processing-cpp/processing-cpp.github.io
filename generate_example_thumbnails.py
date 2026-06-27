@@ -56,7 +56,7 @@ BASE_JS = os.path.join(REPO_ROOT, "assets/examples_js/Basics")
 OUT_DIR = os.path.join(REPO_ROOT, "assets/examples_thumbs")
 ASSETS_DIR = os.path.join(REPO_ROOT, "assets")
 
-THUMB_SIZE = 220          # px, square -- the final letterboxed thumbnail size
+THUMB_SIZE = 220          # px -- max dimension of the final thumbnail's longest side; aspect ratio is preserved, no padding/cropping
 MAX_RENDER_DIM = 800      # cap on native width/height actually rendered, for speed
 RENDER_DELAY_MS = 600     # let the sketch draw a few frames before capturing
 PAGE_TIMEOUT_MS = 8000    # safety cutoff per sketch in case something hangs
@@ -186,18 +186,16 @@ def detect_canvas_size(js_code):
     return 640, 360
 
 
-def letterbox_to_square(png_bytes, size):
-    """Scales the given PNG image down (preserving aspect ratio) to fit
-    entirely within a size x size square, then pads the shorter axis with
-    black bars so the result is exactly square and the whole original
-    image is always visible -- never cropped, never squished."""
+def scale_down(png_bytes, max_dim):
+    """Scales the given PNG image down (preserving its real aspect ratio)
+    so its longest side is at most max_dim, with NO padding/letterboxing
+    added. The gallery card itself now matches each sketch's native
+    aspect ratio (see the .gallery-thumb CSS in regen.py), so there's no
+    square slot to pad into anymore -- a 640x360 sketch gets a roughly
+    16:9 thumbnail and card, not a square one with black bars top/bottom."""
     img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
-    img.thumbnail((size, size), Image.LANCZOS)
-
-    canvas = Image.new("RGBA", (size, size), (0, 0, 0, 255))
-    offset = ((size - img.width) // 2, (size - img.height) // 2)
-    canvas.paste(img, offset, img if img.mode == "RGBA" else None)
-    return canvas
+    img.thumbnail((max_dim, max_dim), Image.LANCZOS)
+    return img
 
 
 def strip_comment(code):
@@ -353,7 +351,7 @@ def render_thumbnail(browser, js_code, out_path, asset_base_url, debug_label="",
                 if console_errors:
                     print(f"    [{debug_label}] console errors: {console_errors[:3]}")
                 return False
-            thumb = letterbox_to_square(png_bytes, THUMB_SIZE)
+            thumb = scale_down(png_bytes, THUMB_SIZE)
             thumb.save(out_path)
             return True
 
@@ -387,7 +385,7 @@ def render_thumbnail(browser, js_code, out_path, asset_base_url, debug_label="",
             return False
 
         png_bytes = base64.b64decode(data_url.split(",", 1)[1])
-        thumb = letterbox_to_square(png_bytes, THUMB_SIZE)
+        thumb = scale_down(png_bytes, THUMB_SIZE)
         thumb.save(out_path)
         return True
     finally:
