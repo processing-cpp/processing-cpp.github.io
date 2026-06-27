@@ -260,16 +260,16 @@
     "slug": "alpha-mask",
     "name": "Alpha Mask",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Alpha_Mask/Alpha_Mask.js",
-    "thumb": "alpha-mask.svg",
-    "placeholder": true
+    "thumb": "alpha-mask.png",
+    "placeholder": false
   },
   {
     "category": "image",
     "slug": "background-image",
     "name": "Background Image",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Background_Image/Background_Image.js",
-    "thumb": "background-image.svg",
-    "placeholder": true
+    "thumb": "background-image.png",
+    "placeholder": false
   },
   {
     "category": "image",
@@ -284,32 +284,32 @@
     "slug": "load-and-display-image",
     "name": "Load and Display Image",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Load_and_Display_Image/Load_and_Display_Image.js",
-    "thumb": "load-and-display-image.svg",
-    "placeholder": true
+    "thumb": "load-and-display-image.png",
+    "placeholder": false
   },
   {
     "category": "image",
     "slug": "pointillism",
     "name": "Pointillism",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Pointillism/Pointillism.js",
-    "thumb": "pointillism.svg",
-    "placeholder": true
+    "thumb": "pointillism.png",
+    "placeholder": false
   },
   {
     "category": "image",
     "slug": "request-image",
     "name": "Request Image",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Request_Image/Request_Image.js",
-    "thumb": "request-image.svg",
-    "placeholder": true
+    "thumb": "request-image.png",
+    "placeholder": false
   },
   {
     "category": "image",
     "slug": "transparency",
     "name": "Transparency",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/image/Transparency/Transparency.js",
-    "thumb": "transparency.svg",
-    "placeholder": true
+    "thumb": "transparency.png",
+    "placeholder": false
   },
   {
     "category": "input",
@@ -393,6 +393,14 @@
   },
   {
     "category": "input",
+    "slug": "mouse-signals",
+    "name": "Mouse Signals",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Mouse_Signals/Mouse_Signals.js",
+    "thumb": "mouse-signals.png",
+    "placeholder": false
+  },
+  {
+    "category": "input",
     "slug": "storing-input",
     "name": "Storing Input",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/input/Storing_Input/Storing_Input.js",
@@ -437,6 +445,14 @@
     "name": "Reflection",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Reflection/Reflection.js",
     "thumb": "reflection.png",
+    "placeholder": false
+  },
+  {
+    "category": "lights",
+    "slug": "spot",
+    "name": "Spot",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/lights/Spot/Spot.js",
+    "thumb": "spot.png",
     "placeholder": false
   },
   {
@@ -628,32 +644,40 @@
     "slug": "disable-style",
     "name": "Disable Style",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Disable_Style/Disable_Style.js",
-    "thumb": "disable-style.svg",
-    "placeholder": true
+    "thumb": "disable-style.png",
+    "placeholder": false
+  },
+  {
+    "category": "shape",
+    "slug": "get-child",
+    "name": "Get Child",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Get_Child/Get_Child.js",
+    "thumb": "get-child.png",
+    "placeholder": false
   },
   {
     "category": "shape",
     "slug": "load-and-display-a-shape-illustration",
     "name": "Load and Display a Shape Illustration",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Load_and_Display_a_Shape_Illustration/Load_and_Display_a_Shape_Illustration.js",
-    "thumb": "load-and-display-a-shape-illustration.svg",
-    "placeholder": true
+    "thumb": "load-and-display-a-shape-illustration.png",
+    "placeholder": false
   },
   {
     "category": "shape",
     "slug": "load-and-display-an-obj-shape",
     "name": "Load and Display an OBJ shape",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Load_and_Display_an_OBJ_shape/Load_and_Display_an_OBJ_shape.js",
-    "thumb": "load-and-display-an-obj-shape.svg",
-    "placeholder": true
+    "thumb": "load-and-display-an-obj-shape.png",
+    "placeholder": false
   },
   {
     "category": "shape",
     "slug": "scale-shape-illustration",
     "name": "Scale Shape Illustration",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/shape/Scale_Shape_Illustration/Scale_Shape_Illustration.js",
-    "thumb": "scale-shape-illustration.svg",
-    "placeholder": true
+    "thumb": "scale-shape-illustration.png",
+    "placeholder": false
   },
   {
     "category": "shape",
@@ -796,32 +820,32 @@
     "slug": "letters",
     "name": "Letters",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Letters/Letters.js",
-    "thumb": "letters.svg",
-    "placeholder": true
+    "thumb": "letters.png",
+    "placeholder": false
   },
   {
     "category": "typography",
     "slug": "text-rotation",
     "name": "Text Rotation",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Text_Rotation/Text_Rotation.js",
-    "thumb": "text-rotation.svg",
-    "placeholder": true
+    "thumb": "text-rotation.png",
+    "placeholder": false
   },
   {
     "category": "typography",
     "slug": "words",
     "name": "Words",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/typography/Words/Words.js",
-    "thumb": "words.svg",
-    "placeholder": true
+    "thumb": "words.png",
+    "placeholder": false
   },
   {
     "category": "web",
     "slug": "loading-images",
     "name": "Loading Images",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/web/Loading_Images/Loading_Images.js",
-    "thumb": "loading-images.svg",
-    "placeholder": true
+    "thumb": "loading-images.png",
+    "placeholder": false
   },
   {
     "category": "web",
