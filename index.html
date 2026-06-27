@@ -115,6 +115,38 @@
     .examples-footer a { font-size: 14px; color: #555; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
     .examples-footer a:hover { color: #111; border-color: #111; }
 
+    /* Install section */
+    .install-section { margin-top: 1.5rem; }
+    .install-section .install-sub { font-size: 12px; color: #888; margin-top: 0.6rem; }
+    .install-buttons { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .install-btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .install-btn-primary {
+      background: #e8b400;
+      color: #111;
+      padding: 0.7rem 1.25rem;
+      font-size: 14px;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+    }
+    .install-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(232,180,0,0.35); }
+    .install-btn-secondary {
+      background: #f0f0f0;
+      color: #444;
+      padding: 0.5rem 1rem;
+      font-size: 13px;
+      border: 1px solid #e0e0e0;
+    }
+    .install-btn-secondary:hover { background: #e6e6e6; transform: translateY(-1px); }
+
+    @media (max-width: 768px) {
+      .install-buttons { flex-direction: column; align-items: flex-start; }
+    }
+
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
 
     @media (max-width: 768px) {
@@ -143,7 +175,14 @@
       <div class="left">
         <h1>C++ Mode for<br><span class="proc">Processing</span></h1>
         <p>Explore the <a href="/reference">reference</a> for the full API.</p>
-        <p style="margin-top:1rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Llamas</p>
+        <div class="install-section">
+          <div class="install-buttons">
+            <a class="install-btn install-btn-primary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-dragdrop.zip">Download Drag-and-Drop</a>
+            <a class="install-btn install-btn-secondary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-cmake.zip">Download CMake version</a>
+          </div>
+          <p class="install-sub">Add Processing's engine to your project.</p>
+        </div>
+        <p style="margin-top:10rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Llamas</p>
       </div>
       <div class="right">
         <img src="assets/cpp-logo.png" alt="Processing for C++">
@@ -155,89 +194,16 @@
       <h2>Examples</h2>
       <div class="examples-grid">
         <div class="example-card">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x1, x2, y1, y2;
-let angle1 = 0;
-let angle2 = 0;
-let scalar = 70.0;
-
-function setup() {
-  createCanvas(300,300);
-  noStroke();
-  rectMode(CENTER);
-}
-
-function draw() {
-  background(0);
-
-  let ang1 = radians(angle1);
-  let ang2 = radians(angle2);
-
-  x1 = width / 2 + scalar * cos(ang1);
-  x2 = width / 2 + scalar * cos(ang2);
-
-  y1 = height / 2 + scalar * sin(ang1);
-  y2 = height / 2 + scalar * sin(ang2);
-
-  fill(255);
-  rect(width * 0.5, height * 0.5, 140, 140);
-
-  fill(0, 102, 153);
-  ellipse(x1, height * 0.5 - 120, scalar, scalar);
-  ellipse(x2, height * 0.5 + 120, scalar, scalar);
-
-  fill(255, 204, 0);
-  ellipse(width * 0.5 - 120, y1, scalar, scalar);
-  ellipse(width * 0.5 + 120, y2, scalar, scalar);
-
-  angle1 += 2;
-  angle2 += 3;
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Sine Cosine</h3><p>Math example</p></div>
+          <canvas class="example-canvas" id="c1"></canvas>
+          <div class="example-info"><h3>Bouncing ball</h3><p>Basic animation with collision detection</p></div>
         </div>
         <div class="example-card">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let _scale;
-
-function setup() {
-  createCanvas(300,300);
-  noStroke();
-  _scale = width / 20.0;
-}
-
-function draw() {
-  for (let i = 0; i < _scale; i++) {
-    colorMode(RGB, (i + 1) * _scale * 10.0);
-
-    fill(millis() % ((i + 1) * _scale * 10.0));
-
-    rect(i * _scale, 0, _scale, height);
-  }
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Milliseconds</h3><p>Input example</p></div>
+          <canvas class="example-canvas" id="c2"></canvas>
+          <div class="example-info"><h3>Particle system</h3><p>STL vectors with per-particle physics</p></div>
         </div>
         <div class="example-card">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let pg;
-
-function setup() {
-  createCanvas(300,300);
-  pg = createGraphics(400, 200);
-}
-
-function draw() {
-  fill(0, 12);
-  rect(0, 0, width, height);
-
-  fill(255);
-  noStroke();
-  ellipse(mouseX, mouseY, 60, 60);
-
-  pg.background(51);
-  pg.noFill();
-  pg.stroke(255);
-  pg.ellipse(mouseX - 120, mouseY - 60, 60, 60);
-
-  image(pg, 120, 60);
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Create Graphics</h3><p>Structure example</p></div>
+          <canvas class="example-canvas" id="c3"></canvas>
+          <div class="example-info"><h3>Perlin noise</h3><p>Flow field using noise()</p></div>
         </div>
       </div>
       <div class="examples-footer">
@@ -247,8 +213,51 @@ function draw() {
   </div>
 </div>
 
-<footer><p>Processing for C++</p></footer>
+<footer>
+  <p>Processing for C++</p>
+</footer>
 
+<script>
+new p5(function(p) {
+  let x, y, vx, vy;
+  p.setup = function() { p.createCanvas(300,300,document.getElementById('c1')); x=150;y=150;vx=2.5;vy=1.8;p.noStroke(); };
+  p.draw = function() {
+    p.background(10); p.fill(50,50,200); p.ellipse(x,y,36,36);
+    x+=vx; y+=vy;
+    if(x<18||x>282) vx*=-1;
+    if(y<18||y>282) vy*=-1;
+  };
+});
+new p5(function(p) {
+  let parts=[];
+  p.setup = function() { p.createCanvas(300,300,document.getElementById('c2')); p.noStroke(); };
+  p.draw = function() {
+    p.background(10,10,20,25);
+    if(p.frameCount%3===0) parts.push({x:p.random(p.width),y:p.height,vx:p.random(-1,1),vy:p.random(-4,-1),life:1.0});
+    for(let pt of parts){pt.x+=pt.vx;pt.y+=pt.vy;pt.vy+=0.05;pt.life-=0.008;p.fill(232,103,58,pt.life*255);p.ellipse(pt.x,pt.y,6,6);}
+    parts=parts.filter(pt=>pt.life>0);
+  };
+});
+new p5(function(p) {
+  let t=0;
+  p.setup = function() { p.createCanvas(300,300,document.getElementById('c3')); p.stroke(232,103,58,60); p.strokeWeight(1); p.noFill(); };
+  p.draw = function() {
+    p.background(10,10,20,15);
+    for(let i=0;i<5;i++){
+      let x=p.random(p.width),y=p.random(p.height);
+      for(let j=0;j<20;j++){
+        let angle=p.noise(x*0.005,y*0.005,t)*p.TWO_PI*2;
+        let vx=p.cos(angle)*2,vy=p.sin(angle)*2;
+        p.stroke(232,103+j*3,58,80);
+        p.line(x,y,x+vx*3,y+vy*3);
+        x+=vx;y+=vy;
+        if(x<0||x>p.width||y<0||y>p.height) break;
+      }
+    }
+    t+=0.003;
+  };
+});
+</script>
 <script src="./assets/nav.js"></script>
 </body>
 </html>

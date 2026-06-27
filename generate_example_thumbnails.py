@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Renders a real PNG thumbnail for every CppMode example sketch by actually
 running each one in a headless browser for a moment and capturing what it

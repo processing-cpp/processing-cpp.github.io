@@ -1,8 +1,10 @@
 let rocket;
+let rocketTex;
 let ry = 0;
 
 function preload() {
   rocket = loadModel("rocket.obj", true);
+  rocketTex = loadImage("rocket.png");
 }
 
 function setup() {
@@ -15,6 +17,7 @@ function draw() {
   translate(0, 100, -200);
   rotateZ(PI);
   rotateY(ry);
+  texture(rocketTex);
   model(rocket);
   ry += 0.02;
 }
