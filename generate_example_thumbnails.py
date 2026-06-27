@@ -44,6 +44,7 @@ import re
 import json
 import base64
 import socket
+import random
 import threading
 import http.server
 import functools
@@ -58,7 +59,7 @@ ASSETS_DIR = os.path.join(REPO_ROOT, "assets")
 
 THUMB_SIZE = 220          # px -- max dimension of the final thumbnail's longest side; aspect ratio is preserved, no padding/cropping
 MAX_RENDER_DIM = 800      # cap on native width/height actually rendered, for speed
-RENDER_DELAY_MS = 600     # let the sketch draw a few frames before capturing
+RENDER_DELAY_MS = 1200    # base settle time (ms); used for both the initial wait after setup() and the final wait before capture -- doubled from before so sketches have noticeably more time to animate/react before the screenshot is taken
 PAGE_TIMEOUT_MS = 8000    # safety cutoff per sketch in case something hangs
 
 # Sketches that load actual *data* (not images) -- nothing meaningfully
@@ -291,54 +292,73 @@ def render_thumbnail(browser, js_code, out_path, asset_base_url, debug_label="",
         # any simulated input, so setup() has definitely finished.
         page.wait_for_timeout(RENDER_DELAY_MS // 3)
 
-        # Simulate smooth mouse movement across the canvas in a few steps
-        # (not one big jump) so mouseX/mouseY-driven sketches, easing,
-        # and drag-style examples show motion rather than a static
-        # default position. Scaled to the sketch's own render size now
-        # that it's no longer forced to a fixed square.
+        # Simulate a longer, smoother mouse wander across the canvas --
+        # more waypoints and more total time than a quick few-step pass,
+        # so animated/easing/trailing sketches have a chance to actually
+        # build up motion before the capture, instead of looking like
+        # they just started. Ends near the center (not exactly on it --
+        # offset randomly each run) so repeated runs don't all freeze on
+        # the literal same pixel, while still keeping the subject roughly
+        # in the middle of the frame.
         center_x, center_y = render_w / 2, render_h / 2
+        rest_x = center_x + random.uniform(-render_w * 0.12, render_w * 0.12)
+        rest_y = center_y + random.uniform(-render_h * 0.12, render_h * 0.12)
+
         try:
-            steps = [
-                (render_w * 0.2, render_h * 0.8),
-                (render_w * 0.5, render_h * 0.3),
-                (render_w * 0.8, render_h * 0.6),
+            waypoints = [
+                (render_w * 0.15, render_h * 0.85),
+                (render_w * 0.35, render_h * 0.25),
+                (render_w * 0.65, render_h * 0.75),
+                (render_w * 0.85, render_h * 0.35),
+                (render_w * 0.30, render_h * 0.60),
+                (render_w * 0.70, render_h * 0.20),
+                (render_w * 0.45, render_h * 0.50),
+                (rest_x, rest_y),
             ]
-            for x, y in steps:
-                page.mouse.move(x, y, steps=8)
-                page.wait_for_timeout(80)
-            # A short press-and-release at center, for
+            for x, y in waypoints:
+                page.mouse.move(x, y, steps=10)
+                page.wait_for_timeout(120)
+            # A press-and-release near the resting point, for
             # mousePressed()/mouseReleased()-driven sketches.
-            page.mouse.move(center_x, center_y, steps=8)
             page.mouse.down()
-            page.wait_for_timeout(60)
+            page.wait_for_timeout(90)
             page.mouse.up()
+            page.wait_for_timeout(120)
         except Exception:
             pass  # input simulation is best-effort; never let it abort the render
 
-        # A couple of representative key presses for keyPressed()-driven
-        # sketches (arrow keys are common in the Basics examples for
-        # movement/selection; space is common for toggling/advancing).
+        # A broader, repeated set of key presses for keyPressed()-driven
+        # sketches. Arrow keys and space are common in the Basics
+        # examples for movement/selection/toggling; repeating the pass
+        # (rather than one press of each) gives accumulating-effect
+        # sketches -- e.g. something that nudges position per keypress --
+        # a chance to visibly move, not just register a single tap.
         try:
-            page.keyboard.press("ArrowRight")
-            page.wait_for_timeout(60)
-            page.keyboard.press("Space")
+            key_sequence = [
+                "ArrowRight", "ArrowRight", "ArrowUp",
+                "ArrowDown", "ArrowLeft", "Space",
+                "ArrowRight", "Space",
+            ]
+            for key in key_sequence:
+                page.keyboard.press(key)
+                page.wait_for_timeout(90)
         except Exception:
             pass
 
-        # Explicitly rest the mouse at the exact canvas center right
-        # before the final wait + capture, regardless of where the wander
-        # sequence above left it. This is what mouseX/mouseY will read as
-        # of the screenshot, for any sketch whose draw() loop reacts to
-        # cursor position -- centered rather than wherever the simulated
-        # wander happened to end up. Note: this only sets a synthetic
-        # coordinate p5 reads; no actual OS cursor icon is rendered in a
-        # headless screenshot regardless, so there's nothing to hide.
+        # More mouse movement after the keyboard pass, ending at the same
+        # near-center resting point, so a sketch that reacts to BOTH
+        # input types still settles somewhere reasonable for the
+        # screenshot rather than wherever the keyboard pass left things
+        # mouse-wise (keys don't move the cursor, so this is mostly
+        # about giving a bit more total motion/time before capture).
         try:
-            page.mouse.move(center_x, center_y, steps=4)
+            page.mouse.move(rest_x - render_w * 0.05, rest_y + render_h * 0.05, steps=8)
+            page.wait_for_timeout(150)
+            page.mouse.move(rest_x, rest_y, steps=8)
         except Exception:
             pass
 
-        page.wait_for_timeout(RENDER_DELAY_MS // 2)
+        page.wait_for_timeout(RENDER_DELAY_MS)
 
         if is_no_canvas:
             # No <canvas> element exists -- the sketch draws straight into

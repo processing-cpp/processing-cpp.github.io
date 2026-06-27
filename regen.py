@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 import os, re, json
+
 
 EXAMPLES_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples"
 EXAMPLES_JS_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples_js"
