@@ -75,6 +75,7 @@
       aspect-ratio: 16/9;
       max-width: 560px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #999;
@@ -83,6 +84,9 @@
       padding: 1rem;
       margin: 0.5rem 0 1.5rem;
     }
+    .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; color: #777; }
+    .shot-img { width: 100%; max-width: 560px; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; margin: 0.5rem 0 1.5rem; }
+    .shot-img[hidden] { display: none; }
 
     .next-steps { border-top: 1px solid #e0e0e0; margin-top: 3rem; padding-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .next-steps a { font-size: 14px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
@@ -125,16 +129,24 @@
       <div class="step-num">1</div>
       <div class="step-body">
         <p>Restart Processing, open the mode dropdown again, and select <strong>C++</strong>.</p>
-        <!-- SCREENSHOT: mode dropdown with C++ selected -->
-        <div class="shot-placeholder">Screenshot: mode dropdown with C++ selected</div>
+        <img class="shot-img" src="../assets/screenshot7.png" alt="Mode dropdown with C++ selected"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot7.png</span>
+          <span>Mode dropdown with C++ selected</span>
+        </div>
       </div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-body">
         <p>You'll see a blank editor, just like Java mode. This is where you'll write your sketch.</p>
-        <!-- SCREENSHOT: blank C++ Mode editor window -->
-        <div class="shot-placeholder">Screenshot: blank C++ Mode editor</div>
+        <img class="shot-img" src="../assets/screenshot8.png" alt="Blank C++ Mode editor"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot8.png</span>
+          <span>Blank C++ Mode editor</span>
+        </div>
       </div>
     </div>
 
@@ -155,16 +167,24 @@ void draw() {
       <div class="step-num">1</div>
       <div class="step-body">
         <p>Click the Run button (the play icon) in the top-left of the editor, or press <code>Ctrl+R</code> (<code>Cmd+R</code> on Mac).</p>
-        <!-- SCREENSHOT: Run button highlighted in the C++ Mode toolbar -->
-        <div class="shot-placeholder">Screenshot: Run button in the toolbar</div>
+        <img class="shot-img" src="../assets/screenshot9.png" alt="Run button in the toolbar"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot9.png</span>
+          <span>Run button in the toolbar</span>
+        </div>
       </div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-body">
         <p>A window opens with a dark gray background. Move your mouse over it and a circle follows the cursor.</p>
-        <!-- SCREENSHOT: the sketch above running, circle following the cursor -->
-        <div class="shot-placeholder">Screenshot: the sketch running, circle following the cursor</div>
+        <img class="shot-img" src="../assets/screenshot10.png" alt="The sketch running, circle following the cursor"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot10.png</span>
+          <span>The sketch running, circle following the cursor</span>
+        </div>
       </div>
     </div>
 

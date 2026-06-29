@@ -40,6 +40,7 @@
       border-radius: 8px;
       aspect-ratio: 16/9;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #a18f4f;
@@ -47,6 +48,9 @@
       text-align: center;
       padding: 1rem;
     }
+    .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; }
+    .shot-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; }
+    .shot-img[hidden] { display: none; }
     .mode-callout .step-list { color: #6b5a1f; font-size: 13.5px; line-height: 1.9; margin: 0 0 1rem 1.1rem; }
 
     /* Header library downloads */
@@ -98,10 +102,22 @@
         <li>Search for <strong>C++ Mode</strong> in the Contribution Manager and click Install.</li>
       </ol>
       <div class="shots">
-        <!-- SCREENSHOT 1: Processing IDE with the mode dropdown open, "Add Mode..." highlighted -->
-        <div class="shot-placeholder">Screenshot: mode dropdown open, "Add Mode..." highlighted</div>
-        <!-- SCREENSHOT 2: Contribution Manager with "C++ Mode" found and the Install button visible -->
-        <div class="shot-placeholder">Screenshot: Contribution Manager showing C++ Mode</div>
+        <div>
+          <img class="shot-img" src="../assets/screenshot1.png" alt="Mode dropdown open, &quot;Add Mode...&quot; highlighted"
+               onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <div class="shot-placeholder" hidden>
+            <span class="shot-filename">assets/screenshot1.png</span>
+            <span>Mode dropdown open, "Add Mode..." highlighted</span>
+          </div>
+        </div>
+        <div>
+          <img class="shot-img" src="../assets/screenshot2.png" alt="Contribution Manager showing C++ Mode"
+               onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <div class="shot-placeholder" hidden>
+            <span class="shot-filename">assets/screenshot2.png</span>
+            <span>Contribution Manager showing C++ Mode</span>
+          </div>
+        </div>
       </div>
       <p>Once it's installed, restart Processing and select <strong>C++</strong> from the same mode dropdown.</p>
     </div>
@@ -124,7 +140,7 @@
 
     <div class="vscode-note">
       <p><strong>Using an editor like VS Code?</strong> See the full walkthrough for setting up either download in an external editor and build system.</p>
-      <p><a href="/downloads/vscode" style="border-bottom:1px solid #ddd;">Read the VS Code setup tutorial →</a></p>
+      <p><a href="/downloads/vscode.html" style="border-bottom:1px solid #ddd;">Read the VS Code setup tutorial →</a></p>
     </div>
   </div>
 </div>

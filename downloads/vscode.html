@@ -52,6 +52,7 @@
       aspect-ratio: 16/9;
       max-width: 560px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #999;
@@ -60,6 +61,9 @@
       padding: 1rem;
       margin: 0.5rem 0 1.5rem;
     }
+    .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; color: #777; }
+    .shot-img { width: 100%; max-width: 560px; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; margin: 0.5rem 0 1.5rem; }
+    .shot-img[hidden] { display: none; }
 
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
     @media (max-width: 768px) {
@@ -87,8 +91,12 @@
       <div class="step-num">1</div>
       <div class="step-body">
         <p>Unzip the download into your project folder, alongside your own source files. You should see <code>Processing.h</code> and <code>Processing.cpp</code>.</p>
-        <!-- SCREENSHOT: VS Code file explorer showing Processing.h / Processing.cpp dropped into a project folder -->
-        <div class="shot-placeholder">Screenshot: Processing.h / Processing.cpp in the VS Code file explorer</div>
+        <img class="shot-img" src="../assets/screenshot3.png" alt="Processing.h / Processing.cpp in the VS Code file explorer"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot3.png</span>
+          <span>Processing.h / Processing.cpp in the VS Code file explorer</span>
+        </div>
       </div>
     </div>
     <div class="step">
@@ -112,8 +120,12 @@ void draw() {
       <div class="step-body">
         <p>Open a terminal in VS Code (<code>Ctrl+`</code>) and compile directly with <code>g++</code>:</p>
         <pre><code>g++ -std=c++17 sketch.cpp Processing.cpp -o sketch && ./sketch</code></pre>
-        <!-- SCREENSHOT: VS Code integrated terminal running the g++ command above, sketch window open alongside -->
-        <div class="shot-placeholder">Screenshot: VS Code terminal compiling and running the sketch</div>
+        <img class="shot-img" src="../assets/screenshot4.png" alt="VS Code terminal compiling and running the sketch"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot4.png</span>
+          <span>VS Code terminal compiling and running the sketch</span>
+        </div>
       </div>
     </div>
 
@@ -123,8 +135,12 @@ void draw() {
       <div class="step-num">1</div>
       <div class="step-body">
         <p>Unzip the download and drop the folder into your project (e.g. as a <code>third_party/processing-cpp</code> subdirectory).</p>
-        <!-- SCREENSHOT: VS Code file explorer showing the unzipped folder placed under third_party/ -->
-        <div class="shot-placeholder">Screenshot: project tree with the library folder added</div>
+        <img class="shot-img" src="../assets/screenshot5.png" alt="Project tree with the library folder added"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot5.png</span>
+          <span>Project tree with the library folder added</span>
+        </div>
       </div>
     </div>
     <div class="step">
@@ -140,8 +156,12 @@ target_link_libraries(your_target PRIVATE processing-cpp)</code></pre>
       <div class="step-body">
         <p>If you have the CMake Tools extension installed, VS Code will pick up the project automatically. Use the status bar build/run buttons, or from the terminal:</p>
         <pre><code>cmake -B build && cmake --build build && ./build/your_target</code></pre>
-        <!-- SCREENSHOT: VS Code with CMake Tools status bar visible, terminal showing the build running -->
-        <div class="shot-placeholder">Screenshot: VS Code building with CMake Tools</div>
+        <img class="shot-img" src="../assets/screenshot6.png" alt="VS Code building with CMake Tools"
+             onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+        <div class="shot-placeholder" hidden>
+          <span class="shot-filename">assets/screenshot6.png</span>
+          <span>VS Code building with CMake Tools</span>
+        </div>
       </div>
     </div>
 
