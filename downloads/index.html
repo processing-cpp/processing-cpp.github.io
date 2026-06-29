@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Downloads - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 880px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 3rem; }
+    .content h2 { font-size: 1.3rem; font-weight: 600; margin-top: 3rem; margin-bottom: 0.5rem; }
+    .content h3 { font-size: 1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .content code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #111; }
+
+    /* "Looking for the C++ Mode?" callout */
+    .mode-callout {
+      background: #fffaeb;
+      border: 1px solid #f0dca0;
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .mode-callout h2 { margin-top: 0; font-size: 1.15rem; }
+    .mode-callout p { color: #6b5a1f; }
+    .mode-callout .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+    .shot-placeholder {
+      background: #fff;
+      border: 1px dashed #d8c27a;
+      border-radius: 8px;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a18f4f;
+      font-size: 12px;
+      text-align: center;
+      padding: 1rem;
+    }
+    .mode-callout .step-list { color: #6b5a1f; font-size: 13.5px; line-height: 1.9; margin: 0 0 1rem 1.1rem; }
+
+    /* Header library downloads */
+    .download-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0 2.5rem; }
+    .download-card { border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; }
+    .download-card h3 { margin-top: 0; }
+    .download-card p { font-size: 13px; color: #777; margin-bottom: 1.25rem; }
+    .dl-btn {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .dl-btn-primary { background: #e8b400; color: #111; }
+    .dl-btn-primary:hover { background: #d4a300; }
+    .dl-btn-secondary { background: #f0f0f0; color: #444; border: 1px solid #e0e0e0; }
+    .dl-btn-secondary:hover { background: #e6e6e6; }
+
+    .vscode-note { border-top: 1px solid #e0e0e0; padding-top: 1.75rem; margin-top: 1rem; }
+    .vscode-note p { margin-bottom: 0.5rem; }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .mode-callout .shots, .download-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <h1>Downloads</h1>
+    <p class="subtitle">Two ways to get C++ Mode, depending on how you want to work.</p>
+
+    <div class="mode-callout" id="cpp-mode">
+      <h2>Looking for the C++ Mode?</h2>
+      <p>If you want the full Processing IDE experience, writing sketches with <code>setup()</code> / <code>draw()</code> inside the Processing app, C++ Mode installs straight from the Contribution Manager. There's nothing to download from this site for that.</p>
+      <ol class="step-list">
+        <li>Open Processing, click the mode dropdown in the top-right of the editor, and choose <strong>Add Mode...</strong></li>
+        <li>Search for <strong>C++ Mode</strong> in the Contribution Manager and click Install.</li>
+      </ol>
+      <div class="shots">
+        <!-- SCREENSHOT 1: Processing IDE with the mode dropdown open, "Add Mode..." highlighted -->
+        <div class="shot-placeholder">Screenshot: mode dropdown open, "Add Mode..." highlighted</div>
+        <!-- SCREENSHOT 2: Contribution Manager with "C++ Mode" found and the Install button visible -->
+        <div class="shot-placeholder">Screenshot: Contribution Manager showing C++ Mode</div>
+      </div>
+      <p>Once it's installed, restart Processing and select <strong>C++</strong> from the same mode dropdown.</p>
+    </div>
+
+    <h2>Download the header library</h2>
+    <p>For writing plain C++ in your own editor and build system, with no Processing IDE involved. Both downloads contain the same engine.</p>
+
+    <div class="download-cards">
+      <div class="download-card">
+        <h3>Drag-and-Drop</h3>
+        <p>For projects with no existing build system, or compiling a single file directly with <code>g++</code>.</p>
+        <a class="dl-btn dl-btn-primary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-dragdrop.zip">Download</a>
+      </div>
+      <div class="download-card">
+        <h3>CMake</h3>
+        <p>For projects that already use CMake, or want the engine wired up as a library target.</p>
+        <a class="dl-btn dl-btn-secondary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-cmake.zip">Download</a>
+      </div>
+    </div>
+
+    <div class="vscode-note">
+      <p><strong>Using an editor like VS Code?</strong> See the full walkthrough for setting up either download in an external editor and build system.</p>
+      <p><a href="/downloads/vscode" style="border-bottom:1px solid #ddd;">Read the VS Code setup tutorial →</a></p>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 880px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .content h2 { font-size: 1.3rem; font-weight: 600; margin-top: 3rem; margin-bottom: 0.5rem; }
+    .content h3 { font-size: 1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .content code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #111; }
+    .content pre { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #0d0d0d; color: #ddd; padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.25rem; line-height: 1.6; }
+    .content pre code { background: none; padding: 0; color: inherit; }
+
+    /* "What's Processing?" callout */
+    .processing-callout {
+      background: #f4f7fb;
+      border: 1px solid #d8e3f0;
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .processing-callout .pc-text h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+    .processing-callout .pc-text p { margin: 0; font-size: 13px; color: #5b6b80; }
+    .processing-callout .pc-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      background: #1a5fb4;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+    }
+    .processing-callout .pc-btn:hover { background: #144a8f; }
+
+    .step { display: flex; gap: 1rem; margin-bottom: 1.75rem; }
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-body { flex: 1; padding-top: 1px; }
+    .step-body p { margin-bottom: 0.5rem; }
+    .shot-placeholder {
+      background: #f7f7f7;
+      border: 1px dashed #ccc;
+      border-radius: 8px;
+      aspect-ratio: 16/9;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 12.5px;
+      text-align: center;
+      padding: 1rem;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    .next-steps { border-top: 1px solid #e0e0e0; margin-top: 3rem; padding-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .next-steps a { font-size: 14px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+    .next-steps a:hover { border-bottom-color: #111; }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+      .processing-callout { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <h1>Getting Started</h1>
+    <p class="subtitle">Create your first sketch with C++ Mode, from opening Processing to seeing something on screen.</p>
+
+    <div class="processing-callout">
+      <div class="pc-text">
+        <h3>Don't have Processing yet?</h3>
+        <p>C++ Mode runs inside the Processing IDE. Install Processing itself first, then come back here.</p>
+      </div>
+      <a class="pc-btn" href="https://processing.org/">What's Processing?</a>
+    </div>
+
+    <h2>1. Install C++ Mode</h2>
+    <p>Open Processing, click the mode dropdown in the top-right of the editor, choose <strong>Add Mode...</strong>, then search for <strong>C++ Mode</strong> in the Contribution Manager and click Install.</p>
+    <p>Full walkthrough with screenshots: see <a href="/downloads#cpp-mode" style="border-bottom:1px solid #ddd;">Looking for the C++ Mode?</a> on the Downloads page.</p>
+
+    <h2>2. Open a new sketch</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p>Restart Processing, open the mode dropdown again, and select <strong>C++</strong>.</p>
+        <!-- SCREENSHOT: mode dropdown with C++ selected -->
+        <div class="shot-placeholder">Screenshot: mode dropdown with C++ selected</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p>You'll see a blank editor, just like Java mode. This is where you'll write your sketch.</p>
+        <!-- SCREENSHOT: blank C++ Mode editor window -->
+        <div class="shot-placeholder">Screenshot: blank C++ Mode editor</div>
+      </div>
+    </div>
+
+    <h2>3. Write your first sketch</h2>
+    <p>Every sketch has two functions: <code>setup()</code> runs once when the sketch starts, and <code>draw()</code> runs over and over, once per frame. Type this into the editor:</p>
+    <pre><code>void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(20);
+  ellipse(mouseX, mouseY, 40, 40);
+}</code></pre>
+    <p><code>size()</code> sets the window dimensions. <code>background()</code> clears the frame to a color each time it's drawn. <code>ellipse()</code> draws a circle that follows wherever the mouse is, using the built-in <code>mouseX</code> and <code>mouseY</code> variables.</p>
+
+    <h2>4. Run it</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p>Click the Run button (the play icon) in the top-left of the editor, or press <code>Ctrl+R</code> (<code>Cmd+R</code> on Mac).</p>
+        <!-- SCREENSHOT: Run button highlighted in the C++ Mode toolbar -->
+        <div class="shot-placeholder">Screenshot: Run button in the toolbar</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p>A window opens with a dark gray background. Move your mouse over it and a circle follows the cursor.</p>
+        <!-- SCREENSHOT: the sketch above running, circle following the cursor -->
+        <div class="shot-placeholder">Screenshot: the sketch running, circle following the cursor</div>
+      </div>
+    </div>
+
+    <p>That's a complete sketch. Under the hood it's compiling to real C++ and running natively, but everything about writing it looks and feels like any other Processing mode.</p>
+
+    <div class="next-steps">
+      <a href="/reference">Browse the reference →</a>
+      <a href="/examples">See more examples →</a>
+      <a href="/downloads">Using your own editor instead? →</a>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

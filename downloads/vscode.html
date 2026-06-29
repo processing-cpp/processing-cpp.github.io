@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Using C++ Mode in VS Code - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 880px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .content .back-link { font-size: 13px; color: #888; display: inline-block; margin-bottom: 2rem; }
+    .content .back-link:hover { color: #111; }
+    .content h2 { font-size: 1.3rem; font-weight: 600; margin-top: 3rem; margin-bottom: 0.5rem; padding-top: 1.5rem; border-top: 1px solid #e0e0e0; }
+    .content h2:first-of-type { border-top: none; padding-top: 0; }
+    .content h3 { font-size: 1rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .content code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #111; }
+    .content pre { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #0d0d0d; color: #ddd; padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.25rem; line-height: 1.6; }
+    .content pre code { background: none; padding: 0; color: inherit; }
+
+    .step { display: flex; gap: 1rem; margin-bottom: 1.75rem; }
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-body { flex: 1; padding-top: 1px; }
+    .step-body p { margin-bottom: 0.5rem; }
+
+    .shot-placeholder {
+      background: #f7f7f7;
+      border: 1px dashed #ccc;
+      border-radius: 8px;
+      aspect-ratio: 16/9;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 12.5px;
+      text-align: center;
+      padding: 1rem;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <a class="back-link" href="/downloads">&larr; Back to Downloads</a>
+    <h1>Using C++ Mode in VS Code</h1>
+    <p class="subtitle">Set up either header library download in an external editor and build system, instead of the Processing IDE.</p>
+
+    <h2>Drag-and-Drop version</h2>
+    <p>The simplest path if your project has no existing build system. Compile a single file directly with <code>g++</code>.</p>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p>Unzip the download into your project folder, alongside your own source files. You should see <code>Processing.h</code> and <code>Processing.cpp</code>.</p>
+        <!-- SCREENSHOT: VS Code file explorer showing Processing.h / Processing.cpp dropped into a project folder -->
+        <div class="shot-placeholder">Screenshot: Processing.h / Processing.cpp in the VS Code file explorer</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p>Include the header at the top of your file and write a sketch the same way you would in the IDE:</p>
+        <pre><code>#include "Processing.h"
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(20);
+  ellipse(mouseX, mouseY, 40, 40);
+}</code></pre>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <p>Open a terminal in VS Code (<code>Ctrl+`</code>) and compile directly with <code>g++</code>:</p>
+        <pre><code>g++ -std=c++17 sketch.cpp Processing.cpp -o sketch && ./sketch</code></pre>
+        <!-- SCREENSHOT: VS Code integrated terminal running the g++ command above, sketch window open alongside -->
+        <div class="shot-placeholder">Screenshot: VS Code terminal compiling and running the sketch</div>
+      </div>
+    </div>
+
+    <h2>CMake version</h2>
+    <p>For projects that already use CMake, or if you want the engine wired up as a proper library target. Works well with VS Code's CMake Tools extension.</p>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p>Unzip the download and drop the folder into your project (e.g. as a <code>third_party/processing-cpp</code> subdirectory).</p>
+        <!-- SCREENSHOT: VS Code file explorer showing the unzipped folder placed under third_party/ -->
+        <div class="shot-placeholder">Screenshot: project tree with the library folder added</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p>Add it to your <code>CMakeLists.txt</code>:</p>
+        <pre><code>add_subdirectory(third_party/processing-cpp)
+target_link_libraries(your_target PRIVATE processing-cpp)</code></pre>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <p>If you have the CMake Tools extension installed, VS Code will pick up the project automatically. Use the status bar build/run buttons, or from the terminal:</p>
+        <pre><code>cmake -B build && cmake --build build && ./build/your_target</code></pre>
+        <!-- SCREENSHOT: VS Code with CMake Tools status bar visible, terminal showing the build running -->
+        <div class="shot-placeholder">Screenshot: VS Code building with CMake Tools</div>
+      </div>
+    </div>
+
+    <p>From here, the full <a href="/reference" style="border-bottom:1px solid #ddd;">reference</a> applies the same way. Every function documented there is available once you've included <code>Processing.h</code>.</p>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>
