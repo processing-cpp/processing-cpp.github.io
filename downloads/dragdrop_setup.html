@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag-and-Drop Setup - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 860px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .content .back-link { font-size: 13px; color: #888; display: inline-block; margin-bottom: 2rem; }
+    .content .back-link:hover { color: #111; }
+    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+    .content h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .content ul, .content ol { color: #444; line-height: 1.9; font-size: 0.95rem; margin: 0 0 1rem 1.25rem; }
+    .content li { margin-bottom: 0.3rem; }
+    .content code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+    .content pre { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #0d0d0d; color: #ddd; padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.25rem; line-height: 1.6; }
+    .content pre code { background: none; padding: 0; color: inherit; }
+
+    /* Platform tabs */
+    .platform-tabs { display: flex; gap: 0; margin: 2rem 0 0; border-bottom: 2px solid #e0e0e0; }
+    .platform-tab { padding: 0.6rem 1.25rem; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .platform-tab.active { color: #111; border-bottom-color: #111; }
+    .platform-tab:hover { color: #111; }
+    .platform-section { display: none; padding-top: 1.5rem; }
+    .platform-section.active { display: block; }
+
+    .warning-box { background: #fff8e0; border: 1px solid #f0dca0; border-radius: 8px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 14px; color: #6b5a1f; }
+    .warning-box strong { font-weight: 700; }
+
+    .ref-link { display: inline-block; font-size: 13px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 1px; margin-top: 0.25rem; }
+    .ref-link:hover { border-bottom-color: #111; }
+
+    .next-steps { border-top: 1px solid #e0e0e0; margin-top: 3rem; padding-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .next-steps a { font-size: 14px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+    .next-steps a:hover { border-bottom-color: #111; }
+
+    .shot-placeholder { background: #f7f7f7; border: 1px dashed #ccc; border-radius: 8px; aspect-ratio: 16/9; max-width: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; font-size: 12.5px; text-align: center; padding: 1rem; margin: 0.5rem 0 1.5rem; }
+    .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; color: #777; }
+    .shot-img { width: 100%; max-width: 560px; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; margin: 0.5rem 0 1.5rem; }
+    .shot-img[hidden] { display: none; }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <a class="back-link" href="/downloads">&larr; Back to Downloads</a>
+    <h1>Drag-and-Drop Setup</h1>
+    <p class="subtitle">The easiest way to get started. Unzip one folder, write a <code>.cpp</code> file next to it, and run one script. No build system, no configuration.</p>
+
+    <p>Pick your operating system:</p>
+    <div class="platform-tabs">
+      <div class="platform-tab active" onclick="switchTab('windows', this)">Windows</div>
+      <div class="platform-tab" onclick="switchTab('macos', this)">macOS</div>
+      <div class="platform-tab" onclick="switchTab('linux', this)">Linux</div>
+    </div>
+
+    <!-- WINDOWS -->
+    <div class="platform-section active" id="tab-windows">
+      <h2>Step 1 Install MSYS2 (once only)</h2>
+      <p>Go to <a href="https://www.msys2.org" style="border-bottom:1px solid #ddd;">msys2.org</a> and download the installer. Run it, click Next until done. After it installs a black window opens automatically. Paste this in and press Enter:</p>
+      <pre><code>pacman -S --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-glfw mingw-w64-x86_64-glew</code></pre>
+      <p>Press Enter again when it asks to confirm. Wait for it to finish, then close that window.</p>
+
+      <h2>Step 2 Get the package</h2>
+      <p>Download <strong>processing-cpp-dragdrop.zip</strong> from the <a href="/downloads" style="border-bottom:1px solid #ddd;">Downloads page</a>. Right-click it and choose Extract All. You'll get a folder called <code>processing-cpp-dragdrop</code>. rename it to <code>processing-cpp</code>.</p>
+
+      <h2>Step 3 Set up your project folder</h2>
+      <p>Create a new empty folder anywhere, call it <code>MySketch</code>. Move the <code>processing-cpp</code> folder into it:</p>
+      <pre><code>MySketch/
+└── processing-cpp/</code></pre>
+
+      <h2>Step 4 Write your sketch</h2>
+      <p>Open Notepad. Paste the code below. Save it as <code>main.cpp</code> directly inside <code>MySketch</code>, next to the <code>processing-cpp</code> folder, not inside it.</p>
+      <pre><code>#include "Processing.h"
+
+struct Sketch : public Processing::PApplet {
+    void settings() override { size(640, 360); }
+    void setup()    override { background(0); }
+    void draw()     override {
+        background(0);
+        fill(255, 140, 0);
+        circle(mouseX, mouseY, 40);
+    }
+};
+
+int main() {
+    Sketch sketch;
+    sketch.run();
+}</code></pre>
+      <p>Your folder should now look like this:</p>
+      <pre><code>MySketch/
+├── main.cpp          &larr; your file
+└── processing-cpp/   &larr; the package</code></pre>
+
+      <p>
+        The sketch uses <a class="ref-link" href="/reference/circle.html">circle()</a>,
+        <a class="ref-link" href="/reference/fill.html">fill()</a>,
+        <a class="ref-link" href="/reference/background.html">background()</a>, and
+        <a class="ref-link" href="/reference/mouseX.html">mouseX</a> /
+        <a class="ref-link" href="/reference/mouseY.html">mouseY</a>.
+        Everything in the <a class="ref-link" href="/reference">reference</a> works the same way.
+      </p>
+
+      <h2>Step 5 Open the right terminal</h2>
+      <p>Click Start and search for <strong>MSYS2 MinGW 64-bit</strong>. Open it. The prompt or title bar should say <code>MINGW64</code>.</p>
+      <div class="warning-box"><strong>Important:</strong> Do NOT use PowerShell or Command Prompt. They don't have <code>g++</code> and the build will fail immediately. It has to be MSYS2 MinGW 64-bit.</div>
+
+      <h2>Step 6 Navigate to your project</h2>
+      <pre><code>cd /c/Users/YourName/Desktop/MySketch</code></pre>
+      <p>Replace <code>YourName</code> and <code>Desktop</code> with wherever you actually saved the folder.</p>
+
+      <h2>Step 7 Run it</h2>
+      <pre><code>./processing-cpp/run.bat</code></pre>
+      <p>The first run takes about 15 seconds because it's compiling the engine. After that a window opens with an orange circle that follows your mouse. Every run after the first is much faster since the engine is already built.</p>
+
+      <img class="shot-img" src="../assets/screenshot11.png" alt="MSYS2 MinGW terminal running run.bat, sketch window open with orange circle"
+           onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+      <div class="shot-placeholder" hidden>
+        <span class="shot-filename">assets/screenshot11.png</span>
+        <span>MSYS2 MinGW terminal running run.bat, sketch window open with orange circle</span>
+      </div>
+
+      <div class="warning-box"><strong>If you get "command not found":</strong> you're in the wrong terminal. Close it, open MSYS2 MinGW 64-bit (look for MINGW64 in the title bar), and try again. This is the cause almost every time on Windows.</div>
+    </div>
+
+    <!-- MACOS -->
+    <div class="platform-section" id="tab-macos">
+      <h2>Step 1 Install the tools (once only)</h2>
+      <p>Open Terminal (Applications &rarr; Utilities). Run these one at a time:</p>
+      <pre><code>xcode-select --install</code></pre>
+      <p>A popup appears. click Install and wait for it to finish. Then install Homebrew:</p>
+      <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+      <p>Then the graphics libraries:</p>
+      <pre><code>brew install glfw glew</code></pre>
+
+      <h2>Steps 2-4 Get the package and write your sketch</h2>
+      <p>Same as Windows: download <strong>processing-cpp-dragdrop.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, and write <code>main.cpp</code> with the same code as above inside it.</p>
+
+      <h2>Step 5 Navigate to your project</h2>
+      <pre><code>cd ~/Desktop/MySketch</code></pre>
+
+      <h2>Step 6 Run it</h2>
+      <pre><code>./processing-cpp/run.sh</code></pre>
+      <p>First run compiles the engine (~15 seconds). Then a window opens. Every run after that is fast.</p>
+
+      <img class="shot-img" src="../assets/screenshot12.png" alt="macOS Terminal running run.sh, sketch window open"
+           onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+      <div class="shot-placeholder" hidden>
+        <span class="shot-filename">assets/screenshot12.png</span>
+        <span>macOS Terminal running run.sh, sketch window open</span>
+      </div>
+    </div>
+
+    <!-- LINUX -->
+    <div class="platform-section" id="tab-linux">
+      <h2>Step 1 Install the tools (once only)</h2>
+      <p>Open a terminal and run the command for your distro:</p>
+      <pre><code># Ubuntu / Debian
+sudo apt install g++ libglfw3-dev libglew-dev
+
+# Arch
+sudo pacman -S gcc glfw glew</code></pre>
+
+      <h2>Steps 2 onwards same as macOS</h2>
+      <p>Download <strong>processing-cpp-dragdrop.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, write <code>main.cpp</code> with the same code, navigate to the folder, then run:</p>
+      <pre><code>./processing-cpp/run.sh</code></pre>
+    </div>
+
+    <div class="next-steps">
+      <a href="/downloads/cmake-setup.html">Prefer CMake? See the CMake setup &rarr;</a>
+      <a href="/downloads/vscode.html">Using VS Code? &rarr;</a>
+      <a href="/reference">Browse the reference &rarr;</a>
+      <a href="/examples">See more examples &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.platform-section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+</script>
+<script src="../assets/nav.js"></script>
+</body>
+</html>

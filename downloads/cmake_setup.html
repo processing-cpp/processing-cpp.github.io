@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMake Setup - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 860px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .content .back-link { font-size: 13px; color: #888; display: inline-block; margin-bottom: 2rem; }
+    .content .back-link:hover { color: #111; }
+    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+    .content h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .content ul, .content ol { color: #444; line-height: 1.9; font-size: 0.95rem; margin: 0 0 1rem 1.25rem; }
+    .content li { margin-bottom: 0.3rem; }
+    .content code { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+    .content pre { font-family: "SF Mono","Fira Code",monospace; font-size: 13px; background: #0d0d0d; color: #ddd; padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.25rem; line-height: 1.6; }
+    .content pre code { background: none; padding: 0; color: inherit; }
+
+    .platform-tabs { display: flex; gap: 0; margin: 2rem 0 0; border-bottom: 2px solid #e0e0e0; }
+    .platform-tab { padding: 0.6rem 1.25rem; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .platform-tab.active { color: #111; border-bottom-color: #111; }
+    .platform-tab:hover { color: #111; }
+    .platform-section { display: none; padding-top: 1.5rem; }
+    .platform-section.active { display: block; }
+
+    .warning-box { background: #fff8e0; border: 1px solid #f0dca0; border-radius: 8px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 14px; color: #6b5a1f; }
+    .warning-box strong { font-weight: 700; }
+
+    .ref-link { display: inline-block; font-size: 13px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 1px; margin-top: 0.25rem; }
+    .ref-link:hover { border-bottom-color: #111; }
+
+    .next-steps { border-top: 1px solid #e0e0e0; margin-top: 3rem; padding-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .next-steps a { font-size: 14px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+    .next-steps a:hover { border-bottom-color: #111; }
+
+    .shot-placeholder { background: #f7f7f7; border: 1px dashed #ccc; border-radius: 8px; aspect-ratio: 16/9; max-width: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; font-size: 12.5px; text-align: center; padding: 1rem; margin: 0.5rem 0 1.5rem; }
+    .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; color: #777; }
+    .shot-img { width: 100%; max-width: 560px; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; margin: 0.5rem 0 1.5rem; }
+    .shot-img[hidden] { display: none; }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <a class="back-link" href="/downloads">&larr; Back to Downloads</a>
+    <h1>CMake Setup</h1>
+    <p class="subtitle">Use this if your project already uses CMake, or if you want something more structured that scales to many source files. If you just want to get something running fast, try the <a href="/downloads/dragdrop-setup.html" style="border-bottom:1px solid #ddd;">Drag-and-Drop setup</a> first.</p>
+
+    <p>Pick your operating system:</p>
+    <div class="platform-tabs">
+      <div class="platform-tab active" onclick="switchTab('windows', this)">Windows</div>
+      <div class="platform-tab" onclick="switchTab('macos', this)">macOS</div>
+      <div class="platform-tab" onclick="switchTab('linux', this)">Linux</div>
+    </div>
+
+    <!-- WINDOWS -->
+    <div class="platform-section active" id="tab-windows">
+      <h2>Steps 1-3 MSYS2 setup</h2>
+      <p>Same as the drag-and-drop guide. If you already did that setup, just also install CMake while you're in the MSYS2 MinGW 64-bit terminal:</p>
+      <pre><code>pacman -S --needed mingw-w64-x86_64-cmake</code></pre>
+      <p>If you haven't done that setup yet, <a href="/downloads/dragdrop-setup.html" style="border-bottom:1px solid #ddd;">follow steps 1-3 there first</a>, then come back here.</p>
+
+      <h2>Step 4 Get the CMake package</h2>
+      <p>Download <strong>processing-cpp-cmake.zip</strong> from the <a href="/downloads" style="border-bottom:1px solid #ddd;">Downloads page</a>. Extract it. Rename the folder to <code>processing-cpp</code>.</p>
+
+      <h2>Step 5 Set up your project folder</h2>
+      <p>Create a <code>MySketch</code> folder. Your structure should look like this:</p>
+      <pre><code>MySketch/
+├── CMakeLists.txt     &larr; you will create this
+├── main.cpp           &larr; your sketch
+└── processing-cpp/    &larr; the folder you extracted</code></pre>
+
+      <h2>Step 6 Write main.cpp</h2>
+      <p>Same sketch code as in the drag-and-drop guide:</p>
+      <pre><code>#include "Processing.h"
+
+struct Sketch : public Processing::PApplet {
+    void settings() override { size(640, 360); }
+    void setup()    override { background(0); }
+    void draw()     override {
+        background(0);
+        fill(255, 140, 0);
+        circle(mouseX, mouseY, 40);
+    }
+};
+
+int main() {
+    Sketch sketch;
+    sketch.run();
+}</code></pre>
+      <p>
+        Uses <a class="ref-link" href="/reference/circle.html">circle()</a>,
+        <a class="ref-link" href="/reference/fill.html">fill()</a>,
+        <a class="ref-link" href="/reference/background.html">background()</a>,
+        <a class="ref-link" href="/reference/mouseX.html">mouseX</a> /
+        <a class="ref-link" href="/reference/mouseY.html">mouseY</a>.
+        See the full <a class="ref-link" href="/reference">reference</a> for everything else.
+      </p>
+
+      <h2>Step 7 Write CMakeLists.txt</h2>
+      <p>Open Notepad. Paste this exactly. Save it as <code>CMakeLists.txt</code> inside <code>MySketch</code>. Watch out: Notepad sometimes sneaks a <code>.txt</code> extension on the end. Make sure it's just <code>CMakeLists.txt</code> with no extra extension.</p>
+      <pre><code>cmake_minimum_required(VERSION 3.16)
+project(MySketch CXX)
+
+add_subdirectory(processing-cpp)
+
+add_executable(MySketch main.cpp)
+target_link_libraries(MySketch PRIVATE processing_cpp)</code></pre>
+
+      <h2>Step 8 Open MSYS2 MinGW 64-bit and navigate to your project</h2>
+      <div class="warning-box"><strong>Important:</strong> Use MSYS2 MinGW 64-bit, not PowerShell or Command Prompt. The prompt should say MINGW64.</div>
+      <pre><code>cd /c/Users/YourName/Desktop/MySketch</code></pre>
+
+      <h2>Step 9 Configure</h2>
+      <pre><code>cmake -B build -G "MinGW Makefiles"</code></pre>
+
+      <h2>Step 10 Build</h2>
+      <pre><code>cmake --build build</code></pre>
+
+      <h2>Step 11 Run</h2>
+      <pre><code>./build/MySketch.exe</code></pre>
+
+      <img class="shot-img" src="../assets/screenshot13.png" alt="MSYS2 terminal running cmake build, MySketch.exe open"
+           onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+      <div class="shot-placeholder" hidden>
+        <span class="shot-filename">assets/screenshot13.png</span>
+        <span>MSYS2 terminal running cmake --build, MySketch.exe running</span>
+      </div>
+
+      <div class="warning-box"><strong>If anything says "command not found":</strong> you are in the wrong terminal. Close it, find MSYS2 MinGW 64-bit in your Start menu (look for MINGW64 in the title), and try again. This is the reason almost every time on Windows.</div>
+    </div>
+
+    <!-- MACOS -->
+    <div class="platform-section" id="tab-macos">
+      <h2>Install CMake if you don't have it</h2>
+      <pre><code>brew install cmake</code></pre>
+
+      <h2>Steps 4-7 Same as Windows</h2>
+      <p>Get the CMake package, rename the folder to <code>processing-cpp</code>, write <code>main.cpp</code> and <code>CMakeLists.txt</code> with the same content as above.</p>
+
+      <h2>Configure, build, and run</h2>
+      <p>Skip the <code>-G "MinGW Makefiles"</code> part on macOS. Just:</p>
+      <pre><code>cmake -B build
+cmake --build build
+./build/MySketch</code></pre>
+
+      <img class="shot-img" src="../assets/screenshot14.png" alt="macOS Terminal running cmake build, sketch window open"
+           onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+      <div class="shot-placeholder" hidden>
+        <span class="shot-filename">assets/screenshot14.png</span>
+        <span>macOS Terminal running cmake --build, sketch window running</span>
+      </div>
+    </div>
+
+    <!-- LINUX -->
+    <div class="platform-section" id="tab-linux">
+      <h2>Install CMake if you don't have it</h2>
+      <pre><code># Ubuntu / Debian
+sudo apt install cmake
+
+# Arch
+sudo pacman -S cmake</code></pre>
+      <p>Also install the graphics libraries if you haven't yet:</p>
+      <pre><code># Ubuntu / Debian
+sudo apt install g++ libglfw3-dev libglew-dev
+
+# Arch
+sudo pacman -S gcc glfw glew</code></pre>
+
+      <h2>Steps 4-7 Same as Windows</h2>
+      <p>Get the CMake package, rename the folder to <code>processing-cpp</code>, write <code>main.cpp</code> and <code>CMakeLists.txt</code> with the same content as above.</p>
+
+      <h2>Configure, build, and run</h2>
+      <pre><code>cmake -B build
+cmake --build build
+./build/MySketch</code></pre>
+    </div>
+
+    <div class="next-steps">
+      <a href="/downloads/dragdrop-setup.html">Want something simpler? Try Drag-and-Drop &rarr;</a>
+      <a href="/downloads/vscode.html">Using VS Code? &rarr;</a>
+      <a href="/reference">Browse the reference &rarr;</a>
+      <a href="/examples">See more examples &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.platform-section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+</script>
+<script src="../assets/nav.js"></script>
+</body>
+</html>
