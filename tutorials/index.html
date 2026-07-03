@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorials - C++ Mode for Processing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+    nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; }
+    #site-sidebar a:hover { color: #111; }
+    #site-sidebar a.active { color: #111; font-weight: 500; }
+    .content { flex: 1; padding: 4rem; max-width: 860px; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 3rem; line-height: 1.7; }
+    .content h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .content .section-desc { font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 1.25rem; }
+    .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+
+    .path { border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 2.5rem; }
+    .path h2 { margin-bottom: 0.5rem; }
+
+    .tutorial-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+      margin-top: 0.75rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .tutorial-card:hover { border-color: #bbb; background: #fafafa; }
+    .tutorial-card .tc-body { flex: 1; }
+    .tutorial-card .tc-title { font-size: 14px; font-weight: 600; margin-bottom: 0.2rem; }
+    .tutorial-card .tc-desc { font-size: 13px; color: #777; line-height: 1.5; }
+    .tutorial-card .tc-arrow { color: #ccc; font-size: 18px; flex-shrink: 0; }
+
+    .divider { border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0; }
+
+    .help-box { background: #f7f7f7; border-radius: 10px; padding: 1.5rem 1.75rem; margin-top: 1rem; }
+    .help-box p { font-size: 14px; color: #555; margin-bottom: 0; line-height: 1.8; }
+    .help-box a { border-bottom: 1px solid #ccc; }
+    .help-box a:hover { border-bottom-color: #111; }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .content { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+  <div class="sidebar-outer">
+    <div id="site-sidebar"></div>
+  </div>
+  <div class="content">
+    <h1>Tutorials</h1>
+    <p class="subtitle">C++ Mode comes in two forms. One is a plugin for the Processing IDE, which lets you write sketches inside Processing itself just like you normally would. The other is a standalone header library you can drop into any C++ project and use from your own editor and build system. Pick the section that matches what you're trying to do.</p>
+
+    <div class="path">
+      <h2>Using C++ Mode inside the Processing IDE</h2>
+      <p class="section-desc">This is for people who want the Processing experience they're already familiar with, writing <code style="font-family:monospace;background:#f4f4f4;padding:1px 5px;border-radius:3px;">setup()</code> and <code style="font-family:monospace;background:#f4f4f4;padding:1px 5px;border-radius:3px;">draw()</code> inside the Processing app, hitting Run, and seeing a window open. C++ Mode compiles your sketch to native C++ behind the scenes, but the workflow is identical to any other Processing mode.</p>
+
+      <a class="tutorial-card" href="/gettingstarted">
+        <div class="tc-body">
+          <div class="tc-title">Getting Started with C++ Mode</div>
+          <div class="tc-desc">How to install the C++ Mode plugin and write your first sketch in the Processing IDE.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+
+      <a class="tutorial-card" href="/downloads#cpp-mode">
+        <div class="tc-body">
+          <div class="tc-title">Installing the plugin</div>
+          <div class="tc-desc">How to install C++ Mode through the Processing Contribution Manager, with screenshots.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="path">
+      <h2>Using the header library in your own C++ project</h2>
+      <p class="section-desc">This is for people who want to use the Processing-style API directly in a C++ project, without opening the Processing IDE at all. You write <code style="font-family:monospace;background:#f4f4f4;padding:1px 5px;border-radius:3px;">#include "Processing.h"</code> at the top of your file and build with your own compiler and tools. Two setup options are available depending on whether you use CMake or not.</p>
+
+      <a class="tutorial-card" href="/downloads/dragdrop-setup.html">
+        <div class="tc-body">
+          <div class="tc-title">Drag-and-Drop Setup</div>
+          <div class="tc-desc">The simplest path. Unzip one folder next to your source file and run a script to build. No CMake, no configuration. Good if you're just starting out or want something running quickly.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+
+      <a class="tutorial-card" href="/downloads/cmake-setup.html">
+        <div class="tc-body">
+          <div class="tc-title">CMake Setup</div>
+          <div class="tc-desc">Adds the engine to your project as a proper CMake library target. Pick this if your project already uses CMake, or if you want a setup that scales as your project grows.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+
+      <a class="tutorial-card" href="/downloads/vscode.html">
+        <div class="tc-body">
+          <div class="tc-title">Using C++ Mode in VS Code</div>
+          <div class="tc-desc">Covers both the drag-and-drop and CMake setups specifically for VS Code, including the CMake Tools extension.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="help-box">
+      <p>Still not sure which one fits? If you know Processing and just want to keep working the same way, go with <a href="/gettingstarted">Getting Started</a>. If you want to use the engine in a C++ project you're writing yourself, <a href="/downloads/dragdrop-setup.html">Drag-and-Drop</a> is the quickest way in.</p>
+    </div>
+  </div>
+</div>
+<footer><p>C++ Mode for Processing</p></footer>
+<script src="../assets/nav.js"></script>
+</body>
+</html>
