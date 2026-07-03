@@ -192,16 +192,94 @@
       <h2>Examples</h2>
       <div class="examples-grid">
         <div class="example-card">
-          <canvas class="example-canvas" id="c1"></canvas>
-          <div class="example-info"><h3>Bouncing ball</h3><p>Basic animation with collision detection</p></div>
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let y = 180;
+
+function setup() {
+  createCanvas(300,300);
+  stroke(255);
+  noLoop();
+}
+
+function draw() {
+  background(0);
+
+  line(0, y, width, y);
+
+  y = y - 1;
+
+  if (y < 0) {
+    y = height;
+  }
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>No Loop</h3><p>Structure example</p></div>
         </div>
         <div class="example-card">
-          <canvas class="example-canvas" id="c2"></canvas>
-          <div class="example-info"><h3>Particle system</h3><p>STL vectors with per-particle physics</p></div>
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300, WEBGL);
+  noStroke();
+}
+
+function draw() {
+  defineLights();
+  background(0);
+
+  for (let x = 0; x <= width; x += 60) {
+    for (let y = 0; y <= height; y += 60) {
+      push();
+
+      translate(
+        x - width / 2,
+        y - height / 2,
+        0
+      );
+
+      rotateY(map(mouseX, 0, width, 0, PI));
+      rotateX(map(mouseY, 0, height, 0, PI));
+
+      box(90);
+
+      pop();
+    }
+  }
+}
+
+function defineLights() {
+  pointLight(150, 100, 0, 200, -150, 0);
+
+  directionalLight(0, 102, 255, 1, 0, 0);
+
+  spotLight(
+    255,
+    255,
+    109,
+    0,
+    40,
+    200,
+    0,
+    -0.5,
+    -0.5,
+    PI / 2,
+    2
+  );
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Mixture Grid</h3><p>Lights example</p></div>
         </div>
         <div class="example-card">
-          <canvas class="example-canvas" id="c3"></canvas>
-          <div class="example-info"><h3>Perlin noise</h3><p>Flow field using noise()</p></div>
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  background(0);
+  strokeWeight(20);
+  frameRate(2);
+}
+
+function draw() {
+  for (let i = 0; i < width; i++) {
+    let r = random(255);
+    stroke(r);
+    line(i, 0, i, height);
+  }
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Random</h3><p>Math example</p></div>
         </div>
       </div>
       <div class="examples-footer">
@@ -236,47 +314,6 @@
   <p>Processing for C++</p>
 </footer>
 
-<script>
-new p5(function(p) {
-  let x, y, vx, vy;
-  p.setup = function() { p.createCanvas(300,300,document.getElementById('c1')); x=150;y=150;vx=2.5;vy=1.8;p.noStroke(); };
-  p.draw = function() {
-    p.background(10); p.fill(50,50,200); p.ellipse(x,y,36,36);
-    x+=vx; y+=vy;
-    if(x<18||x>282) vx*=-1;
-    if(y<18||y>282) vy*=-1;
-  };
-});
-new p5(function(p) {
-  let parts=[];
-  p.setup = function() { p.createCanvas(300,300,document.getElementById('c2')); p.noStroke(); };
-  p.draw = function() {
-    p.background(10,10,20,25);
-    if(p.frameCount%3===0) parts.push({x:p.random(p.width),y:p.height,vx:p.random(-1,1),vy:p.random(-4,-1),life:1.0});
-    for(let pt of parts){pt.x+=pt.vx;pt.y+=pt.vy;pt.vy+=0.05;pt.life-=0.008;p.fill(232,103,58,pt.life*255);p.ellipse(pt.x,pt.y,6,6);}
-    parts=parts.filter(pt=>pt.life>0);
-  };
-});
-new p5(function(p) {
-  let t=0;
-  p.setup = function() { p.createCanvas(300,300,document.getElementById('c3')); p.stroke(232,103,58,60); p.strokeWeight(1); p.noFill(); };
-  p.draw = function() {
-    p.background(10,10,20,15);
-    for(let i=0;i<5;i++){
-      let x=p.random(p.width),y=p.random(p.height);
-      for(let j=0;j<20;j++){
-        let angle=p.noise(x*0.005,y*0.005,t)*p.TWO_PI*2;
-        let vx=p.cos(angle)*2,vy=p.sin(angle)*2;
-        p.stroke(232,103+j*3,58,80);
-        p.line(x,y,x+vx*3,y+vy*3);
-        x+=vx;y+=vy;
-        if(x<0||x>p.width||y<0||y>p.height) break;
-      }
-    }
-    t+=0.003;
-  };
-});
-</script>
 <script src="./assets/nav.js"></script>
 </body>
 </html>

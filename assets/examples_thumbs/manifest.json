@@ -1,5 +1,6 @@
 [
   {
+    "section": "Basics",
     "category": "arrays",
     "slug": "array",
     "name": "Array",
@@ -8,6 +9,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "arrays",
     "slug": "array-2d",
     "name": "Array 2D",
@@ -16,6 +18,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "arrays",
     "slug": "array-objects",
     "name": "Array Objects",
@@ -24,6 +27,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "camera",
     "slug": "move-eye",
     "name": "Move Eye",
@@ -32,6 +36,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "camera",
     "slug": "perspective",
     "name": "Perspective",
@@ -40,6 +45,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "camera",
     "slug": "perspective-vs-ortho",
     "name": "Perspective vs Ortho",
@@ -48,6 +54,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "brightness",
     "name": "Brightness",
@@ -56,6 +63,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "color-variables",
     "name": "Color Variables",
@@ -64,6 +72,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "hue",
     "name": "Hue",
@@ -72,6 +81,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "radial-gradient",
     "name": "Radial Gradient",
@@ -80,6 +90,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "relativity",
     "name": "Relativity",
@@ -88,6 +99,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "saturation",
     "name": "Saturation",
@@ -96,6 +108,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "color",
     "slug": "simple-linear-gradient",
     "name": "Simple Linear Gradient",
@@ -104,6 +117,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "control",
     "slug": "conditionals-1",
     "name": "Conditionals 1",
@@ -112,6 +126,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "control",
     "slug": "conditionals-2",
     "name": "Conditionals 2",
@@ -120,6 +135,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "control",
     "slug": "embedding-iteration",
     "name": "Embedding Iteration",
@@ -128,6 +144,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "control",
     "slug": "iteration",
     "name": "Iteration",
@@ -136,6 +153,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "control",
     "slug": "logical-operators",
     "name": "Logical Operators",
@@ -144,6 +162,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "characters-strings",
     "name": "Characters Strings",
@@ -152,6 +171,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "datatype-conversion",
     "name": "Datatype Conversion",
@@ -160,6 +180,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "integers-floats",
     "name": "Integers Floats",
@@ -168,6 +189,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "true-false",
     "name": "True False",
@@ -176,6 +198,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "variable-scope",
     "name": "Variable Scope",
@@ -184,6 +207,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "data",
     "slug": "variables",
     "name": "Variables",
@@ -192,6 +216,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "bezier",
     "name": "Bezier",
@@ -200,6 +225,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "pie-chart",
     "name": "Pie Chart",
@@ -208,6 +234,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "points-and-lines",
     "name": "Points and Lines",
@@ -216,6 +243,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "primitives-3d",
     "name": "Primitives 3D",
@@ -224,6 +252,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "regular-polygon",
     "name": "Regular Polygon",
@@ -232,6 +261,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "shape-primitives",
     "name": "Shape Primitives",
@@ -240,6 +270,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "star",
     "name": "Star",
@@ -248,6 +279,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "forms",
     "slug": "triangle-strip",
     "name": "Triangle Strip",
@@ -256,6 +288,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "alpha-mask",
     "name": "Alpha Mask",
@@ -264,6 +297,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "background-image",
     "name": "Background Image",
@@ -272,6 +306,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "create-image",
     "name": "Create Image",
@@ -280,6 +315,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "load-and-display-image",
     "name": "Load and Display Image",
@@ -288,6 +324,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "pointillism",
     "name": "Pointillism",
@@ -296,6 +333,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "request-image",
     "name": "Request Image",
@@ -304,6 +342,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "image",
     "slug": "transparency",
     "name": "Transparency",
@@ -312,6 +351,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "clock",
     "name": "Clock",
@@ -320,6 +360,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "constrain",
     "name": "Constrain",
@@ -328,6 +369,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "easing",
     "name": "Easing",
@@ -336,6 +378,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "keyboard",
     "name": "Keyboard",
@@ -344,6 +387,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "keyboard-functions",
     "name": "Keyboard Functions",
@@ -352,6 +396,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "milliseconds",
     "name": "Milliseconds",
@@ -360,6 +405,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "mouse-1d",
     "name": "Mouse 1D",
@@ -368,6 +414,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "mouse-2d",
     "name": "Mouse 2D",
@@ -376,6 +423,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "mouse-functions",
     "name": "Mouse Functions",
@@ -384,6 +432,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "mouse-press",
     "name": "Mouse Press",
@@ -392,6 +441,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "mouse-signals",
     "name": "Mouse Signals",
@@ -400,6 +450,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "input",
     "slug": "storing-input",
     "name": "Storing Input",
@@ -408,6 +459,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "directional",
     "name": "Directional",
@@ -416,6 +468,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "mixture",
     "name": "Mixture",
@@ -424,6 +477,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "mixture-grid",
     "name": "Mixture Grid",
@@ -432,6 +486,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "on-off",
     "name": "On Off",
@@ -440,6 +495,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "reflection",
     "name": "Reflection",
@@ -448,6 +504,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "lights",
     "slug": "spot",
     "name": "Spot",
@@ -456,6 +513,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "additive-wave",
     "name": "Additive Wave",
@@ -464,6 +522,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "arctangent",
     "name": "Arctangent",
@@ -472,6 +531,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "distance-1d",
     "name": "Distance 1D",
@@ -480,6 +540,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "distance-2d",
     "name": "Distance 2D",
@@ -488,6 +549,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "double-random",
     "name": "Double Random",
@@ -496,6 +558,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "graphing-2d-equations",
     "name": "Graphing 2D Equations",
@@ -504,6 +567,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "increment-decrement",
     "name": "Increment Decrement",
@@ -512,6 +576,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "linear-interpolation",
     "name": "Linear Interpolation",
@@ -520,6 +585,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "noise-1d",
     "name": "Noise 1D",
@@ -528,6 +594,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "noise-2d",
     "name": "Noise 2D",
@@ -536,6 +603,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "noise-3d",
     "name": "Noise 3D",
@@ -544,6 +612,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "noise-wave",
     "name": "Noise Wave",
@@ -552,6 +621,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "operator-precedence",
     "name": "Operator Precedence",
@@ -560,6 +630,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "polar-to-cartesian",
     "name": "Polar to Cartesian",
@@ -568,6 +639,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "random",
     "name": "Random",
@@ -576,6 +648,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "random-gaussian",
     "name": "Random Gaussian",
@@ -584,6 +657,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "sine",
     "name": "Sine",
@@ -592,6 +666,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "sine-cosine",
     "name": "Sine Cosine",
@@ -600,6 +675,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "math",
     "slug": "sine-wave",
     "name": "Sine Wave",
@@ -608,6 +684,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "objects",
     "slug": "composite-objects",
     "name": "Composite Objects",
@@ -616,6 +693,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "objects",
     "slug": "inheritance",
     "name": "Inheritance",
@@ -624,6 +702,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "objects",
     "slug": "multiple-constructors",
     "name": "Multiple Constructors",
@@ -632,6 +711,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "objects",
     "slug": "objects",
     "name": "Objects",
@@ -640,6 +720,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "disable-style",
     "name": "Disable Style",
@@ -648,6 +729,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "get-child",
     "name": "Get Child",
@@ -656,6 +738,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "load-and-display-a-shape-illustration",
     "name": "Load and Display a Shape Illustration",
@@ -664,6 +747,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "load-and-display-an-obj-shape",
     "name": "Load and Display an OBJ shape",
@@ -672,6 +756,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "scale-shape-illustration",
     "name": "Scale Shape Illustration",
@@ -680,6 +765,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "shape",
     "slug": "shape-vertices",
     "name": "Shape Vertices",
@@ -688,6 +774,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "coordinates",
     "name": "Coordinates",
@@ -696,6 +783,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "create-graphics",
     "name": "Create Graphics",
@@ -704,6 +792,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "functions",
     "name": "Functions",
@@ -712,6 +801,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "loop",
     "name": "Loop",
@@ -720,6 +810,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "no-loop",
     "name": "No Loop",
@@ -728,6 +819,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "recursion",
     "name": "Recursion",
@@ -736,6 +828,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "redraw",
     "name": "Redraw",
@@ -744,6 +837,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "setup-and-draw",
     "name": "Setup and Draw",
@@ -752,6 +846,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "statements-and-comments",
     "name": "Statements and Comments",
@@ -760,6 +855,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "structure",
     "slug": "width-and-height",
     "name": "Width and Height",
@@ -768,6 +864,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "arm",
     "name": "Arm",
@@ -776,6 +873,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "rotate",
     "name": "Rotate",
@@ -784,6 +882,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "rotate-1",
     "name": "Rotate 1",
@@ -792,6 +891,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "rotate-push-pop",
     "name": "Rotate Push Pop",
@@ -800,6 +900,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "scale",
     "name": "Scale",
@@ -808,6 +909,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "transform",
     "slug": "translate",
     "name": "Translate",
@@ -816,6 +918,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "typography",
     "slug": "letters",
     "name": "Letters",
@@ -824,6 +927,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "typography",
     "slug": "text-rotation",
     "name": "Text Rotation",
@@ -832,6 +936,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "typography",
     "slug": "words",
     "name": "Words",
@@ -840,6 +945,7 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "web",
     "slug": "loading-images",
     "name": "Loading Images",
@@ -848,11 +954,480 @@
     "placeholder": false
   },
   {
+    "section": "Basics",
     "category": "web",
     "slug": "loading-urls",
     "name": "Loading URLs",
     "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/web/Loading_URLs/Loading_URLs.js",
     "thumb": "loading-urls.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "advanced_data",
+    "slug": "arraylist-of-objects",
+    "name": "ArrayList of objects",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/advanced_data/ArrayList_of_objects/ArrayList_of_objects.js",
+    "thumb": "arraylist-of-objects.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "advanced_data",
+    "slug": "intlist-lottery-example",
+    "name": "IntList Lottery example",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/advanced_data/IntList_Lottery_example/IntList_Lottery_example.js",
+    "thumb": "intlist-lottery-example.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "advanced_data",
+    "slug": "loading-json-data",
+    "name": "Loading JSON Data",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/advanced_data/Loading_JSON_Data/Loading_JSON_Data.js",
+    "thumb": "loading-json-data.svg",
+    "placeholder": true
+  },
+  {
+    "section": "Topics",
+    "category": "advanced_data",
+    "slug": "loading-tabular-data",
+    "name": "Loading Tabular Data",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/advanced_data/Loading_Tabular_Data/Loading_Tabular_Data.js",
+    "thumb": "loading-tabular-data.svg",
+    "placeholder": true
+  },
+  {
+    "section": "Topics",
+    "category": "animation",
+    "slug": "animated-sprite",
+    "name": "Animated Sprite",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/animation/Animated_Sprite/Animated_Sprite.js",
+    "thumb": "animated-sprite.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "animation",
+    "slug": "sequential",
+    "name": "Sequential",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/animation/Sequential/Sequential.js",
+    "thumb": "sequential.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "cellular_automata",
+    "slug": "game-of-life",
+    "name": "Game Of Life",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/cellular_automata/Game_Of_Life/Game_Of_Life.js",
+    "thumb": "game-of-life.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "cellular_automata",
+    "slug": "wolfram",
+    "name": "Wolfram",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/cellular_automata/Wolfram/Wolfram.js",
+    "thumb": "wolfram.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "drawing",
+    "slug": "continuous-lines",
+    "name": "Continuous Lines",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/drawing/Continuous_Lines/Continuous_Lines.js",
+    "thumb": "continuous-lines.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "drawing",
+    "slug": "pattern",
+    "name": "Pattern",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/drawing/Pattern/Pattern.js",
+    "thumb": "pattern.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "drawing",
+    "slug": "pulses",
+    "name": "Pulses",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/drawing/Pulses/Pulses.js",
+    "thumb": "pulses.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "file_io",
+    "slug": "load-file1",
+    "name": "Load File1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/file_io/Load_File1/Load_File1.js",
+    "thumb": "load-file1.svg",
+    "placeholder": true
+  },
+  {
+    "section": "Topics",
+    "category": "file_io",
+    "slug": "load-file2",
+    "name": "Load File2",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/file_io/Load_File2/Load_File2.js",
+    "thumb": "load-file2.svg",
+    "placeholder": true
+  },
+  {
+    "section": "Topics",
+    "category": "file_io",
+    "slug": "save-one-image",
+    "name": "Save One Image",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/file_io/Save_One_Image/Save_One_Image.js",
+    "thumb": "save-one-image.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "koch",
+    "name": "Koch",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Koch/Koch.js",
+    "thumb": "koch.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "mandelbrot",
+    "name": "Mandelbrot",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Mandelbrot/Mandelbrot.js",
+    "thumb": "mandelbrot.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "penrose-snowflake",
+    "name": "Penrose Snowflake",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Penrose_Snowflake/Penrose_Snowflake.js",
+    "thumb": "penrose-snowflake.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "penrose-tile",
+    "name": "Penrose Tile",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Penrose_Tile/Penrose_Tile.js",
+    "thumb": "penrose-tile.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "pentigree",
+    "name": "Pentigree",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Pentigree/Pentigree.js",
+    "thumb": "pentigree.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "fractals_and_l-systems",
+    "slug": "tree",
+    "name": "Tree",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/fractals_and_l-systems/Tree/Tree.js",
+    "thumb": "tree.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "gui",
+    "slug": "button",
+    "name": "Button",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/gui/Button/Button.js",
+    "thumb": "button.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "gui",
+    "slug": "handles",
+    "name": "Handles",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/gui/Handles/Handles.js",
+    "thumb": "handles.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "gui",
+    "slug": "rollover",
+    "name": "Rollover",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/gui/Rollover/Rollover.js",
+    "thumb": "rollover.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "gui",
+    "slug": "scrollbar",
+    "name": "Scrollbar",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/gui/Scrollbar/Scrollbar.js",
+    "thumb": "scrollbar.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "image_processing",
+    "slug": "blur",
+    "name": "Blur",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/image_processing/Blur/Blur.js",
+    "thumb": "blur.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "image_processing",
+    "slug": "brightness-pixels",
+    "name": "Brightness Pixels",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/image_processing/Brightness_Pixels/Brightness_Pixels.js",
+    "thumb": "brightness-pixels.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "image_processing",
+    "slug": "convolution",
+    "name": "Convolution",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/image_processing/Convolution/Convolution.js",
+    "thumb": "convolution.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "image_processing",
+    "slug": "edge-detection",
+    "name": "Edge Detection",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/image_processing/Edge_Detection/Edge_Detection.js",
+    "thumb": "edge-detection.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "image_processing",
+    "slug": "pixel-array",
+    "name": "Pixel Array",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/image_processing/Pixel_Array/Pixel_Array.js",
+    "thumb": "pixel-array.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "follow1",
+    "name": "Follow1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Follow1/Follow1.js",
+    "thumb": "follow1.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "follow2",
+    "name": "Follow2",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Follow2/Follow2.js",
+    "thumb": "follow2.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "follow3",
+    "name": "Follow3",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Follow3/Follow3.js",
+    "thumb": "follow3.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "reach1",
+    "name": "Reach1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Reach1/Reach1.js",
+    "thumb": "reach1.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "reach2",
+    "name": "Reach2",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Reach2/Reach2.js",
+    "thumb": "reach2.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "reach3",
+    "name": "Reach3",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Reach3/Reach3.js",
+    "thumb": "reach3.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "interaction",
+    "slug": "tickle",
+    "name": "Tickle",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/interaction/Tickle/Tickle.js",
+    "thumb": "tickle.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "bounce",
+    "name": "Bounce",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Bounce/Bounce.js",
+    "thumb": "bounce.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "bouncy-bubbles",
+    "name": "Bouncy Bubbles",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Bouncy_Bubbles/Bouncy_Bubbles.js",
+    "thumb": "bouncy-bubbles.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "brownian",
+    "name": "Brownian",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Brownian/Brownian.js",
+    "thumb": "brownian.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "circle-collision",
+    "name": "Circle Collision",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Circle_Collision/Circle_Collision.js",
+    "thumb": "circle-collision.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "linear",
+    "name": "Linear",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Linear/Linear.js",
+    "thumb": "linear.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "morph",
+    "name": "Morph",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Morph/Morph.js",
+    "thumb": "morph.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "moving-on-curves",
+    "name": "Moving On Curves",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Moving_On_Curves/Moving_On_Curves.js",
+    "thumb": "moving-on-curves.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "reflection1",
+    "name": "Reflection1",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Reflection1/Reflection1.js",
+    "thumb": "reflection1.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "motion",
+    "slug": "reflection2",
+    "name": "Reflection2",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/motion/Reflection2/Reflection2.js",
+    "thumb": "reflection2.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "simulate",
+    "slug": "flocking",
+    "name": "Flocking",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/simulate/Flocking/Flocking.js",
+    "thumb": "flocking.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "simulate",
+    "slug": "forces-with-vectors",
+    "name": "Forces With Vectors",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/simulate/Forces_With_Vectors/Forces_With_Vectors.js",
+    "thumb": "forces-with-vectors.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "simulate",
+    "slug": "multiple-particle-systems",
+    "name": "Multiple Particle Systems",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/simulate/Multiple_Particle_Systems/Multiple_Particle_Systems.js",
+    "thumb": "multiple-particle-systems.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "simulate",
+    "slug": "simple-particle-system",
+    "name": "Simple Particle System",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/simulate/Simple_Particle_System/Simple_Particle_System.js",
+    "thumb": "simple-particle-system.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "simulate",
+    "slug": "smoke-particle-system",
+    "name": "Smoke Particle System",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/simulate/Smoke_Particle_System/Smoke_Particle_System.js",
+    "thumb": "smoke-particle-system.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "vectors",
+    "slug": "acceleration-with-vectors",
+    "name": "Acceleration With Vectors",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/vectors/Acceleration_With_Vectors/Acceleration_With_Vectors.js",
+    "thumb": "acceleration-with-vectors.png",
+    "placeholder": false
+  },
+  {
+    "section": "Topics",
+    "category": "vectors",
+    "slug": "vector-math",
+    "name": "Vector Math",
+    "js_path": "/home/pep/Projects/processing-cpp.github.io/assets/examples_js/Topics/vectors/Vector_Math/Vector_Math.js",
+    "thumb": "vector-math.png",
     "placeholder": false
   }
 ]

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-
 import os, re, json
-
 
 EXAMPLES_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples"
 EXAMPLES_JS_ROOT = "/home/pep/Projects/processing-cpp.github.io/assets/examples_js"
@@ -277,14 +274,14 @@ def build_examples_gallery(manifest, sections):
     inside it, each example shown as a clickable card with its
     thumbnail -- grouped and ordered the same way the sidebar does."""
     if not manifest:
-        return '<div class="welcome"><h1>Examples</h1><p>Short programs exploring the basics of creative coding with C++ Mode. Select an example from the left.</p></div>'
+        return '<div class="welcome"><h1>Examples</h1></div>'
 
-    thumb_by_slug = {}
+    thumb_by_key = {}
     for m in manifest:
-        # examples_js uses Title_Case folder names -> slug is lowercased/dashed
-        # elsewhere in this script via example.replace("_","-").lower(), so
-        # match on that same derived slug to look the thumbnail up per example.
-        thumb_by_slug[m["slug"]] = m
+        # Key on (section, slug) so Basics and Topics can have same-named
+        # examples without one overwriting the other in the lookup table.
+        key = (m.get("section", "Basics"), m["slug"])
+        thumb_by_key[key] = m
 
     section_blocks = []
     for section_name, section_data in sections.items():
@@ -292,9 +289,9 @@ def build_examples_gallery(manifest, sections):
         for cat, examples in section_data.items():
             cards = []
             for ex in examples:
-                thumb = thumb_by_slug.get(ex["slug"])
+                thumb = thumb_by_key.get((section_name, ex["slug"]))
                 if thumb:
-                    thumb_src = f'../assets/examples_thumbs/{thumb["category"]}/{thumb["thumb"]}'
+                    thumb_src = f'../assets/examples_thumbs/{thumb.get("section", "Basics")}/{thumb["category"]}/{thumb["thumb"]}'
                 else:
                     thumb_src = ""  # no thumbnail generated yet for this example
                 img_html = (
@@ -318,8 +315,7 @@ def build_examples_gallery(manifest, sections):
         )
 
     return (
-        '<div class="gallery-intro"><h1>Examples</h1>'
-        "<p>Short programs exploring the basics of creative coding with C++ Mode.</p></div>"
+        '<div class="gallery-intro"><h1>Examples</h1></div>'
         + "".join(section_blocks)
     )
 

@@ -64,7 +64,23 @@
   </div>
   <div class="content">
     <h1>Pattern</h1>
-    
+    <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+    createCanvas(640, 360);
+    background(102);
+}
+
+function draw() {
+    let fromX = mouseX - mouseDX;
+    let fromY = mouseY - mouseDY;
+    variableEllipse(mouseX, mouseY, fromX, fromY);
+}
+
+function variableEllipse(x, y, px, py) {
+    let speed = abs(x - px) + abs(y - py);
+    stroke(speed);
+    ellipse(x, y, speed, speed);
+}<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">
         <span>pattern.pde</span>

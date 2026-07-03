@@ -64,7 +64,32 @@
   </div>
   <div class="content">
     <h1>Sequential</h1>
-    
+    <div class="preview-wrap"><iframe id="sketch-frame" width="640" height="360"></iframe></div>
+<script>(function(){const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let numFrames = 12;
+let currentFrame = 0;
+let images = [];
+
+function setup() {
+    createCanvas(640, 360);
+    frameRate(24);
+    images = [];
+    for (let i = 0; i < numFrames; i++) {
+        let name = "PT_anim" + nf(i, 4) + ".gif";
+        images.push(loadImage(name));
+    }
+}
+
+function draw() {
+    background(0);
+    currentFrame = (currentFrame + 1) % numFrames;
+    let offset = 0;
+    for (let x = -100; x < width; x += images[0].width) {
+        image(images[(currentFrame + offset) % numFrames], x, -20);
+        offset += 2;
+        image(images[(currentFrame + offset) % numFrames], x, height / 2);
+        offset += 2;
+    }
+}<\/script></body></html>`);doc.close();})();</script>
     <div class="code-block">
       <div class="code-header">
         <span>sequential.pde</span>

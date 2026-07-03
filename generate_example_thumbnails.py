@@ -14,10 +14,13 @@ Usage:
     python3 generate_example_thumbnails.py
 
 Reads every example .js file from:
-    /home/pep/Projects/processing-cpp.github.io/assets/examples_js/Basics/<category>/<Example_Name>/<Example_Name>.js
+    /home/pep/Projects/processing-cpp.github.io/assets/examples_js/<Section>/<category>/<Example_Name>/<Example_Name>.js
+
+    Scans all top-level sections (Basics, Topics, etc.) automatically.
+    Sections with no .js files are silently skipped.
 
 Writes one PNG per example to:
-    /home/pep/Projects/processing-cpp.github.io/assets/examples_thumbs/<category>/<example-slug>.png
+    /home/pep/Projects/processing-cpp.github.io/assets/examples_thumbs/<Section>/<category>/<example-slug>.png
 
 Each sketch renders at its OWN actual size (read from its createCanvas/size
 call, same convention regen.py already uses), not forced into a square --
@@ -55,7 +58,7 @@ from PIL import Image
 import io
 
 REPO_ROOT = "/home/pep/Projects/processing-cpp.github.io"
-BASE_JS = os.path.join(REPO_ROOT, "assets/examples_js/Basics")
+JS_ROOT = os.path.join(REPO_ROOT, "assets/examples_js")
 OUT_DIR = os.path.join(REPO_ROOT, "assets/examples_thumbs")
 ASSETS_DIR = os.path.join(REPO_ROOT, "assets")
 
@@ -211,28 +214,35 @@ def strip_comment(code):
 
 
 def discover_examples():
-    """Walk BASE_JS and return a list of {category, slug, name, js_path}."""
+    """Walk JS_ROOT and return a list of {section, category, slug, name, js_path}
+    for every example found across all sections (Basics, Topics, etc.).
+    Sections with no real .js files are silently skipped, same as regen.py."""
     examples = []
-    if not os.path.isdir(BASE_JS):
-        print(f"ERROR: {BASE_JS} not found.")
+    if not os.path.isdir(JS_ROOT):
+        print(f"ERROR: {JS_ROOT} not found.")
         return examples
-    for cat in sorted(os.listdir(BASE_JS)):
-        cat_path = os.path.join(BASE_JS, cat)
-        if not os.path.isdir(cat_path):
+    for section in sorted(os.listdir(JS_ROOT)):
+        section_path = os.path.join(JS_ROOT, section)
+        if not os.path.isdir(section_path):
             continue
-        for example in sorted(os.listdir(cat_path)):
-            ex_path = os.path.join(cat_path, example)
-            if not os.path.isdir(ex_path):
+        for cat in sorted(os.listdir(section_path)):
+            cat_path = os.path.join(section_path, cat)
+            if not os.path.isdir(cat_path):
                 continue
-            js_file = os.path.join(ex_path, example + ".js")
-            if not os.path.exists(js_file):
-                continue
-            examples.append({
-                "category": cat,
-                "slug": example.replace("_", "-").lower(),
-                "name": example.replace("_", " "),
-                "js_path": js_file,
-            })
+            for example in sorted(os.listdir(cat_path)):
+                ex_path = os.path.join(cat_path, example)
+                if not os.path.isdir(ex_path):
+                    continue
+                js_file = os.path.join(ex_path, example + ".js")
+                if not os.path.exists(js_file):
+                    continue
+                examples.append({
+                    "section": section,
+                    "category": cat,
+                    "slug": example.replace("_", "-").lower(),
+                    "name": example.replace("_", " "),
+                    "js_path": js_file,
+                })
     return examples
 
 
@@ -438,7 +448,7 @@ def main():
             browser = p.chromium.launch()
 
             for ex in examples:
-                cat_out_dir = os.path.join(OUT_DIR, ex["category"])
+                cat_out_dir = os.path.join(OUT_DIR, ex["section"], ex["category"])
                 os.makedirs(cat_out_dir, exist_ok=True)
                 out_path = os.path.join(cat_out_dir, ex["slug"] + ".png")
 
