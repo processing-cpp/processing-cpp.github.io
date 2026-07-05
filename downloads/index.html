@@ -70,6 +70,9 @@
     .dl-btn-primary:hover { background: #d4a300; }
     .dl-btn-secondary { background: #f0f0f0; color: #444; border: 1px solid #e0e0e0; }
     .dl-btn-secondary:hover { background: #e6e6e6; }
+    .dl-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .dl-howto { font-size: 13px; color: #777; border-bottom: 1px solid #ccc; padding-bottom: 1px; }
+    .dl-howto:hover { color: #111; border-bottom-color: #111; }
 
     .vscode-note { border-top: 1px solid #e0e0e0; padding-top: 1.75rem; margin-top: 1rem; }
     .vscode-note p { margin-bottom: 0.5rem; }
@@ -129,12 +132,18 @@
       <div class="download-card">
         <h3>Drag-and-Drop</h3>
         <p>For projects with no existing build system, or compiling a single file directly with <code>g++</code>.</p>
-        <a class="dl-btn dl-btn-primary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-dragdrop.zip">Download</a>
+        <div class="dl-actions">
+          <a class="dl-btn dl-btn-primary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-dragdrop.zip">Download</a>
+          <a class="dl-howto" href="/downloads/dragdrop-setup.html">How to use?</a>
+        </div>
       </div>
       <div class="download-card">
         <h3>CMake</h3>
         <p>For projects that already use CMake, or want the engine wired up as a library target.</p>
-        <a class="dl-btn dl-btn-secondary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-cmake.zip">Download</a>
+        <div class="dl-actions">
+          <a class="dl-btn dl-btn-secondary" href="https://github.com/processing-cpp/processing.cpp/releases/latest/download/processing-cpp-cmake.zip">Download</a>
+          <a class="dl-howto" href="/downloads/cmake-setup.html">How to use?</a>
+        </div>
       </div>
     </div>
 

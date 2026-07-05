@@ -461,13 +461,17 @@ def update_homepage_examples(repo_root, sections):
     for canvas_id, ex in zip(canvas_ids, picks):
         iframe_html = make_preview_iframe(ex["js"], canvas_id, HOMEPAGE_PREVIEW_SIZE)
         card_re = re.compile(
-            rf'<canvas class="example-canvas" id="{canvas_id}"></canvas>\s*'
-            rf'<div class="example-info"><h3>[^<]*</h3><p>[^<]*</p></div>'
+            rf'<a class="example-card"[^>]*id="card{canvas_ids.index(canvas_id)+1}"[^>]*>\\s*'
+            rf'<canvas class="example-canvas" id="{canvas_id}"></canvas>\\s*'
+            rf'<div class="example-info"><h3>[^<]*</h3><p>[^<]*</p></div>\\s*'
+            rf'</a>'
         )
         replacement = (
-            f"{iframe_html}\n"
+            f'<a class="example-card" href="/examples/{ex["slug"]}.html" id="card{canvas_ids.index(canvas_id)+1}">\n'
+            f"          {iframe_html}\n"
             f'          <div class="example-info"><h3>{ex["name"]}</h3>'
-            f'<p>{ex["category"]} example</p></div>'
+            f'<p>{ex["category"]} example</p></div>\n'
+            f'        </a>'
         )
         html, n = card_re.subn(replacement, html, count=1)
         if n == 0:
