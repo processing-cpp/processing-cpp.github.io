@@ -132,9 +132,9 @@ add_subdirectory(processing-cpp)
 add_executable(MySketch main.cpp)
 target_link_libraries(MySketch PRIVATE processing_cpp)</code></pre>
 
-      <h2>Step 8 Open MSYS2 MinGW 64-bit and navigate to your project</h2>
-      <div class="warning-box"><strong>Important:</strong> Use MSYS2 MinGW 64-bit, not PowerShell or Command Prompt. The prompt should say MINGW64.</div>
-      <pre><code>cd /c/Users/YourName/Desktop/MySketch</code></pre>
+      <h2>Step 8 Open VS Code and the terminal</h2>
+      <p>Open VS Code, go to <strong>File → Open Folder</strong> and select your <code>MySketch</code> folder. Open the integrated terminal with <code>Ctrl+`</code> and switch it to <strong>MSYS2 / MinGW64</strong> using the dropdown arrow next to the <code>+</code>.</p>
+      <div class="warning-box"><strong>Important:</strong> Use the MinGW64 terminal, not PowerShell. The prompt should say MINGW64.</div>
 
       <h2>Step 9 Configure</h2>
       <pre><code>cmake -B build -G "MinGW Makefiles"</code></pre>
@@ -202,10 +202,9 @@ cmake --build build
     </div>
 
     <div class="next-steps">
-      <a href="/downloads/dragdrop-setup.html">Want something simpler? Try Drag-and-Drop &rarr;</a>
-      <a href="/downloads/vscode.html">Using VS Code? &rarr;</a>
-      <a href="/reference">Browse the reference &rarr;</a>
-      <a href="/examples">See more examples &rarr;</a>
+      <a href="/downloads/dragdrop-setup.html">Want something simpler? Try Drag-and-Drop →</a>
+      <a href="/reference">Browse the reference →</a>
+      <a href="/examples">See more examples →</a>
     </div>
   </div>
 </div>

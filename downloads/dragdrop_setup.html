@@ -126,15 +126,11 @@ int main() {
         Everything in the <a class="ref-link" href="/reference">reference</a> works the same way.
       </p>
 
-      <h2>Step 5 Open the right terminal</h2>
-      <p>Click Start and search for <strong>MSYS2 MinGW 64-bit</strong>. Open it. The prompt or title bar should say <code>MINGW64</code>.</p>
-      <div class="warning-box"><strong>Important:</strong> Do NOT use PowerShell or Command Prompt. They don't have <code>g++</code> and the build will fail immediately. It has to be MSYS2 MinGW 64-bit.</div>
+      <h2>Step 5 Open VS Code and the terminal</h2>
+      <p>Open VS Code, go to <strong>File → Open Folder</strong> and select your <code>MySketch</code> folder. Then open the integrated terminal with <code>Ctrl+`</code>.</p>
+      <div class="warning-box"><strong>Important:</strong> The default terminal in VS Code on Windows is PowerShell, which doesn't have <code>g++</code>. Click the dropdown arrow next to the <code>+</code> in the terminal panel and select <strong>MSYS2 / MinGW64</strong> instead. The prompt should say <code>MINGW64</code>.</div>
 
-      <h2>Step 6 Navigate to your project</h2>
-      <pre><code>cd /c/Users/YourName/Desktop/MySketch</code></pre>
-      <p>Replace <code>YourName</code> and <code>Desktop</code> with wherever you actually saved the folder.</p>
-
-      <h2>Step 7 Run it</h2>
+      <h2>Step 6 Run it</h2>
       <pre><code>./processing-cpp/run.bat</code></pre>
       <p>The first run takes about 15 seconds because it's compiling the engine. After that a window opens with an orange circle that follows your mouse. Every run after the first is much faster since the engine is already built.</p>
 
@@ -161,8 +157,8 @@ int main() {
       <h2>Steps 2-4 Get the package and write your sketch</h2>
       <p>Same as Windows: download <strong>processing-cpp-dragdrop.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, and write <code>main.cpp</code> with the same code as above inside it.</p>
 
-      <h2>Step 5 Navigate to your project</h2>
-      <pre><code>cd ~/Desktop/MySketch</code></pre>
+      <h2>Step 5 Open VS Code and the terminal</h2>
+      <p>Open VS Code, go to <strong>File → Open Folder</strong> and select your <code>MySketch</code> folder. Open the integrated terminal with <code>Ctrl+`</code> (or <code>Cmd+`</code> on macOS).</p>
 
       <h2>Step 6 Run it</h2>
       <pre><code>./processing-cpp/run.sh</code></pre>
@@ -192,10 +188,9 @@ sudo pacman -S gcc glfw glew</code></pre>
     </div>
 
     <div class="next-steps">
-      <a href="/downloads/cmake-setup.html">Prefer CMake? See the CMake setup &rarr;</a>
-      <a href="/downloads/vscode.html">Using VS Code? &rarr;</a>
-      <a href="/reference">Browse the reference &rarr;</a>
-      <a href="/examples">See more examples &rarr;</a>
+      <a href="/downloads/cmake-setup.html">Prefer CMake? See the CMake setup →</a>
+      <a href="/reference">Browse the reference →</a>
+      <a href="/examples">See more examples →</a>
     </div>
   </div>
 </div>
