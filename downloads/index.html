@@ -34,7 +34,8 @@
     .mode-callout h2 { margin-top: 0; font-size: 1.15rem; }
     .mode-callout p { color: #6b5a1f; }
     .mode-callout .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
-    .shot-placeholder {
+    .shot-placeholder { display: none; }
+    .shot-placeholder.visible {
       background: #fff;
       border: 1px dashed #d8c27a;
       border-radius: 8px;
@@ -50,7 +51,6 @@
     }
     .shot-placeholder .shot-filename { font-family: "SF Mono","Fira Code",monospace; font-weight: 700; margin-bottom: 0.35rem; }
     .shot-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; }
-    .shot-img[hidden] { display: none; }
     .mode-callout .step-list { color: #6b5a1f; font-size: 13.5px; line-height: 1.9; margin: 0 0 1rem 1.1rem; }
 
     /* Header library downloads */
@@ -105,16 +105,16 @@
       <div class="shots">
         <div>
           <img class="shot-img" src="../assets/screenshot1.png" alt="Mode dropdown open, &quot;Add Mode...&quot; highlighted"
-               onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
-          <div class="shot-placeholder" hidden>
+               onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+          <div class="shot-placeholder">
             <span class="shot-filename">assets/screenshot1.png</span>
             <span>Mode dropdown open, "Add Mode..." highlighted</span>
           </div>
         </div>
         <div>
           <img class="shot-img" src="../assets/screenshot2.png" alt="Contribution Manager showing C++ Mode"
-               onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
-          <div class="shot-placeholder" hidden>
+               onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+          <div class="shot-placeholder">
             <span class="shot-filename">assets/screenshot2.png</span>
             <span>Contribution Manager showing C++ Mode</span>
           </div>
