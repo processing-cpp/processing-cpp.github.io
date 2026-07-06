@@ -96,9 +96,9 @@ def build_page_sidebar(active_id=""):
         key = section_name.lower()
         # First section starts open, the rest start collapsed -- matches
         # the original Basics-open/Topics-collapsed behavior.
-        open_by_default = (i == 0)
-        arrow = "▾" if open_by_default else "▸"
-        display = "block" if open_by_default else "none"
+        open_by_default = True
+        arrow = "▾"
+        display = "block"
         s += (
             f'<div class="section-header" onclick="toggleSection(\'{key}\')">'
             f'<span>{section_name}</span><span class="arrow" id="{key}-arrow">{arrow}</span></div>'
@@ -443,7 +443,7 @@ def pick_random_homepage_examples(sections, count=3):
     return random.sample(pool, count)
 
 
-def update_homepage_examples(repo_root, sections):
+def update_homepage_examples(repo_root, sections, fixed_picks=None):
     index_path = os.path.join(repo_root, "index.html")
     if not os.path.exists(index_path):
         print(f"WARNING: {index_path} not found, skipping homepage example update.")
@@ -452,32 +452,35 @@ def update_homepage_examples(repo_root, sections):
     with open(index_path) as f:
         html = f.read()
 
-    picks = pick_random_homepage_examples(sections, count=3)
+    picks = fixed_picks if fixed_picks is not None else pick_random_homepage_examples(sections, count=3)
     if len(picks) < 3:
         print(f"WARNING: only found {len(picks)} eligible examples for the homepage, expected 3.")
 
     canvas_ids = ["c1", "c2", "c3"]
     replaced_count = 0
+    card_num = 1
     for canvas_id, ex in zip(canvas_ids, picks):
         iframe_html = make_preview_iframe(ex["js"], canvas_id, HOMEPAGE_PREVIEW_SIZE)
-        card_re = re.compile(
-            rf'<a class="example-card"[^>]*id="card{canvas_ids.index(canvas_id)+1}"[^>]*>\\s*'
-            rf'<canvas class="example-canvas" id="{canvas_id}"></canvas>\\s*'
-            rf'<div class="example-info"><h3>[^<]*</h3><p>[^<]*</p></div>\\s*'
-            rf'</a>'
-        )
         replacement = (
-            f'<a class="example-card" href="/examples/{ex["slug"]}.html" id="card{canvas_ids.index(canvas_id)+1}">\n'
+            f'<a class="example-card" href="/examples/{ex["slug"]}.html" id="card{card_num}">\n'
             f"          {iframe_html}\n"
             f'          <div class="example-info"><h3>{ex["name"]}</h3>'
             f'<p>{ex["category"]} example</p></div>\n'
             f'        </a>'
+        )
+        # Match either the original <canvas> card or an already-replaced <iframe> card
+        card_re = re.compile(
+            rf'<a\s+class="example-card"[^>]*id="card{card_num}"[^>]*>'
+            rf'.*?'
+            rf'</a>',
+            re.DOTALL
         )
         html, n = card_re.subn(replacement, html, count=1)
         if n == 0:
             print(f"WARNING: could not find homepage card markup for {canvas_id}, skipping.")
         else:
             replaced_count += 1
+        card_num += 1
 
     # Only remove the old inline <script>...new p5(...)...</script> block
     # if every card was actually replaced with a working iframe -- if the
@@ -500,4 +503,55 @@ def update_homepage_examples(repo_root, sections):
     print(f"Updated homepage with {len(picks)} random example preview(s): " + ", ".join(p["name"] for p in picks))
 
 
-update_homepage_examples(os.path.dirname(out_dir), sections)
+def find_examples_by_slug(sections, slugs):
+    """Look up specific examples by slug for the --examples flag.
+    Slugs are matched case-insensitively so you don't have to worry
+    about exact capitalisation. Warns if a slug isn't found."""
+    all_examples = {
+        ex["slug"]: {**ex, "category": cat.replace("_", " ").title()}
+        for section_data in sections.values()
+        for cat, examples in section_data.items()
+        for ex in examples
+    }
+    result = []
+    for slug in slugs:
+        match = all_examples.get(slug) or all_examples.get(slug.lower())
+        if match:
+            result.append(match)
+        else:
+            # Try partial match on name too
+            fuzzy = [e for s, e in all_examples.items() if slug.lower() in s]
+            if fuzzy:
+                result.append(fuzzy[0])
+                print(f"NOTE: '{slug}' matched '{fuzzy[0]['slug']}'")
+            else:
+                print(f"WARNING: could not find example with slug '{slug}' -- skipping.")
+                print(f"  Available slugs: {', '.join(sorted(all_examples.keys()))}")
+    return result
+
+
+import argparse
+parser = argparse.ArgumentParser(description="Rebuild examples pages and update the homepage.")
+parser.add_argument(
+    "--examples",
+    nargs="+",
+    metavar="SLUG",
+    help=(
+        "Slugs of exactly the examples to show on the homepage, e.g. "
+        "--examples sine-wave noise-2d flocking. "
+        "Use the hyphenated lowercase name (same as the URL). "
+        "If omitted, 3 examples are picked at random as usual."
+    ),
+)
+args = parser.parse_args()
+
+if args.examples:
+    picked = find_examples_by_slug(sections, args.examples)
+    print(f"Found {len(picked)} of {len(args.examples)} requested: {[p['slug'] for p in picked]}")
+    if len(picked) < 3:
+        print(f"WARNING: only {len(picked)} of the requested examples were found -- filling the rest randomly.")
+        picked += pick_random_homepage_examples(sections, count=3 - len(picked))
+    picked = picked[:3]
+    update_homepage_examples(os.path.dirname(out_dir), sections, fixed_picks=picked)
+else:
+    update_homepage_examples(os.path.dirname(out_dir), sections)
