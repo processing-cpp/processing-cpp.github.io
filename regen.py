@@ -163,6 +163,10 @@ shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
     .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
     .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    .footer-contact { margin-top: 0.4rem; font-size: 12px; }
+    .footer-contact a { color: #aaa; border-bottom: 1px solid transparent; }
+    .footer-contact a:hover { color: #111; border-bottom-color: #111; }
+    .footer-sep { color: #ccc; margin: 0 0.5rem; }
     @media (max-width: 768px) {
       .hamburger { display: block; }
       .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
@@ -247,7 +251,14 @@ for section_name, section_data in sections.items():
     </div>
   </div>
 </div>
-<footer><p>C++ Mode for Processing</p></footer>
+<footer>
+  <p>C++ Mode for Processing</p>
+  <p class="footer-contact">
+    <a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://discord.gg/vShSrPegJT">Discord</a>
+  </p>
+</footer>
 <script>{shared_js}</script>
 <script src="../assets/nav.js"></script>
 </body>
@@ -368,7 +379,14 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
   </div>
   <div class="content">{gallery_html}</div>
 </div>
-<footer><p>C++ Mode for Processing</p></footer>
+<footer>
+  <p>C++ Mode for Processing</p>
+  <p class="footer-contact">
+    <a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://discord.gg/vShSrPegJT">Discord</a>
+  </p>
+</footer>
 <script>{shared_js}</script>
 <script src="../assets/nav.js"></script>
 </body>
@@ -500,7 +518,8 @@ def update_homepage_examples(repo_root, sections, fixed_picks=None):
     with open(index_path, "w") as f:
         f.write(html)
 
-    print(f"Updated homepage with {len(picks)} random example preview(s): " + ", ".join(p["name"] for p in picks))
+    label = "pinned" if fixed_picks is not None else "random"
+    print(f"Updated homepage with {len(picks)} {label} example preview(s): " + ", ".join(p["name"] for p in picks))
 
 
 def find_examples_by_slug(sections, slugs):

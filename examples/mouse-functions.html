@@ -37,6 +37,10 @@
     .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
     .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+    .footer-contact { margin-top: 0.4rem; font-size: 12px; }
+    .footer-contact a { color: #aaa; border-bottom: 1px solid transparent; }
+    .footer-contact a:hover { color: #111; border-bottom-color: #111; }
+    .footer-sep { color: #ccc; margin: 0 0.5rem; }
     @media (max-width: 768px) {
       .hamburger { display: block; }
       .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
@@ -201,7 +205,14 @@ void mouseReleased() {
     </div>
   </div>
 </div>
-<footer><p>C++ Mode for Processing</p></footer>
+<footer>
+  <p>C++ Mode for Processing</p>
+  <p class="footer-contact">
+    <a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://discord.gg/vShSrPegJT">Discord</a>
+  </p>
+</footer>
 <script>function copyCode() {
   navigator.clipboard.writeText(document.getElementById('code-pre').innerText).then(() => {
     const btn = document.querySelector('.copy-btn');
