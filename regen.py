@@ -151,7 +151,7 @@ shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
     .category a:hover { color: #111; background: #f8f8f8; }
     .category a.active { color: #111; font-weight: 500; background: #f4f4f4; }
     .content { flex: 1; padding: 3rem 4rem; max-width: 900px; }
-    .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; color: #e8b400; }
     .preview-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; display: inline-block; }
     .preview-wrap iframe { display: block; border: none; }
     .code-block { background: #f8f8f8; border-radius: 8px; overflow: hidden; }
@@ -322,12 +322,12 @@ def build_examples_gallery(manifest, sections):
 
 gallery_css = '''
     .gallery-intro { margin-bottom: 2.5rem; }
-    .gallery-intro h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .gallery-intro h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; color: #e8b400; }
     .gallery-intro p { color: #555; }
     .gallery-section-group { margin-bottom: 2rem; }
-    .gallery-section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #111; }
+    .gallery-section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #111; color: #e8b400; }
     .gallery-section { margin-bottom: 3rem; }
-    .gallery-section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; }
+    .gallery-section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; color: #b8860b; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.25rem; }
     .gallery-card { display: block; }
     .gallery-thumb { width: 100%; background: #111; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; line-height: 0; }
