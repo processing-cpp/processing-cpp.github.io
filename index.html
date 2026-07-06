@@ -194,44 +194,81 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/tree.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let theta;
-
-function setup() {
+        <a class="example-card" href="/examples/mandelbrot.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
     createCanvas(300,300);
-}
+    pixelDensity(1);
+    noLoop();
+    background(255);
 
-function draw() {
-    background(0);
-    frameRate(30);
-    stroke(255);
-    let a = (mouseX / width) * 90;
-    theta = radians(a);
-    translate(width / 2, height);
-    line(0, 0, 0, -120);
-    translate(0, -120);
-    branch(120);
-}
+    let w = 4;
+    let h = (w * height) / width;
 
-function branch(h) {
-    h *= 0.66;
-    if (h > 2) {
-        push();
-        rotate(theta);
-        line(0, 0, 0, -h);
-        translate(0, -h);
-        branch(h);
-        pop();
+    let xmin = -w / 2;
+    let ymin = -h / 2;
 
-        push();
-        rotate(-theta);
-        line(0, 0, 0, -h);
-        translate(0, -h);
-        branch(h);
-        pop();
+    loadPixels();
+
+    let maxiterations = 100;
+
+    let xmax = xmin + w;
+    let ymax = ymin + h;
+
+    let dx = (xmax - xmin) / width;
+    let dy = (ymax - ymin) / height;
+
+    let y = ymin;
+    for (let j = 0; j < height; j++) {
+        let x = xmin;
+        for (let i = 0; i < width; i++) {
+
+            let a = x;
+            let b = y;
+            let n = 0;
+            let maxAbs = 4.0;
+            let absOld = 0.0;
+            let convergeNumber = maxiterations;
+
+            while (n < maxiterations) {
+                let aa = a * a;
+                let bb = b * b;
+                let absVal = sqrt(aa + bb);
+                if (absVal > maxAbs) {
+                    let diffToLast = absVal - absOld;
+                    let diffToMax  = maxAbs - absOld;
+                    convergeNumber = n + diffToMax / diffToLast;
+                    break;
+                }
+                let twoab = 2.0 * a * b;
+                a = aa - bb + x;
+                b = twoab + y;
+                n++;
+                absOld = absVal;
+            }
+
+            let idx = (i + j * width) * 4;
+            if (n == maxiterations) {
+                pixels[idx]     = 0;
+                pixels[idx + 1] = 0;
+                pixels[idx + 2] = 0;
+                pixels[idx + 3] = 255;
+            } else {
+                let norm = map(convergeNumber, 0, maxiterations, 0, 1);
+                let bright = map(sqrt(norm), 0, 1, 0, 255);
+                pixels[idx]     = bright;
+                pixels[idx + 1] = bright;
+                pixels[idx + 2] = bright;
+                pixels[idx + 3] = 255;
+            }
+            x += dx;
+        }
+        y += dy;
     }
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Tree</h3><p>Fractals And L-Systems example</p></div>
+    updatePixels();
+}
+
+function draw() {}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Mandelbrot</h3><p>Fractals And L-Systems example</p></div>
         </a>
         <a class="example-card" href="/examples/rotate-push-pop.html" id="card2">
           <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let a = 0;
