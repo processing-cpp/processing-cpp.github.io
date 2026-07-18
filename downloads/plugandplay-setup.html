@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drag-and-Drop Setup - C++ Mode for Processing</title>
+  <title>Plug and Play Setup - C++ Mode for Processing</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
@@ -16,11 +16,11 @@
     #site-sidebar a:hover { color: #111; }
     #site-sidebar a.active { color: #111; font-weight: 500; }
     .content { flex: 1; padding: 4rem; max-width: 860px; }
-    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem;  color: #e8b400; }
     .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
     .content .back-link { font-size: 13px; color: #888; display: inline-block; margin-bottom: 2rem; }
     .content .back-link:hover { color: #111; }
-    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem;  color: #b8860b; }
     .content h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
     .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
     .content ul, .content ol { color: #444; line-height: 1.9; font-size: 0.95rem; margin: 0 0 1rem 1.25rem; }
@@ -69,7 +69,7 @@
   </div>
   <div class="content">
     <a class="back-link" href="/downloads">&larr; Back to Downloads</a>
-    <h1>Drag-and-Drop Setup</h1>
+    <h1>Plug and Play Setup</h1>
     <p class="subtitle">The easiest way to get started. Unzip one folder, write a <code>.cpp</code> file next to it, and run one script. No build system, no configuration.</p>
 
     <p>Pick your operating system:</p>
@@ -87,7 +87,7 @@
       <p>Press Enter again when it asks to confirm. Wait for it to finish, then close that window.</p>
 
       <h2>Step 2 Get the package</h2>
-      <p>Download <strong>processing-cpp-dragdrop.zip</strong> from the <a href="/downloads" style="border-bottom:1px solid #ddd;">Downloads page</a>. Right-click it and choose Extract All. You'll get a folder called <code>processing-cpp-dragdrop</code>. rename it to <code>processing-cpp</code>.</p>
+      <p>Download <strong>processing-cpp-plugandplay.zip</strong> from the <a href="/downloads" style="border-bottom:1px solid #ddd;">Downloads page</a>. Right-click it and choose Extract All. You'll get a folder called <code>processing-cpp-plugandplay</code>. rename it to <code>processing-cpp</code>.</p>
 
       <h2>Step 3 Set up your project folder</h2>
       <p>Create a new empty folder anywhere, call it <code>MySketch</code>. Move the <code>processing-cpp</code> folder into it:</p>
@@ -155,7 +155,7 @@ int main() {
       <pre><code>brew install glfw glew</code></pre>
 
       <h2>Steps 2-4 Get the package and write your sketch</h2>
-      <p>Same as Windows: download <strong>processing-cpp-dragdrop.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, and write <code>main.cpp</code> with the same code as above inside it.</p>
+      <p>Same as Windows: download <strong>processing-cpp-plugandplay.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, and write <code>main.cpp</code> with the same code as above inside it.</p>
 
       <h2>Step 5 Open VS Code and the terminal</h2>
       <p>Open VS Code, go to <strong>File → Open Folder</strong> and select your <code>MySketch</code> folder. Open the integrated terminal with <code>Ctrl+`</code> (or <code>Cmd+`</code> on macOS).</p>
@@ -183,7 +183,7 @@ sudo apt install g++ libglfw3-dev libglew-dev
 sudo pacman -S gcc glfw glew</code></pre>
 
       <h2>Steps 2 onwards same as macOS</h2>
-      <p>Download <strong>processing-cpp-dragdrop.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, write <code>main.cpp</code> with the same code, navigate to the folder, then run:</p>
+      <p>Download <strong>processing-cpp-plugandplay.zip</strong>, rename the extracted folder to <code>processing-cpp</code>, create a <code>MySketch</code> folder, write <code>main.cpp</code> with the same code, navigate to the folder, then run:</p>
       <pre><code>./processing-cpp/run.sh</code></pre>
     </div>
 

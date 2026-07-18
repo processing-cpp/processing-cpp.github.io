@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E0003: PShader needs to be a pointer - Processing for C++</title>
+  <title>E0005: ArrayList.get() returns a pointer, not a value - Processing for C++</title>
   <style>* { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
@@ -48,21 +48,21 @@
 <div class="layout">
   <div class="sidebar-outer">
     <div id="site-sidebar"></div>
-    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="active">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="">E0004 &middot; Java-style array declarations aren&#x27;t supported</a><a href="E0005.html" class="">E0005 &middot; ArrayList.get() returns a pointer, not a value</a><a href="E0006.html" class="">E0006 &middot; Java static access syntax not valid in C++</a></div>
+    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="">E0004 &middot; Java-style array declarations aren&#x27;t supported</a><a href="E0005.html" class="active">E0005 &middot; ArrayList.get() returns a pointer, not a value</a><a href="E0006.html" class="">E0006 &middot; Java static access syntax not valid in C++</a></div>
   </div>
   <div class="content">
-    <h1>E0003: PShader needs to be a pointer</h1>
+    <h1>E0005: ArrayList.get() returns a pointer, not a value</h1>
     <span class="err-code">Compiler Error</span>
     <h2>What it means</h2>
-    <p>A PShader holds onto a compiled program running on the graphics card. Copying isn&#x27;t allowed for the same reason as PGraphics and PImage.</p>
+    <p>ArrayList&lt;UserType&gt; stores objects as pointers (T*) internally, which matches Java&#x27;s reference semantics at the C++ level. That means .get() hands back a T*, not a copy of the object. Trying to assign it directly to a T variable won&#x27;t compile because you can&#x27;t copy a pointer into a plain object.</p>
     <h2>How to fix it</h2>
-    <p>Use PShader* instead of PShader.</p>
-    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">PShader shader;
-shader = loadShader(&quot;frag.glsl&quot;);
-shader(shader);</div></div><div><span class="code-label after">After</span><div class="code-block after">PShader* shader;
-shader = loadShader(&quot;frag.glsl&quot;);
-shader(shader);</div></div></div>
-    <h2>Notes</h2><p>Use -&gt; for calling methods on the shader itself, like shader-&gt;set(...).</p>
+    <p>Declare the variable as a pointer and use arrow syntax to access its fields and methods.</p>
+    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">ArrayList&lt;Particle&gt; particles;
+Particle p = particles.get(0);
+p.update();</div></div><div><span class="code-label after">After</span><div class="code-block after">ArrayList&lt;Particle&gt; particles;
+Particle* p = particles.get(0);
+p-&gt;update();</div></div></div>
+    <h2>Notes</h2><p>This mirrors how Java actually works under the hood. When you write Particle p = list.get(0) in Java, p is a reference to the original object, not a copy of it. CppMode maps that directly to a C++ pointer so the same mutation and lifetime behaviour applies. Adding objects works with either particles.add(Particle(x, y)) or particles.add(new Particle(x, y)) — CppMode handles heap allocation in both cases. Calling particles.remove(0) removes the pointer from the list but does not delete the object. Related: E0004.</p>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

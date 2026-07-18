@@ -97,3 +97,60 @@
     filled with zeros, it has a fixed length, and reading or writing
     past the end of it throws a clear error instead of silently
     corrupting memory.
+
+- code: E0005
+  title: ArrayList.get() returns a pointer, not a value
+  type: Compiler Error
+  summary: >
+    ArrayList<UserType> stores objects as pointers (T*) internally, which
+    matches Java's reference semantics at the C++ level. That means .get()
+    hands back a T*, not a copy of the object. Trying to assign it directly
+    to a T variable won't compile because you can't copy a pointer into a
+    plain object.
+  fix: >
+    Declare the variable as a pointer and use arrow syntax to access its
+    fields and methods.
+  before: |
+    ArrayList<Particle> particles;
+    Particle p = particles.get(0);
+    p.update();
+  after: |
+    ArrayList<Particle> particles;
+    Particle* p = particles.get(0);
+    p->update();
+  notes: >
+    This mirrors how Java actually works under the hood. When you write
+    Particle p = list.get(0) in Java, p is a reference to the original
+    object, not a copy of it. CppMode maps that directly to a C++ pointer
+    so the same mutation and lifetime behaviour applies. Adding objects
+    works with either particles.add(Particle(x, y)) or
+    particles.add(new Particle(x, y)) — CppMode handles heap allocation
+    in both cases. Calling particles.remove(0) removes the pointer from
+    the list but does not delete the object. Related: E0004.
+- code: E0006
+  title: Java static access syntax not valid in C++
+  type: Compiler Error
+  summary: >
+    Writing ClassName.member() or ClassName.CONSTANT the way you would in Java
+    doesn't work in C++ for static access. The dot operator in C++ means
+    instance member access, not static. CppMode detects this pattern for
+    common wrapper classes and any uppercase-named class it can identify as
+    static-only.
+  fix: >
+    Use :: instead of . when accessing static methods or fields on a class name.
+  before: |
+    int n = Integer.parseInt("42");
+    float f = Float.parseFloat("3.14");
+    float pi = Math.PI;
+  after: |
+    int n = Integer::parseInt("42");
+    float f = Float::parseFloat("3.14");
+    float pi = Math::PI;
+  notes: >
+    This covers both method calls and field access. The check applies to
+    known static-only classes: Integer, Float, Double, Long, Boolean,
+    Character, Byte, Short, Math, Arrays, Collections, System, Thread,
+    Runtime, Class, and Objects. It skips known instance types like PImage,
+    PFont, PVector, PShape, and PGraphics even though they start with an
+    uppercase letter. For your own classes, use :: for anything declared
+    static and . only on an actual instance. Related: E0004, E0005.

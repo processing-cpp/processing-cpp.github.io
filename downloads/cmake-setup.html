@@ -16,11 +16,11 @@
     #site-sidebar a:hover { color: #111; }
     #site-sidebar a.active { color: #111; font-weight: 500; }
     .content { flex: 1; padding: 4rem; max-width: 860px; }
-    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .content h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem;  color: #e8b400; }
     .content .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 2.5rem; }
     .content .back-link { font-size: 13px; color: #888; display: inline-block; margin-bottom: 2rem; }
     .content .back-link:hover { color: #111; }
-    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+    .content h2 { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 0.75rem;  color: #b8860b; }
     .content h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
     .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
     .content ul, .content ol { color: #444; line-height: 1.9; font-size: 0.95rem; margin: 0 0 1rem 1.25rem; }
@@ -69,7 +69,7 @@
   <div class="content">
     <a class="back-link" href="/downloads">&larr; Back to Downloads</a>
     <h1>CMake Setup</h1>
-    <p class="subtitle">Use this if your project already uses CMake, or if you want something more structured that scales to many source files. If you just want to get something running fast, try the <a href="/downloads/dragdrop-setup.html" style="border-bottom:1px solid #ddd;">Drag-and-Drop setup</a> first.</p>
+    <p class="subtitle">Use this if your project already uses CMake, or if you want something more structured that scales to many source files. If you just want to get something running fast, try the <a href="/downloads/plugandplay-setup.html" style="border-bottom:1px solid #ddd;">Plug and Play setup</a> first.</p>
 
     <p>Pick your operating system:</p>
     <div class="platform-tabs">
@@ -81,9 +81,9 @@
     <!-- WINDOWS -->
     <div class="platform-section active" id="tab-windows">
       <h2>Steps 1-3 MSYS2 setup</h2>
-      <p>Same as the drag-and-drop guide. If you already did that setup, just also install CMake while you're in the MSYS2 MinGW 64-bit terminal:</p>
+      <p>Same as the plug-and-play guide. If you already did that setup, just also install CMake while you're in the MSYS2 MinGW 64-bit terminal:</p>
       <pre><code>pacman -S --needed mingw-w64-x86_64-cmake</code></pre>
-      <p>If you haven't done that setup yet, <a href="/downloads/dragdrop-setup.html" style="border-bottom:1px solid #ddd;">follow steps 1-3 there first</a>, then come back here.</p>
+      <p>If you haven't done that setup yet, <a href="/downloads/plugandplay-setup.html" style="border-bottom:1px solid #ddd;">follow steps 1-3 there first</a>, then come back here.</p>
 
       <h2>Step 4 Get the CMake package</h2>
       <p>Download <strong>processing-cpp-cmake.zip</strong> from the <a href="/downloads" style="border-bottom:1px solid #ddd;">Downloads page</a>. Extract it. Rename the folder to <code>processing-cpp</code>.</p>
@@ -96,7 +96,7 @@
 └── processing-cpp/    &larr; the folder you extracted</code></pre>
 
       <h2>Step 6 Write main.cpp</h2>
-      <p>Same sketch code as in the drag-and-drop guide:</p>
+      <p>Same sketch code as in the plug-and-play guide:</p>
       <pre><code>#include "Processing.h"
 
 struct Sketch : public Processing::PApplet {
@@ -202,7 +202,7 @@ cmake --build build
     </div>
 
     <div class="next-steps">
-      <a href="/downloads/dragdrop-setup.html">Want something simpler? Try Drag-and-Drop →</a>
+      <a href="/downloads/plugandplay-setup.html">Want something simpler? Try Plug and Play →</a>
       <a href="/reference">Browse the reference →</a>
       <a href="/examples">See more examples →</a>
     </div>
