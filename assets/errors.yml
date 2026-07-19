@@ -154,3 +154,33 @@
     PFont, PVector, PShape, and PGraphics even though they start with an
     uppercase letter. For your own classes, use :: for anything declared
     static and . only on an actual instance. Related: E0004, E0005.
+- code: E0007
+  title: Variable name shadows a Processing type
+  type: Compiler Error
+  summary: >
+    The variable name you used matches a type or name that CppMode pulls into
+    scope automatically. The confirmed case is color — when you write
+    int color = 255, CppMode's type-fixing pass later rewrites the declaration
+    to color color = 255, which is a type-redeclaration error and crashes the
+    build. Even without that rewrite, using color as a variable name in any
+    scope where Processing::color is visible causes ambiguity the compiler
+    can't resolve.
+  fix: >
+    Rename the variable to something that doesn't clash with the Processing
+    API. For color, the usual alternatives are col, clr, or c.
+  before: |
+    int color = 255;
+    fill(color);
+  after: |
+    int col = 255;
+    fill(col);
+  notes: >
+    CppMode uses a global "using namespace Processing" which pulls in
+    everything at once — types like color and PVector, functions like fill,
+    noise, and line, and constants like PI and TWO_PI. In principle any of
+    those names could shadow a variable you define. In practice only color
+    is a confirmed crasher right now, which is why E0007 only flags that one
+    name. If you hit a similar ambiguity with a different name, renaming the
+    variable is always the fix. The long-term solution is scoping the
+    namespace import inside the sketch struct rather than at global scope,
+    but that is a larger engine change. Related: E0005, E0006.

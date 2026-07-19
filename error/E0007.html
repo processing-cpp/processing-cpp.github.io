@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E0002: PImage needs to be a pointer - Processing for C++</title>
+  <title>E0007: Variable name shadows a Processing type - Processing for C++</title>
   <style>* { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; }
     a { color: #111; text-decoration: none; }
@@ -48,21 +48,19 @@
 <div class="layout">
   <div class="sidebar-outer">
     <div id="site-sidebar"></div>
-    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="active">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="">E0004 &middot; Java-style array declarations aren&#x27;t supported</a><a href="E0005.html" class="">E0005 &middot; ArrayList.get() returns a pointer, not a value</a><a href="E0006.html" class="">E0006 &middot; Java static access syntax not valid in C++</a><a href="E0007.html" class="">E0007 &middot; Variable name shadows a Processing type</a></div>
+    <div class="err-sidebar"><div class="err-sidebar-title">Compiler Errors</div><a href="E0001.html" class="">E0001 &middot; PGraphics needs to be a pointer</a><a href="E0002.html" class="">E0002 &middot; PImage needs to be a pointer</a><a href="E0003.html" class="">E0003 &middot; PShader needs to be a pointer</a><a href="E0004.html" class="">E0004 &middot; Java-style array declarations aren&#x27;t supported</a><a href="E0005.html" class="">E0005 &middot; ArrayList.get() returns a pointer, not a value</a><a href="E0006.html" class="">E0006 &middot; Java static access syntax not valid in C++</a><a href="E0007.html" class="active">E0007 &middot; Variable name shadows a Processing type</a></div>
   </div>
   <div class="content">
-    <h1>E0002: PImage needs to be a pointer</h1>
+    <h1>E0007: Variable name shadows a Processing type</h1>
     <span class="err-code">Compiler Error</span>
     <h2>What it means</h2>
-    <p>Just like PGraphics, a PImage holds onto a graphics-card resource (the loaded image&#x27;s texture). Copying isn&#x27;t allowed for the same reason.</p>
+    <p>The variable name you used matches a type or name that CppMode pulls into scope automatically. The confirmed case is color — when you write int color = 255, CppMode&#x27;s type-fixing pass later rewrites the declaration to color color = 255, which is a type-redeclaration error and crashes the build. Even without that rewrite, using color as a variable name in any scope where Processing::color is visible causes ambiguity the compiler can&#x27;t resolve.</p>
     <h2>How to fix it</h2>
-    <p>Use PImage* instead of PImage.</p>
-    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">PImage img;
-img = loadImage(&quot;photo.jpg&quot;);
-image(img, 0, 0);</div></div><div><span class="code-label after">After</span><div class="code-block after">PImage* img;
-img = loadImage(&quot;photo.jpg&quot;);
-image(img, 0, 0);</div></div></div>
-    <h2>Notes</h2><p>image() already accepts the pointer directly, so you only need -&gt; when reading something off the image itself, like img-&gt;width.</p>
+    <p>Rename the variable to something that doesn&#x27;t clash with the Processing API. For color, the usual alternatives are col, clr, or c.</p>
+    <h2>Example</h2><div class="code-pair"><div><span class="code-label before">Before</span><div class="code-block before">int color = 255;
+fill(color);</div></div><div><span class="code-label after">After</span><div class="code-block after">int col = 255;
+fill(col);</div></div></div>
+    <h2>Notes</h2><p>CppMode uses a global &quot;using namespace Processing&quot; which pulls in everything at once — types like color and PVector, functions like fill, noise, and line, and constants like PI and TWO_PI. In principle any of those names could shadow a variable you define. In practice only color is a confirmed crasher right now, which is why E0007 only flags that one name. If you hit a similar ambiguity with a different name, renaming the variable is always the fix. The long-term solution is scoping the namespace import inside the sketch struct rather than at global scope, but that is a larger engine change. Related: E0005, E0006.</p>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
