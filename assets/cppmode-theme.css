@@ -1,0 +1,50 @@
+/* CppMode editor theme -- exact Processing 4 colors from theme.txt */
+.cm-s-cppmode.CodeMirror {
+  background: #ffffff;
+  color: #222222;
+  font-family: 'Source Code Pro', 'Consolas', monospace;
+}
+.cm-s-cppmode .CodeMirror-gutters {
+  background: #f2f2f2;
+  border-right: 1px solid #e0e0e0;
+  color: #aaaaaa;
+}
+.cm-s-cppmode .CodeMirror-cursor { border-left: 2px solid #333; }
+.cm-s-cppmode .CodeMirror-selected { background: #d4e9ff; }
+.cm-s-cppmode .CodeMirror-activeline-background { background: #f5f5f5; }
+.cm-s-cppmode .CodeMirror-matchingbracket { color: #000 !important; background: #d4edda; }
+
+/* function1/function2/function3: #006698 plain */
+.cm-s-cppmode .cm-function2    { color: #006698; }
+/* function4: #006698 bold */
+.cm-s-cppmode .cm-function4    { color: #006698; font-weight: bold; }
+/* keyword1/keyword2/keyword6: #30987F plain */
+.cm-s-cppmode .cm-keyword      { color: #30987F; }
+.cm-s-cppmode .cm-keyword1     { color: #30987F; }
+.cm-s-cppmode .cm-keyword2     { color: #30987F; }
+.cm-s-cppmode .cm-keyword6     { color: #30987F; }
+/* keyword3: #6D9810 plain */
+.cm-s-cppmode .cm-keyword3     { color: #6D9810; }
+/* keyword4: #DB4D7A plain */
+.cm-s-cppmode .cm-keyword4     { color: #DB4D7A; }
+/* keyword5: #E7671C plain */
+.cm-s-cppmode .cm-keyword5     { color: #E7671C; }
+/* literal1: #738A63 plain */
+.cm-s-cppmode .cm-literal1     { color: #738A63; }
+/* literal2: #754891 plain */
+.cm-s-cppmode .cm-literal2     { color: #754891; }
+/* strings: literal1 color */
+.cm-s-cppmode .cm-string       { color: #738A63; }
+.cm-s-cppmode .cm-string-2     { color: #738A63; }
+/* numbers: black */
+.cm-s-cppmode .cm-number       { color: #222222; }
+/* comments: #656565 plain */
+.cm-s-cppmode .cm-comment      { color: #656565; font-style: italic; }
+/* preprocessor: keyword5 color */
+.cm-s-cppmode .cm-preprocessor { color: #E7671C; }
+/* operator: #006698 */
+.cm-s-cppmode .cm-operator     { color: #006698; }
+/* plain identifiers */
+.cm-s-cppmode .cm-variable     { color: #222222; }
+/* invalid */
+.cm-s-cppmode .cm-error        { color: #656565; font-weight: bold; }
