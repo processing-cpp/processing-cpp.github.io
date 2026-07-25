@@ -201,7 +201,7 @@ def fix_asset_paths(js_code):
 def make_iframe(js_code, w, h):
     js_code = fix_asset_paths(js_code)
     safe = js_code.replace('</script>', '<\\/script>').replace('`','\\`')
-    return f'''<div class="preview-wrap" style="aspect-ratio:{w}/{h};max-width:{w}px;"><iframe id="sketch-frame" width="{w}" height="{h}" style="width:100%;height:100%;"></iframe></div>
+    return f'''<div class="preview-wrap" style="aspect-ratio:{w}/{h};max-width:{w}px;"><iframe id="sketch-frame" width="{w}" height="{h}" style="display:block;border:none;"></iframe></div>
 <script>(function(){{const iframe=document.getElementById('sketch-frame');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{{margin:0;padding:0;}}body{{overflow:hidden;}}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\\/script></head><body><script>{safe}<\\/script></body></html>`);doc.close();}})();</script>'''
 
 out_dir = "/home/pep/Projects/processing-cpp.github.io/examples"

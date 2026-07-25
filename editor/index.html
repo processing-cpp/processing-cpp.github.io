@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor — C++ Mode for Processing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; color: #eee; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    #site-nav { border-bottom: 1px solid #333; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 52px; background: #111; flex-shrink: 0; }
+    #site-nav a { color: #eee; text-decoration: none; font-size: 14px; }
+    #site-nav .logo { font-weight: 600; font-size: 15px; }
+
+    .editor-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* Editor pane */
+    .editor-pane { display: flex; flex-direction: column; width: 50%; border-right: 2px solid #222; }
+    .pane-toolbar { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; background: #111; border-bottom: 1px solid #2a2a2a; flex-shrink: 0; }
+    .pane-label { font-size: 12px; color: #666; flex: 1; font-family: monospace; }
+    #status { font-size: 12px; color: #666; }
+    #status.compiling { color: #e8b400; }
+    #status.error { color: #f77; }
+    #status.ok { color: #5f5; }
+    .btn-run { background: #e8b400; color: #111; border: none; padding: 0.4rem 1.1rem; border-radius: 5px; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 0.01em; }
+    .btn-run:hover { background: #f5c400; }
+    .btn-run:disabled { background: #444; color: #777; cursor: not-allowed; }
+    .CodeMirror { flex: 1; height: 100%; font-size: 13px; line-height: 1.55; font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    .CodeMirror-scroll { height: 100% !important; }
+    .editor-pane { flex: 1; }
+
+    /* Preview pane */
+    .preview-pane { display: flex; flex-direction: column; width: 50%; background: #000; }
+    .preview-pane .pane-toolbar { background: #111; }
+    .btn-stop { background: #2a2a2a; color: #aaa; border: 1px solid #333; padding: 0.4rem 0.9rem; border-radius: 5px; font-size: 12px; cursor: pointer; }
+    .btn-stop:hover { background: #333; color: #eee; }
+
+    #preview-area { flex: 1; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    #preview-area canvas { display: block !important; }
+    #preview-placeholder { color: #333; font-size: 13px; text-align: center; line-height: 2; pointer-events: none; }
+    #preview-placeholder kbd { background: #222; border: 1px solid #333; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #888; }
+
+    #error-panel { display: none; background: #1c0808; border-top: 1px solid #4a1010; padding: 0.6rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #f88; max-height: 130px; overflow-y: auto; white-space: pre; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<nav id="site-nav">
+  <a class="logo" href="/">C++ Mode for Processing</a>
+  <a href="/reference" style="color:#888;font-size:13px;">Reference</a>
+</nav>
+
+<div class="editor-layout">
+  <div class="editor-pane">
+    <div class="pane-toolbar">
+      <span class="pane-label">sketch.cpp</span>
+      <span id="status"></span>
+      <button class="btn-run" id="btn-run" onclick="runSketch()">▶ Run</button>
+    </div>
+    <textarea id="code-editor"></textarea>
+    <div id="error-panel"></div>
+  </div>
+
+  <div class="preview-pane">
+    <div class="pane-toolbar">
+      <span class="pane-label">Output</span>
+      <button class="btn-stop" onclick="stopSketch()">■ Stop</button>
+    </div>
+    <div id="preview-area">
+      <div id="preview-placeholder">
+        Press <kbd>▶ Run</kbd> or <kbd>Ctrl+Enter</kbd>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script>
+const API = 'https://bench-volumes-pontiac-riders.trycloudflare.com';
+
+const DEFAULT = `class _PSketch : public PApplet {
+  float angle = 0;
+public:
+  void setup() override {
+    size(500, 400, P3D);
+  }
+  void draw() override {
+    background(20);
+    lights();
+    translate(width/2, height/2);
+    rotateX(angle * 0.7f);
+    rotateY(angle);
+    fill(232, 180, 0);
+    box(130);
+    angle += 0.02f;
+  }
+};`;
+
+const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+  mode: 'text/x-c++src',
+  theme: 'dracula',
+  lineNumbers: true,
+  indentUnit: 2,
+  tabSize: 2,
+  indentWithTabs: false,
+  autofocus: true,
+});
+editor.setValue(DEFAULT);
+editor.setSize('100%', '100%');
+
+function setStatus(msg, cls) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = cls || '';
+}
+
+function stopSketch() {
+  const area = document.getElementById('preview-area');
+  // Remove old canvas and scripts
+  area.innerHTML = '<div id="preview-placeholder">Press <kbd>▶ Run</kbd> or <kbd>Ctrl+Enter</kbd></div>';
+  // Clean up old module
+  if (window.Module && window.Module._emscripten_cancel_main_loop) {
+    try { window.Module._emscripten_cancel_main_loop(); } catch(e) {}
+  }
+  window.Module = undefined;
+  setStatus('');
+}
+
+async function runSketch() {
+  const btn = document.getElementById('btn-run');
+  const errorPanel = document.getElementById('error-panel');
+  errorPanel.style.display = 'none';
+  errorPanel.textContent = '';
+  btn.disabled = true;
+  setStatus('Compiling...', 'compiling');
+
+  let resp, data;
+  try {
+    resp = await fetch(API + '/compile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: editor.getValue() }),
+    });
+    data = await resp.json();
+  } catch(e) {
+    setStatus('Server unreachable', 'error');
+    errorPanel.textContent = 'Could not reach compile server:\n' + e.message;
+    errorPanel.style.display = 'block';
+    btn.disabled = false;
+    return;
+  }
+
+  if (!resp.ok || data.error) {
+    setStatus('Error', 'error');
+    errorPanel.textContent = data.error || 'Unknown error';
+    errorPanel.style.display = 'block';
+    btn.disabled = false;
+    return;
+  }
+
+  setStatus('Loading...', 'compiling');
+  btn.disabled = false;
+
+  // Stop previous sketch
+  stopSketch();
+
+  const area = document.getElementById('preview-area');
+
+  // Create canvas
+  const canvas = document.createElement('canvas');
+  canvas.id = 'canvas';
+  area.appendChild(canvas);
+
+  // Decode wasm and data
+  const wasmBinary = Uint8Array.from(atob(data.wasm), c => c.charCodeAt(0));
+  const dataBytes  = data.data ? Uint8Array.from(atob(data.data), c => c.charCodeAt(0)) : null;
+
+  // Set Module before the script runs
+  window.Module = {
+    canvas: canvas,
+    wasmBinary: wasmBinary,
+    onRuntimeInitialized: function() {
+      setStatus('Running', 'ok');
+    },
+    print:    t => console.log('[sketch]', t),
+    printErr: t => console.warn('[sketch]', t),
+  };
+
+  if (dataBytes) {
+    // Inject preloaded data package
+    window.Module.getPreloadedPackage = function(name, size) {
+      return dataBytes.buffer;
+    };
+  }
+
+  // Load the emscripten JS glue
+  const blob = new Blob([data.js], { type: 'application/javascript' });
+  const blobUrl = URL.createObjectURL(blob);
+  const script = document.createElement('script');
+  script.src = blobUrl;
+  script.onload = () => URL.revokeObjectURL(blobUrl);
+  script.onerror = e => {
+    setStatus('Load error', 'error');
+    errorPanel.textContent = 'Failed to load compiled sketch.';
+    errorPanel.style.display = 'block';
+  };
+  document.head.appendChild(script);
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runSketch(); }
+});
+</script>
+<script src="../assets/nav.js"></script>
+</body>
+</html>
