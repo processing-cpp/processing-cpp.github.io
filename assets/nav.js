@@ -45,6 +45,7 @@
       ${link('tutorials', 'Tutorials')}
       ${link('reference', 'Reference')}
       ${link('examples', 'Examples')}
+      ${link('editor', 'Editor')}
       ${link('about', 'About')}
     `;
   }
