@@ -70,23 +70,22 @@
 <script>
 const API = 'https://bench-volumes-pontiac-riders.trycloudflare.com';
 
-const DEFAULT = `class _PSketch : public PApplet {
-  float angle = 0;
-public:
-  void setup() override {
-    size(500, 400, P3D);
-  }
-  void draw() override {
-    background(20);
-    lights();
-    translate(width/2, height/2);
-    rotateX(angle * 0.7f);
-    rotateY(angle);
-    fill(232, 180, 0);
-    box(130);
-    angle += 0.02f;
-  }
-};`;
+const DEFAULT = `float angle = 0;
+
+void setup() {
+  size(500, 400, P3D);
+}
+
+void draw() {
+  background(20);
+  lights();
+  translate(width/2, height/2);
+  rotateX(angle * 0.7f);
+  rotateY(angle);
+  fill(232, 180, 0);
+  box(130);
+  angle += 0.02f;
+}`;
 
 const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
   mode: 'text/x-cppmode',
