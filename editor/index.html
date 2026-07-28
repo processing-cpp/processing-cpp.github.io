@@ -136,6 +136,23 @@
 <script>
 const API = 'https://bench-volumes-pontiac-riders.trycloudflare.com';
 
+const DEFAULT = `float angle = 0;
+
+void setup() {
+  size(500, 400, P3D);
+}
+
+void draw() {
+  background(20);
+  lights();
+  translate(width/2, height/2);
+  rotateX(angle * 0.7f);
+  rotateY(angle);
+  fill(232, 180, 0);
+  box(130);
+  angle += 0.02f;
+}`;
+
 const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
   mode: 'cppmode',
   theme: 'cppmode',
@@ -255,6 +272,15 @@ async function runSketch() {
   };
   document.head.appendChild(script);
 }
+
+const _origPreventDefault = Event.prototype.preventDefault;
+Event.prototype.preventDefault = function() {
+  if (this.type === 'keydown' || this.type === 'keyup' || this.type === 'keypress') {
+    const ta = document.querySelector('.CodeMirror textarea');
+    if (ta && document.activeElement === ta) return;
+  }
+  return _origPreventDefault.call(this);
+};
 
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runSketch(); }
