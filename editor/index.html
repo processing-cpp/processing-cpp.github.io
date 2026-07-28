@@ -173,15 +173,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
   },
 });
 
-editor.setValue(`void setup() {
-  size(640, 360);
-}
 
-void draw() {
-  background(20);
-  fill(255, 140, 0);
-  circle(mouseX, mouseY, 40);
-}`);
 
 function setStatus(msg, cls) {
   const el = document.getElementById('status');
