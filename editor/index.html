@@ -152,6 +152,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     'Cmd-Enter': runSketch,
     'Tab': cm => cm.execCommand('indentMore'),
     'Shift-Tab': cm => cm.execCommand('indentLess'),
+    'Backspace': cm => cm.execCommand('delCharBefore'),
   },
 });
 
