@@ -218,8 +218,17 @@ function setStatus(msg, cls) {
 
 function stopSketch() {
   const area = document.getElementById('preview-area');
+  // Remove iframe if present
   const iframe = area.querySelector('iframe');
   if (iframe) { try{URL.revokeObjectURL(iframe.src);}catch(e){} iframe.remove(); }
+  // Remove direct canvas if present
+  const canvas = area.querySelector('canvas');
+  if (canvas) canvas.remove();
+  // Cancel module if running
+  if (window.Module) {
+    try { if(window.Module._emscripten_cancel_main_loop) window.Module._emscripten_cancel_main_loop(); } catch(e){}
+    window.Module = undefined;
+  }
   const ph = document.getElementById('preview-placeholder');
   if (ph) ph.style.display = '';
   setStatus('');
@@ -228,12 +237,12 @@ function stopSketch() {
 
 // Build self-contained iframe HTML for a compiled sketch
 function makeSketchHTML(jsUrl, wasmB64, dataB64) {
-  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100vw;height:100vh}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){var w=atob("'+wasmB64+'"),wa=new Uint8Array(w.length);for(var i=0;i<w.length;i++)wa[i]=w.charCodeAt(i);var d=atob("'+dataB64+'"),da=new Uint8Array(d.length);for(var i=0;i<d.length;i++)da[i]=d.charCodeAt(i);window.Module={canvas:document.getElementById("canvas"),wasmBinary:wa,getPreloadedPackage:function(){return da.buffer;},onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};})();<\/script><script src="'+jsUrl+'"><\/script><\/body><\/html>';
+  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000;display:flex;align-items:center;justify-content:center;height:100vh}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){var w=atob("'+wasmB64+'"),wa=new Uint8Array(w.length);for(var i=0;i<w.length;i++)wa[i]=w.charCodeAt(i);var d=atob("'+dataB64+'"),da=new Uint8Array(d.length);for(var i=0;i<d.length;i++)da[i]=d.charCodeAt(i);window.Module={canvas:document.getElementById("canvas"),wasmBinary:wa,getPreloadedPackage:function(){return da.buffer;},onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};})();<\/script><script src="'+jsUrl+'"><\/script><\/body><\/html>';
 }
 
 function makeDefaultHTML() {
   const base = location.origin + '/editor/';
-  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100vw;height:100vh}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};<\/script><script src="'+base+'default_sketch.js"><\/script><\/body><\/html>';
+  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000;display:flex;align-items:center;justify-content:center;height:100vh}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};<\/script><script src="'+base+'default_sketch.js"><\/script><\/body><\/html>';
 }
 
 function launchIframe(html) {
@@ -253,8 +262,25 @@ window.addEventListener('message', e => {
 });
 
 window.addEventListener('load', () => {
-  launchIframe(makeDefaultHTML());
-  setStatus('Running', 'ok');
+  // Load default sketch directly in the preview area (no iframe needed)
+  // This avoids blob URL cross-origin issues with external scripts
+  const area = document.getElementById('preview-area');
+  const ph = document.getElementById('preview-placeholder');
+  if (ph) ph.style.display = 'none';
+  const canvas = document.createElement('canvas');
+  canvas.id = 'canvas';
+  canvas.style.display = 'block';
+  canvas.style.margin = 'auto';
+  area.appendChild(canvas);
+  window.Module = {
+    canvas: canvas,
+    onRuntimeInitialized: function() { setStatus('Running', 'ok'); },
+    print: console.log,
+    printErr: console.warn,
+  };
+  const script = document.createElement('script');
+  script.src = 'default_sketch.js';
+  document.head.appendChild(script);
 });
 
 async function runSketch() {
