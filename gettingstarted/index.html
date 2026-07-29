@@ -99,6 +99,22 @@
       .content { padding: 2rem 1.25rem; }
       .processing-callout { flex-direction: column; align-items: flex-start; }
     }
+  
+    /* Read-only CodeMirror syntax highlighting for static code blocks */
+    .cm-static-wrap .CodeMirror {
+      height: auto;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 0.25rem 0;
+      margin-bottom: 1.25rem;
+      font-family: "SF Mono", "Fira Code", "Source Code Pro", monospace;
+    }
+    .cm-static-wrap .CodeMirror-scroll {
+      overflow: hidden !important;
+      max-height: none;
+    }
+    .cm-static-wrap .CodeMirror-scrollbar-filler { display: none; }
   </style>
 </head>
 <body>
@@ -198,5 +214,10 @@ void draw() {
 </div>
 <footer><p>C++ Mode for Processing</p><p class="footer-contact"><a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a> &middot; <a href="https://discord.gg/vShSrPegJT">Discord</a></p></footer>
 <script src="../assets/nav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 </body>
 </html>

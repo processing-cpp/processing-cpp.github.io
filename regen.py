@@ -162,6 +162,8 @@ shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
     pre { padding: 1.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
     .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
     .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
+    .cm-static-wrap .CodeMirror { height: auto; border-radius: 8px; font-size: 13px; line-height: 1.6; padding: 0.25rem 0; margin-bottom: 1.25rem; font-family: "SF Mono","Fira Code",monospace; }
+    .cm-static-wrap .CodeMirror-scroll { overflow: hidden !important; max-height: none; }
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
     .footer-contact { margin-top: 0.4rem; font-size: 12px; }
     .footer-contact a { color: #aaa; border-bottom: 1px solid transparent; }
@@ -259,6 +261,10 @@ for section_name, section_data in sections.items():
   </p>
 </footer>
 <script>{shared_js}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>'''
@@ -387,6 +393,10 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
   </p>
 </footer>
 <script>{shared_js}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>''')

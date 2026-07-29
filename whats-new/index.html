@@ -39,17 +39,30 @@
       .content { padding: 2rem 1.25rem; }
       .wn-grid { grid-template-columns: 1fr; }
     }
+  
+    /* Read-only CodeMirror syntax highlighting for static code blocks */
+    .cm-static-wrap .CodeMirror {
+      height: auto;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 0.25rem 0;
+      margin-bottom: 1.25rem;
+      font-family: "SF Mono", "Fira Code", "Source Code Pro", monospace;
+    }
+    .cm-static-wrap .CodeMirror-scroll {
+      overflow: hidden !important;
+      max-height: none;
+    }
+    .cm-static-wrap .CodeMirror-scrollbar-filler { display: none; }
   </style>
 </head>
 <body>
-
 <nav id="site-nav"></nav>
-
 <div class="layout">
   <div class="sidebar-outer">
     <div id="site-sidebar"></div>
   </div>
-
   <div class="content">
     <h1>What's New</h1>
     <p class="prelude">
@@ -60,9 +73,26 @@
       The changes below are the only things you need to learn.
       Everything else carries over from Processing Java without modification.
     </p>
-
     <div class="wn-grid">
+      <div class="wn-card">
+        <div class="wn-tag changed">Changed</div>
+        <div class="wn-card-title">PGraphics, PImage, PShape and PFont use pointer notation</div>
+        <div class="wn-card-body">
+          <p>In Processing Java, graphics objects are references and you access their methods with a dot. In C++ Mode they are pointers, so you declare them with <code>*</code> and access their members with <code>-&gt;</code> instead of <code>.</code>.</p>
+          <pre>// Java (does not work in C++ Mode):
+PGraphics pg = createGraphics(400, 300);
+pg.beginDraw();
+pg.background(255);
+pg.endDraw();
 
+// C++ Mode:
+PGraphics* pg = createGraphics(400, 300);
+pg-&gt;beginDraw();
+pg-&gt;background(255);
+pg-&gt;endDraw();</pre>
+          <p>The same applies to <code>PImage*</code>, <code>PShape*</code>, <code>PFont*</code>, and <code>PShader*</code>. Forgetting the <code>*</code> or using <code>.</code> instead of <code>-&gt;</code> produces a compiler error.</p>
+        </div>
+      </div>
       <div class="wn-card">
         <div class="wn-tag changed">Changed</div>
         <div class="wn-card-title">_mousePressed and _keyPressed</div>
@@ -71,10 +101,8 @@
           <p>The event callbacks keep their original names unchanged. Only the state variables change.</p>
           <pre>// Check if mouse is currently held down:
 if (_mousePressed) { ... }
-
 // Check if any key is currently held down:
 if (_keyPressed) { ... }
-
 // Event callbacks are unchanged:
 void mousePressed() { ... }
 void mouseReleased() { ... }
@@ -82,7 +110,6 @@ void keyPressed()   { ... }
 void keyReleased()  { ... }</pre>
         </div>
       </div>
-
       <div class="wn-card">
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">captureMouse() and releaseMouse()</div>
@@ -93,17 +120,14 @@ void keyReleased()  { ... }</pre>
     size(640, 360, P3D);
     captureMouse();
 }
-
 void draw() {
     // camera controlled by mouse freely
 }
-
 void keyPressed() {
     if (key == ESC) releaseMouse();
 }</pre>
         </div>
       </div>
-
       <div class="wn-card">
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">mouseDX and mouseDY</div>
@@ -111,17 +135,14 @@ void keyPressed() {
           <p>Two new variables that accumulate raw mouse movement between frames. Unlike <code>mouseX - pmouseX</code>, these capture every cursor event that occurs between frames so fast mouse movement is never dropped or lost at high frame rates.</p>
           <p>They reset to <code>0</code> automatically after each <code>draw()</code> call. Use them for FPS camera rotation, turret aiming, or any other input that needs to be frame-rate independent.</p>
           <pre>float yaw = 0, pitch = 0;
-
 void setup() {
     size(640, 360, P3D);
     captureMouse();
 }
-
 void draw() {
     yaw   += mouseDX * 0.002;
     pitch += mouseDY * 0.002;
     pitch  = constrain(pitch, -PI/2, PI/2);
-
     camera(0, 0, 0,
            cos(pitch) * sin(yaw),
            sin(pitch),
@@ -133,7 +154,6 @@ void draw() {
 }</pre>
         </div>
       </div>
-
       <div class="wn-card">
         <div class="wn-tag new">New</div>
         <div class="wn-card-title">Full C++ Standard Library included</div>
@@ -142,20 +162,21 @@ void draw() {
           <pre>// All of this just works with no includes:
 std::vector&lt;float&gt; data = {3, 1, 2};
 std::sort(data.begin(), data.end());
-
 std::thread t([] { doWork(); });
 t.detach();
-
 std::unordered_map&lt;std::string, int&gt; scores;
 std::optional&lt;int&gt; val = 42;</pre>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
 <footer><p>C++ Mode for Processing</p><p class="footer-contact"><a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a> &middot; <a href="https://discord.gg/vShSrPegJT">Discord</a></p></footer>
 <script src="../assets/nav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 </body>
 </html>

@@ -59,6 +59,22 @@
       .sidebar-outer.open { left: 0; }
       .content { padding: 2rem 1.25rem; }
     }
+  
+    /* Read-only CodeMirror syntax highlighting for static code blocks */
+    .cm-static-wrap .CodeMirror {
+      height: auto;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 0.25rem 0;
+      margin-bottom: 1.25rem;
+      font-family: "SF Mono", "Fira Code", "Source Code Pro", monospace;
+    }
+    .cm-static-wrap .CodeMirror-scroll {
+      overflow: hidden !important;
+      max-height: none;
+    }
+    .cm-static-wrap .CodeMirror-scrollbar-filler { display: none; }
   </style>
 </head>
 <body>
@@ -204,5 +220,10 @@ function switchTab(name, el) {
 }
 </script>
 <script src="../assets/nav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 </body>
 </html>
