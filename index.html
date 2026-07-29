@@ -183,12 +183,33 @@
           <a class="hero-link" href="/reference">Reference</a>
           <a class="hero-btn-download" href="/downloads">Download</a>
         </div>
-        <p style="margin-top:10rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
+        <p style="margin-top:2rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
       </div>
-      <div class="right" style="flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:0;">
-        <div id="logo-sketch-wrap" style="width:340px;height:340px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+      <div class="right" style="flex:1;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:1rem;">
+        <pre style="font-family:monospace;font-size:11px;color:#555;line-height:1.6;background:#f8f8f8;padding:1rem;border-radius:6px;border:1px solid #e0e0e0;overflow:hidden;max-height:320px;flex-shrink:0;max-width:240px;"><code>enum PartType {
+  HALF_O, PLUS,
+  PLUS_SHADOW
+};
+struct Part {
+  PartType type;
+  float x,y,rot,
+        r,t,s;
+  color col;
+};
+Part parts[] = {
+  {PLUS_SHADOW,411,340,
+   -0.5f,0,55,170,
+   color(190,145,85)},
+  {HALF_O,261,344,0,
+   180,70,0,
+   color(255,210,60)},
+  {PLUS,319,348,-0.5f,
+   0,55,170,
+   color(255,210,60)},
+};</code></pre>
+        <div id="logo-sketch-wrap" style="width:280px;height:280px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);flex-shrink:0;">
           <iframe id="logo-iframe" sandbox="allow-scripts allow-same-origin"
-            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;"
+            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.4);"
             src=""></iframe>
         </div>
       </div>
@@ -520,25 +541,11 @@ function mousePressed() {
 <script src="./assets/nav.js"></script>
 <script>
 (function(){
+  // Load logo sketch directly -- iframe src points to a page that fetches wasm/data
+  // Use srcdoc with inline script that loads from absolute URLs
   var iframe = document.getElementById('logo-iframe');
-  var wrap = document.getElementById('logo-sketch-wrap');
-  // Scale the 600x700 sketch to fit 340x340
-  var scaleX = 340/600, scaleY = 340/700, scale = Math.min(scaleX, scaleY);
-  iframe.style.transform = 'scale('+scale+')';
-  iframe.style.width = '600px';
-  iframe.style.height = '700px';
-
-  Promise.all([
-    fetch('/assets/logo_sketch.wasm').then(r=>r.arrayBuffer()),
-    fetch('/assets/logo_sketch.data').then(r=>r.arrayBuffer()),
-  ]).then(function(bufs){
-    function b64(buf){ var b=new Uint8Array(buf),s=''; for(var i=0;i<b.length;i++) s+=String.fromCharCode(b[i]); return btoa(s); }
-    var wa=b64(bufs[0]), da=b64(bufs[1]);
-    var jsUrl = '/assets/logo_sketch.js';
-    var html = '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){function b(s){var x=atob(s),a=new Uint8Array(x.length);for(var i=0;i<x.length;i++)a[i]=x.charCodeAt(i);return a;}window.Module={canvas:document.getElementById("canvas"),wasmBinary:b("'+wa+'"),getPreloadedPackage:function(){return b("'+da+'").buffer;},print:console.log,printErr:console.warn};})();<\/script><script src="'+jsUrl+'"><\/script><\/body><\/html>';
-    var blob = new Blob([html],{type:'text/html'});
-    iframe.src = URL.createObjectURL(blob);
-  });
+  var srcdoc = '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),print:console.log,printErr:console.warn};<\/script><script src="https://processing-cpp.github.io/assets/logo_sketch.js"><\/script><\/body><\/html>';
+  iframe.srcdoc = srcdoc;
 })();
 </script>
 </body>
