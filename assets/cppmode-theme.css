@@ -48,3 +48,11 @@
 .cm-s-cppmode .cm-variable     { color: #222222; }
 /* invalid */
 .cm-s-cppmode .cm-error        { color: #656565; font-weight: bold; }
+
+/* Token names emitted by cm-cppmode.js */
+.cm-s-cppmode .cm-cppmode-k5  { color: #E7671C; }   /* types: int, float, void... */
+.cm-s-cppmode .cm-cppmode-k6  { color: #30987F; }   /* keywords: if, for, while... */
+.cm-s-cppmode .cm-cppmode-k3  { color: #6D9810; }   /* literals */
+.cm-s-cppmode .cm-cppmode-k4  { color: #DB4D7A; }   /* special */
+.cm-s-cppmode .cm-cppmode-f1  { color: #006698; }   /* functions */
+.cm-s-cppmode .cm-cppmode-f2  { color: #006698; font-weight: bold; }
