@@ -3,126 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor - C++ Mode for Processing</title>
+  <title>Editor — C++ Mode for Processing</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
   <link rel="stylesheet" href="../assets/cppmode-theme.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #111; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-
-    /* Override nav.js nav to not be sticky in the editor - it already has fixed height */
-    #site-nav { flex-shrink: 0; position: static !important; }
-
-    /* Hide the sidebar - editor uses full width */
-    #site-sidebar { display: none; }
-
+    #site-nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 52px; background: #fff; flex-shrink: 0; }
+    #site-nav a { color: #111; text-decoration: none; font-size: 14px; }
+    #site-nav .logo { font-weight: 600; font-size: 15px; }
     .editor-layout { display: flex; flex: 1; overflow: hidden; }
-
     .editor-pane { display: flex; flex-direction: column; width: 50%; border-right: 1px solid #e0e0e0; }
     .preview-pane { display: flex; flex-direction: column; width: 50%; }
-
-    .pane-toolbar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem 0.75rem;
-      background: #f7f7f7;
-      border-bottom: 1px solid #e0e0e0;
-      flex-shrink: 0;
-    }
-    .pane-label { font-size: 12px; color: #888; flex: 1; font-family: "SF Mono", "Fira Code", monospace; }
-
+    .pane-toolbar { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; background: #f5f5f5; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; }
+    .pane-label { font-size: 12px; color: #888; flex: 1; font-family: monospace; }
     #status { font-size: 12px; color: #888; }
     #status.compiling { color: #c07000; }
     #status.error { color: #c00; }
-    #status.ok { color: #3a3; }
-
-    .btn-run {
-      background: #e8b400;
-      color: #111;
-      border: none;
-      padding: 0.4rem 1.1rem;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .btn-run:hover { background: #d4a300; }
-    .btn-run:disabled { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
-
-    .btn-stop {
-      background: #f0f0f0;
-      color: #555;
-      border: 1px solid #e0e0e0;
-      padding: 0.4rem 0.9rem;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .btn-stop:hover { background: #e6e6e6; }
-
-    .CodeMirror { flex: 1; height: 100%; font-size: 13px; line-height: 1.6; }
+    #status.ok { color: #080; }
+    .btn-run { background: #e8b400; color: #111; border: none; padding: 0.4rem 1.1rem; border-radius: 5px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-run:hover { background: #f5c400; }
+    .btn-run:disabled { background: #ccc; color: #888; cursor: not-allowed; }
+    .btn-stop { background: #eee; color: #555; border: 1px solid #ccc; padding: 0.4rem 0.9rem; border-radius: 5px; font-size: 12px; cursor: pointer; }
+    .btn-stop:hover { background: #ddd; }
+    .CodeMirror { flex: 1; height: 100%; font-size: 13px; line-height: 1.55; }
     .CodeMirror-scroll { height: 100% !important; }
-
-    #preview-area {
-      flex: 1;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    #preview-area canvas { display: block !important; }
-
-    #preview-placeholder { color: #555; font-size: 13px; text-align: center; line-height: 2.2; }
-    #preview-placeholder kbd {
-      background: #222;
-      border: 1px solid #444;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 12px;
-      color: #bbb;
-      font-family: "SF Mono", "Fira Code", monospace;
-    }
-
-    #error-panel {
-      display: none;
-      background: #fff5f5;
-      border-top: 1px solid #fcc;
-      padding: 0.6rem 1rem;
-      font-family: "SF Mono", "Fira Code", monospace;
-      font-size: 11.5px;
-      color: #c00;
-      max-height: 130px;
-      overflow-y: auto;
-      white-space: pre;
-      flex-shrink: 0;
-    }
+    #preview-area { flex: 1; background: #000; overflow: hidden; position: relative; }
+    #preview-area iframe { width: 100%; height: 100%; border: none; display: block; }
+    #preview-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #aaa; font-size: 13px; text-align: center; line-height: 2; pointer-events: none; }
+    #preview-placeholder kbd { background: #fff; border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #666; }
+    #error-panel { display: none; background: #fff5f5; border-top: 1px solid #ffcccc; padding: 0.6rem 1rem; font-family: monospace; font-size: 11.5px; color: #c00; max-height: 130px; overflow-y: auto; white-space: pre; flex-shrink: 0; }
   </style>
 </head>
 <body>
-<nav id="site-nav"></nav>
+
+<nav id="site-nav">
+  <a class="logo" href="/">C++ Mode for Processing</a>
+  <a href="/reference" style="color:#888;font-size:13px;">Reference</a>
+</nav>
 
 <div class="editor-layout">
   <div class="editor-pane">
     <div class="pane-toolbar">
-      <span class="pane-label">sketch.pde</span>
+      <span class="pane-label">sketch.cpp</span>
       <span id="status"></span>
-      <button class="btn-stop" onclick="stopSketch()">Stop</button>
       <button class="btn-run" id="btn-run" onclick="runSketch()">&#9654; Run</button>
     </div>
-    <textarea id="code"></textarea>
+    <textarea id="code-editor"></textarea>
     <div id="error-panel"></div>
   </div>
-
   <div class="preview-pane">
     <div class="pane-toolbar">
-      <span class="pane-label">preview</span>
+      <span class="pane-label">Output</span>
+      <button class="btn-stop" onclick="stopSketch()">&#9632; Stop</button>
     </div>
     <div id="preview-area">
-      <div id="preview-placeholder">
-        Press <kbd>Ctrl+Enter</kbd> to run your sketch
-      </div>
+      <div id="preview-placeholder">Press <kbd>Run</kbd> or <kbd>Ctrl+Enter</kbd></div>
     </div>
   </div>
 </div>
@@ -130,9 +66,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
 <script src="../assets/cppmode-keywords.js"></script>
-<script src="../assets/cm-cppmode.js"></script>
 <script src="../assets/cppmode.js"></script>
-<script src="../assets/nav.js"></script>
 <script>
 const API = 'https://bench-volumes-pontiac-riders.trycloudflare.com';
 
@@ -153,64 +87,28 @@ void draw() {
   angle += 0.02f;
 }`;
 
-const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-  mode: 'cppmode',
+const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+  mode: 'text/x-cppmode',
   theme: 'cppmode',
   lineNumbers: true,
   indentUnit: 2,
   tabSize: 2,
   indentWithTabs: false,
   autofocus: true,
-  matchBrackets: true,
-  autoCloseBrackets: true,
-  lineWrapping: false,
-  extraKeys: {
-    'Ctrl-Enter': runSketch,
-    'Cmd-Enter': runSketch,
-    'Tab': cm => cm.execCommand('indentMore'),
-    'Shift-Tab': cm => cm.execCommand('indentLess'),
-    'Backspace': cm => cm.execCommand('delCharBefore'),
-  },
 });
 editor.setValue(DEFAULT);
 editor.setSize('100%', '100%');
 
-// Load pre-built default sketch immediately -- no compile needed
-async function loadDefaultSketch() {
-  const area = document.getElementById('preview-area');
-  const placeholder = document.getElementById('preview-placeholder');
-  if (placeholder) placeholder.style.display = 'none';
-
-  const canvas = document.createElement('canvas');
-  canvas.id = 'canvas';
-  canvas.setAttribute('tabindex', '-1');
-  area.appendChild(canvas);
-
-  const [wasmResp, dataResp] = await Promise.all([
-    fetch('default_sketch.wasm'),
-    fetch('default_sketch.data'),
-  ]);
-  const wasmBinary = new Uint8Array(await wasmResp.arrayBuffer());
-  const dataBytes  = new Uint8Array(await dataResp.arrayBuffer());
-
-  window.Module = {
-    canvas: canvas,
-    wasmBinary: wasmBinary,
-    onRuntimeInitialized: function() { setStatus('Running', 'ok'); },
-    getPreloadedPackage: function(name, size) { return dataBytes.buffer; },
-    print:    t => console.log('[sketch]', t),
-    printErr: t => console.warn('[sketch]', t),
-  };
-
-  const script = document.createElement('script');
-  script.src = 'default_sketch.js';
-  document.head.appendChild(script);
-}
-
-window.addEventListener('load', loadDefaultSketch);
-
-
-
+// Patch Event.prototype.preventDefault so Emscripten GLFW keydown handlers
+// can't prevent default when the CodeMirror textarea is focused.
+const _origPreventDefault = Event.prototype.preventDefault;
+Event.prototype.preventDefault = function() {
+  if (this.type === 'keydown' || this.type === 'keyup' || this.type === 'keypress') {
+    const ta = document.querySelector('.CodeMirror textarea');
+    if (ta && document.activeElement === ta) return;
+  }
+  return _origPreventDefault.call(this);
+};
 
 function setStatus(msg, cls) {
   const el = document.getElementById('status');
@@ -218,16 +116,74 @@ function setStatus(msg, cls) {
   el.className = cls || '';
 }
 
+// Build iframe HTML for a compiled sketch
+function makeSketchHTML(jsUrl, wasmB64, dataB64) {
+  return `<!DOCTYPE html><html><head>
+<style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100%;height:100%}</style>
+</head><body><canvas id="canvas"></canvas><script>
+(function(){
+  var w=atob('${wasmB64}'),wa=new Uint8Array(w.length);
+  for(var i=0;i<w.length;i++) wa[i]=w.charCodeAt(i);
+  var d=atob('${dataB64}'),da=new Uint8Array(d.length);
+  for(var i=0;i<d.length;i++) da[i]=d.charCodeAt(i);
+  window.Module={
+    canvas:document.getElementById('canvas'),
+    wasmBinary:wa,
+    getPreloadedPackage:function(){return da.buffer;},
+    onRuntimeInitialized:function(){parent.postMessage('running','*');},
+    print:function(t){console.log(t);},
+    printErr:function(t){console.warn(t);}
+  };
+})();
+<\/script><script src="${jsUrl}"><\/script></body></html>`;
+}
+
+// Default sketch iframe using pre-built static files
+function makeDefaultHTML() {
+  return `<!DOCTYPE html><html><head>
+<style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100%;height:100%}</style>
+</head><body><canvas id="canvas"></canvas><script>
+window.Module={
+  canvas:document.getElementById('canvas'),
+  onRuntimeInitialized:function(){parent.postMessage('running','*');},
+  print:function(t){console.log(t);},
+  printErr:function(t){console.warn(t);}
+};
+<\/script><script src="/editor/default_sketch.js"><\/script></body></html>`;
+}
+
+function launchIframe(html) {
+  const area = document.getElementById('preview-area');
+  const old = area.querySelector('iframe');
+  if (old) { try { URL.revokeObjectURL(old.src); } catch(e){} old.remove(); }
+  const ph = document.getElementById('preview-placeholder');
+  if (ph) ph.style.display = 'none';
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+  const blob = new Blob([html], {type:'text/html'});
+  iframe.src = URL.createObjectURL(blob);
+  area.appendChild(iframe);
+}
+
 function stopSketch() {
   const area = document.getElementById('preview-area');
-  const canvas = area.querySelector('canvas');
-  if (canvas) canvas.remove();
-  const placeholder = document.getElementById('preview-placeholder');
-  if (placeholder) placeholder.style.display = '';
-  window.Module = undefined;
+  const iframe = area.querySelector('iframe');
+  if (iframe) { try { URL.revokeObjectURL(iframe.src); } catch(e){} iframe.remove(); }
+  const ph = document.getElementById('preview-placeholder');
+  if (ph) ph.style.display = '';
   setStatus('');
   editor.focus();
 }
+
+window.addEventListener('message', e => {
+  if (e.data === 'running') setStatus('Running', 'ok');
+});
+
+// Load pre-built default sketch on page load
+window.addEventListener('load', () => {
+  launchIframe(makeDefaultHTML());
+  setStatus('Running', 'ok');
+});
 
 async function runSketch() {
   const btn = document.getElementById('btn-run');
@@ -261,55 +217,10 @@ async function runSketch() {
     return;
   }
 
-  setStatus('Loading...', 'compiling');
   btn.disabled = false;
-  stopSketch();
-
-  const area = document.getElementById('preview-area');
-  const placeholder = document.getElementById('preview-placeholder');
-  if (placeholder) placeholder.style.display = 'none';
-
-  const canvas = document.createElement('canvas');
-  canvas.id = 'canvas';
-  canvas.setAttribute('tabindex', '-1');
-  area.appendChild(canvas);
-
-  const wasmBinary = Uint8Array.from(atob(data.wasm), c => c.charCodeAt(0));
-  const dataBytes  = data.data ? Uint8Array.from(atob(data.data), c => c.charCodeAt(0)) : null;
-
-  window.Module = {
-    canvas: canvas,
-    wasmBinary: wasmBinary,
-    onRuntimeInitialized: function() { setStatus('Running', 'ok'); },
-    print:    t => console.log('[sketch]', t),
-    printErr: t => console.warn('[sketch]', t),
-  };
-
-  if (dataBytes) {
-    window.Module.getPreloadedPackage = function(name, size) { return dataBytes.buffer; };
-  }
-
-  const blob = new Blob([data.js], { type: 'application/javascript' });
-  const blobUrl = URL.createObjectURL(blob);
-  const script = document.createElement('script');
-  script.src = blobUrl;
-  script.onload = () => URL.revokeObjectURL(blobUrl);
-  script.onerror = () => {
-    setStatus('Load error', 'error');
-    errorPanel.textContent = 'Failed to load compiled sketch.';
-    errorPanel.style.display = 'block';
-  };
-  document.head.appendChild(script);
+  const blobUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
+  launchIframe(makeSketchHTML(blobUrl, data.wasm, data.data || ''));
 }
-
-const _origPreventDefault = Event.prototype.preventDefault;
-Event.prototype.preventDefault = function() {
-  if (this.type === 'keydown' || this.type === 'keyup' || this.type === 'keypress') {
-    const ta = document.querySelector('.CodeMirror textarea');
-    if (ta && document.activeElement === ta) return;
-  }
-  return _origPreventDefault.call(this);
-};
 
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runSketch(); }
