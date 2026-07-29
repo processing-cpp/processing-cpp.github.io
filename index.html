@@ -178,39 +178,38 @@
   <div class="page-body">
     <div class="main">
       <div class="left">
-        <h1>C++ Mode for<br><span class="proc">Processing</span></h1>
-        <div class="hero-actions">
-          <a class="hero-link" href="/reference">Reference</a>
-          <a class="hero-btn-download" href="/downloads">Download</a>
-        </div>
-        <p style="margin-top:2rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
-      </div>
-      <div class="right" style="flex:1;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:1rem;">
-        <pre style="font-family:monospace;font-size:11px;color:#555;line-height:1.6;background:#f8f8f8;padding:1rem;border-radius:6px;border:1px solid #e0e0e0;overflow:hidden;max-height:320px;flex-shrink:0;max-width:240px;"><code>enum PartType {
-  HALF_O, PLUS,
-  PLUS_SHADOW
+        <pre style="font-family:monospace;font-size:11.5px;color:#555;line-height:1.7;background:#f8f8f8;padding:1.2rem 1.4rem;border-radius:8px;border:1px solid #e0e0e0;overflow:hidden;"><code>enum PartType {
+  HALF_O, PLUS, PLUS_SHADOW
 };
 struct Part {
   PartType type;
-  float x,y,rot,
-        r,t,s;
+  float x, y, rot, r, t, s;
   color col;
 };
 Part parts[] = {
-  {PLUS_SHADOW,411,340,
-   -0.5f,0,55,170,
-   color(190,145,85)},
-  {HALF_O,261,344,0,
-   180,70,0,
-   color(255,210,60)},
-  {PLUS,319,348,-0.5f,
-   0,55,170,
-   color(255,210,60)},
-};</code></pre>
-        <div id="logo-sketch-wrap" style="width:280px;height:280px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);flex-shrink:0;">
-          <iframe id="logo-iframe" sandbox="allow-scripts allow-same-origin"
-            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.4);"
-            src=""></iframe>
+  {PLUS_SHADOW, 411,340,-0.5f,
+   0,55,170, color(190,145,85)},
+  {HALF_O, 261,344,0,
+   180,70,0, color(255,210,60)},
+  {PLUS, 319,348,-0.5f,
+   0,55,170, color(255,210,60)},
+};
+void setup() { size(600,700); noLoop(); }
+void draw() {
+  background(255);
+  for (auto& p : parts) show(p);
+}</code></pre>
+        <div class="hero-actions" style="margin-top:1rem;">
+          <a class="hero-link" href="/reference">Reference</a>
+          <a class="hero-btn-download" href="/downloads">Download</a>
+        </div>
+        <p style="margin-top:1rem;font-size:0.8rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
+      </div>
+      <div class="right" style="flex:1;display:flex;align-items:center;justify-content:flex-end;">
+        <div style="width:320px;height:380px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);flex-shrink:0;">
+          <iframe sandbox="allow-scripts allow-same-origin"
+            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.533);"
+            src="/assets/logo_sketch.html"></iframe>
         </div>
       </div>
       <div class="scroll-hint">↓</div>
@@ -539,14 +538,6 @@ function mousePressed() {
 </footer>
 
 <script src="./assets/nav.js"></script>
-<script>
-(function(){
-  // Load logo sketch directly -- iframe src points to a page that fetches wasm/data
-  // Use srcdoc with inline script that loads from absolute URLs
-  var iframe = document.getElementById('logo-iframe');
-  var srcdoc = '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),print:console.log,printErr:console.warn};<\/script><script src="https://processing-cpp.github.io/assets/logo_sketch.js"><\/script><\/body><\/html>';
-  iframe.srcdoc = srcdoc;
-})();
-</script>
+
 </body>
 </html>
