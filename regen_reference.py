@@ -117,6 +117,10 @@ def render_page(entry, sidebar_tree, entries_by_slug):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(entry["name"])} - Processing for C++ Reference</title>
   <style>{shared_css}</style>
+  <link rel="stylesheet" href="../assets/cppmode-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="../assets/cppmode-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 </head>
 <body>
 <nav id="site-nav"></nav>
@@ -140,6 +144,10 @@ def render_page(entry, sidebar_tree, entries_by_slug):
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>
@@ -184,6 +192,10 @@ def render_index(sidebar_tree, entries_by_slug):
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>
