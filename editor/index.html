@@ -174,7 +174,40 @@ const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
 });
 editor.setValue(DEFAULT);
 editor.setSize('100%', '100%');
-window.addEventListener('load', () => { setTimeout(runSketch, 500); });
+
+// Load pre-built default sketch immediately -- no compile needed
+async function loadDefaultSketch() {
+  const area = document.getElementById('preview-area');
+  const placeholder = document.getElementById('preview-placeholder');
+  if (placeholder) placeholder.style.display = 'none';
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'canvas';
+  canvas.setAttribute('tabindex', '-1');
+  area.appendChild(canvas);
+
+  const [wasmResp, dataResp] = await Promise.all([
+    fetch('default_sketch.wasm'),
+    fetch('default_sketch.data'),
+  ]);
+  const wasmBinary = new Uint8Array(await wasmResp.arrayBuffer());
+  const dataBytes  = new Uint8Array(await dataResp.arrayBuffer());
+
+  window.Module = {
+    canvas: canvas,
+    wasmBinary: wasmBinary,
+    onRuntimeInitialized: function() { setStatus('Running', 'ok'); },
+    getPreloadedPackage: function(name, size) { return dataBytes.buffer; },
+    print:    t => console.log('[sketch]', t),
+    printErr: t => console.warn('[sketch]', t),
+  };
+
+  const script = document.createElement('script');
+  script.src = 'default_sketch.js';
+  document.head.appendChild(script);
+}
+
+window.addEventListener('load', loadDefaultSketch);
 
 
 
