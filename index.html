@@ -185,8 +185,12 @@
         </div>
         <p style="margin-top:10rem;font-size:0.85rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
       </div>
-      <div class="right">
-        <img src="assets/cpp-logo.png" alt="Processing for C++">
+      <div class="right" style="flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:0;">
+        <div id="logo-sketch-wrap" style="width:340px;height:340px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+          <iframe id="logo-iframe" sandbox="allow-scripts allow-same-origin"
+            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;"
+            src=""></iframe>
+        </div>
       </div>
       <div class="scroll-hint">↓</div>
     </div>
@@ -514,5 +518,28 @@ function mousePressed() {
 </footer>
 
 <script src="./assets/nav.js"></script>
+<script>
+(function(){
+  var iframe = document.getElementById('logo-iframe');
+  var wrap = document.getElementById('logo-sketch-wrap');
+  // Scale the 600x700 sketch to fit 340x340
+  var scaleX = 340/600, scaleY = 340/700, scale = Math.min(scaleX, scaleY);
+  iframe.style.transform = 'scale('+scale+')';
+  iframe.style.width = '600px';
+  iframe.style.height = '700px';
+
+  Promise.all([
+    fetch('/assets/logo_sketch.wasm').then(r=>r.arrayBuffer()),
+    fetch('/assets/logo_sketch.data').then(r=>r.arrayBuffer()),
+  ]).then(function(bufs){
+    function b64(buf){ var b=new Uint8Array(buf),s=''; for(var i=0;i<b.length;i++) s+=String.fromCharCode(b[i]); return btoa(s); }
+    var wa=b64(bufs[0]), da=b64(bufs[1]);
+    var jsUrl = '/assets/logo_sketch.js';
+    var html = '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){function b(s){var x=atob(s),a=new Uint8Array(x.length);for(var i=0;i<x.length;i++)a[i]=x.charCodeAt(i);return a;}window.Module={canvas:document.getElementById("canvas"),wasmBinary:b("'+wa+'"),getPreloadedPackage:function(){return b("'+da+'").buffer;},print:console.log,printErr:console.warn};})();<\/script><script src="'+jsUrl+'"><\/script><\/body><\/html>';
+    var blob = new Blob([html],{type:'text/html'});
+    iframe.src = URL.createObjectURL(blob);
+  });
+})();
+</script>
 </body>
 </html>
