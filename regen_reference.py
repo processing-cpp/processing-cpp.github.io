@@ -119,8 +119,6 @@ def render_page(entry, sidebar_tree, entries_by_slug):
   <style>{shared_css}</style>
   <link rel="stylesheet" href="../assets/cppmode-theme.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="../assets/cppmode-theme.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 </head>
 <body>
 <nav id="site-nav"></nav>
