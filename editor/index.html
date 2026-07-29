@@ -236,7 +236,8 @@ function makeSketchHTML(jsUrl, wasmB64, dataB64) {
 }
 
 function makeDefaultHTML() {
-  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100vw;height:100vh}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};<\/script><script src="/editor/default_sketch.js"><\/script><\/body><\/html>';
+  const base = location.origin + '/editor/';
+  return '<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#000}canvas{display:block;width:100vw;height:100vh}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>window.Module={canvas:document.getElementById("canvas"),onRuntimeInitialized:function(){parent.postMessage("running","*");},print:console.log,printErr:console.warn};<\/script><script src="'+base+'default_sketch.js"><\/script><\/body><\/html>';
 }
 
 function launchIframe(html) {
