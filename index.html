@@ -538,6 +538,90 @@ function mousePressed() {
 </footer>
 
 <script src="./assets/nav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="/assets/cppmode-theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="/assets/cppmode-keywords.js"></script>
+<script src="/assets/cppmode.js"></script>
+<script>
+const HERO_API = 'https://bench-volumes-pontiac-riders.trycloudflare.com';
+const HERO_DEFAULT = `enum PartType { HALF_O, PLUS, PLUS_SHADOW };
+struct Part {
+  PartType type;
+  float x, y, rot, r, t, s;
+  color col;
+};
+Part parts[] = {
+  {PLUS_SHADOW, 411,340,-0.5f,0,55,170,color(190,145,85)},
+  {HALF_O,      261,344, 0,  180,70,0, color(255,210,60)},
+  {PLUS,        319,348,-0.5f,0,55,170,color(255,210,60)},
+};
+void drawHalfO(Part& p) {
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
+  noStroke(); fill(p.col); beginShape();
+  for (float a=radians(90);a<=radians(270);a+=0.02f)
+    vertex(cos(a)*p.r, sin(a)*p.r);
+  for (float a=radians(270);a>=radians(90);a-=0.02f)
+    vertex(cos(a)*(p.r-p.t), sin(a)*(p.r-p.t));
+  endShape(CLOSE); popMatrix();
+}
+void drawPlus(Part& p, float o) {
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
+  rectMode(CENTER); noStroke(); fill(p.col);
+  rect(o,o,p.t,p.s,10); rect(o,o,p.s,p.t,10);
+  popMatrix();
+}
+void setup() { size(600,700); noLoop(); }
+void draw() {
+  background(255);
+  for (int i=0;i<3;i++) {
+    if (parts[i].type==HALF_O)      drawHalfO(parts[i]);
+    if (parts[i].type==PLUS_SHADOW) drawPlus(parts[i],6);
+    if (parts[i].type==PLUS)        drawPlus(parts[i],0);
+  }
+}`;
+
+const heroEditor = CodeMirror.fromTextArea(document.getElementById('hero-editor'), {
+  mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
+  indentUnit: 2, tabSize: 2, autofocus: false,
+});
+heroEditor.setValue(HERO_DEFAULT);
+heroEditor.setSize('100%', '320px');
+
+function heroLaunch(html) {
+  const area = document.getElementById('hero-preview');
+  const old = area.querySelector('iframe');
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.533);';
+  iframe.src = URL.createObjectURL(new Blob([html], {type:'text/html'}));
+  if (old) { area.replaceChild(iframe, old); try{URL.revokeObjectURL(old.src);}catch(e){} }
+  else area.appendChild(iframe);
+}
+
+document.getElementById('hero-run-btn').addEventListener('click', async function() {
+  const btn = this;
+  btn.textContent = '...'; btn.disabled = true;
+  try {
+    const resp = await fetch(HERO_API + '/compile', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({code: heroEditor.getValue()}),
+    });
+    const data = await resp.json();
+    if (data.error) { alert('Error:\n' + data.error.substring(0,300)); }
+    else {
+      const jsUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
+      function b64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+      const wa = b64(data.wasm);
+      const da = data.data ? b64(data.data) : new Uint8Array(0);
+      const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){window.Module={canvas:document.getElementById("canvas"),wasmBinary:new Uint8Array(${JSON.stringify(Array.from(wa))}),getPreloadedPackage:function(){return new Uint8Array(${JSON.stringify(Array.from(da))}).buffer;},print:console.log,printErr:console.warn};})();<\/script><script src="${jsUrl}"><\/script><\/body><\/html>`;
+      heroLaunch(html);
+    }
+  } catch(e) { alert('Server unreachable: ' + e.message); }
+  btn.textContent = '▶ Run'; btn.disabled = false;
+});
+</script>
 
 </body>
 </html>
