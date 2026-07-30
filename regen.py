@@ -265,6 +265,12 @@ for section_name, section_data in sections.items():
 <script src="../assets/cppmode-keywords.js"></script>
 <script src="../assets/cm-cppmode.js"></script>
 <script src="../assets/code-highlight.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="../assets/cppmode-theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>'''
@@ -393,6 +399,12 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
   </p>
 </footer>
 <script>{shared_js}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="../assets/cppmode-theme.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="../assets/cppmode-keywords.js"></script>
 <script src="../assets/cm-cppmode.js"></script>
