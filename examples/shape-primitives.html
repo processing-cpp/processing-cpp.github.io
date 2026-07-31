@@ -102,7 +102,7 @@ function draw() {}<\/script></body></html>`);doc.close();})();</script>
         <span>shape-primitives.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">/**
+      <pre id="code-pre">/**
  * Shape Primitives. 
  * 
  * The basic shape primitive functions are triangle(),
@@ -133,24 +133,7 @@ triangle(288, 18, 351, 360, 288, 360);
 
 fill(255);
 arc(479, 300, 280, 280, PI, TWO_PI);
-</textarea>
-    </div>
-    <script>
-      (function(){
-        var ta = document.getElementById('code-pre');
-        var cm = CodeMirror.fromTextArea(ta, {
-          mode: 'cppmode',
-          theme: 'cppmode',
-          readOnly: true,
-          lineNumbers: false,
-          lineWrapping: false,
-          viewportMargin: Infinity,
-        });
-        cm.getWrapperElement().style.fontSize = '13px';
-        cm.getWrapperElement().style.lineHeight = '1.6';
-        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
-      })();
-    </script>
+</pre>
   </div>
 </div>
 <footer>

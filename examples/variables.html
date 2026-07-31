@@ -105,7 +105,7 @@ function drawBlock(a, b, c) {
         <span>variables.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">/**
+      <pre id="code-pre">/**
  * Variables. 
  * 
  * Variables are used for storing values. In this example, change 
@@ -142,24 +142,7 @@ line(a, b, a + c, b);
 line(a, b + 10, a + c, b + 10);
 line(a, b + 20, a + c, b + 20);
 line(a, b + 30, a + c, b + 30);
-</textarea>
-    </div>
-    <script>
-      (function(){
-        var ta = document.getElementById('code-pre');
-        var cm = CodeMirror.fromTextArea(ta, {
-          mode: 'cppmode',
-          theme: 'cppmode',
-          readOnly: true,
-          lineNumbers: false,
-          lineWrapping: false,
-          viewportMargin: Infinity,
-        });
-        cm.getWrapperElement().style.fontSize = '13px';
-        cm.getWrapperElement().style.lineHeight = '1.6';
-        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
-      })();
-    </script>
+</pre>
   </div>
 </div>
 <footer>

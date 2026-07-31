@@ -94,7 +94,7 @@
         <span>conditionals-2.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">/**
+      <pre id="code-pre">/**
  * Conditionals 2. 
  * 
  * We extend the language of conditionals from the previous
@@ -124,24 +124,7 @@ for (int i = 2; i &lt; width - 2; i += 2) {
         line(i, height / 2, i, height - 20);
     }
 }
-</textarea>
-    </div>
-    <script>
-      (function(){
-        var ta = document.getElementById('code-pre');
-        var cm = CodeMirror.fromTextArea(ta, {
-          mode: 'cppmode',
-          theme: 'cppmode',
-          readOnly: true,
-          lineNumbers: false,
-          lineWrapping: false,
-          viewportMargin: Infinity,
-        });
-        cm.getWrapperElement().style.fontSize = '13px';
-        cm.getWrapperElement().style.lineHeight = '1.6';
-        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
-      })();
-    </script>
+</pre>
   </div>
 </div>
 <footer>

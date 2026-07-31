@@ -145,7 +145,7 @@ function segment(x, y, a, sw) {
         <span>reach3.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">/**
+      <pre id="code-pre">/**
  * Reach 3
  * based on code from Keith Peters.
  *
@@ -227,24 +227,7 @@ void segment(float x, float y, float a, float sw) {
   line(0, 0, segLength, 0);
   popMatrix();
 }
-</textarea>
-    </div>
-    <script>
-      (function(){
-        var ta = document.getElementById('code-pre');
-        var cm = CodeMirror.fromTextArea(ta, {
-          mode: 'cppmode',
-          theme: 'cppmode',
-          readOnly: true,
-          lineNumbers: false,
-          lineWrapping: false,
-          viewportMargin: Infinity,
-        });
-        cm.getWrapperElement().style.fontSize = '13px';
-        cm.getWrapperElement().style.lineHeight = '1.6';
-        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
-      })();
-    </script>
+</pre>
   </div>
 </div>
 <footer>

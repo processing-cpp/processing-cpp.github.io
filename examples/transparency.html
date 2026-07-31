@@ -94,7 +94,7 @@ function draw() {
         <span>transparency.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">/**
+      <pre id="code-pre">/**
  * Transparency. 
  * 
  * Move the pointer left and right across the image to change
@@ -121,24 +121,7 @@ void draw() {
   tint(255, 127);  // Display at half opacity
   image(img, offset, 0);
 }
-</textarea>
-    </div>
-    <script>
-      (function(){
-        var ta = document.getElementById('code-pre');
-        var cm = CodeMirror.fromTextArea(ta, {
-          mode: 'cppmode',
-          theme: 'cppmode',
-          readOnly: true,
-          lineNumbers: false,
-          lineWrapping: false,
-          viewportMargin: Infinity,
-        });
-        cm.getWrapperElement().style.fontSize = '13px';
-        cm.getWrapperElement().style.lineHeight = '1.6';
-        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
-      })();
-    </script>
+</pre>
   </div>
 </div>
 <footer>
