@@ -20,6 +20,8 @@
 .cm-s-cppmode .cm-function4    { color: #006698; font-weight: bold; }
 /* keyword1/keyword2/keyword6: #30987F plain */
 .cm-s-cppmode .cm-keyword      { color: #30987F; }
+.cm-s-cppmode .cm-type         { color: #E7671C; }
+.cm-s-cppmode .cm-type         { color: #E7671C; }
 .cm-s-cppmode .cm-keyword1     { color: #30987F; }
 .cm-s-cppmode .cm-keyword2     { color: #30987F; }
 .cm-s-cppmode .cm-keyword6     { color: #30987F; }
