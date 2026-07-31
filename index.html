@@ -587,10 +587,30 @@ void draw() {
 
 const heroEditor = CodeMirror.fromTextArea(document.getElementById('hero-editor'), {
   mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
-  indentUnit: 2, tabSize: 2, autofocus: false,
+  indentUnit: 2, tabSize: 2, autofocus: false, lineWrapping: false,
 });
 heroEditor.setValue(HERO_DEFAULT);
-heroEditor.setSize('100%', '320px');
+heroEditor.setSize('100%', '300px');
+
+let heroEditorOpen = false;
+function toggleHeroEditor() {
+  heroEditorOpen = !heroEditorOpen;
+  const panel = document.getElementById('hero-editor-panel');
+  const arrow = document.getElementById('hero-arrow-svg');
+  const runBtn = document.getElementById('hero-sketch-run-btn');
+  if (heroEditorOpen) {
+    panel.style.maxHeight = '400px';
+    panel.style.opacity = '1';
+    arrow.style.transform = 'rotate(180deg)';
+    runBtn.style.display = 'block';
+    setTimeout(() => heroEditor.refresh(), 420);
+  } else {
+    panel.style.maxHeight = '0';
+    panel.style.opacity = '0';
+    arrow.style.transform = '';
+    runBtn.style.display = 'none';
+  }
+}
 
 function heroLaunch(html) {
   const area = document.getElementById('hero-preview');
@@ -603,9 +623,10 @@ function heroLaunch(html) {
   else area.appendChild(iframe);
 }
 
-document.getElementById('hero-run-btn').addEventListener('click', async function() {
-  const btn = this;
-  btn.textContent = '...'; btn.disabled = true;
+async function heroRun() {
+  const btn = document.getElementById('hero-run-btn');
+  const btn2 = document.getElementById('hero-sketch-run-btn');
+  [btn,btn2].forEach(b=>{b.textContent='...';b.disabled=true;});
   try {
     const resp = await fetch(HERO_API + '/compile', {
       method: 'POST', headers: {'Content-Type':'application/json'},
@@ -616,14 +637,16 @@ document.getElementById('hero-run-btn').addEventListener('click', async function
     else {
       const jsUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
       function b64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
-      const wa = b64(data.wasm);
-      const da = data.data ? b64(data.data) : new Uint8Array(0);
+      const wa = b64(data.wasm), da = data.data ? b64(data.data) : new Uint8Array(0);
       const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){window.Module={canvas:document.getElementById("canvas"),wasmBinary:new Uint8Array(${JSON.stringify(Array.from(wa))}),getPreloadedPackage:function(){return new Uint8Array(${JSON.stringify(Array.from(da))}).buffer;},print:console.log,printErr:console.warn};})();<\/script><script src="${jsUrl}"><\/script><\/body><\/html>`;
       heroLaunch(html);
     }
   } catch(e) { alert('Server unreachable: ' + e.message); }
-  btn.textContent = '▶ Run'; btn.disabled = false;
-});
+  [btn,btn2].forEach(b=>{b.textContent='▶ Run';b.disabled=false;});
+}
+
+document.getElementById('hero-run-btn').addEventListener('click', heroRun);
+document.getElementById('hero-sketch-run-btn').addEventListener('click', heroRun);
 </script>
 
 </body>
