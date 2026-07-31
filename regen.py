@@ -248,7 +248,7 @@ for section_name, section_data in sections.items():
         <span>{ex["name"].lower().replace(" ","-")}.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <textarea id="code-pre" style="display:none">{escaped}</textarea>
+      <textarea id="code-pre" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">{escaped}</textarea>
     </div>
     <script>
       (function(){{
