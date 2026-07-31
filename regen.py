@@ -159,7 +159,7 @@ shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
     .copy-btn { font-size: 12px; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; }
     .copy-btn:hover { background: #f0f0f0; }
     .copy-btn.copied { color: #090; border-color: #090; }
-    pre { padding: 1.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+    pre { padding: 0.75rem 1rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; background: #0d0d0d; color: #ccc; border-radius: 8px; margin-bottom: 1.25rem; }
     .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
     .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
     .cm-static-wrap .CodeMirror { height: auto; border-radius: 8px; font-size: 13px; line-height: 1.6; padding: 0.25rem 0; margin-bottom: 1.25rem; font-family: "SF Mono","Fira Code",monospace; }
