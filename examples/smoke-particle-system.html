@@ -36,8 +36,7 @@
     pre { padding: 0.75rem 1rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; background: #0d0d0d; color: #ccc; border-radius: 8px; margin-bottom: 1.25rem; }
     .welcome h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
     .welcome p { color: #555; line-height: 1.8; max-width: 500px; }
-    .cm-static-wrap { margin-bottom: 1.25rem; }
-    .cm-static-wrap .CodeMirror { height: auto; border-radius: 8px; font-size: 13px; line-height: 1.6; padding: 0; font-family: "SF Mono","Fira Code",monospace; }
+    .cm-static-wrap .CodeMirror { height: auto; border-radius: 8px; font-size: 13px; line-height: 1.6; padding: 0.25rem 0; margin-bottom: 1.25rem; font-family: "SF Mono","Fira Code",monospace; }
     .cm-static-wrap .CodeMirror-scroll { overflow: hidden !important; max-height: none; }
     footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
     .footer-contact { margin-top: 0.4rem; font-size: 12px; }
@@ -213,7 +212,7 @@ function drawVector(v, loc, scayl) {
         <span>smoke-particle-system.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <pre id="code-pre">/**
+      <textarea id="code-pre" style="display:none">/**
  * Smoke Particle System
  * by Daniel Shiffman.
  *
@@ -262,8 +261,24 @@ void drawVector(PVector v, PVector loc, float scayl) {
   line(len, 0, len-arrowsize, -arrowsize/2);
   popMatrix();
 }
-</pre>
+</textarea>
     </div>
+    <script>
+      (function(){
+        var ta = document.getElementById('code-pre');
+        var cm = CodeMirror.fromTextArea(ta, {
+          mode: 'cppmode',
+          theme: 'cppmode',
+          readOnly: true,
+          lineNumbers: false,
+          lineWrapping: false,
+          viewportMargin: Infinity,
+        });
+        cm.getWrapperElement().style.fontSize = '13px';
+        cm.getWrapperElement().style.lineHeight = '1.6';
+        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
+      })();
+    </script>
   </div>
 </div>
 <footer>

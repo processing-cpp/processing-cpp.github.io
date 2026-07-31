@@ -248,8 +248,24 @@ for section_name, section_data in sections.items():
         <span>{ex["name"].lower().replace(" ","-")}.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <pre id="code-pre">{escaped}</pre>
+      <textarea id="code-pre" style="display:none">{escaped}</textarea>
     </div>
+    <script>
+      (function(){{
+        var ta = document.getElementById('code-pre');
+        var cm = CodeMirror.fromTextArea(ta, {{
+          mode: 'cppmode',
+          theme: 'cppmode',
+          readOnly: true,
+          lineNumbers: false,
+          lineWrapping: false,
+          viewportMargin: Infinity,
+        }});
+        cm.getWrapperElement().style.fontSize = '13px';
+        cm.getWrapperElement().style.lineHeight = '1.6';
+        cm.getWrapperElement().style.borderRadius = '0 0 8px 8px';
+      }})();
+    </script>
   </div>
 </div>
 <footer>
