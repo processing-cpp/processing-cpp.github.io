@@ -53,7 +53,7 @@ const FUNCTION2 = new Set([
   "abs","ceil","floor","round","constrain","dist","lerp","mag","map","max","min","norm","sq","sqrt",
   "acos","asin","atan","atan2","cos","degrees","exp","log","pow","radians","sin","tan",
   "nf","nfc","nfp","nfs","hex","unhex","binary","unbinary",
-  "str","int","float","boolean","byte","char","join","split","splitTokens","trim","toLowerCase","toUpperCase",
+  "str","int","boolean","byte","char","join","split","splitTokens","trim","toLowerCase","toUpperCase",
   "append","concat","expand","reverse","shorten","sort","splice","subset",
   "year","month","day","hour","minute","second","millis",
   "delay","print","println",
