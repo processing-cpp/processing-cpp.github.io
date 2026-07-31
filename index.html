@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Processing for C++</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
@@ -178,8 +180,9 @@
   <div class="page-body">
     <div class="main">
       <div class="left" style="display:flex;flex-direction:column;gap:1rem;min-width:0;flex:1;">
-        <p style="font-size:1rem;color:#444;line-height:1.7;max-width:480px;font-family:'SpaceGrotesk',sans-serif;">
-          C++ Mode is a plugin for <a href="https://processing.org" style="color:#111;border-bottom:1px solid #ccc;">Processing</a> that lets you write native C++ sketches using the Processing API. Get the performance of compiled C++ with the simplicity of Processing's creative coding environment.
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:600;color:#111;line-height:1.2;margin-bottom:0.75rem;">Welcome to<br>Processing for C++</h1>
+        <p style="font-size:0.95rem;color:#555;line-height:1.8;max-width:440px;font-family:'Space Grotesk',sans-serif;">
+          If you love Processing but wish you could squeeze more performance out of your sketches — this is for you. C++ Mode is a plugin that lets you write Processing sketches in native C++, keeping the API you know while getting the speed of compiled code. Great for simulations, generative art, and anything that needs to run fast.
         </p>
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
@@ -593,31 +596,40 @@ heroEditor.setValue(HERO_DEFAULT);
 heroEditor.setSize('100%', '300px');
 
 let heroEditorOpen = false;
+let heroEditorMoved = false;
+
 function toggleHeroEditor() {
   heroEditorOpen = !heroEditorOpen;
-  const panel = document.getElementById('hero-editor-panel');
+  const overlay = document.getElementById('hero-editor-overlay');
   const arrow = document.getElementById('hero-arrow-svg');
   const runBtn = document.getElementById('hero-sketch-run-btn');
+
   if (heroEditorOpen) {
-    panel.style.maxHeight = '400px';
-    panel.style.opacity = '1';
+    overlay.style.display = 'flex';
     arrow.style.transform = 'rotate(180deg)';
     runBtn.style.display = 'block';
-    setTimeout(() => heroEditor.refresh(), 420);
+    // Move CodeMirror into the overlay on first open
+    if (!heroEditorMoved) {
+      document.getElementById('hero-cm-wrap').appendChild(heroEditor.getWrapperElement());
+      heroEditorMoved = true;
+    }
+    heroEditor.setSize('100%', '100%');
+    setTimeout(() => heroEditor.refresh(), 50);
+    document.body.style.overflow = 'hidden';
   } else {
-    panel.style.maxHeight = '0';
-    panel.style.opacity = '0';
+    overlay.style.display = 'none';
     arrow.style.transform = '';
     runBtn.style.display = 'none';
+    document.body.style.overflow = '';
   }
 }
 
 function heroLaunch(html) {
-  const area = document.getElementById('hero-preview');
+  const area = document.getElementById('hero-preview-overlay');
   const old = area.querySelector('iframe');
   const iframe = document.createElement('iframe');
   iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-  iframe.style.cssText = 'position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.533);';
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
   iframe.src = URL.createObjectURL(new Blob([html], {type:'text/html'}));
   if (old) { area.replaceChild(iframe, old); try{URL.revokeObjectURL(old.src);}catch(e){} }
   else area.appendChild(iframe);
