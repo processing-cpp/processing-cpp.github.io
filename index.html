@@ -177,22 +177,32 @@
 
   <div class="page-body">
     <div class="main">
-      <div class="left" style="display:flex;flex-direction:column;gap:0.75rem;min-width:0;flex:1;">
-        <div style="border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-          <div style="background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:6px 12px;display:flex;align-items:center;gap:8px;">
-            <span style="font-family:monospace;font-size:11px;color:#888;flex:1;">sketch.cpp</span>
-            <button id="hero-run-btn" style="background:#e8b400;color:#111;border:none;padding:4px 14px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;">&#9654; Run</button>
-          </div>
-          <textarea id="hero-editor"></textarea>
-        </div>
+      <div class="left" style="display:flex;flex-direction:column;gap:1rem;min-width:0;flex:1;">
+        <p style="font-size:1rem;color:#444;line-height:1.7;max-width:480px;font-family:'SpaceGrotesk',sans-serif;">
+          C++ Mode is a plugin for <a href="https://processing.org" style="color:#111;border-bottom:1px solid #ccc;">Processing</a> that lets you write native C++ sketches using the Processing API. Get the performance of compiled C++ with the simplicity of Processing's creative coding environment.
+        </p>
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
           <a class="hero-btn-download" href="/downloads">Download</a>
         </div>
+        <div id="hero-editor-panel" style="border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);max-height:0;opacity:0;transition:max-height 0.4s ease,opacity 0.3s ease;">
+          <div style="background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:6px 12px;display:flex;align-items:center;gap:8px;">
+            <span style="font-family:monospace;font-size:11px;color:#888;flex:1;">sketch.cpp</span>
+            <button id="hero-run-btn" style="background:#e8b400;color:#111;border:none;padding:4px 14px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;">&#9654; Run</button>
+          </div>
+          <div style="overflow-x:auto;"><textarea id="hero-editor"></textarea></div>
+        </div>
         <p style="font-size:0.8rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
       </div>
       <div class="right" style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
-        <svg width="36" height="36" viewBox="0 0 36 36"><path d="M4 18L28 18M20 10L28 18L20 26" stroke="#e8b400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+          <button id="hero-sketch-run-btn" style="background:#e8b400;color:#111;border:none;padding:5px 16px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;display:none;">&#9654; Run</button>
+          <button onclick="toggleHeroEditor()" style="background:none;border:none;cursor:pointer;padding:4px;" title="Open editor">
+            <svg id="hero-arrow-svg" width="36" height="36" viewBox="0 0 36 36" style="transition:transform 0.3s ease;">
+              <path d="M28 18L4 18M12 10L4 18L12 26" stroke="#e8b400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </div>
         <div id="hero-preview" style="width:320px;height:380px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);flex-shrink:0;background:#fff;">
           <iframe id="hero-iframe" sandbox="allow-scripts allow-same-origin"
             style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.533);"
@@ -201,7 +211,6 @@
       </div>
       <div class="scroll-hint">↓</div>
     </div>
-
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
