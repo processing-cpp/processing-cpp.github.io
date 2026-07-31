@@ -180,9 +180,11 @@
   <div class="page-body">
     <div class="main">
       <div class="left" style="display:flex;flex-direction:column;gap:1rem;min-width:0;flex:1;">
-        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:600;color:#111;line-height:1.2;margin-bottom:0.75rem;">Welcome to<br>Processing for C++</h1>
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:600;line-height:1.2;margin-bottom:0.75rem;">
+          Welcome to <span style="color:#003f6b;">Processing</span> for <span style="color:#e8b400;">C++</span>!
+        </h1>
         <p style="font-size:0.95rem;color:#555;line-height:1.8;max-width:440px;font-family:'Space Grotesk',sans-serif;">
-          If you love Processing but wish you could squeeze more performance out of your sketches — this is for you. C++ Mode is a plugin that lets you write Processing sketches in native C++, keeping the API you know while getting the speed of compiled code. Great for simulations, generative art, and anything that needs to run fast.
+          Processing is a flexible software sketchbook and a language for learning how to code within the context of the visual arts. C++ Mode brings that same spirit to native C++ — write sketches with the Processing API you already know, compiled directly to fast machine code. Whether you're a student, artist, or developer pushing the limits of real-time graphics, C++ Mode gives you the full power of C++ without leaving the Processing workflow.
         </p>
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
@@ -195,7 +197,7 @@
           <div style="background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:8px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
             <span style="font-family:monospace;font-size:12px;color:#888;flex:1;">sketch.cpp</span>
             <button id="hero-run-btn" style="background:#e8b400;color:#111;border:none;padding:5px 18px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;">&#9654; Run</button>
-            <button onclick="toggleHeroEditor()" style="background:none;border:1px solid #e0e0e0;color:#555;padding:5px 14px;border-radius:4px;font-size:12px;cursor:pointer;">&#10005; Close</button>
+            <button onclick="toggleHeroEditor()" style="background:#c00;border:none;color:#fff;padding:5px 14px;border-radius:4px;font-size:12px;cursor:pointer;font-weight:600;">&#10005; Close</button>
           </div>
           <div style="display:flex;flex:1;overflow:hidden;">
             <div id="hero-cm-wrap" style="flex:1;overflow:auto;border-right:1px solid #e0e0e0;"></div>
