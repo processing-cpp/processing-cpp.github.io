@@ -105,6 +105,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
   tabSize: 2,
   indentWithTabs: false,
   autofocus: true,
+  extraKeys: { Tab: function(cm) { cm.replaceSelection('  '); } },
 });
 editor.setValue(DEFAULT);
 editor.setSize('100%', '100%');
