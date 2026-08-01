@@ -564,26 +564,22 @@ struct Part {
   float x, y, rot, r, t, s;
   color col;
 };
-
 void drawHalfO(Part& p) {
-  pushMatrix(); translate(p.x, p.y); rotate(p.rot);
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
   noStroke(); fill(p.col); beginShape();
-  for (float a=radians(90); a<=radians(270); a+=0.02f)
+  for (float a=radians(90);a<=radians(270);a+=0.02f)
     vertex(cos(a)*p.r, sin(a)*p.r);
-  for (float a=radians(270); a>=radians(90); a-=0.02f)
+  for (float a=radians(270);a>=radians(90);a-=0.02f)
     vertex(cos(a)*(p.r-p.t), sin(a)*(p.r-p.t));
   endShape(CLOSE); popMatrix();
 }
-
 void drawPlus(Part& p, float o) {
-  pushMatrix(); translate(p.x, p.y); rotate(p.rot);
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
   rectMode(CENTER); noStroke(); fill(p.col);
-  rect(o, o, p.t, p.s, 10); rect(o, o, p.s, p.t, 10);
+  rect(o,o,p.t,p.s,10); rect(o,o,p.s,p.t,10);
   popMatrix();
 }
-
 Part parts[3];
-
 void setup() {
   size(600, 700);
   parts[0] = {PLUS_SHADOW, 411,340,-0.5f,0,55,170,color(190,145,85)};
@@ -591,7 +587,6 @@ void setup() {
   parts[2] = {PLUS,        319,348,-0.5f,0,55,170,color(255,210,60)};
   noLoop();
 }
-
 void draw() {
   background(255);
   for (int i=0; i<3; i++) {
