@@ -596,15 +596,8 @@ void draw() {
   }
 }`;
 
-const heroEditor = CodeMirror.fromTextArea(document.getElementById('hero-editor'), {
-  mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
-  indentUnit: 2, tabSize: 2, autofocus: false, lineWrapping: false,
-});
-heroEditor.setValue(HERO_DEFAULT);
-heroEditor.setSize('100%', '300px');
-
+let heroEditor = null;
 let heroEditorOpen = false;
-let heroEditorMoved = false;
 
 function toggleHeroEditor() {
   heroEditorOpen = !heroEditorOpen;
@@ -616,14 +609,17 @@ function toggleHeroEditor() {
     overlay.style.display = 'flex';
     arrow.style.transform = 'rotate(180deg)';
     runBtn.style.display = 'block';
-    // Move CodeMirror into the overlay on first open
-    if (!heroEditorMoved) {
-      document.getElementById('hero-cm-wrap').appendChild(heroEditor.getWrapperElement());
-      heroEditorMoved = true;
-    }
-    heroEditor.setSize('100%', '100%');
-    setTimeout(() => heroEditor.refresh(), 50);
     document.body.style.overflow = 'hidden';
+    // Init CodeMirror lazily on first open
+    if (!heroEditor) {
+      heroEditor = CodeMirror(document.getElementById('hero-cm-wrap'), {
+        mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
+        indentUnit: 2, tabSize: 2, lineWrapping: false,
+        value: HERO_DEFAULT,
+      });
+      heroEditor.setSize('100%', '100%');
+    }
+    setTimeout(() => heroEditor.refresh(), 50);
   } else {
     overlay.style.display = 'none';
     arrow.style.transform = '';
@@ -650,7 +646,7 @@ async function heroRun() {
   try {
     const resp = await fetch(HERO_API + '/compile', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({code: heroEditor.getValue()}),
+      body: JSON.stringify({code: heroEditor ? heroEditor.getValue() : HERO_DEFAULT}),
     });
     const data = await resp.json();
     if (data.error) { alert('Error:\n' + data.error.substring(0,300)); }
