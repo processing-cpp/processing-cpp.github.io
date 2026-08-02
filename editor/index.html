@@ -189,9 +189,7 @@ window.addEventListener('load', () => {
     const ta = document.querySelector('.CodeMirror textarea');
     if (ta) {
       ta.addEventListener('blur', e => {
-        if (e.relatedTarget && !e.relatedTarget.closest('.CodeMirror')) {
-          setTimeout(() => ta.focus(), 0);
-        }
+        setTimeout(() => ta.focus(), 0);
       });
     }
   }, 300);
