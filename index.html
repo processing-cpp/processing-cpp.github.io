@@ -164,16 +164,17 @@
         box-shadow: 2px 0 12px rgba(0,0,0,0.08);
       }
       .sidebar.open { left: 0; }
-      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; gap: 0; }
-      .left { order: 1; }
-      .right { order: 2; width: 100%; justify-content: center; margin: 1rem 0; }
-      #hero-preview { width: 100% !important; height: 200px !important; }
-      #hero-preview iframe { width: 100% !important; height: 375px !important; transform: scale(0.533) !important; transform-origin: top left !important; }
-      .examples-grid { grid-template-columns: 1fr !important; }
+      /* Stack hero: text first, logo second, examples below */
+      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; max-height: none; }
+      .left { order: 1; width: 100%; }
+      .right { order: 2; width: 100%; display: flex; justify-content: center; margin: 1.5rem 0 0; }
+      #hero-preview { width: 280px; height: 320px; }
+      /* Single column examples and cards */
+      .examples-grid { grid-template-columns: 1fr; }
+      .gs-cards { grid-template-columns: 1fr; }
       .getting-started-section { padding: 2rem 1.25rem; }
-      .gs-cards { grid-template-columns: 1fr !important; }
-      .right img { width: 180px; height: 180px; }
-      .scroll-hint { position: static; transform: none; display: block; text-align: center; padding: 1rem 0; animation: none; }
+      /* Hide the arrow editor toggle on mobile */
+      button[onclick="toggleHeroEditor()"] { display: none; }
     }
   </style>
 </head>
