@@ -27,7 +27,7 @@
           <span class="nav-title-bottom">C++</span>
         </div>
       </a>
-      <button class="hamburger" onclick="
+      <button class="hamburger" style="display:${window.NAV_NO_HAMBURGER?"none":""}" style="display:none" onclick="
         var s = document.querySelector('.sidebar-outer, .sidebar');
         if(s) s.classList.toggle('open');
       ">☰</button>
