@@ -240,15 +240,20 @@ document.addEventListener('keydown', e => {
   if ((e.ctrlKey||e.metaKey) && e.key==='Enter') { e.preventDefault(); runSketch(); }
 });
 
-// Fix Tab in Firefox: intercept on the CM textarea directly
+// Fix Tab in Firefox
 setTimeout(() => {
+  const cmEl = document.querySelector('.CodeMirror');
   const cmTextarea = document.querySelector('.CodeMirror textarea');
+  if (cmEl) cmEl.setAttribute('tabindex', '-1');
   if (cmTextarea) {
+    cmTextarea.setAttribute('tabindex', '0');
     cmTextarea.addEventListener('keydown', e => {
       if (e.key === 'Tab') {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         editor.replaceSelection('  ');
+        cmTextarea.focus();
       }
     }, true);
   }
