@@ -164,7 +164,12 @@
         box-shadow: 2px 0 12px rgba(0,0,0,0.08);
       }
       .sidebar.open { left: 0; }
-      .main { flex-direction: column; padding: 3rem 2rem; height: auto; gap: 2rem; }
+      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; gap: 1.5rem; }
+      .hero-text { order: 1; }
+      #hero-preview { order: 2; width: 100% !important; height: 220px !important; }
+      .examples-grid { grid-template-columns: 1fr !important; }
+      .getting-started-section { padding: 2rem 1.25rem; }
+      .gs-cards { grid-template-columns: 1fr !important; }
       .right img { width: 180px; height: 180px; }
       .scroll-hint { position: static; transform: none; display: block; text-align: center; padding: 1rem 0; animation: none; }
     }
@@ -189,7 +194,7 @@
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
           <a class="hero-btn-download" href="/downloads">Download</a>
-          <a class="hero-btn-download" href="/editor" style="background:#4b9cd3;color:#fff;">Open Editor</a>
+          <a class="hero-btn-download" href="/editor" style="background:#e8b400;color:#111;">Open Editor</a>
         </div>
         <textarea id="hero-editor" style="display:none;"></textarea>
 
