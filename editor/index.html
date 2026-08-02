@@ -109,7 +109,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
   tabSize: 2,
   indentWithTabs: false,
   autofocus: true,
-  extraKeys: { Tab: function(cm) { cm.replaceSelection('  '); } },
+  extraKeys: { Tab: cm => cm.execCommand('indentMore'), 'Shift-Tab': cm => cm.execCommand('indentLess'), Backspace: cm => cm.execCommand('delCharBefore') },
 });
 editor.setValue(DEFAULT);
 editor.setSize('100%', '100%');
