@@ -12,6 +12,10 @@
     #site-nav { flex-shrink: 0; position: static !important; }
     .layout { display: flex; flex: 1; overflow: hidden; min-height: 0; }
     .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; flex-shrink: 0; overflow-y: auto; }
+    @media (max-width: 768px) {
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+    }
     #site-sidebar { padding: 1.5rem 1.5rem 1rem; display: flex; flex-direction: column; }
     #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; text-decoration: none; }
     #site-sidebar a:hover { color: #111; }
