@@ -164,9 +164,11 @@
         box-shadow: 2px 0 12px rgba(0,0,0,0.08);
       }
       .sidebar.open { left: 0; }
-      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; gap: 1.5rem; }
-      .hero-text { order: 1; }
-      #hero-preview { order: 2; width: 100% !important; height: 220px !important; }
+      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; gap: 0; }
+      .left { order: 1; }
+      .right { order: 2; width: 100%; justify-content: center; margin: 1rem 0; }
+      #hero-preview { width: 100% !important; height: 200px !important; }
+      #hero-preview iframe { width: 100% !important; height: 375px !important; transform: scale(0.533) !important; transform-origin: top left !important; }
       .examples-grid { grid-template-columns: 1fr !important; }
       .getting-started-section { padding: 2rem 1.25rem; }
       .gs-cards { grid-template-columns: 1fr !important; }
@@ -194,7 +196,7 @@
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
           <a class="hero-btn-download" href="/downloads">Download</a>
-          <a class="hero-btn-download" href="/editor" style="background:#e8b400;color:#111;">Open Editor</a>
+          <a class="hero-btn-download" href="/editor" style="background:#4b9cd3;color:#fff;">Open Editor</a>
         </div>
         <textarea id="hero-editor" style="display:none;"></textarea>
 
