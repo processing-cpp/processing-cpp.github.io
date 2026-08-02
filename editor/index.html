@@ -241,16 +241,18 @@ document.addEventListener('keydown', e => {
 });
 
 // Fix Tab in Firefox: intercept on the CM textarea directly
-const cmTextarea = document.querySelector('.CodeMirror textarea');
-if (cmTextarea) {
-  cmTextarea.addEventListener('keydown', e => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      e.stopPropagation();
-      editor.replaceSelection('  ');
-    }
-  }, true);
-}
+setTimeout(() => {
+  const cmTextarea = document.querySelector('.CodeMirror textarea');
+  if (cmTextarea) {
+    cmTextarea.addEventListener('keydown', e => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        e.stopPropagation();
+        editor.replaceSelection('  ');
+      }
+    }, true);
+  }
+}, 100);
 </script>
 </div>
 </div>
