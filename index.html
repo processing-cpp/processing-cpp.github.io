@@ -625,6 +625,7 @@ function toggleHeroEditor() {
       heroEditor = CodeMirror(document.getElementById('hero-cm-wrap'), {
         mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
         indentUnit: 2, tabSize: 2, lineWrapping: false,
+        extraKeys: { Tab: function(cm) { cm.replaceSelection('  '); } },
         value: HERO_DEFAULT,
       });
       heroEditor.setSize('100%', '100%');
