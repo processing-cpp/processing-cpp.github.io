@@ -181,6 +181,12 @@ window.addEventListener('message', e => {
 
 // Load default sketch on page load using inline JS blob
 window.addEventListener('load', () => {
+  // Prevent Tab from leaving CodeMirror in Firefox
+  setTimeout(() => {
+    document.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach(el => {
+      if (!el.closest('.CodeMirror')) el.setAttribute('tabindex', '-1');
+    });
+  }, 200);
   const jsBlob = URL.createObjectURL(new Blob([DEFAULT_JS], {type:'application/javascript'}));
   // We need the data file -- fetch it
   Promise.all([
