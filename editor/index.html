@@ -234,6 +234,12 @@ async function runSketch() {
 
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey||e.metaKey) && e.key==='Enter') { e.preventDefault(); runSketch(); }
+  if (e.key === 'Tab') {
+    const cm = document.querySelector('.CodeMirror');
+    if (cm && cm.contains(document.activeElement)) {
+      e.preventDefault();
+    }
+  }
 });
 </script>
 </div>
