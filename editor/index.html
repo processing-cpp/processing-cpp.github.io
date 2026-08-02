@@ -238,17 +238,19 @@ async function runSketch() {
 
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey||e.metaKey) && e.key==='Enter') { e.preventDefault(); runSketch(); }
-}, false);
-document.addEventListener('keydown', e => {
-  if (e.key === 'Tab') {
-    const cm = document.querySelector('.CodeMirror');
-    if (cm && cm.contains(document.activeElement)) {
+});
+
+// Fix Tab in Firefox: intercept on the CM textarea directly
+const cmTextarea = document.querySelector('.CodeMirror textarea');
+if (cmTextarea) {
+  cmTextarea.addEventListener('keydown', e => {
+    if (e.key === 'Tab') {
       e.preventDefault();
-      e.stopImmediatePropagation();
-      editor.execCommand('indentMore');
+      e.stopPropagation();
+      editor.replaceSelection('  ');
     }
-  }
-}, true);
+  }, true);
+}
 </script>
 </div>
 </div>
