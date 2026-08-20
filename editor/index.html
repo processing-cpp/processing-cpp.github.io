@@ -59,6 +59,7 @@
       <span class="pane-label">sketch.cpp</span>
       <span id="status"></span>
       <button class="btn-run" id="btn-run" onclick="runSketch()" tabindex="-1">&#9654; Run</button>
+      <button id="btn-dark" onclick="toggleDark()" tabindex="-1" style="background:#111;color:#fff;border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer;">🌙 Dark</button>
     </div>
     <div id="code"></div>
     <div id="error-panel"></div>
@@ -256,6 +257,29 @@ document.addEventListener('keydown', e => {
 </div>
 </div>
 <footer><p>C++ Mode for Processing</p><p class="footer-contact"><a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a></p></footer>
-<script src="../assets/nav.js"></script>
+<script src="../assets/nav.js">
+let darkMode = false;
+function toggleDark() {
+  darkMode = !darkMode;
+  const btn = document.getElementById('btn-dark');
+  if (darkMode) {
+    editor.setOption('theme', 'cppmode-dark');
+    document.body.style.cssText = 'background:#1a1a2e;color:#e0e0e0';
+    document.querySelectorAll('.pane-bar').forEach(el => { el.style.background='#16213e'; el.style.borderColor='#0f3460'; });
+    document.querySelector('.editor-pane').style.borderColor = '#0f3460';
+    document.querySelector('.preview-pane').style.borderColor = '#0f3460';
+    btn.textContent = '☀️ Light';
+    btn.style.background = '#0f3460';
+  } else {
+    editor.setOption('theme', 'cppmode');
+    document.body.style.cssText = '';
+    document.querySelectorAll('.pane-bar').forEach(el => { el.style.background=''; el.style.borderColor=''; });
+    document.querySelector('.editor-pane').style.borderColor = '';
+    document.querySelector('.preview-pane').style.borderColor = '';
+    btn.textContent = '🌙 Dark';
+    btn.style.background = '#111';
+  }
+}
+</script>
 </body>
 </html>
