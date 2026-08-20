@@ -59,7 +59,6 @@
       <span class="pane-label">sketch.cpp</span>
       <span id="status"></span>
       <button class="btn-run" id="btn-run" onclick="runSketch()" tabindex="-1">&#9654; Run</button>
-      <button id="btn-dark" onclick="toggleDark()" tabindex="-1" style="background:#111;color:#fff;border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer;">🌙 Dark</button>
     </div>
     <div id="code"></div>
     <div id="error-panel"></div>
@@ -68,6 +67,7 @@
     <div class="pane-bar">
       <span class="pane-label">Output</span>
       <button class="btn-stop" onclick="stopSketch()" tabindex="-1">&#9632; Stop</button>
+      <button id="btn-dark" onclick="toggleDark()" tabindex="-1" style="background:#111;color:#fff;border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer;">🌙 Dark</button>
     </div>
     <div id="preview-area">
       <div id="preview-placeholder">Press Run or Ctrl+Enter</div>
@@ -260,26 +260,34 @@ document.addEventListener('keydown', e => {
 <script src="../assets/nav.js"></script>
 <script>
 let darkMode = false;
+function applyDark(on) {
+  const btn = document.getElementById('btn-dark');
+  const bg1 = '#1a1a2e', bg2 = '#16213e', border = '#0f3460', text = '#e0e0e0';
+  document.querySelectorAll(
+    'body, #site-nav, .sidebar, .pane-bar, .editor-pane, .preview-pane, #error-panel, a, span, p, h1, h2, h3, li'
+  ).forEach(el => {
+    if (on) {
+      el.style.color = text;
+      if (el.tagName === 'BODY' || el.id === 'site-nav' || el.classList.contains('sidebar'))
+        el.style.background = bg2;
+      if (el.classList.contains('pane-bar'))
+        el.style.background = bg2, el.style.borderColor = border;
+      if (el.classList.contains('editor-pane') || el.classList.contains('preview-pane'))
+        el.style.borderColor = border;
+    } else {
+      el.style.color = '';
+      el.style.background = '';
+      el.style.borderColor = '';
+    }
+  });
+  document.body.style.background = on ? bg1 : '';
+  editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
+  btn.textContent = on ? '☀️ Light' : '🌙 Dark';
+  btn.style.background = on ? bg2 : '#111';
+}
 function toggleDark() {
   darkMode = !darkMode;
-  const btn = document.getElementById('btn-dark');
-  if (darkMode) {
-    editor.setOption('theme', 'cppmode-dark');
-    document.body.style.cssText = 'background:#1a1a2e;color:#e0e0e0';
-    document.querySelectorAll('.pane-bar').forEach(el => { el.style.background='#16213e'; el.style.borderColor='#0f3460'; });
-    document.querySelector('.editor-pane').style.borderColor = '#0f3460';
-    document.querySelector('.preview-pane').style.borderColor = '#0f3460';
-    btn.textContent = '☀️ Light';
-    btn.style.background = '#0f3460';
-  } else {
-    editor.setOption('theme', 'cppmode');
-    document.body.style.cssText = '';
-    document.querySelectorAll('.pane-bar').forEach(el => { el.style.background=''; el.style.borderColor=''; });
-    document.querySelector('.editor-pane').style.borderColor = '';
-    document.querySelector('.preview-pane').style.borderColor = '';
-    btn.textContent = '🌙 Dark';
-    btn.style.background = '#111';
-  }
+  applyDark(darkMode);
 }
 </script>
 </body>
