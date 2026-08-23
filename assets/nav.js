@@ -86,50 +86,44 @@
     s.src = SITE + '/assets/search.js';
     document.head.appendChild(s);
   }
-  // Dark mode
+  // Dark mode via CSS class
   (function() {
-    const DARK = {
-      body: 'background:#1a1a2e;color:#e0e0e0',
-      nav: 'background:#16213e;border-color:#0f3460',
-      sidebar: 'background:#16213e;border-color:#0f3460',
-    };
+    if (!document.getElementById('dark-mode-style')) {
+      const style = document.createElement('style');
+      style.id = 'dark-mode-style';
+      style.textContent = `
+        body.dark-mode { background:#1a1a2e !important; color:#e0e0e0 !important; }
+        body.dark-mode * { color:#e0e0e0 !important; border-color:#0f3460 !important; }
+        body.dark-mode a { color:#4fc3f7 !important; }
+        body.dark-mode #site-nav { background:#16213e !important; }
+        body.dark-mode .sidebar, body.dark-mode #site-sidebar { background:#16213e !important; }
+        body.dark-mode .pane-bar { background:#16213e !important; }
+        body.dark-mode .editor-pane, body.dark-mode .preview-pane { border-color:#0f3460 !important; }
+        body.dark-mode .btn-run { background:#e8b400 !important; color:#111 !important; }
+        body.dark-mode .btn-stop { background:#333 !important; color:#e0e0e0 !important; }
+        body.dark-mode .nav-title-top, body.dark-mode .nav-title-bottom { color:#e8b400 !important; }
+        body.dark-mode #nav-errors-link { color:#e8b400 !important; }
+        body.dark-mode input, body.dark-mode textarea { background:#16213e !important; }
+        body.dark-mode .sidebar a.active { color:#e8b400 !important; }
+      `;
+      document.head.appendChild(style);
+    }
     function applyDark(on) {
-      document.body.setAttribute('data-dark', on ? '1' : '');
+      document.body.classList.toggle('dark-mode', on);
       const btn = document.getElementById('nav-dark-btn');
       if (btn) {
-        btn.textContent = on ? '☀️ Light' : '🌙 Dark';
+        btn.textContent = on ? '\u2600\uFE0F Light' : '\uD83C\uDF19 Dark';
         btn.style.background = on ? '#16213e' : '#111';
-        btn.style.color = on ? '#e0e0e0' : '#fff';
+        btn.style.color = '#fff';
         btn.style.borderColor = on ? '#0f3460' : '#333';
       }
-      const nav = document.getElementById('site-nav');
-      const sb = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
-      if (nav) { nav.style.background = on ? '#16213e' : ''; nav.style.borderColor = on ? '#0f3460' : ''; nav.style.color = on ? '#e0e0e0' : ''; }
-      if (sb) { sb.style.background = on ? '#16213e' : ''; sb.style.color = on ? '#e0e0e0' : ''; }
-      // Make all links and muted text visible
-      document.querySelectorAll('a, .sidebar a, #site-nav a, p, span, h1, h2, h3, li, label').forEach(el => {
-        if (on) { if (!el.style.color || el.style.color === 'rgb(170, 170, 170)' || el.style.color === '#aaa') el.style.color = '#e0e0e0'; }
-        else { el.style.color = ''; }
-      });
-      document.body.style.background = on ? '#1a1a2e' : '';
-      document.body.style.color = on ? '#e0e0e0' : '';
-      // Editor-specific: pane bars
-      document.querySelectorAll('.pane-bar, .editor-pane, .preview-pane').forEach(el => {
-        el.style.background = on ? '#16213e' : '';
-        el.style.borderColor = on ? '#0f3460' : '';
-        el.style.color = on ? '#e0e0e0' : '';
-      });
+      if (window.editor && window.editor.setOption)
+        window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
     }
     window.__toggleDark = function() {
-      const on = document.body.getAttribute('data-dark') !== '1';
-      applyDark(on);
-      // Also update CodeMirror if on editor page
-      if (window.editor && window.editor.setOption) {
-        window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
-      }
+      applyDark(!document.body.classList.contains('dark-mode'));
     };
-    // Restore preference
     try {
       if (localStorage.getItem('darkMode') === '1') applyDark(true);
     } catch(e) {}
