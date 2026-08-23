@@ -72,43 +72,43 @@
 }
 .cm-s-cppmode-dark .CodeMirror-cursor { border-left: 2px solid #f5c2e7; }
 .cm-s-cppmode-dark .CodeMirror-selected { background: #313244; }
-.cm-s-cppmode-dark .CodeMirror-activeline-background { background: #181825; }
+.cm-s-cppmode-dark .CodeMirror-activeline-background { background: #24243e; }
 .cm-s-cppmode-dark .CodeMirror-matchingbracket { color: #a6e3a1 !important; background: #313244; }
-/* functions: sky blue */
-.cm-s-cppmode-dark .cm-function2    { color: #89dceb; }
-.cm-s-cppmode-dark .cm-function4    { color: #89dceb; font-weight: bold; }
-.cm-s-cppmode-dark .cm-cppmode-f1  { color: #89dceb; }
-.cm-s-cppmode-dark .cm-cppmode-f2  { color: #89dceb; font-weight: bold; }
-/* keywords (if/for/while): green */
-.cm-s-cppmode-dark .cm-keyword      { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-keyword1     { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-keyword2     { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-keyword6     { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-cppmode-k6  { color: #a6e3a1; }
-/* keyword3 (true/false): teal */
-.cm-s-cppmode-dark .cm-keyword3     { color: #94e2d5; }
-.cm-s-cppmode-dark .cm-cppmode-k3  { color: #94e2d5; }
-/* keyword4: pink */
-.cm-s-cppmode-dark .cm-keyword4     { color: #f38ba8; }
-.cm-s-cppmode-dark .cm-cppmode-k4  { color: #f38ba8; }
-/* types (int float color): peach/orange */
-.cm-s-cppmode-dark .cm-keyword5     { color: #fab387; }
-.cm-s-cppmode-dark .cm-type         { color: #fab387; }
-.cm-s-cppmode-dark .cm-cppmode-k5  { color: #fab387; }
-/* strings: green */
-.cm-s-cppmode-dark .cm-literal1     { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-literal2     { color: #cba6f7; }
-.cm-s-cppmode-dark .cm-string       { color: #a6e3a1; }
-.cm-s-cppmode-dark .cm-string-2     { color: #a6e3a1; }
-/* numbers: peach */
-.cm-s-cppmode-dark .cm-number       { color: #fab387; }
-/* comments: overlay */
-.cm-s-cppmode-dark .cm-comment      { color: #6c7086; font-style: italic; }
-/* preprocessor: mauve */
-.cm-s-cppmode-dark .cm-preprocessor { color: #cba6f7; }
-/* operators: sky */
-.cm-s-cppmode-dark .cm-operator     { color: #89dceb; }
-/* variables: text */
-.cm-s-cppmode-dark .cm-variable     { color: #cdd6f4; }
-/* error */
-.cm-s-cppmode-dark .cm-error        { color: #f38ba8; font-weight: bold; }
+/* functions: bright cyan */
+.cm-s-cppmode-dark .cm-function2    { color: #00d4ff; font-weight: bold; }
+.cm-s-cppmode-dark .cm-function4    { color: #00d4ff; font-weight: bold; }
+.cm-s-cppmode-dark .cm-cppmode-f1  { color: #00d4ff; }
+.cm-s-cppmode-dark .cm-cppmode-f2  { color: #00d4ff; font-weight: bold; }
+/* keywords if/for/while: bright green */
+.cm-s-cppmode-dark .cm-keyword      { color: #50fa7b; }
+.cm-s-cppmode-dark .cm-keyword1     { color: #50fa7b; }
+.cm-s-cppmode-dark .cm-keyword2     { color: #50fa7b; }
+.cm-s-cppmode-dark .cm-keyword6     { color: #50fa7b; }
+.cm-s-cppmode-dark .cm-cppmode-k6  { color: #50fa7b; }
+/* keyword3 true/false: teal */
+.cm-s-cppmode-dark .cm-keyword3     { color: #8be9fd; }
+.cm-s-cppmode-dark .cm-cppmode-k3  { color: #8be9fd; }
+/* keyword4: hot pink */
+.cm-s-cppmode-dark .cm-keyword4     { color: #ff79c6; }
+.cm-s-cppmode-dark .cm-cppmode-k4  { color: #ff79c6; }
+/* types int float color: orange */
+.cm-s-cppmode-dark .cm-keyword5     { color: #ffb86c; }
+.cm-s-cppmode-dark .cm-type         { color: #ffb86c; }
+.cm-s-cppmode-dark .cm-cppmode-k5  { color: #ffb86c; }
+/* strings: yellow-green */
+.cm-s-cppmode-dark .cm-literal1     { color: #f1fa8c; }
+.cm-s-cppmode-dark .cm-literal2     { color: #bd93f9; }
+.cm-s-cppmode-dark .cm-string       { color: #f1fa8c; }
+.cm-s-cppmode-dark .cm-string-2     { color: #f1fa8c; }
+/* numbers: orange */
+.cm-s-cppmode-dark .cm-number       { color: #ffb86c; }
+/* comments: muted */
+.cm-s-cppmode-dark .cm-comment      { color: #6272a4; font-style: italic; }
+/* preprocessor: purple */
+.cm-s-cppmode-dark .cm-preprocessor { color: #bd93f9; }
+/* operators: cyan */
+.cm-s-cppmode-dark .cm-operator     { color: #8be9fd; }
+/* variables: white */
+.cm-s-cppmode-dark .cm-variable     { color: #f8f8f2; }
+/* error: red */
+.cm-s-cppmode-dark .cm-error        { color: #ff5555; font-weight: bold; }
