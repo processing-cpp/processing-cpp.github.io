@@ -97,7 +97,7 @@
       document.body.setAttribute('data-dark', on ? '1' : '');
       const btn = document.getElementById('nav-dark-btn');
       if (btn) {
-        btn.textContent = on ? '☀️' : '🌙';
+        btn.textContent = on ? '☀️ Light' : '🌙 Dark';
         btn.style.background = on ? '#16213e' : '#111';
         btn.style.color = on ? '#e0e0e0' : '#fff';
         btn.style.borderColor = on ? '#0f3460' : '#333';
