@@ -108,10 +108,8 @@
         body.dark-mode #nav-errors-link { color:#e8b400 !important; }
         body.dark-mode .sidebar a.active { color:#e8b400 !important; font-weight:700; }
         body.dark-mode #nav-dark-btn { background:#313244 !important; color:#cdd6f4 !important; border-color:#45475a !important; }
-        body.dark-mode .CodeMirror { background:#1e1e2e !important; color:#cdd6f4 !important; }
         body.dark-mode .CodeMirror-gutters { background:#181825 !important; border-color:#313244 !important; }
         body.dark-mode .CodeMirror-linenumber { color:#6c7086 !important; }
-        body.dark-mode .CodeMirror-scroll { background:#1e1e2e !important; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background:#181825 !important; color:#cdd6f4 !important; }
         body.dark-mode ::placeholder { color:#6c7086 !important; }
         body.dark-mode .hero-link { color:#89b4fa !important; border-color:#89b4fa !important; }
