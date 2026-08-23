@@ -96,13 +96,29 @@
     function applyDark(on) {
       document.body.setAttribute('data-dark', on ? '1' : '');
       const btn = document.getElementById('nav-dark-btn');
-      if (btn) btn.textContent = on ? '☀️' : '🌙';
+      if (btn) {
+        btn.textContent = on ? '☀️' : '🌙';
+        btn.style.background = on ? '#16213e' : '#111';
+        btn.style.color = on ? '#e0e0e0' : '#fff';
+        btn.style.borderColor = on ? '#0f3460' : '#333';
+      }
       const nav = document.getElementById('site-nav');
       const sb = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
-      if (nav) { nav.style.background = on ? '#16213e' : ''; nav.style.borderColor = on ? '#0f3460' : ''; }
-      if (sb) { sb.style.background = on ? '#16213e' : ''; }
+      if (nav) { nav.style.background = on ? '#16213e' : ''; nav.style.borderColor = on ? '#0f3460' : ''; nav.style.color = on ? '#e0e0e0' : ''; }
+      if (sb) { sb.style.background = on ? '#16213e' : ''; sb.style.color = on ? '#e0e0e0' : ''; }
+      // Make all links and muted text visible
+      document.querySelectorAll('a, .sidebar a, #site-nav a, p, span, h1, h2, h3, li, label').forEach(el => {
+        if (on) { if (!el.style.color || el.style.color === 'rgb(170, 170, 170)' || el.style.color === '#aaa') el.style.color = '#e0e0e0'; }
+        else { el.style.color = ''; }
+      });
       document.body.style.background = on ? '#1a1a2e' : '';
       document.body.style.color = on ? '#e0e0e0' : '';
+      // Editor-specific: pane bars
+      document.querySelectorAll('.pane-bar, .editor-pane, .preview-pane').forEach(el => {
+        el.style.background = on ? '#16213e' : '';
+        el.style.borderColor = on ? '#0f3460' : '';
+        el.style.color = on ? '#e0e0e0' : '';
+      });
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
     }
     window.__toggleDark = function() {
