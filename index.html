@@ -149,6 +149,8 @@
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .hero-btn-download:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(232,180,0,0.35); }
+    .hero-btn-editor { background:#4b9cd3; color:#fff; }
+    .hero-btn-editor:hover { box-shadow: 0 4px 10px rgba(75,156,211,0.35); }
 
     @media (max-width: 768px) {
       .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
@@ -197,7 +199,7 @@
         <div class="hero-actions">
           <a class="hero-link" href="/reference">Reference</a>
           <a class="hero-btn-download" href="/downloads">Download</a>
-          <a class="hero-btn-download" href="/editor" style="background:#4b9cd3;color:#fff;">Open Editor</a>
+          <a class="hero-btn-download hero-btn-editor" href="/editor">Open Editor</a>
         </div>
         <textarea id="hero-editor" style="display:none;"></textarea>
 

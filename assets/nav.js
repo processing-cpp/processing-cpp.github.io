@@ -114,7 +114,7 @@
         body.dark-mode .hero-link { color:#89b4fa !important; border-color:#89b4fa !important; }
         body.dark-mode .hero-link:hover { border-color:#cdd6f4 !important; color:#cdd6f4 !important; }
         body.dark-mode .hero-btn-download { background:#e8b400 !important; color:#111 !important; }
-        body.dark-mode a[href='/editor'], body.dark-mode a[href='/editor/'] { background:#4b9cd3 !important; color:#fff !important; }
+        body.dark-mode .hero-btn-editor { background:#4b9cd3 !important; color:#fff !important; }
       `;
       document.head.appendChild(style);
     }
