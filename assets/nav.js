@@ -92,31 +92,32 @@
       const style = document.createElement('style');
       style.id = 'dark-mode-style';
       style.textContent = `
-        body.dark-mode { background:#1a1a2e !important; color:#e0e0e0 !important; }
-        body.dark-mode * { color:#e0e0e0 !important; border-color:#0f3460 !important; }
-        body.dark-mode a { color:#4fc3f7 !important; }
-        body.dark-mode #site-nav { background:#16213e !important; }
-        body.dark-mode .sidebar, body.dark-mode #site-sidebar { background:#16213e !important; }
-        body.dark-mode .pane-bar { background:#16213e !important; }
-        body.dark-mode .editor-pane, body.dark-mode .preview-pane { border-color:#0f3460 !important; }
+        body.dark-mode { background:#1a1a2e !important; color:#cdd6f4 !important; }
+        body.dark-mode * { color:#cdd6f4 !important; border-color:#313244 !important; background-color:transparent !important; }
+        body.dark-mode a { color:#89b4fa !important; }
+        body.dark-mode #site-nav { background:#181825 !important; border-color:#313244 !important; }
+        body.dark-mode .sidebar, body.dark-mode #site-sidebar { background:#181825 !important; }
+        body.dark-mode .pane-bar { background:#181825 !important; border-color:#313244 !important; }
+        body.dark-mode .editor-pane, body.dark-mode .preview-pane { border-color:#313244 !important; }
+        body.dark-mode .page-body, body.dark-mode .main, body.dark-mode .layout { background:#1a1a2e !important; }
+        body.dark-mode .example-card, body.dark-mode .ref-card, body.dark-mode .examples-section { background:#1e1e2e !important; border-color:#313244 !important; }
+        body.dark-mode pre, body.dark-mode code, body.dark-mode .cm-static-wrap { background:#181825 !important; border-color:#313244 !important; }
         body.dark-mode .btn-run { background:#e8b400 !important; color:#111 !important; }
-        body.dark-mode .btn-stop { background:#333 !important; color:#e0e0e0 !important; }
+        body.dark-mode .btn-stop { background:#313244 !important; color:#cdd6f4 !important; }
         body.dark-mode .nav-title-top, body.dark-mode .nav-title-bottom { color:#e8b400 !important; }
         body.dark-mode #nav-errors-link { color:#e8b400 !important; }
-        body.dark-mode input, body.dark-mode textarea { background:#16213e !important; }
-        body.dark-mode .sidebar a.active { color:#e8b400 !important; }
+        body.dark-mode .sidebar a.active { color:#e8b400 !important; font-weight:700; }
+        body.dark-mode #nav-dark-btn { background:#313244 !important; color:#cdd6f4 !important; border-color:#45475a !important; }
+        body.dark-mode .CodeMirror { background:#1e1e2e !important; }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background:#181825 !important; color:#cdd6f4 !important; }
+        body.dark-mode ::placeholder { color:#6c7086 !important; }
       `;
       document.head.appendChild(style);
     }
     function applyDark(on) {
       document.body.classList.toggle('dark-mode', on);
       const btn = document.getElementById('nav-dark-btn');
-      if (btn) {
-        btn.textContent = on ? '\u2600\uFE0F Light' : '\uD83C\uDF19 Dark';
-        btn.style.background = on ? '#16213e' : '#111';
-        btn.style.color = '#fff';
-        btn.style.borderColor = on ? '#0f3460' : '#333';
-      }
+      if (btn) btn.textContent = on ? '☀️ Light' : '🌙 Dark';
       if (window.editor && window.editor.setOption)
         window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
