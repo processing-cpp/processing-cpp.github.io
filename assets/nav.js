@@ -93,7 +93,8 @@
       style.id = 'dark-mode-style';
       style.textContent = `
         body.dark-mode { background:#1a1a2e !important; color:#cdd6f4 !important; }
-        body.dark-mode * { color:#cdd6f4 !important; border-color:#313244 !important; background-color:transparent !important; }
+        body.dark-mode *:not(.CodeMirror):not(.CodeMirror *) { border-color:#313244 !important; background-color:transparent !important; }
+        body.dark-mode *:not(.cm-s-cppmode-dark):not(.cm-s-cppmode-dark *) { color:#cdd6f4 !important; }
         body.dark-mode a { color:#89b4fa !important; }
         body.dark-mode #site-nav { background:#181825 !important; border-color:#313244 !important; }
         body.dark-mode .sidebar, body.dark-mode #site-sidebar { background:#181825 !important; }
