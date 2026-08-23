@@ -32,7 +32,7 @@
         if(s) s.classList.toggle('open');
       ">☰</button>
       <a href="${prefix}error/index.html" id="nav-errors-link"${isActive('error') ? ' class="active"' : ''}>Errors</a>
-      <button id="nav-dark-btn" onclick="window.__toggleDark&&window.__toggleDark()" style="background:none;border:1px solid #e0e0e0;color:#555;padding:3px 10px;border-radius:4px;font-size:12px;cursor:pointer;margin-left:0.5rem;">🌙</button>
+      <button id="nav-dark-btn" onclick="window.__toggleDark&&window.__toggleDark()" style="background:#111;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:12px;cursor:pointer;margin-left:0.5rem;font-weight:600;">🌙 Dark</button>
     `;
   }
 
@@ -121,7 +121,12 @@
     function applyDark(on) {
       document.body.classList.toggle('dark-mode', on);
       const btn = document.getElementById('nav-dark-btn');
-      if (btn) btn.textContent = on ? '☀️ Light' : '🌙 Dark';
+      if (btn) {
+        btn.textContent = on ? '☀️ Light' : '🌙 Dark';
+        btn.style.cssText = on
+          ? 'background:#fff;color:#111;border:1px solid #555;padding:4px 12px;border-radius:4px;font-size:12px;cursor:pointer;margin-left:0.5rem;font-weight:600;'
+          : 'background:#111;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:12px;cursor:pointer;margin-left:0.5rem;font-weight:600;';
+      }
       if (window.editor && window.editor.setOption)
         window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
