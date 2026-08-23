@@ -112,6 +112,31 @@
         body.dark-mode .CodeMirror-linenumber { color:#6c7086 !important; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background:#181825 !important; color:#cdd6f4 !important; }
         body.dark-mode ::placeholder { color:#6c7086 !important; }
+        /* Reference pages */
+        body.dark-mode .content, body.dark-mode .ref-sidebar, body.dark-mode .sidebar-outer { background:#1e1e2e !important; }
+        body.dark-mode .syntax-block { background:#181825 !important; color:#f8f8f2 !important; }
+        body.dark-mode .impl-block { background:#0d0d0d !important; }
+        body.dark-mode .returns-badge { background:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .related-links a { background:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .related-links a:hover { background:#45475a !important; }
+        body.dark-mode .params-table th { color:#6c7086 !important; border-color:#313244 !important; }
+        body.dark-mode .params-table td { border-color:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .params-table td:first-child { color:#89b4fa !important; }
+        body.dark-mode .params-table td:nth-child(2) { color:#a6e3a1 !important; }
+        body.dark-mode .methods-table td { border-color:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .methods-table td:first-child { color:#89b4fa !important; }
+        body.dark-mode .ref-sidebar a { color:#a6adc8 !important; }
+        body.dark-mode .ref-sidebar a:hover { background:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .ref-sidebar a.active { background:#313244 !important; color:#cdd6f4 !important; }
+        body.dark-mode .ref-cat-title { color:#cdd6f4 !important; }
+        body.dark-mode .ref-subcat-title { color:#6c7086 !important; }
+        body.dark-mode .cat-tag { color:#6c7086 !important; }
+        body.dark-mode .content h2 { color:#6c7086 !important; }
+        body.dark-mode .content p { color:#cdd6f4 !important; }
+        body.dark-mode .topic-title { color:#cdd6f4 !important; border-color:#313244 !important; }
+        body.dark-mode .fn-list a { color:#89b4fa !important; }
+        body.dark-mode .fn-list a:hover { color:#cdd6f4 !important; }
+        body.dark-mode footer { border-color:#313244 !important; color:#6c7086 !important; }
         body.dark-mode .hero-link { color:#89b4fa !important; border-color:#89b4fa !important; }
         body.dark-mode .hero-link:hover { border-color:#cdd6f4 !important; color:#cdd6f4 !important; }
         body.dark-mode .hero-btn-download { background:#e8b400 !important; color:#111 !important; }
