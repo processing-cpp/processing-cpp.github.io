@@ -32,6 +32,7 @@
         if(s) s.classList.toggle('open');
       ">☰</button>
       <a href="${prefix}error/index.html" id="nav-errors-link"${isActive('error') ? ' class="active"' : ''}>Errors</a>
+      <button id="nav-dark-btn" onclick="window.__toggleDark&&window.__toggleDark()" style="background:none;border:1px solid #e0e0e0;color:#555;padding:3px 10px;border-radius:4px;font-size:12px;cursor:pointer;margin-left:0.5rem;">🌙</button>
     `;
   }
 
@@ -85,4 +86,36 @@
     s.src = SITE + '/assets/search.js';
     document.head.appendChild(s);
   }
+  // Dark mode
+  (function() {
+    const DARK = {
+      body: 'background:#1a1a2e;color:#e0e0e0',
+      nav: 'background:#16213e;border-color:#0f3460',
+      sidebar: 'background:#16213e;border-color:#0f3460',
+    };
+    function applyDark(on) {
+      document.body.setAttribute('data-dark', on ? '1' : '');
+      const btn = document.getElementById('nav-dark-btn');
+      if (btn) btn.textContent = on ? '☀️' : '🌙';
+      const nav = document.getElementById('site-nav');
+      const sb = document.getElementById('site-sidebar') || document.querySelector('.sidebar');
+      if (nav) { nav.style.background = on ? '#16213e' : ''; nav.style.borderColor = on ? '#0f3460' : ''; }
+      if (sb) { sb.style.background = on ? '#16213e' : ''; }
+      document.body.style.background = on ? '#1a1a2e' : '';
+      document.body.style.color = on ? '#e0e0e0' : '';
+      try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
+    }
+    window.__toggleDark = function() {
+      const on = document.body.getAttribute('data-dark') !== '1';
+      applyDark(on);
+      // Also update CodeMirror if on editor page
+      if (window.editor && window.editor.setOption) {
+        window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
+      }
+    };
+    // Restore preference
+    try {
+      if (localStorage.getItem('darkMode') === '1') applyDark(true);
+    } catch(e) {}
+  })();
 })();
