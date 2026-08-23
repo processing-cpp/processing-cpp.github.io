@@ -93,8 +93,7 @@
       style.id = 'dark-mode-style';
       style.textContent = `
         body.dark-mode { background:#1a1a2e !important; color:#cdd6f4 !important; }
-        body.dark-mode *:not(.CodeMirror):not(.CodeMirror *) { border-color:#313244 !important; background-color:transparent !important; }
-        body.dark-mode *:not(.cm-s-cppmode-dark):not(.cm-s-cppmode-dark *) { color:#cdd6f4 !important; }
+        body.dark-mode p, body.dark-mode span:not([class*='cm-']), body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode li, body.dark-mode label, body.dark-mode td, body.dark-mode th { color:#cdd6f4 !important; }
         body.dark-mode a { color:#89b4fa !important; }
         body.dark-mode #site-nav { background:#181825 !important; border-color:#313244 !important; }
         body.dark-mode .sidebar, body.dark-mode #site-sidebar { background:#181825 !important; }
