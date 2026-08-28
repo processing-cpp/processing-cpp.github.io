@@ -110,18 +110,21 @@
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
-            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
+            document.querySelectorAll('.syntax-block, .impl-block, .example-code, .code-example').forEach(el => {
               const code = el.innerHTML
                 .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
               const wrap = document.createElement('div');
               el.parentNode.replaceChild(wrap, el);
-              CodeMirror(wrap, {
+              const cm = CodeMirror(wrap, {
                 value: code,
                 mode: 'cppmode',
                 theme: dark ? 'cppmode-dark' : 'cppmode',
                 readOnly: true,
                 lineNumbers: false,
+                lineWrapping: false,
               });
+              wrap.style.overflow = 'auto';
+              wrap.querySelector('.CodeMirror').style.height = 'auto';
             });
           });
         });
