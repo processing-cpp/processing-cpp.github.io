@@ -158,6 +158,11 @@
         body.dark-mode .content { background:#1a1a2e !important; }
         body.dark-mode .layout { background:#1a1a2e !important; }
         body.dark-mode .path { color:#6c7086 !important; }
+        /* Reference titles contrast */
+        body.dark-mode .content h1 { color:#cdd6f4 !important; }
+        body.dark-mode .content h2 { color:#89b4fa !important; }
+        body.dark-mode .ref-sidebar a { color:#a6adc8 !important; }
+        body.dark-mode .ref-cat-title { color:#cdd6f4 !important; }
         body.dark-mode .hero-link { color:#89b4fa !important; border-color:#89b4fa !important; }
         body.dark-mode .hero-link:hover { border-color:#cdd6f4 !important; color:#cdd6f4 !important; }
         body.dark-mode .hero-btn-download { background:#e8b400 !important; color:#111 !important; }

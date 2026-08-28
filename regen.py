@@ -252,7 +252,7 @@ for section_name, section_data in sections.items():
 <footer>
   <p>C++ Mode for Processing</p>
   <p class="footer-contact">
-    <a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a>
+    <a href="mailto:hello@pepc84.com">hello@pepc84.com</a>
     <span class="footer-sep">&middot;</span>
     <a href="https://discord.gg/vShSrPegJT">Discord</a>
   </p>
@@ -390,7 +390,7 @@ with open(os.path.join(out_dir,"index.html"),"w") as f:
 <footer>
   <p>C++ Mode for Processing</p>
   <p class="footer-contact">
-    <a href="mailto:pep84c@gmail.com">pep84c@gmail.com</a>
+    <a href="mailto:hello@pepc84.com">hello@pepc84.com</a>
     <span class="footer-sep">&middot;</span>
     <a href="https://discord.gg/vShSrPegJT">Discord</a>
   </p>
