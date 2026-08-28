@@ -1,4 +1,8 @@
 (function() {
+  // Prevent dark mode flash -- apply class before first paint
+  try {
+    if (localStorage.getItem('darkMode') === '1') document.documentElement.classList.add('dark-pre');
+  } catch(e) {}
   const SITE = 'https://processing-cpp.github.io';
   const path = window.location.pathname;
   const parts = path.replace(/\/$/, '').split('/').filter(Boolean);
@@ -56,6 +60,7 @@
     const style = document.createElement('style');
     style.id = 'nav-shared-style';
     style.textContent = `
+      html.dark-pre body { background:#1a1a2e !important; }
       #site-nav {
         border-bottom: 1px solid #e0e0e0;
         padding: 0 2rem;
@@ -91,6 +96,13 @@
   if (document.querySelector('.syntax-block, .impl-block') &&
       !document.getElementById('ref-cm-loaded')) {
     const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
+    // Preload hints for faster script loading
+    [CDNJS + '/codemirror.min.js', CDNJS + '/mode/clike/clike.min.js',
+     SITE + '/assets/cppmode-keywords.js', SITE + '/assets/cppmode.js'].forEach(href => {
+      const l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'script'; l.href = href;
+      document.head.appendChild(l);
+    });
     function loadScript(src, cb) {
       const s = document.createElement('script'); s.src = src;
       s.onload = cb; document.head.appendChild(s);
@@ -154,6 +166,8 @@
         body.dark-mode .sidebar a.active { color:#e8b400 !important; font-weight:700; }
         body.dark-mode #nav-dark-btn { background:#313244 !important; color:#cdd6f4 !important; border-color:#45475a !important; }
         body.dark-mode .CodeMirror-gutters { background:#181825 !important; border-color:#313244 !important; }
+        body.dark-mode #hero-preview, body.dark-mode #hero-preview iframe,
+        body.dark-mode #logo-sketch-wrap, body.dark-mode #logo-sketch-wrap iframe { background:#1e1e2e !important; }
         body.dark-mode .CodeMirror-linenumber { color:#6c7086 !important; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background:#181825 !important; color:#cdd6f4 !important; }
         body.dark-mode ::placeholder { color:#6c7086 !important; }
@@ -229,6 +243,10 @@
       // Switch static CodeMirror blocks theme
       document.querySelectorAll('.CodeMirror').forEach(el => {
         if (el.CodeMirror) el.CodeMirror.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
+      });
+      // Tell sketch iframes about dark mode
+      document.querySelectorAll('iframe').forEach(fr => {
+        try { fr.contentWindow.postMessage(on ? 'dark' : 'light', '*'); } catch(e) {}
       });
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
     }
