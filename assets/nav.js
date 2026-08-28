@@ -86,6 +86,40 @@
     s.src = SITE + '/assets/search.js';
     document.head.appendChild(s);
   }
+
+  // Syntax highlighting on reference/example pages
+  if (!document.getElementById('hljs-css') &&
+      document.querySelector('.syntax-block, .impl-block, .cm-static-wrap')) {
+    const lnk = document.createElement('link');
+    lnk.id = 'hljs-css';
+    lnk.rel = 'stylesheet';
+    lnk.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css';
+    document.head.appendChild(lnk);
+
+    const lnkDark = document.createElement('link');
+    lnkDark.id = 'hljs-css-dark';
+    lnkDark.rel = 'stylesheet';
+    lnkDark.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css';
+    lnkDark.disabled = true;
+    document.head.appendChild(lnkDark);
+
+    const scr = document.createElement('script');
+    scr.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+    scr.onload = function() {
+      document.querySelectorAll('.syntax-block, .impl-block, .cm-static-wrap code').forEach(el => {
+        el.innerHTML = el.innerHTML
+          .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+        el.classList.add('language-cpp');
+        hljs.highlightElement(el);
+      });
+      // Apply dark if already in dark mode
+      if (document.body.classList.contains('dark-mode')) {
+        document.getElementById('hljs-css').disabled = true;
+        document.getElementById('hljs-css-dark').disabled = false;
+      }
+    };
+    document.head.appendChild(scr);
+  }
   // Dark mode via CSS class
   (function() {
     if (!document.getElementById('dark-mode-style')) {
@@ -181,6 +215,10 @@
       }
       if (window.editor && window.editor.setOption)
         window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
+      const hljsLight = document.getElementById('hljs-css');
+      const hljsDark = document.getElementById('hljs-css-dark');
+      if (hljsLight) hljsLight.disabled = on;
+      if (hljsDark) hljsDark.disabled = !on;
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
     }
     window.__toggleDark = function() {
