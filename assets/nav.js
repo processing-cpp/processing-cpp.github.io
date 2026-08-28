@@ -145,6 +145,19 @@
         body.dark-mode table td, body.dark-mode table th { border-color:#313244 !important; color:#cdd6f4 !important; background:#1e1e2e !important; }
         body.dark-mode .sidebar-outer { background:#181825 !important; }
         body.dark-mode .note, body.dark-mode .warning, body.dark-mode .tip { background:#181825 !important; border-color:#45475a !important; color:#cdd6f4 !important; }
+        /* Tutorials index */
+        body.dark-mode .tutorial-card { background:#1e1e2e !important; border-color:#313244 !important; }
+        body.dark-mode .tutorial-card:hover { background:#313244 !important; }
+        body.dark-mode .tc-title { color:#89b4fa !important; }
+        body.dark-mode .tc-desc { color:#a6adc8 !important; }
+        body.dark-mode .tc-body { background:#181825 !important; border-color:#313244 !important; }
+        body.dark-mode .tc-arrow { color:#6c7086 !important; }
+        body.dark-mode .section-desc { color:#a6adc8 !important; }
+        body.dark-mode .subtitle { color:#6c7086 !important; }
+        body.dark-mode .help-box { background:#181825 !important; border-color:#313244 !important; color:#a6adc8 !important; }
+        body.dark-mode .content { background:#1a1a2e !important; }
+        body.dark-mode .layout { background:#1a1a2e !important; }
+        body.dark-mode .path { color:#6c7086 !important; }
         body.dark-mode .hero-link { color:#89b4fa !important; border-color:#89b4fa !important; }
         body.dark-mode .hero-link:hover { border-color:#cdd6f4 !important; color:#cdd6f4 !important; }
         body.dark-mode .hero-btn-download { background:#e8b400 !important; color:#111 !important; }
