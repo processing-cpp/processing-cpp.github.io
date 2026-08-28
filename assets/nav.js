@@ -87,38 +87,46 @@
     document.head.appendChild(s);
   }
 
-  // Syntax highlighting on reference/example pages
-  if (!document.getElementById('hljs-css') &&
-      document.querySelector('.syntax-block, .impl-block, .cm-static-wrap')) {
-    const lnk = document.createElement('link');
-    lnk.id = 'hljs-css';
-    lnk.rel = 'stylesheet';
-    lnk.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css';
-    document.head.appendChild(lnk);
-
-    const lnkDark = document.createElement('link');
-    lnkDark.id = 'hljs-css-dark';
-    lnkDark.rel = 'stylesheet';
-    lnkDark.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css';
-    lnkDark.disabled = true;
-    document.head.appendChild(lnkDark);
-
-    const scr = document.createElement('script');
-    scr.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-    scr.onload = function() {
-      document.querySelectorAll('.syntax-block, .impl-block, .cm-static-wrap code').forEach(el => {
-        el.innerHTML = el.innerHTML
-          .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-        el.classList.add('language-cpp');
-        hljs.highlightElement(el);
+  // CodeMirror syntax highlighting on reference/example pages
+  if (document.querySelector('.syntax-block, .impl-block') &&
+      !document.getElementById('ref-cm-loaded')) {
+    const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
+    function loadScript(src, cb) {
+      const s = document.createElement('script'); s.src = src;
+      s.onload = cb; document.head.appendChild(s);
+    }
+    function loadLink(href) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet'; l.href = href;
+      document.head.appendChild(l);
+    }
+    loadLink(CDNJS + '/codemirror.min.css');
+    loadLink(SITE + '/assets/cppmode-theme.css');
+    loadScript(CDNJS + '/codemirror.min.js', function() {
+      loadScript(CDNJS + '/mode/clike/clike.min.js', function() {
+        loadScript(SITE + '/assets/cppmode-keywords.js', function() {
+          loadScript(SITE + '/assets/cppmode.js', function() {
+            const marker = document.createElement('span');
+            marker.id = 'ref-cm-loaded';
+            document.head.appendChild(marker);
+            const dark = document.body.classList.contains('dark-mode');
+            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
+              const code = el.innerHTML
+                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+              const wrap = document.createElement('div');
+              el.parentNode.replaceChild(wrap, el);
+              CodeMirror(wrap, {
+                value: code,
+                mode: 'cppmode',
+                theme: dark ? 'cppmode-dark' : 'cppmode',
+                readOnly: true,
+                lineNumbers: false,
+              });
+            });
+          });
+        });
       });
-      // Apply dark if already in dark mode
-      if (document.body.classList.contains('dark-mode')) {
-        document.getElementById('hljs-css').disabled = true;
-        document.getElementById('hljs-css-dark').disabled = false;
-      }
-    };
-    document.head.appendChild(scr);
+    });
   }
   // Dark mode via CSS class
   (function() {
@@ -215,10 +223,10 @@
       }
       if (window.editor && window.editor.setOption)
         window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
-      const hljsLight = document.getElementById('hljs-css');
-      const hljsDark = document.getElementById('hljs-css-dark');
-      if (hljsLight) hljsLight.disabled = on;
-      if (hljsDark) hljsDark.disabled = !on;
+      // Switch static CodeMirror blocks theme
+      document.querySelectorAll('.CodeMirror').forEach(el => {
+        if (el.CodeMirror) el.CodeMirror.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
+      });
       try { localStorage.setItem('darkMode', on ? '1' : '0'); } catch(e) {}
     }
     window.__toggleDark = function() {
