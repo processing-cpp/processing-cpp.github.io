@@ -242,297 +242,120 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/morph.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Two arrays to store the vertices for two shapes
-// This example assumes that each shape will have the same
-// number of vertices, i.e. the size of each array will be the same
-let circle = [];
-let square = [];
-
-// An array for a third set of vertices, the ones we will be drawing
-// in the window
-let morph = [];
-
-// This boolean variable will control if we are morphing to a circle or square
-let state = false;
-
-function setup() {
+        <a class="example-card" href="/examples/graphing-2d-equations.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
   createCanvas(300,300);
-
-  // Create a circle using vectors pointing from center
-  for (let angle = 0; angle < 360; angle += 9) {
-    // Note we are not starting from 0 in order to match the
-    // path of a circle.
-    let v = p5.Vector.fromAngle(radians(angle-135));
-    v.mult(100);
-    circle.push(v);
-    // Let's fill out morph array with blank vectors while we are at it
-    morph.push(createVector());
-  }
-
-  // A square is a bunch of vertices along straight lines
-  // Top of square
-  for (let x = -50; x < 50; x += 10) {
-    square.push(createVector(x, -50));
-  }
-  // Right side
-  for (let y = -50; y < 50; y += 10) {
-    square.push(createVector(50, y));
-  }
-  // Bottom
-  for (let x = 50; x > -50; x -= 10) {
-    square.push(createVector(x, 50));
-  }
-  // Left side
-  for (let y = 50; y > -50; y -= 10) {
-    square.push(createVector(-50, y));
-  }
 }
 
 function draw() {
-  background(51);
+  loadPixels();
 
-  // We will keep how far the vertices are from their target
-  let totalDistance = 0;
+  let n = (mouseX * 10.0) / width;
 
-  // Look at each vertex
-  for (let i = 0; i < circle.length; i++) {
-    let v1;
-    // Are we lerping to the circle or square?
-    if (state) {
-      v1 = circle[i];
+  let w = 16.0;
+  let h = 16.0;
+
+  let dx = w / width;
+  let dy = h / height;
+
+  let x = -w / 2.0;
+
+  for (let i = 0; i < width; i++) {
+    let y = -h / 2.0;
+
+    for (let j = 0; j < height; j++) {
+      let r = sqrt(x * x + y * y);
+      let theta = atan2(y, x);
+
+      let val = sin(n * cos(r) + 5.0 * theta);
+      // let val = cos(r);
+      // let val = sin(theta);
+
+      let gray = (val + 1.0) * 255.0 / 2.0;
+
+      let index = 4 * (i + j * width);
+
+      pixels[index]     = gray;
+      pixels[index + 1] = gray;
+      pixels[index + 2] = gray;
+      pixels[index + 3] = 255;
+
+      y += dy;
     }
-    else {
-      v1 = square[i];
-    }
-    // Get the vertex we will draw
-    let v2 = morph[i];
-    // Lerp to the target
-    v2.lerp(v1, 0.1);
-    // Check how far we are from target
-    totalDistance += p5.Vector.dist(v1, v2);
+
+    x += dx;
   }
 
-  // If all the vertices are close, switch shape
-  if (totalDistance < 0.1) {
-    state = !state;
-  }
+  updatePixels();
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Graphing 2D Equations</h3><p>Math example</p></div>
+        </a>
+        <a class="example-card" href="/examples/coordinates.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
 
-  // Draw relative to center
-  translate(width/2, height/2);
-  strokeWeight(4);
-  // Draw a polygon that makes up all the vertices
-  beginShape();
+  background(0);
   noFill();
+
   stroke(255);
-  for (let v of morph) {
-    vertex(v.x, v.y);
-  }
-  endShape(CLOSE);
+
+  point(320, 180);
+  point(320, 90);
+
+  stroke(0, 153, 255);
+
+  line(0, 120, 640, 120);
+
+  stroke(255, 153, 0);
+
+  rect(160, 36, 320, 288);
+
+  noLoop();
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Morph</h3><p>Motion example</p></div>
+          <div class="example-info"><h3>Coordinates</h3><p>Structure example</p></div>
         </a>
-        <a class="example-card" href="/examples/penrose-snowflake.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>class LSystem {
-    constructor() {
-        this.steps = 0;
-        this.axiom = "F";
-        this.rule = "F+F-F";
-        this.startLength = 90.0;
-        this.theta = radians(120.0);
-        this.reset();
-    }
-
-    reset() {
-        this.production = this.axiom;
-        this.drawLength = this.startLength;
-        this.generations = 0;
-    }
-
-    getAge() {
-        return this.generations;
-    }
-
-    render() {
-        translate(width / 2, height / 2);
-        this.steps += 5;
-        if (this.steps > this.production.length) {
-            this.steps = this.production.length;
-        }
-        for (let i = 0; i < this.steps; i++) {
-            let step = this.production[i];
-            if (step == 'F') {
-                rect(0, 0, -this.drawLength, -this.drawLength);
-                noFill();
-                translate(0, -this.drawLength);
-            } else if (step == '+') {
-                rotate(this.theta);
-            } else if (step == '-') {
-                rotate(-this.theta);
-            } else if (step == '[') {
-                push();
-            } else if (step == ']') {
-                pop();
-            }
-        }
-    }
-
-    simulate(gen) {
-        while (this.getAge() < gen) {
-            this.production = this.iterate(this.production, this.rule);
-        }
-    }
-
-    iterate(prod_, rule_) {
-        this.drawLength = this.drawLength * 0.6;
-        this.generations++;
-        let newProduction = prod_;
-        let result = "";
-        for (let i = 0; i < newProduction.length; i++) {
-            if (newProduction[i] == 'F') result += rule_;
-            else result += newProduction[i];
-        }
-        return result;
-    }
-}
-
-class PenroseSnowflakeLSystem extends LSystem {
-    constructor() {
-        super();
-        this.axiom = "F3-F3-F3-F3-F";
-        this.ruleF = "F3-F3-F45-F++F3-F";
-        this.startLength = 450.0;
-        this.theta = radians(18);
-        this.reset();
-    }
-
-    useRule(r_) { this.rule = r_; }
-    useAxiom(a_) { this.axiom = a_; }
-    useLength(l_) { this.startLength = l_; }
-    useTheta(t_) { this.theta = radians(t_); }
-
-    reset() {
-        this.production = this.axiom;
-        this.drawLength = this.startLength;
-        this.generations = 0;
-    }
-
-    getAge() {
-        return this.generations;
-    }
-
-    render() {
-        translate(width, height);
-        let repeats = 1;
-
-        this.steps += 3;
-        if (this.steps > this.production.length) {
-            this.steps = this.production.length;
-        }
-
-        for (let i = 0; i < this.steps; i++) {
-            let step = this.production[i];
-            if (step == 'F') {
-                for (let j = 0; j < repeats; j++) {
-                    line(0, 0, 0, -this.drawLength);
-                    translate(0, -this.drawLength);
-                }
-                repeats = 1;
-            } else if (step == '+') {
-                for (let j = 0; j < repeats; j++) {
-                    rotate(this.theta);
-                }
-                repeats = 1;
-            } else if (step == '-') {
-                for (let j = 0; j < repeats; j++) {
-                    rotate(-this.theta);
-                }
-                repeats = 1;
-            } else if (step == '[') {
-                push();
-            } else if (step == ']') {
-                pop();
-            } else if (step >= '0' && step <= '9') {
-                repeats += parseInt(step);
-            }
-        }
-    }
-
-    iterate(prod_, rule_) {
-        let newProduction = "";
-        for (let i = 0; i < prod_.length; i++) {
-            let step = prod_[i];
-            if (step == 'F') {
-                newProduction += this.ruleF;
-            } else {
-                newProduction += step;
-            }
-        }
-        this.drawLength = this.drawLength * 0.4;
-        this.generations++;
-        return newProduction;
-    }
-}
-
-let ps;
+        <a class="example-card" href="/examples/moving-on-curves.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let beginX = 20.0;  // Initial x-coordinate
+let beginY = 10.0;  // Initial y-coordinate
+let endX = 570.0;   // Final x-coordinate
+let endY = 320.0;   // Final y-coordinate
+let distX;          // X-axis distance to move
+let distY;          // Y-axis distance to move
+let exponent = 4;   // Determines the curve
+let x = 0.0;        // Current x-coordinate
+let y = 0.0;        // Current y-coordinate
+let step = 0.01;    // Size of each step along the path
+let pct = 0.0;      // Percentage traveled (0.0 to 1.0)
 
 function setup() {
-    createCanvas(300,300);
-    stroke(255);
-    noFill();
-    ps = new PenroseSnowflakeLSystem();
-    ps.simulate(4);
+  createCanvas(300,300);
+  noStroke();
+  distX = endX - beginX;
+  distY = endY - beginY;
 }
 
 function draw() {
-    background(0);
-    ps.render();
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Penrose Snowflake</h3><p>Fractals And L-Systems example</p></div>
-        </a>
-        <a class="example-card" href="/examples/brownian.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>const num = 2000;
-let range = 6;
-
-let ax = new Array(num);
-let ay = new Array(num);
-
-function setup()
-{
-  createCanvas(300,300);
-  for (let i = 0; i < num; i++) {
-    ax[i] = width/2;
-    ay[i] = height/2;
+  fill(0, 2);
+  rect(0, 0, width, height);
+  pct += step;
+  if (pct < 1.0) {
+    x = beginX + (pct * distX);
+    y = beginY + (pow(pct, exponent) * distY);
   }
-  frameRate(30);
+  fill(255);
+  ellipse(x, y, 20, 20);
 }
 
-function draw()
-{
-  background(51);
-
-  // Shift all elements 1 place to the left
-  for (let i = 1; i < num; i++) {
-    ax[i-1] = ax[i];
-    ay[i-1] = ay[i];
-  }
-
-  // Put a new value at the end of the array
-  ax[num-1] += random(-range, range);
-  ay[num-1] += random(-range, range);
-
-  // Constrain all points to the screen
-  ax[num-1] = constrain(ax[num-1], 0, width);
-  ay[num-1] = constrain(ay[num-1], 0, height);
-
-  // Draw a line connecting the points
-  for (let i = 1; i < num; i++) {
-    let val = i/num * 204.0 + 51;
-    stroke(val);
-    line(ax[i-1], ay[i-1], ax[i], ay[i]);
-  }
+function mousePressed() {
+  pct = 0.0;
+  beginX = x;
+  beginY = y;
+  endX = mouseX;
+  endY = mouseY;
+  distX = endX - beginX;
+  distY = endY - beginY;
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Brownian</h3><p>Motion example</p></div>
+          <div class="example-info"><h3>Moving On Curves</h3><p>Motion example</p></div>
         </a>
       </div>
       <div class="examples-footer">
