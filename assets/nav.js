@@ -122,21 +122,23 @@
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
-            document.querySelectorAll('.syntax-block, .impl-block, .code-block, pre#code-pre, pre.code-pre').forEach(el => {
-              const code = el.innerHTML
-                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+            document.querySelectorAll('.syntax-block, .impl-block, pre#code-pre').forEach(el => {
+              if (!el.parentNode) return;
+              const code = (el.tagName === 'PRE' ? el.textContent : el.innerHTML
+                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')).trim();
+              if (!code) return;
               const wrap = document.createElement('div');
+              wrap.style.cssText = 'border-radius:6px;overflow:auto;margin-bottom:0.5rem;';
               el.parentNode.replaceChild(wrap, el);
               const cm = CodeMirror(wrap, {
                 value: code,
                 mode: 'cppmode',
                 theme: dark ? 'cppmode-dark' : 'cppmode',
                 readOnly: true,
-                lineNumbers: false,
+                lineNumbers: true,
                 lineWrapping: false,
               });
-              wrap.style.overflow = 'auto';
-              wrap.querySelector('.CodeMirror').style.height = 'auto';
+              cm.setSize('100%', 'auto');
             });
           });
         });
