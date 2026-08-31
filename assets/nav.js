@@ -127,7 +127,9 @@
             allBlocks.forEach((el, i) => {
               console.log('block', i, 'tag:', el.tagName, 'class:', el.className, 'display:', getComputedStyle(el).display, 'content len:', el.textContent.trim().length);
             });
-            if (document.querySelector('.cm-editor-wrap')) return; // already rendered
+            console.log('CM wrappers already:', document.querySelectorAll('.cm-editor-wrap').length);
+            console.log('CM instances already:', document.querySelectorAll('.CodeMirror').length);
+            if (document.querySelector('.cm-editor-wrap')) { console.log('GUARD: already rendered'); return; }
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
               if (!el.parentNode) return;
