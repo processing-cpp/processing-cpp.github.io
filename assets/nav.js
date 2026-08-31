@@ -62,8 +62,10 @@
     style.textContent = `
       html.dark-pre body { background:#1a1a2e !important; }
       pre#code-pre { display:none !important; }
+      .syntax-block { display:none !important; }
 
       pre#code-pre { display:none !important; }
+      .syntax-block { display:none !important; }
 
       #site-nav {
         border-bottom: 1px solid #e0e0e0;
