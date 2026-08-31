@@ -123,6 +123,7 @@
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
             document.querySelectorAll('.syntax-block, .impl-block, pre#code-pre').forEach(el => {
+              el.style.display = 'none'; // hide original immediately
               if (!el.parentNode) return;
               const code = (el.tagName === 'PRE' ? el.textContent : el.innerHTML
                 .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')).trim();
