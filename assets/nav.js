@@ -62,7 +62,13 @@
     style.textContent = `
       html.dark-pre body { background:#1a1a2e !important; }
       pre#code-pre { display:none !important; }
+      .CodeMirror { height: auto !important; }
+      .CodeMirror-scroll { overflow-y: visible !important; overflow-x: auto !important; min-height: 0 !important; }
+      .CodeMirror-sizer { margin-bottom: 0 !important; }
       pre#code-pre { display:none !important; }
+      .CodeMirror { height: auto !important; }
+      .CodeMirror-scroll { overflow-y: visible !important; overflow-x: auto !important; min-height: 0 !important; }
+      .CodeMirror-sizer { margin-bottom: 0 !important; }
       #site-nav {
         border-bottom: 1px solid #e0e0e0;
         padding: 0 2rem;
