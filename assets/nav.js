@@ -142,6 +142,12 @@
                 lineWrapping: false,
               });
               cm.setSize('100%', 'auto');
+              // Force CM to expand to full content height
+              const cmEl = wrap.querySelector('.CodeMirror');
+              const scroller = wrap.querySelector('.CodeMirror-scroll');
+              if (cmEl) cmEl.style.height = 'auto';
+              if (scroller) { scroller.style.height = 'auto'; scroller.style.overflowY = 'visible'; }
+              cm.refresh();
             });
           });
         });
