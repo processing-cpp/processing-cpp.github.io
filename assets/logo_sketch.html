@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html><head>
-<style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}</style>
+<style>*{margin:0;padding:0;overflow:hidden}body{background:transparent}canvas{display:block}</style>
 </head><body>
 <canvas id="canvas"></canvas>
 <script>
-window.Module={canvas:document.getElementById('canvas'),print:console.log,printErr:console.warn};
+var canvas = document.getElementById('canvas');
+// Enable alpha on WebGL context
+var _origGetContext = canvas.getContext.bind(canvas);
+canvas.getContext = function(type, attrs) {
+  if (type === 'webgl' || type === 'webgl2') {
+    attrs = Object.assign({}, attrs || {}, {alpha: true, premultipliedAlpha: false});
+  }
+  return _origGetContext(type, attrs);
+};
+window.Module = {
+  canvas: canvas,
+  print: console.log,
+  printErr: console.warn
+};
 window.addEventListener('message', function(e) {
   if (e.data === 'dark') document.body.style.background = '#1a1a2e';
-  if (e.data === 'light') document.body.style.background = '#fff';
+  if (e.data === 'light') document.body.style.background = 'transparent';
 });
 </script>
 <script src="logo_sketch.js"></script>
