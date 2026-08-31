@@ -141,6 +141,7 @@
               if (!code) return;
               const wrap = document.createElement('div');
               wrap.className = 'cm-editor-wrap';
+              wrap.style.cssText = 'margin:0;padding:0;border:none;background:none;';
               el.parentNode.insertBefore(wrap, el);
               const cm = CodeMirror(wrap, {
                 value: code,
