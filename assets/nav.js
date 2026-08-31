@@ -122,6 +122,11 @@
         loadScript(SITE + '/assets/cppmode-keywords.js', function() {
           loadScript(SITE + '/assets/cppmode.js', function() {
             const dark = document.body.classList.contains('dark-mode');
+            const allBlocks = document.querySelectorAll('.syntax-block, .impl-block');
+            console.log('CM: found', allBlocks.length, 'blocks');
+            allBlocks.forEach((el, i) => {
+              console.log('block', i, 'tag:', el.tagName, 'class:', el.className, 'display:', getComputedStyle(el).display, 'content len:', el.textContent.trim().length);
+            });
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               if (!el.parentNode) return;
               const code = el.textContent.trim();
