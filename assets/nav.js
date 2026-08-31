@@ -134,9 +134,11 @@
                 lineNumbers: false,
                 lineWrapping: false,
               });
-              cm.setSize('100%', 'auto');
-              cm.getWrapperElement().style.height = 'auto';
-              cm.getScrollerElement().style.overflowY = 'visible';
+              // Force full height - CM defaults to 300px
+              const lineCount = cm.lineCount();
+              const lineHeight = 18;
+              const height = lineCount * lineHeight + 10;
+              cm.setSize('100%', height + 'px');
             });
             // Switch theme on dark toggle
             document.querySelectorAll('.CodeMirror').forEach(el => {
