@@ -127,12 +127,14 @@
             allBlocks.forEach((el, i) => {
               console.log('block', i, 'tag:', el.tagName, 'class:', el.className, 'display:', getComputedStyle(el).display, 'content len:', el.textContent.trim().length);
             });
+            if (document.querySelector('.cm-editor-wrap')) return; // already rendered
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
               if (!el.parentNode) return;
               const code = el.textContent.trim();
               if (!code) return;
               const wrap = document.createElement('div');
+              wrap.className = 'cm-editor-wrap';
               el.parentNode.insertBefore(wrap, el);
               const cm = CodeMirror(wrap, {
                 value: code,
