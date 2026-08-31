@@ -96,60 +96,7 @@
     document.head.appendChild(s);
   }
 
-  // CodeMirror syntax highlighting on reference/example pages
-  if (document.querySelector('.syntax-block, .impl-block, pre#code-pre, #code-cm-wrap') &&
-      !document.getElementById('ref-cm-loaded')) {
-    const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
-    // Preload hints for faster script loading
-    [CDNJS + '/codemirror.min.js', CDNJS + '/mode/clike/clike.min.js',
-     SITE + '/assets/cppmode-keywords.js', SITE + '/assets/cppmode.js'].forEach(href => {
-      const l = document.createElement('link');
-      l.rel = 'preload'; l.as = 'script'; l.href = href;
-      document.head.appendChild(l);
-    });
-    function loadScript(src, cb) {
-      const s = document.createElement('script'); s.src = src;
-      s.onload = cb; document.head.appendChild(s);
-    }
-    function loadLink(href) {
-      const l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = href;
-      document.head.appendChild(l);
-    }
-    loadLink(CDNJS + '/codemirror.min.css');
-    loadLink(SITE + '/assets/cppmode-theme.css');
-    loadScript(CDNJS + '/codemirror.min.js', function() {
-      loadScript(CDNJS + '/mode/clike/clike.min.js', function() {
-        loadScript(SITE + '/assets/cppmode-keywords.js', function() {
-          console.log('KW:', window.CPPMODE_KEYWORDS ? Object.keys(window.CPPMODE_KEYWORDS) : 'MISSING');
-          loadScript(SITE + '/assets/cppmode.js', function() {
-            console.log('CM loaded');
-            const marker = document.createElement('span');
-            marker.id = 'ref-cm-loaded';
-            document.head.appendChild(marker);
-            const dark = document.body.classList.contains('dark-mode');
-            // Reference and example pages: replace .syntax-block and .impl-block
-            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
-              if (!el.parentNode) return;
-              const code = el.textContent.trim();
-              if (!code) return;
-              const wrap = document.createElement('div');
-              el.parentNode.replaceChild(wrap, el);
-              const cm2 = CodeMirror(wrap, {
-                value: '',
-                mode: 'cppmode',
-                theme: dark ? 'cppmode-dark' : 'cppmode',
-                readOnly: true,
-                lineNumbers: false,
-                lineWrapping: false,
-              });
-              setTimeout(() => { cm2.setValue(code); cm2.refresh(); }, 0);
-            });
-          });
-        });
-      });
-    });
-  }
+
   // Dark mode via CSS class
   (function() {
     if (!document.getElementById('dark-mode-style')) {
