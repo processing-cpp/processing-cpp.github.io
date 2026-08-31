@@ -247,7 +247,7 @@ for section_name, section_data in sections.items():
         <span>{ex["name"].lower().replace(" ","-")}.pde</span>
         <button class="copy-btn" onclick="copyCode()">Copy</button>
       </div>
-      <pre id="code-pre">{escaped}</pre>
+      <div class="syntax-block">{escaped}</div>
   </div>
 </div>
 <footer>
