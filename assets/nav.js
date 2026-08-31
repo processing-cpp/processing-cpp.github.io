@@ -135,14 +135,16 @@
             const codePre = document.getElementById('code-pre');
             if (cmWrap && codePre) {
               const code = codePre.textContent.trim();
-              CodeMirror(cmWrap, {
-                value: code,
+              const cm = CodeMirror(cmWrap, {
+                value: '',
                 mode: 'cppmode',
                 theme: dark ? 'cppmode-dark' : 'cppmode',
                 readOnly: true,
                 lineNumbers: true,
                 lineWrapping: false,
               });
+              // Set value after init so CPPMODE_KEYWORDS is definitely loaded
+              setTimeout(() => { cm.setValue(code); cm.refresh(); }, 0);
             }
             // Reference pages: replace .syntax-block and .impl-block
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
@@ -152,14 +154,15 @@
               if (!code) return;
               const wrap = document.createElement('div');
               el.parentNode.replaceChild(wrap, el);
-              CodeMirror(wrap, {
-                value: code,
+              const cm2 = CodeMirror(wrap, {
+                value: '',
                 mode: 'cppmode',
                 theme: dark ? 'cppmode-dark' : 'cppmode',
                 readOnly: true,
                 lineNumbers: false,
                 lineWrapping: false,
               });
+              setTimeout(() => { cm2.setValue(code); cm2.refresh(); }, 0);
             });
           });
         });
