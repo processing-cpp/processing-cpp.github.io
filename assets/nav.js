@@ -133,6 +133,7 @@
               if(i < 3) console.log('CM', i, 'parent:', el.parentElement?.className, 'grandparent:', el.parentElement?.parentElement?.className);
             });
             if (document.querySelector('.cm-editor-wrap')) { console.log('GUARD: already rendered'); return; }
+            console.log('content children:', Array.from(document.querySelector('.content')?.children||[]).map(el=>el.tagName+'.'+el.className).join(', '));
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
               if (!el.parentNode) return;
