@@ -125,7 +125,9 @@
     loadScript(CDNJS + '/codemirror.min.js', function() {
       loadScript(CDNJS + '/mode/clike/clike.min.js', function() {
         loadScript(SITE + '/assets/cppmode-keywords.js', function() {
+          console.log('KW:', window.CPPMODE_KEYWORDS ? Object.keys(window.CPPMODE_KEYWORDS) : 'MISSING');
           loadScript(SITE + '/assets/cppmode.js', function() {
+            console.log('CM loaded');
             const marker = document.createElement('span');
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
