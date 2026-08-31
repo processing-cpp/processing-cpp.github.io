@@ -122,7 +122,7 @@
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
-            document.querySelectorAll('.syntax-block, .impl-block, .example-code, .code-example').forEach(el => {
+            document.querySelectorAll('.syntax-block, .impl-block, .code-block').forEach(el => {
               const code = el.innerHTML
                 .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
               const wrap = document.createElement('div');
