@@ -97,6 +97,55 @@
   }
 
 
+  // CodeMirror syntax highlighting on reference/example pages
+  if (document.querySelector('.syntax-block, .impl-block')) {
+    const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
+    function loadScript(src, cb) {
+      const s = document.createElement('script'); s.src = src;
+      s.onload = cb; document.head.appendChild(s);
+    }
+    function loadLink(href) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet'; l.href = href;
+      document.head.appendChild(l);
+    }
+    loadLink(CDNJS + '/codemirror.min.css');
+    loadLink(SITE + '/assets/cppmode-theme.css');
+    loadScript(CDNJS + '/codemirror.min.js', function() {
+      loadScript(CDNJS + '/mode/clike/clike.min.js', function() {
+        loadScript(SITE + '/assets/cppmode-keywords.js', function() {
+          loadScript(SITE + '/assets/cppmode.js', function() {
+            const dark = document.body.classList.contains('dark-mode');
+            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
+              if (!el.parentNode) return;
+              const code = el.textContent.trim();
+              if (!code) return;
+              // Hide original first
+              el.style.display = 'none';
+              const wrap = document.createElement('div');
+              el.parentNode.insertBefore(wrap, el);
+              const cm = CodeMirror(wrap, {
+                value: code,
+                mode: 'cppmode',
+                theme: dark ? 'cppmode-dark' : 'cppmode',
+                readOnly: true,
+                lineNumbers: false,
+                lineWrapping: false,
+              });
+              cm.setSize('100%', 'auto');
+              cm.getWrapperElement().style.height = 'auto';
+              cm.getScrollerElement().style.overflowY = 'visible';
+            });
+            // Switch theme on dark toggle
+            document.querySelectorAll('.CodeMirror').forEach(el => {
+              if (el.CodeMirror) el.CodeMirror.setOption('theme', dark ? 'cppmode-dark' : 'cppmode');
+            });
+          });
+        });
+      });
+    });
+  }
+
   // Dark mode via CSS class
   (function() {
     if (!document.getElementById('dark-mode-style')) {
