@@ -103,69 +103,6 @@
   }
 
 
-  // CodeMirror syntax highlighting on reference/example pages
-  if (document.querySelector('.syntax-block, .impl-block')) {
-    const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
-    function loadScript(src, cb) {
-      const s = document.createElement('script'); s.src = src;
-      s.onload = cb; document.head.appendChild(s);
-    }
-    function loadLink(href) {
-      const l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = href;
-      document.head.appendChild(l);
-    }
-    loadLink(CDNJS + '/codemirror.min.css');
-    loadLink(SITE + '/assets/cppmode-theme.css');
-    loadScript(CDNJS + '/codemirror.min.js', function() {
-      loadScript(CDNJS + '/mode/clike/clike.min.js', function() {
-        loadScript(SITE + '/assets/cppmode-keywords.js', function() {
-          loadScript(SITE + '/assets/cppmode.js', function() {
-            const dark = document.body.classList.contains('dark-mode');
-            const allBlocks = document.querySelectorAll('.syntax-block, .impl-block');
-            console.log('CM: found', allBlocks.length, 'blocks');
-            allBlocks.forEach((el, i) => {
-              console.log('block', i, 'tag:', el.tagName, 'class:', el.className, 'display:', getComputedStyle(el).display, 'content len:', el.textContent.trim().length);
-            });
-            console.log('CM wrappers already:', document.querySelectorAll('.cm-editor-wrap').length);
-            console.log('CM instances already:', document.querySelectorAll('.CodeMirror').length);
-            document.querySelectorAll('.CodeMirror').forEach((el,i) => {
-              if(i < 3) console.log('CM', i, 'parent:', el.parentElement?.className, 'grandparent:', el.parentElement?.parentElement?.className);
-            });
-            if (document.querySelector('.cm-editor-wrap')) { console.log('GUARD: already rendered'); return; }
-            console.log('content children:', Array.from(document.querySelector('.content')?.children||[]).map(el=>el.tagName+'.'+el.className).join(', '));
-            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
-              el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
-              if (!el.parentNode) return;
-              const code = el.textContent.trim();
-              if (!code) return;
-              const wrap = document.createElement('div');
-              wrap.className = 'cm-editor-wrap';
-              wrap.style.cssText = 'margin:0;padding:0;border:none;background:none;';
-              el.parentNode.insertBefore(wrap, el);
-              const cm = CodeMirror(wrap, {
-                value: code,
-                mode: 'cppmode',
-                theme: dark ? 'cppmode-dark' : 'cppmode',
-                readOnly: true,
-                lineNumbers: false,
-                lineWrapping: false,
-              });
-              // Force full height - CM defaults to 300px
-              const lineCount = cm.lineCount();
-              const lineHeight = 18;
-              const height = lineCount * lineHeight + 10;
-              cm.setSize('100%', height + 'px');
-            });
-            // Switch theme on dark toggle
-            document.querySelectorAll('.CodeMirror').forEach(el => {
-              if (el.CodeMirror) el.CodeMirror.setOption('theme', dark ? 'cppmode-dark' : 'cppmode');
-            });
-          });
-        });
-      });
-    });
-  }
 
   // Dark mode via CSS class
   (function() {
