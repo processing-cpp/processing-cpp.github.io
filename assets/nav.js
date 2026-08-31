@@ -129,6 +129,9 @@
             });
             console.log('CM wrappers already:', document.querySelectorAll('.cm-editor-wrap').length);
             console.log('CM instances already:', document.querySelectorAll('.CodeMirror').length);
+            document.querySelectorAll('.CodeMirror').forEach((el,i) => {
+              if(i < 3) console.log('CM', i, 'parent:', el.parentElement?.className, 'grandparent:', el.parentElement?.parentElement?.className);
+            });
             if (document.querySelector('.cm-editor-wrap')) { console.log('GUARD: already rendered'); return; }
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
