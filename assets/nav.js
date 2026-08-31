@@ -135,8 +135,7 @@
             // Reference and example pages: replace .syntax-block and .impl-block
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               if (!el.parentNode) return;
-              const code = el.innerHTML
-                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+              const code = el.textContent.trim();
               if (!code) return;
               const wrap = document.createElement('div');
               el.parentNode.replaceChild(wrap, el);
