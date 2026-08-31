@@ -178,7 +178,7 @@ shared_css = '''* { margin: 0; padding: 0; box-sizing: border-box; }
     }'''
 
 shared_js = '''function copyCode() {
-  navigator.clipboard.writeText(document.getElementById('code-pre').innerText).then(() => {
+  navigator.clipboard.writeText(document.querySelector('.syntax-block').innerText).then(() => {
     const btn = document.querySelector('.copy-btn');
     btn.textContent = 'Copied!'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);

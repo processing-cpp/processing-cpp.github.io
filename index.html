@@ -242,217 +242,157 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/morph.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Two arrays to store the vertices for two shapes
-// This example assumes that each shape will have the same
-// number of vertices, i.e. the size of each array will be the same
-let circle = [];
-let square = [];
-
-// An array for a third set of vertices, the ones we will be drawing
-// in the window
-let morph = [];
-
-// This boolean variable will control if we are morphing to a circle or square
-let state = false;
+        <a class="example-card" href="/examples/characters-strings.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let letter = "";
+let words = "Begin...";
 
 function setup() {
   createCanvas(300,300);
-
-  // Create a circle using vectors pointing from center
-  for (let angle = 0; angle < 360; angle += 9) {
-    // Note we are not starting from 0 in order to match the
-    // path of a circle.
-    let v = p5.Vector.fromAngle(radians(angle-135));
-    v.mult(100);
-    circle.push(v);
-    // Let's fill out morph array with blank vectors while we are at it
-    morph.push(createVector());
-  }
-
-  // A square is a bunch of vertices along straight lines
-  // Top of square
-  for (let x = -50; x < 50; x += 10) {
-    square.push(createVector(x, -50));
-  }
-  // Right side
-  for (let y = -50; y < 50; y += 10) {
-    square.push(createVector(50, y));
-  }
-  // Bottom
-  for (let x = 50; x > -50; x -= 10) {
-    square.push(createVector(x, 50));
-  }
-  // Left side
-  for (let y = 50; y > -50; y -= 10) {
-    square.push(createVector(-50, y));
-  }
+  textFont("monospace");
 }
 
 function draw() {
-  background(51);
-
-  // We will keep how far the vertices are from their target
-  let totalDistance = 0;
-
-  // Look at each vertex
-  for (let i = 0; i < circle.length; i++) {
-    let v1;
-    // Are we lerping to the circle or square?
-    if (state) {
-      v1 = circle[i];
-    }
-    else {
-      v1 = square[i];
-    }
-    // Get the vertex we will draw
-    let v2 = morph[i];
-    // Lerp to the target
-    v2.lerp(v1, 0.1);
-    // Check how far we are from target
-    totalDistance += p5.Vector.dist(v1, v2);
-  }
-
-  // If all the vertices are close, switch shape
-  if (totalDistance < 0.1) {
-    state = !state;
-  }
-
-  // Draw relative to center
-  translate(width/2, height/2);
-  strokeWeight(4);
-  // Draw a polygon that makes up all the vertices
-  beginShape();
-  noFill();
-  stroke(255);
-  for (let v of morph) {
-    vertex(v.x, v.y);
-  }
-  endShape(CLOSE);
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Morph</h3><p>Motion example</p></div>
-        </a>
-        <a class="example-card" href="/examples/button.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let rectX, rectY;
-let circleX, circleY;
-let rectSize = 90;
-let circleSize = 93;
-let rectColor, circleColor, baseColor;
-let rectHighlight, circleHighlight;
-let currentColor;
-let rectOver = false;
-let circleOver = false;
-
-function setup() {
-    createCanvas(300,300);
-    rectColor = color(0);
-    rectHighlight = color(51);
-    circleColor = color(255);
-    circleHighlight = color(204);
-    baseColor = color(102);
-    currentColor = baseColor;
-    circleX = width / 2 + circleSize / 2 + 10;
-    circleY = height / 2;
-    rectX = width / 2 - rectSize - 10;
-    rectY = height / 2 - rectSize / 2;
-    ellipseMode(CENTER);
-}
-
-function draw() {
-    update(mouseX, mouseY);
-    background(currentColor);
-
-    if (rectOver) {
-        fill(rectHighlight);
-    } else {
-        fill(rectColor);
-    }
-    stroke(255);
-    rect(rectX, rectY, rectSize, rectSize);
-
-    if (circleOver) {
-        fill(circleHighlight);
-    } else {
-        fill(circleColor);
-    }
-    stroke(0);
-    ellipse(circleX, circleY, circleSize, circleSize);
-}
-
-function update(x, y) {
-    if (overCircle(circleX, circleY, circleSize)) {
-        circleOver = true;
-        rectOver = false;
-    } else if (overRect(rectX, rectY, rectSize, rectSize)) {
-        rectOver = true;
-        circleOver = false;
-    } else {
-        circleOver = rectOver = false;
-    }
-}
-
-function mousePressed() {
-    if (circleOver) {
-        currentColor = circleColor;
-    }
-    if (rectOver) {
-        currentColor = rectColor;
-    }
-}
-
-function overRect(x, y, w, h) {
-    if (mouseX >= x && mouseX <= x + w &&
-        mouseY >= y && mouseY <= y + h) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function overCircle(x, y, diameter) {
-    let disX = x - mouseX;
-    let disY = y - mouseY;
-    if (sqrt(sq(disX) + sq(disY)) < diameter / 2) {
-        return true;
-    } else {
-        return false;
-    }
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Button</h3><p>Gui example</p></div>
-        </a>
-        <a class="example-card" href="/examples/translate.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x = 0;
-let y;
-let dim = 80;
-
-function setup() {
-  createCanvas(300,300);
-  noStroke();
-}
-
-function draw() {
-  background(102);
-
-  x = x + 0.8;
-
-  if (x > width + dim) {
-    x = -dim;
-  }
-
-  translate(x, height / 2 - dim / 2);
-
+  background(0);
   fill(255);
-  rect(-dim / 2, -dim / 2, dim, dim);
+  textSize(14);
+  text("Click on the program, then type to add to the String", 50, 50);
+  text("Current key: " + letter, 50, 70);
+  text("The String is " + words.length + " characters long", 50, 90);
+  textSize(36);
 
-  // Transforms accumulate. Notice how this rect moves
-  // twice as fast as the other, but it has the same
-  // parameter for the x-axis value
-  translate(x, dim);
+  // manual wrap
+  let lineWidth = 540;
+  let x = 50;
+  let y = 140;
+  let lineHeight = 44;
+  let line = "";
+  for (let i = 0; i < words.length; i++) {
+    let testLine = line + words[i];
+    if (textWidth(testLine) > lineWidth) {
+      text(line, x, y);
+      y += lineHeight;
+      line = words[i];
+    } else {
+      line = testLine;
+    }
+  }
+  text(line, x, y);
+}
 
-  fill(0);
-  rect(-dim / 2, -dim / 2, dim, dim);
+function keyTyped() {
+  if ((key >= 'A' && key <= 'z') || key === ' ') {
+    letter = key;
+    words += key;
+  }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Translate</h3><p>Transform example</p></div>
+          <div class="example-info"><h3>Characters Strings</h3><p>Data example</p></div>
+        </a>
+        <a class="example-card" href="/examples/no-loop.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let y = 180;
+
+function setup() {
+  createCanvas(300,300);
+  stroke(255);
+  noLoop();
+}
+
+function draw() {
+  background(0);
+
+  line(0, y, width, y);
+
+  y = y - 1;
+
+  if (y < 0) {
+    y = height;
+  }
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>No Loop</h3><p>Structure example</p></div>
+        </a>
+        <a class="example-card" href="/examples/bouncy-bubbles.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let numBalls = 12;
+let spring = 0.05;
+let gravity = 0.03;
+let friction = -0.9;
+let balls = [];
+
+class Ball {
+  constructor(xin, yin, din, idin, oin) {
+    this.x = xin;
+    this.y = yin;
+    this.diameter = din;
+    this.id = idin;
+    this.others = oin;
+    this.vx = 0;
+    this.vy = 0;
+  }
+
+  collide() {
+    for (let i = this.id + 1; i < numBalls; i++) {
+      let other = this.others[i];
+      let dx = other.x - this.x;
+      let dy = other.y - this.y;
+      let distance = sqrt(dx*dx + dy*dy);
+      let minDist = other.diameter/2 + this.diameter/2;
+      if (distance < minDist) {
+        let angle = atan2(dy, dx);
+        let targetX = this.x + cos(angle) * minDist;
+        let targetY = this.y + sin(angle) * minDist;
+        let ax = (targetX - other.x) * spring;
+        let ay = (targetY - other.y) * spring;
+        this.vx -= ax;
+        this.vy -= ay;
+        other.vx += ax;
+        other.vy += ay;
+      }
+    }
+  }
+
+  move() {
+    this.vy += gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x + this.diameter/2 > width) {
+      this.x = width - this.diameter/2;
+      this.vx *= friction;
+    }
+    else if (this.x - this.diameter/2 < 0) {
+      this.x = this.diameter/2;
+      this.vx *= friction;
+    }
+    if (this.y + this.diameter/2 > height) {
+      this.y = height - this.diameter/2;
+      this.vy *= friction;
+    }
+    else if (this.y - this.diameter/2 < 0) {
+      this.y = this.diameter/2;
+      this.vy *= friction;
+    }
+  }
+
+  display() {
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
+}
+
+function setup() {
+  createCanvas(300,300);
+  for (let i = 0; i < numBalls; i++) {
+    balls[i] = new Ball(random(width), random(height), random(30, 70), i, balls);
+  }
+  noStroke();
+  fill(255, 204);
+}
+
+function draw() {
+  background(0);
+  for (let ball of balls) {
+    ball.collide();
+    ball.move();
+    ball.display();
+  }
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Bouncy Bubbles</h3><p>Motion example</p></div>
         </a>
       </div>
       <div class="examples-footer">
