@@ -242,290 +242,121 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/mandelbrot.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
-    createCanvas(300,300);
-    pixelDensity(1);
-    noLoop();
-    background(255);
+        <a class="example-card" href="/examples/rollover.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let rectX, rectY;      // Position of square button
+let circleX, circleY;  // Position of circle button
+let rectSize = 90;     // Diameter of rect
+let circleSize = 93;   // Diameter of circle
 
-    let w = 4;
-    let h = (w * height) / width;
+let rectColor;
+let circleColor;
+let baseColor;
 
-    let xmin = -w / 2;
-    let ymin = -h / 2;
-
-    loadPixels();
-
-    let maxiterations = 100;
-
-    let xmax = xmin + w;
-    let ymax = ymin + h;
-
-    let dx = (xmax - xmin) / width;
-    let dy = (ymax - ymin) / height;
-
-    let y = ymin;
-    for (let j = 0; j < height; j++) {
-        let x = xmin;
-        for (let i = 0; i < width; i++) {
-
-            let a = x;
-            let b = y;
-            let n = 0;
-            let maxAbs = 4.0;
-            let absOld = 0.0;
-            let convergeNumber = maxiterations;
-
-            while (n < maxiterations) {
-                let aa = a * a;
-                let bb = b * b;
-                let absVal = sqrt(aa + bb);
-                if (absVal > maxAbs) {
-                    let diffToLast = absVal - absOld;
-                    let diffToMax  = maxAbs - absOld;
-                    convergeNumber = n + diffToMax / diffToLast;
-                    break;
-                }
-                let twoab = 2.0 * a * b;
-                a = aa - bb + x;
-                b = twoab + y;
-                n++;
-                absOld = absVal;
-            }
-
-            let idx = (i + j * width) * 4;
-            if (n == maxiterations) {
-                pixels[idx]     = 0;
-                pixels[idx + 1] = 0;
-                pixels[idx + 2] = 0;
-                pixels[idx + 3] = 255;
-            } else {
-                let norm = map(convergeNumber, 0, maxiterations, 0, 1);
-                let bright = map(sqrt(norm), 0, 1, 0, 255);
-                pixels[idx]     = bright;
-                pixels[idx + 1] = bright;
-                pixels[idx + 2] = bright;
-                pixels[idx + 3] = 255;
-            }
-            x += dx;
-        }
-        y += dy;
-    }
-    updatePixels();
-}
-
-function draw() {}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Mandelbrot</h3><p>Fractals And L-Systems example</p></div>
-        </a>
-        <a class="example-card" href="/examples/rotate-push-pop.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let a = 0;
-let offset;
-let num = 12;
-
-function setup() {
-  createCanvas(300,300, WEBGL);
-  noStroke();
-  offset = PI / 24.0;
-}
-
-function draw() {
-  background(0, 0, 26);
-  ambientLight(150);
-  directionalLight(255, 255, 255, 0, 0, -1);
-  directionalLight(100, 100, 100, 0, 0, 1);
-
-  // Move camera closer — default WEBGL camera is too far
-  translate(0, 0, 150);
-
-  for (let i = 0; i < num; i++) {
-    let gray = map(i, 0, num - 1, 0, 255);
-    push();
-    fill(gray);
-    rotateY(a + offset * i);
-    rotateX(a / 2 + offset * i);
-    box(150);
-    pop();
-  }
-  a += 0.01;
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Rotate Push Pop</h3><p>Transform example</p></div>
-        </a>
-        <a class="example-card" href="/examples/flocking.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Flock class
-class Flock {
-  constructor() {
-    this.boids = [];
-  }
-
-  run() {
-    for (let b of this.boids) {
-      b.run(this.boids);
-    }
-  }
-
-  addBoid(b) {
-    this.boids.push(b);
-  }
-}
-
-// Boid class
-class Boid {
-  constructor(x, y) {
-    this.acceleration = createVector(0, 0);
-    let angle = random(TWO_PI);
-    this.velocity = createVector(cos(angle), sin(angle));
-    this.position = createVector(x, y);
-    this.r = 2.0;
-    this.maxspeed = 2;
-    this.maxforce = 0.03;
-  }
-
-  run(boids) {
-    this.flock(boids);
-    this.update();
-    this.borders();
-    this.render();
-  }
-
-  applyForce(force) {
-    this.acceleration.add(force);
-  }
-
-  flock(boids) {
-    let sep = this.separate(boids);
-    let ali = this.align(boids);
-    let coh = this.cohesion(boids);
-    sep.mult(1.5);
-    ali.mult(1.0);
-    coh.mult(1.0);
-    this.applyForce(sep);
-    this.applyForce(ali);
-    this.applyForce(coh);
-  }
-
-  update() {
-    this.velocity.add(this.acceleration);
-    this.velocity.limit(this.maxspeed);
-    this.position.add(this.velocity);
-    this.acceleration.mult(0);
-  }
-
-  seek(target) {
-    let desired = p5.Vector.sub(target, this.position);
-    desired.normalize();
-    desired.mult(this.maxspeed);
-    let steer = p5.Vector.sub(desired, this.velocity);
-    steer.limit(this.maxforce);
-    return steer;
-  }
-
-  render() {
-    let theta = this.velocity.heading() + radians(90);
-    fill(200, 100);
-    stroke(255);
-    push();
-    translate(this.position.x, this.position.y);
-    rotate(theta);
-    beginShape(TRIANGLES);
-    vertex(0, -this.r * 2);
-    vertex(-this.r, this.r * 2);
-    vertex(this.r, this.r * 2);
-    endShape();
-    pop();
-  }
-
-  borders() {
-    if (this.position.x < -this.r) this.position.x = width + this.r;
-    if (this.position.y < -this.r) this.position.y = height + this.r;
-    if (this.position.x > width + this.r) this.position.x = -this.r;
-    if (this.position.y > height + this.r) this.position.y = -this.r;
-  }
-
-  separate(boids) {
-    let desiredseparation = 25.0;
-    let steer = createVector(0, 0);
-    let count = 0;
-    for (let other of boids) {
-      let d = p5.Vector.dist(this.position, other.position);
-      if ((d > 0) && (d < desiredseparation)) {
-        let diff = p5.Vector.sub(this.position, other.position);
-        diff.normalize();
-        diff.div(d);
-        steer.add(diff);
-        count++;
-      }
-    }
-    if (count > 0) steer.div(count);
-    if (steer.mag() > 0) {
-      steer.normalize();
-      steer.mult(this.maxspeed);
-      steer.sub(this.velocity);
-      steer.limit(this.maxforce);
-    }
-    return steer;
-  }
-
-  align(boids) {
-    let neighbordist = 50;
-    let sum = createVector(0, 0);
-    let count = 0;
-    for (let other of boids) {
-      let d = p5.Vector.dist(this.position, other.position);
-      if ((d > 0) && (d < neighbordist)) {
-        sum.add(other.velocity);
-        count++;
-      }
-    }
-    if (count > 0) {
-      sum.div(count);
-      sum.normalize();
-      sum.mult(this.maxspeed);
-      let steer = p5.Vector.sub(sum, this.velocity);
-      steer.limit(this.maxforce);
-      return steer;
-    }
-    return createVector(0, 0);
-  }
-
-  cohesion(boids) {
-    let neighbordist = 50;
-    let sum = createVector(0, 0);
-    let count = 0;
-    for (let other of boids) {
-      let d = p5.Vector.dist(this.position, other.position);
-      if ((d > 0) && (d < neighbordist)) {
-        sum.add(other.position);
-        count++;
-      }
-    }
-    if (count > 0) {
-      sum.div(count);
-      return this.seek(sum);
-    }
-    return createVector(0, 0);
-  }
-}
-
-let flock;
+let rectOver = false;
+let circleOver = false;
 
 function setup() {
   createCanvas(300,300);
-  flock = new Flock();
-  for (let i = 0; i < 150; i++) {
-    flock.addBoid(new Boid(width / 2, height / 2));
-  }
+  rectColor = color(0);
+  circleColor = color(255);
+  baseColor = color(102);
+  circleX = width/2+circleSize/2+10;
+  circleY = height/2;
+  rectX = width/2-rectSize-10;
+  rectY = height/2-rectSize/2;
+  ellipseMode(CENTER);
 }
 
 function draw() {
-  background(50);
-  flock.run();
+  update(mouseX, mouseY);
+
+  noStroke();
+  if (rectOver) {
+    background(rectColor);
+  } else if (circleOver) {
+    background(circleColor);
+  } else {
+    background(baseColor);
+  }
+
+  stroke(255);
+  fill(rectColor);
+  rect(rectX, rectY, rectSize, rectSize);
+  stroke(0);
+  fill(circleColor);
+  ellipse(circleX, circleY, circleSize, circleSize);
 }
 
-function mousePressed() {
-  flock.addBoid(new Boid(mouseX, mouseY));
+function update(x, y) {
+  if( overCircle(circleX, circleY, circleSize) ) {
+    circleOver = true;
+    rectOver = false;
+  } else if ( overRect(rectX, rectY, rectSize, rectSize) ) {
+    rectOver = true;
+    circleOver = false;
+  } else {
+    circleOver = rectOver = false;
+  }
+}
+
+function overRect(x, y, width, height) {
+  if (mouseX >= x && mouseX <= x+width && 
+      mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function overCircle(x, y, diameter) {
+  let disX = x - mouseX;
+  let disY = y - mouseY;
+  if(sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
+    return true;
+  } else {
+    return false;
+  }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Flocking</h3><p>Simulate example</p></div>
+          <div class="example-info"><h3>Rollover</h3><p>Gui example</p></div>
+        </a>
+        <a class="example-card" href="/examples/shape-primitives.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  background(0);
+  noStroke();
+
+  fill(204);
+  triangle(18, 18, 18, 360, 81, 360);
+
+  fill(102);
+  rect(81, 81, 63, 63);
+
+  fill(204);
+  quad(189, 18, 216, 18, 216, 360, 144, 360);
+
+  fill(255);
+  ellipse(252, 144, 72, 72);
+
+  fill(204);
+  triangle(288, 18, 351, 360, 288, 360);
+
+  fill(255);
+  arc(479, 300, 280, 280, PI, TWO_PI);
+
+  noLoop();
+}
+
+function draw() {}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Shape Primitives</h3><p>Forms example</p></div>
+        </a>
+        <a class="example-card" href="/examples/statements-and-comments.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  background(204, 153, 0);
+
+  noLoop();
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Statements and Comments</h3><p>Structure example</p></div>
         </a>
       </div>
       <div class="examples-footer">
