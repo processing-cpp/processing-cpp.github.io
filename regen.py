@@ -242,12 +242,7 @@ for section_name, section_data in sections.items():
   <div class="content">
     <h1>{ex["name"]}</h1>
     {preview}
-    <div class="code-block">
-      <div class="code-header">
-        <span>{ex["name"].lower().replace(" ","-")}.pde</span>
-        <button class="copy-btn" onclick="copyCode()">Copy</button>
-      </div>
-      <div class="syntax-block">{escaped}</div>
+    <div class="syntax-block">{escaped}</div>
   </div>
 </div>
 <footer>

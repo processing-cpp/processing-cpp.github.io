@@ -242,72 +242,114 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/linear-interpolation.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x = 0.0;
-let y = 0.0;
+        <a class="example-card" href="/examples/polar-to-cartesian.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let r;
+let theta;
+let theta_vel;
+let theta_acc;
+
+function setup() {
+  createCanvas(300,300);
+
+  r = height * 0.45;
+  theta = 0.0;
+  theta_vel = 0.0;
+  theta_acc = 0.0001;
+}
+
+function draw() {
+  background(0);
+
+  translate(width / 2, height / 2);
+
+  let x = r * cos(theta);
+  let y = r * sin(theta);
+
+  ellipseMode(CENTER);
+  noStroke();
+  fill(200);
+  ellipse(x, y, 32, 32);
+
+  theta_vel += theta_acc;
+  theta += theta_vel;
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Polar to Cartesian</h3><p>Math example</p></div>
+        </a>
+        <a class="example-card" href="/examples/milliseconds.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let _scale;
 
 function setup() {
   createCanvas(300,300);
   noStroke();
+  _scale = width / 20.0;
 }
 
 function draw() {
-  background(51);
+  for (let i = 0; i < _scale; i++) {
+    colorMode(RGB, (i + 1) * _scale * 10.0);
 
-  x = lerp(x, mouseX, 0.05);
-  y = lerp(y, mouseY, 0.05);
+    fill(millis() % ((i + 1) * _scale * 10.0));
 
-  fill(255);
-  stroke(255);
-  ellipse(x, y, 66, 66);
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Linear Interpolation</h3><p>Math example</p></div>
-        </a>
-        <a class="example-card" href="/examples/recursion.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
-  createCanvas(300,300);
-  noStroke();
-  noLoop();
-}
-
-function draw() {
-  drawCircle(width / 2, 280, 6);
-}
-
-function drawCircle(x, radius, level) {
-  let tt = 126 * level / 4.0;
-
-  fill(tt);
-  ellipse(x, height / 2, radius * 2, radius * 2);
-
-  if (level > 1) {
-    level = level - 1;
-
-    drawCircle(x - radius / 2, radius / 2, level);
-    drawCircle(x + radius / 2, radius / 2, level);
+    rect(i * _scale, 0, _scale, height);
   }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Recursion</h3><p>Structure example</p></div>
+          <div class="example-info"><h3>Milliseconds</h3><p>Input example</p></div>
         </a>
-        <a class="example-card" href="/examples/mouse-2d.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+        <a class="example-card" href="/examples/reach2.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>const numSegments = 10;
+let x = new Array(numSegments).fill(0);
+let y = new Array(numSegments).fill(0);
+let angle = new Array(numSegments).fill(0);
+let segLength = 26;
+let targetX, targetY;
+
+function setup() {
   createCanvas(300,300);
-  noStroke();
-  rectMode(CENTER);
+  strokeWeight(20.0);
+  stroke(255, 100);
+
+  x[x.length-1] = width/2;   // Set base x-coordinate
+  y[x.length-1] = height;    // Set base y-coordinate
 }
 
 function draw() {
-  background(51);
+  background(0);
 
-  fill(255, 204);
-  rect(mouseX, height / 2, mouseY / 2 + 10, mouseY / 2 + 10);
+  reachSegment(0, mouseX, mouseY);
+  for (let i = 1; i < numSegments; i++) {
+    reachSegment(i, targetX, targetY);
+  }
+  for (let i = x.length-1; i >= 1; i--) {
+    positionSegment(i, i-1);
+  }
+  for (let i = 0; i < x.length; i++) {
+    segment(x[i], y[i], angle[i], (i+1)*2);
+  }
+}
 
-  let inverseX = width - mouseX;
-  let inverseY = height - mouseY;
+function positionSegment(a, b) {
+  x[b] = x[a] + cos(angle[a]) * segLength;
+  y[b] = y[a] + sin(angle[a]) * segLength;
+}
 
-  rect(inverseX, height / 2, inverseY / 2 + 10, inverseY / 2 + 10);
+function reachSegment(i, xin, yin) {
+  let dx = xin - x[i];
+  let dy = yin - y[i];
+  angle[i] = atan2(dy, dx);
+
+  targetX = xin - cos(angle[i]) * segLength;
+  targetY = yin - sin(angle[i]) * segLength;
+}
+
+function segment(x, y, a, sw) {
+  strokeWeight(sw);
+  push();
+  translate(x, y);
+  rotate(a);
+  line(0, 0, segLength, 0);
+  pop();
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Mouse 2D</h3><p>Input example</p></div>
+          <div class="example-info"><h3>Reach2</h3><p>Interaction example</p></div>
         </a>
       </div>
       <div class="examples-footer">
