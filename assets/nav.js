@@ -128,11 +128,10 @@
               console.log('block', i, 'tag:', el.tagName, 'class:', el.className, 'display:', getComputedStyle(el).display, 'content len:', el.textContent.trim().length);
             });
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
+              el.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
               if (!el.parentNode) return;
               const code = el.textContent.trim();
               if (!code) return;
-              // Hide original first
-              el.style.display = 'none';
               const wrap = document.createElement('div');
               el.parentNode.insertBefore(wrap, el);
               const cm = CodeMirror(wrap, {
