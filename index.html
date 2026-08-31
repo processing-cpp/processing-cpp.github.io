@@ -242,145 +242,72 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/mouse-1d.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
-  createCanvas(300,300);
-  noStroke();
-  colorMode(RGB, height, height, height);
-  rectMode(CENTER);
-}
-
-function draw() {
-  background(0);
-
-  let r1 = map(mouseX, 0, width, 0, height);
-  let r2 = height - r1;
-
-  fill(r1);
-  rect(width / 2 + r1 / 2, height / 2, r1, r1);
-
-  fill(r2);
-  rect(width / 2 - r2 / 2, height / 2, r2, r2);
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Mouse 1D</h3><p>Input example</p></div>
-        </a>
-        <a class="example-card" href="/examples/clock.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let cx, cy;
-let secondsRadius;
-let minutesRadius;
-let hoursRadius;
-let clockDiameter;
-
-function setup() {
-  createCanvas(300,300);
-  stroke(255);
-
-  let radius = min(width, height) / 2;
-
-  secondsRadius = radius * 0.72;
-  minutesRadius = radius * 0.60;
-  hoursRadius = radius * 0.50;
-  clockDiameter = radius * 1.8;
-
-  cx = width / 2;
-  cy = height / 2;
-}
-
-function draw() {
-  background(0);
-
-  fill(80);
-  noStroke();
-  ellipse(cx, cy, clockDiameter, clockDiameter);
-
-  let s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
-
-  let m = map(
-    minute() + norm(second(), 0, 60),
-    0,
-    60,
-    0,
-    TWO_PI
-  ) - HALF_PI;
-
-  let h = map(
-    hour() + norm(minute(), 0, 60),
-    0,
-    24,
-    0,
-    TWO_PI * 2
-  ) - HALF_PI;
-
-  stroke(255);
-
-  strokeWeight(1);
-  line(
-    cx,
-    cy,
-    cx + cos(s) * secondsRadius,
-    cy + sin(s) * secondsRadius
-  );
-
-  strokeWeight(2);
-  line(
-    cx,
-    cy,
-    cx + cos(m) * minutesRadius,
-    cy + sin(m) * minutesRadius
-  );
-
-  strokeWeight(4);
-  line(
-    cx,
-    cy,
-    cx + cos(h) * hoursRadius,
-    cy + sin(h) * hoursRadius
-  );
-
-  strokeWeight(2);
-  beginShape(POINTS);
-
-  for (let a = 0; a < 360; a += 6) {
-    let angle = radians(a);
-    let x = cx + cos(angle) * secondsRadius;
-    let y = cy + sin(angle) * secondsRadius;
-    vertex(x, y);
-  }
-
-  endShape();
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Clock</h3><p>Input example</p></div>
-        </a>
-        <a class="example-card" href="/examples/storing-input.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let num = 60;
-let mx = [];
-let my = [];
+        <a class="example-card" href="/examples/linear-interpolation.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let x = 0.0;
+let y = 0.0;
 
 function setup() {
   createCanvas(300,300);
   noStroke();
-  fill(255, 153);
-
-  for (let i = 0; i < num; i++) {
-    mx[i] = 0;
-    my[i] = 0;
-  }
 }
 
 function draw() {
   background(51);
 
-  let which = frameCount % num;
+  x = lerp(x, mouseX, 0.05);
+  y = lerp(y, mouseY, 0.05);
 
-  mx[which] = mouseX;
-  my[which] = mouseY;
+  fill(255);
+  stroke(255);
+  ellipse(x, y, 66, 66);
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Linear Interpolation</h3><p>Math example</p></div>
+        </a>
+        <a class="example-card" href="/examples/recursion.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  noStroke();
+  noLoop();
+}
 
-  for (let i = 0; i < num; i++) {
-    let index = (which + 1 + i) % num;
-    ellipse(mx[index], my[index], i, i);
+function draw() {
+  drawCircle(width / 2, 280, 6);
+}
+
+function drawCircle(x, radius, level) {
+  let tt = 126 * level / 4.0;
+
+  fill(tt);
+  ellipse(x, height / 2, radius * 2, radius * 2);
+
+  if (level > 1) {
+    level = level - 1;
+
+    drawCircle(x - radius / 2, radius / 2, level);
+    drawCircle(x + radius / 2, radius / 2, level);
   }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Storing Input</h3><p>Input example</p></div>
+          <div class="example-info"><h3>Recursion</h3><p>Structure example</p></div>
+        </a>
+        <a class="example-card" href="/examples/mouse-2d.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  noStroke();
+  rectMode(CENTER);
+}
+
+function draw() {
+  background(51);
+
+  fill(255, 204);
+  rect(mouseX, height / 2, mouseY / 2 + 10, mouseY / 2 + 10);
+
+  let inverseX = width - mouseX;
+  let inverseY = height - mouseY;
+
+  rect(inverseX, height / 2, inverseY / 2 + 10, inverseY / 2 + 10);
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Mouse 2D</h3><p>Input example</p></div>
         </a>
       </div>
       <div class="examples-footer">
