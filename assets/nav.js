@@ -130,16 +130,12 @@
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
-            document.querySelectorAll('.syntax-block, .impl-block, pre#code-pre').forEach(el => {
-              el.style.display = 'none'; // hide original immediately
-              if (!el.parentNode) return;
-              const code = (el.tagName === 'PRE' ? el.textContent : el.innerHTML
-                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')).trim();
-              if (!code) return;
-              const wrap = document.createElement('div');
-              wrap.style.cssText = 'border-radius:6px;overflow:auto;margin-bottom:0.5rem;';
-              el.parentNode.replaceChild(wrap, el);
-              const cm = CodeMirror(wrap, {
+            // Example pages: render into #code-cm-wrap
+            const cmWrap = document.getElementById('code-cm-wrap');
+            const codePre = document.getElementById('code-pre');
+            if (cmWrap && codePre) {
+              const code = codePre.textContent.trim();
+              CodeMirror(cmWrap, {
                 value: code,
                 mode: 'cppmode',
                 theme: dark ? 'cppmode-dark' : 'cppmode',
@@ -147,13 +143,23 @@
                 lineNumbers: true,
                 lineWrapping: false,
               });
-              cm.setSize('100%', 'auto');
-              // Force CM to expand to full content height
-              const cmEl = wrap.querySelector('.CodeMirror');
-              const scroller = wrap.querySelector('.CodeMirror-scroll');
-              if (cmEl) cmEl.style.height = 'auto';
-              if (scroller) { scroller.style.height = 'auto'; scroller.style.overflowY = 'visible'; }
-              cm.refresh();
+            }
+            // Reference pages: replace .syntax-block and .impl-block
+            document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
+              if (!el.parentNode) return;
+              const code = el.innerHTML
+                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+              if (!code) return;
+              const wrap = document.createElement('div');
+              el.parentNode.replaceChild(wrap, el);
+              CodeMirror(wrap, {
+                value: code,
+                mode: 'cppmode',
+                theme: dark ? 'cppmode-dark' : 'cppmode',
+                readOnly: true,
+                lineNumbers: false,
+                lineWrapping: false,
+              });
             });
           });
         });

@@ -242,121 +242,109 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/rollover.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let rectX, rectY;      // Position of square button
-let circleX, circleY;  // Position of circle button
-let rectSize = 90;     // Diameter of rect
-let circleSize = 93;   // Diameter of circle
-
-let rectColor;
-let circleColor;
-let baseColor;
-
-let rectOver = false;
-let circleOver = false;
+        <a class="example-card" href="/examples/characters-strings.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let letter = "";
+let words = "Begin...";
 
 function setup() {
   createCanvas(300,300);
-  rectColor = color(0);
-  circleColor = color(255);
-  baseColor = color(102);
-  circleX = width/2+circleSize/2+10;
-  circleY = height/2;
-  rectX = width/2-rectSize-10;
-  rectY = height/2-rectSize/2;
-  ellipseMode(CENTER);
+  textFont("monospace");
 }
 
 function draw() {
-  update(mouseX, mouseY);
+  background(0);
+  fill(255);
+  textSize(14);
+  text("Click on the program, then type to add to the String", 50, 50);
+  text("Current key: " + letter, 50, 70);
+  text("The String is " + words.length + " characters long", 50, 90);
+  textSize(36);
 
-  noStroke();
-  if (rectOver) {
-    background(rectColor);
-  } else if (circleOver) {
-    background(circleColor);
-  } else {
-    background(baseColor);
+  // manual wrap
+  let lineWidth = 540;
+  let x = 50;
+  let y = 140;
+  let lineHeight = 44;
+  let line = "";
+  for (let i = 0; i < words.length; i++) {
+    let testLine = line + words[i];
+    if (textWidth(testLine) > lineWidth) {
+      text(line, x, y);
+      y += lineHeight;
+      line = words[i];
+    } else {
+      line = testLine;
+    }
+  }
+  text(line, x, y);
+}
+
+function keyTyped() {
+  if ((key >= 'A' && key <= 'z') || key === ' ') {
+    letter = key;
+    words += key;
+  }
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Characters Strings</h3><p>Data example</p></div>
+        </a>
+        <a class="example-card" href="/examples/operator-precedence.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
+  background(51);
+  noFill();
+  stroke(51);
+
+  stroke(204);
+  for (let i = 0; i < width - 20; i += 4) {
+    if (i > (30 + 70)) {
+      line(i, 0, i, 50);
+    }
   }
 
   stroke(255);
-  fill(rectColor);
-  rect(rectX, rectY, rectSize, rectSize);
-  stroke(0);
-  fill(circleColor);
-  ellipse(circleX, circleY, circleSize, circleSize);
-}
+  rect(4 + (2 * 8), 52, 290, 48);
+  rect((4 + 2) * 8, 100, 290, 49);
 
-function update(x, y) {
-  if( overCircle(circleX, circleY, circleSize) ) {
-    circleOver = true;
-    rectOver = false;
-  } else if ( overRect(rectX, rectY, rectSize, rectSize) ) {
-    rectOver = true;
-    circleOver = false;
-  } else {
-    circleOver = rectOver = false;
-  }
-}
-
-function overRect(x, y, width, height) {
-  if (mouseX >= x && mouseX <= x+width && 
-      mouseY >= y && mouseY <= y+height) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function overCircle(x, y, diameter) {
-  let disX = x - mouseX;
-  let disY = y - mouseY;
-  if(sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
-    return true;
-  } else {
-    return false;
+  stroke(153);
+  for (let i = 0; i < width; i += 2) {
+    if (((i > 20) && (i < 50)) || ((i > 100) && (i < width - 20))) {
+      line(i, 151, i, height - 1);
+    }
   }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Rollover</h3><p>Gui example</p></div>
+          <div class="example-info"><h3>Operator Precedence</h3><p>Math example</p></div>
         </a>
-        <a class="example-card" href="/examples/shape-primitives.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+        <a class="example-card" href="/examples/rotate.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let angle = 0;
+let jitter = 0;
+
+function setup() {
   createCanvas(300,300);
-  background(0);
+
   noStroke();
-
-  fill(204);
-  triangle(18, 18, 18, 360, 81, 360);
-
-  fill(102);
-  rect(81, 81, 63, 63);
-
-  fill(204);
-  quad(189, 18, 216, 18, 216, 360, 144, 360);
-
   fill(255);
-  ellipse(252, 144, 72, 72);
 
-  fill(204);
-  triangle(288, 18, 351, 360, 288, 360);
-
-  fill(255);
-  arc(479, 300, 280, 280, PI, TWO_PI);
-
-  noLoop();
+  rectMode(CENTER);
 }
 
-function draw() {}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Shape Primitives</h3><p>Forms example</p></div>
-        </a>
-        <a class="example-card" href="/examples/statements-and-comments.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
-  createCanvas(300,300);
-  background(204, 153, 0);
+function draw() {
+  background(51);
 
-  noLoop();
+  // during even-numbered seconds (0, 2, 4, 6...)
+  if (second() % 2 === 0) {
+    jitter = random(-0.1, 0.1);
+  }
+
+  angle = angle + jitter;
+
+  let c = cos(angle);
+
+  translate(width / 2, height / 2);
+  rotate(c);
+
+  rect(0, 0, 180, 180);
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Statements and Comments</h3><p>Structure example</p></div>
+          <div class="example-info"><h3>Rotate</h3><p>Transform example</p></div>
         </a>
       </div>
       <div class="examples-footer">
