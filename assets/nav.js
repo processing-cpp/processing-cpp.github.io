@@ -231,6 +231,7 @@
     }
     function applyDark(on) {
       document.body.classList.toggle('dark-mode', on);
+      document.documentElement.classList.remove('dark-pre');
       const btn = document.getElementById('nav-dark-btn');
       if (btn) {
         btn.textContent = on ? '☀️ Light' : '🌙 Dark';
