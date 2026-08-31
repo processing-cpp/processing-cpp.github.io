@@ -101,7 +101,7 @@
   }
 
   // CodeMirror syntax highlighting on reference/example pages
-  if (document.querySelector('.syntax-block, .impl-block, pre#code-pre') &&
+  if (document.querySelector('.syntax-block, .impl-block, pre#code-pre, #code-cm-wrap') &&
       !document.getElementById('ref-cm-loaded')) {
     const CDNJS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16';
     // Preload hints for faster script loading
