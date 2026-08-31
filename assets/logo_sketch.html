@@ -3,6 +3,12 @@
 <style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}</style>
 </head><body>
 <canvas id="canvas"></canvas>
-<script>window.Module={canvas:document.getElementById('canvas'),print:console.log,printErr:console.warn};</script>
+<script>
+window.Module={canvas:document.getElementById('canvas'),print:console.log,printErr:console.warn};
+window.addEventListener('message', function(e) {
+  if (e.data === 'dark') document.body.style.background = '#1e1e2e';
+  if (e.data === 'light') document.body.style.background = '#fff';
+});
+</script>
 <script src="logo_sketch.js"></script>
 </body></html>
