@@ -132,23 +132,7 @@
             marker.id = 'ref-cm-loaded';
             document.head.appendChild(marker);
             const dark = document.body.classList.contains('dark-mode');
-            // Example pages: render into #code-cm-wrap
-            const cmWrap = document.getElementById('code-cm-wrap');
-            const codePre = document.getElementById('code-pre');
-            if (cmWrap && codePre) {
-              const code = codePre.textContent.trim();
-              const cm = CodeMirror(cmWrap, {
-                value: '',
-                mode: 'cppmode',
-                theme: dark ? 'cppmode-dark' : 'cppmode',
-                readOnly: true,
-                lineNumbers: true,
-                lineWrapping: false,
-              });
-              // Set value after init so CPPMODE_KEYWORDS is definitely loaded
-              setTimeout(() => { cm.setValue(code); cm.refresh(); }, 0);
-            }
-            // Reference pages: replace .syntax-block and .impl-block
+            // Reference and example pages: replace .syntax-block and .impl-block
             document.querySelectorAll('.syntax-block, .impl-block').forEach(el => {
               if (!el.parentNode) return;
               const code = el.innerHTML
