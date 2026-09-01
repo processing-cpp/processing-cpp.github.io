@@ -242,153 +242,229 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/reach3.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>const numSegments = 8;
-let x = new Array(numSegments).fill(0);
-let y = new Array(numSegments).fill(0);
-let angle = new Array(numSegments).fill(0);
-let segLength = 26;
-let targetX, targetY;
+        <a class="example-card" href="/examples/coordinates.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+  createCanvas(300,300);
 
-let ballX = 50;
-let ballY = 50;
-let ballXDirection = 1;
-let ballYDirection = -1;
+  background(0);
+  noFill();
+
+  stroke(255);
+
+  point(320, 180);
+  point(320, 90);
+
+  stroke(0, 153, 255);
+
+  line(0, 120, 640, 120);
+
+  stroke(255, 153, 0);
+
+  rect(160, 36, 320, 288);
+
+  noLoop();
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Coordinates</h3><p>Structure example</p></div>
+        </a>
+        <a class="example-card" href="/examples/flocking.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Flock class
+class Flock {
+  constructor() {
+    this.boids = [];
+  }
+
+  run() {
+    for (let b of this.boids) {
+      b.run(this.boids);
+    }
+  }
+
+  addBoid(b) {
+    this.boids.push(b);
+  }
+}
+
+// Boid class
+class Boid {
+  constructor(x, y) {
+    this.acceleration = createVector(0, 0);
+    let angle = random(TWO_PI);
+    this.velocity = createVector(cos(angle), sin(angle));
+    this.position = createVector(x, y);
+    this.r = 2.0;
+    this.maxspeed = 2;
+    this.maxforce = 0.03;
+  }
+
+  run(boids) {
+    this.flock(boids);
+    this.update();
+    this.borders();
+    this.render();
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  flock(boids) {
+    let sep = this.separate(boids);
+    let ali = this.align(boids);
+    let coh = this.cohesion(boids);
+    sep.mult(1.5);
+    ali.mult(1.0);
+    coh.mult(1.0);
+    this.applyForce(sep);
+    this.applyForce(ali);
+    this.applyForce(coh);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxspeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  seek(target) {
+    let desired = p5.Vector.sub(target, this.position);
+    desired.normalize();
+    desired.mult(this.maxspeed);
+    let steer = p5.Vector.sub(desired, this.velocity);
+    steer.limit(this.maxforce);
+    return steer;
+  }
+
+  render() {
+    let theta = this.velocity.heading() + radians(90);
+    fill(200, 100);
+    stroke(255);
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(theta);
+    beginShape(TRIANGLES);
+    vertex(0, -this.r * 2);
+    vertex(-this.r, this.r * 2);
+    vertex(this.r, this.r * 2);
+    endShape();
+    pop();
+  }
+
+  borders() {
+    if (this.position.x < -this.r) this.position.x = width + this.r;
+    if (this.position.y < -this.r) this.position.y = height + this.r;
+    if (this.position.x > width + this.r) this.position.x = -this.r;
+    if (this.position.y > height + this.r) this.position.y = -this.r;
+  }
+
+  separate(boids) {
+    let desiredseparation = 25.0;
+    let steer = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < desiredseparation)) {
+        let diff = p5.Vector.sub(this.position, other.position);
+        diff.normalize();
+        diff.div(d);
+        steer.add(diff);
+        count++;
+      }
+    }
+    if (count > 0) steer.div(count);
+    if (steer.mag() > 0) {
+      steer.normalize();
+      steer.mult(this.maxspeed);
+      steer.sub(this.velocity);
+      steer.limit(this.maxforce);
+    }
+    return steer;
+  }
+
+  align(boids) {
+    let neighbordist = 50;
+    let sum = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.velocity);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      sum.normalize();
+      sum.mult(this.maxspeed);
+      let steer = p5.Vector.sub(sum, this.velocity);
+      steer.limit(this.maxforce);
+      return steer;
+    }
+    return createVector(0, 0);
+  }
+
+  cohesion(boids) {
+    let neighbordist = 50;
+    let sum = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.position);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      return this.seek(sum);
+    }
+    return createVector(0, 0);
+  }
+}
+
+let flock;
 
 function setup() {
   createCanvas(300,300);
-  strokeWeight(20.0);
-  stroke(255, 100);
-  noFill();
-
-  x[x.length-1] = width/2;   // Set base x-coordinate
-  y[x.length-1] = height;    // Set base y-coordinate
+  flock = new Flock();
+  for (let i = 0; i < 150; i++) {
+    flock.addBoid(new Boid(width / 2, height / 2));
+  }
 }
 
 function draw() {
-  background(0);
-
-  strokeWeight(20);
-  ballX = ballX + 1.0 * ballXDirection;
-  ballY = ballY + 0.8 * ballYDirection;
-  if (ballX > width-25 || ballX < 25) {
-    ballXDirection *= -1;
-  }
-  if (ballY > height-25 || ballY < 25) {
-    ballYDirection *= -1;
-  }
-  ellipse(ballX, ballY, 30, 30);
-
-  reachSegment(0, ballX, ballY);
-  for (let i = 1; i < numSegments; i++) {
-    reachSegment(i, targetX, targetY);
-  }
-  for (let i = x.length-1; i >= 1; i--) {
-    positionSegment(i, i-1);
-  }
-  for (let i = 0; i < x.length; i++) {
-    segment(x[i], y[i], angle[i], (i+1)*2);
-  }
+  background(50);
+  flock.run();
 }
 
-function positionSegment(a, b) {
-  x[b] = x[a] + cos(angle[a]) * segLength;
-  y[b] = y[a] + sin(angle[a]) * segLength;
-}
-
-function reachSegment(i, xin, yin) {
-  let dx = xin - x[i];
-  let dy = yin - y[i];
-  angle[i] = atan2(dy, dx);
-
-  targetX = xin - cos(angle[i]) * segLength;
-  targetY = yin - sin(angle[i]) * segLength;
-}
-
-function segment(x, y, a, sw) {
-  strokeWeight(sw);
-  push();
-  translate(x, y);
-  rotate(a);
-  line(0, 0, segLength, 0);
-  pop();
+function mousePressed() {
+  flock.addBoid(new Boid(mouseX, mouseY));
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Reach3</h3><p>Interaction example</p></div>
+          <div class="example-info"><h3>Flocking</h3><p>Simulate example</p></div>
         </a>
-        <a class="example-card" href="/examples/directional.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
-  createCanvas(300,300, WEBGL);
-  noStroke();
-  fill(204);
-}
+        <a class="example-card" href="/examples/saturation.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let barWidth = 20;
+let lastBar = -1;
 
-function draw() {
-  background(0);
-
-  let dirY = (mouseY / height - 0.5) * 2;
-  let dirX = (mouseX / width - 0.5) * 2;
-
-  directionalLight(204, 204, 204, -dirX, -dirY, -1);
-
-  push();
-  translate(-100, 0, 0);
-  sphere(80);
-  pop();
-
-  push();
-  translate(100, 0, 0);
-  sphere(80);
-  pop();
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Directional</h3><p>Lights example</p></div>
-        </a>
-        <a class="example-card" href="/examples/graphing-2d-equations.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+function setup() {
   createCanvas(300,300);
+  colorMode(HSB, width, height, 100);
+  noStroke();
 }
 
 function draw() {
-  loadPixels();
+  let whichBar = floor(mouseX / barWidth);
 
-  let n = (mouseX * 10.0) / width;
+  if (whichBar !== lastBar) {
+    let barX = whichBar * barWidth;
 
-  let w = 16.0;
-  let h = 16.0;
+    fill(barX, mouseY, 66);
 
-  let dx = w / width;
-  let dy = h / height;
-
-  let x = -w / 2.0;
-
-  for (let i = 0; i < width; i++) {
-    let y = -h / 2.0;
-
-    for (let j = 0; j < height; j++) {
-      let r = sqrt(x * x + y * y);
-      let theta = atan2(y, x);
-
-      let val = sin(n * cos(r) + 5.0 * theta);
-      // let val = cos(r);
-      // let val = sin(theta);
-
-      let gray = (val + 1.0) * 255.0 / 2.0;
-
-      let index = 4 * (i + j * width);
-
-      pixels[index]     = gray;
-      pixels[index + 1] = gray;
-      pixels[index + 2] = gray;
-      pixels[index + 3] = 255;
-
-      y += dy;
-    }
-
-    x += dx;
+    rect(barX, 0, barWidth, height);
+    lastBar = whichBar;
   }
-
-  updatePixels();
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Graphing 2D Equations</h3><p>Math example</p></div>
+          <div class="example-info"><h3>Saturation</h3><p>Color example</p></div>
         </a>
       </div>
       <div class="examples-footer">
