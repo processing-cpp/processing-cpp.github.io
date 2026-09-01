@@ -558,6 +558,8 @@ parser.add_argument(
     ),
 )
 args = parser.parse_args()
+if not args.examples:
+    args.examples = ['mandelbrot', 'rotate-push-pop', 'flocking']
 
 if args.examples:
     picked = find_examples_by_slug(sections, args.examples)
