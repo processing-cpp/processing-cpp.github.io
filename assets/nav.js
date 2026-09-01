@@ -243,11 +243,7 @@
       }
       if (window.editor && window.editor.setOption)
         window.editor.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
-      // Switch static CodeMirror blocks theme
-      document.querySelectorAll('.CodeMirror').forEach(el => {
-        if (el.CodeMirror) el.CodeMirror.setOption('theme', on ? 'cppmode-dark' : 'cppmode');
-      });
-      // Tell sketch iframes about dark mode
+      // Switch static CodeMirror blocks theme      // Tell sketch iframes about dark mode
       document.querySelectorAll('iframe').forEach(fr => {
         try { fr.contentWindow.postMessage(on ? 'dark' : 'light', '*'); } catch(e) {}
       });
