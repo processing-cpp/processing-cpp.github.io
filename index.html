@@ -242,163 +242,192 @@
     <div class="examples-section">
       <h2>Examples</h2>
       <div class="examples-grid">
-        <a class="example-card" href="/examples/intlist-lottery-example.html" id="card1">
-          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let lottery;
-let results;
-let ticket;
-
-function showList(list, x, y) {
-  for (let i = 0; i < list.size(); i++) {
-    let val = list.get(i);
-    stroke(255);
-    noFill();
-    ellipse(x + i * 32, y, 24, 24);
-    textAlign(CENTER);
-    fill(255);
-    text(val, x + i * 32, y + 6);
-  }
-}
+        <a class="example-card" href="/examples/clock.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let cx, cy;
+let secondsRadius;
+let minutesRadius;
+let hoursRadius;
+let clockDiameter;
 
 function setup() {
   createCanvas(300,300);
-  frameRate(30);
-  lottery = new IntList();
-  results = new IntList();
-  ticket = new IntList();
-  for (let i = 0; i < 20; i++) {
-    lottery.append(i);
-  }
-  for (let i = 0; i < 5; i++) {
-    let index = int(random(lottery.size()));
-    ticket.append(lottery.get(index));
-  }
+  stroke(255);
+
+  let radius = min(width, height) / 2;
+
+  secondsRadius = radius * 0.72;
+  minutesRadius = radius * 0.60;
+  hoursRadius = radius * 0.50;
+  clockDiameter = radius * 1.8;
+
+  cx = width / 2;
+  cy = height / 2;
 }
 
 function draw() {
-  background(51);
-  lottery.shuffle();
-  showList(lottery, 16, 48);
-  showList(results, 16, 100);
-  showList(ticket, 16, 140);
-  for (let i = 0; i < results.size(); i++) {
-    if (results.get(i) === ticket.get(i)) {
-      fill(0, 255, 0, 100);
-    } else {
-      fill(255, 0, 0, 100);
-    }
-    ellipse(16 + i * 32, 140, 24, 24);
-  }
-  if (frameCount % 30 === 0) {
-    if (results.size() < 5) {
-      let val = lottery.get(0);
-      lottery.remove(0);
-      results.append(val);
-    } else {
-      for (let i = 0; i < results.size(); i++) {
-        lottery.append(results.get(i));
-      }
-      results.clear();
-    }
-  }
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>IntList Lottery example</h3><p>Advanced Data example</p></div>
-        </a>
-        <a class="example-card" href="/examples/additive-wave.html" id="card2">
-          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let xspacing = 8;
-let w;
-let maxwaves = 4;
+  background(0);
 
-let theta = 0.0;
-let amplitude = [];
-let dx = [];
-let yvalues = [];
-
-function setup() {
-  createCanvas(300,300);
-  frameRate(30);
-
-  colorMode(RGB, 255, 255, 255, 100);
-
-  w = width + 16;
-
-  for (let i = 0; i < maxwaves; i++) {
-    amplitude[i] = random(10, 30);
-
-    let period = random(100, 300);
-    dx[i] = (TWO_PI / period) * xspacing;
-  }
-
-  yvalues = new Array(floor(w / xspacing));
-}
-
-function calcWave() {
-  theta += 0.02;
-
-  let len = floor(w / xspacing);
-
-  for (let i = 0; i < len; i++) {
-    yvalues[i] = 0;
-  }
-
-  for (let j = 0; j < maxwaves; j++) {
-    let x = theta;
-
-    for (let i = 0; i < len; i++) {
-      if (j % 2 === 0) {
-        yvalues[i] += sin(x) * amplitude[j];
-      } else {
-        yvalues[i] += cos(x) * amplitude[j];
-      }
-
-      x += dx[j];
-    }
-  }
-}
-
-function renderWave() {
+  fill(80);
   noStroke();
-  fill(255, 50);
+  ellipse(cx, cy, clockDiameter, clockDiameter);
 
-  ellipseMode(CENTER);
+  let s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
 
-  let len = floor(w / xspacing);
+  let m = map(
+    minute() + norm(second(), 0, 60),
+    0,
+    60,
+    0,
+    TWO_PI
+  ) - HALF_PI;
 
-  for (let x = 0; x < len; x++) {
-    ellipse(
-      x * xspacing,
-      height / 2 + yvalues[x],
-      16,
-      16
-    );
+  let h = map(
+    hour() + norm(minute(), 0, 60),
+    0,
+    24,
+    0,
+    TWO_PI * 2
+  ) - HALF_PI;
+
+  stroke(255);
+
+  strokeWeight(1);
+  line(
+    cx,
+    cy,
+    cx + cos(s) * secondsRadius,
+    cy + sin(s) * secondsRadius
+  );
+
+  strokeWeight(2);
+  line(
+    cx,
+    cy,
+    cx + cos(m) * minutesRadius,
+    cy + sin(m) * minutesRadius
+  );
+
+  strokeWeight(4);
+  line(
+    cx,
+    cy,
+    cx + cos(h) * hoursRadius,
+    cy + sin(h) * hoursRadius
+  );
+
+  strokeWeight(2);
+  beginShape(POINTS);
+
+  for (let a = 0; a < 360; a += 6) {
+    let angle = radians(a);
+    let x = cx + cos(angle) * secondsRadius;
+    let y = cy + sin(angle) * secondsRadius;
+    vertex(x, y);
+  }
+
+  endShape();
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Clock</h3><p>Input example</p></div>
+        </a>
+        <a class="example-card" href="/examples/arraylist-of-objects.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>class Ball {
+  constructor(tempX, tempY, tempW) {
+    this.x = tempX;
+    this.y = tempY;
+    this.w = tempW;
+    this.speed = 0;
+    this.gravity = 0.1;
+    this.life = 255;
+  }
+  move() {
+    this.speed += this.gravity;
+    this.y += this.speed;
+    if (this.y > height) {
+      this.speed *= -0.8;
+      this.y = height;
+    }
+  }
+  finished() {
+    this.life--;
+    return this.life < 0;
+  }
+  display() {
+    fill(0, this.life);
+    ellipse(this.x, this.y, this.w, this.w);
   }
 }
 
-function draw() {
-  background(0);
+let balls = [];
+let ballWidth = 48;
 
-  calcWave();
-  renderWave();
-}<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Additive Wave</h3><p>Math example</p></div>
-        </a>
-        <a class="example-card" href="/examples/conditionals-1.html" id="card3">
-          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+function setup() {
   createCanvas(300,300);
-  background(0);
+  noStroke();
+  balls.push(new Ball(width / 2, 0, ballWidth));
+}
 
-  for (let i = 10; i < width; i += 10) {
-    if ((i % 20) === 0) {
-      stroke(255);
-      line(i, 80, i, height / 2);
-    } else {
-      stroke(153);
-      line(i, 20, i, 180);
+function draw() {
+  background(255);
+  for (let i = balls.length - 1; i >= 0; i--) {
+    let b = balls[i];
+    b.move();
+    b.display();
+    if (b.finished()) {
+      balls.splice(i, 1);
     }
   }
+}
+
+function mousePressed() {
+  balls.push(new Ball(mouseX, mouseY, ballWidth));
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>ArrayList of objects</h3><p>Advanced Data example</p></div>
+        </a>
+        <a class="example-card" href="/examples/simple-linear-gradient.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>const Y_AXIS = 1;
+const X_AXIS = 2;
+
+let b1, b2, c1, c2;
+
+function setup() {
+  createCanvas(300,300);
+
+  b1 = color(255);
+  b2 = color(0);
+  c1 = color(204, 102, 0);
+  c2 = color(0, 102, 153);
 
   noLoop();
+}
+
+function draw() {
+  setGradient(0, 0, width / 2, height, b1, b2, X_AXIS);
+  setGradient(width / 2, 0, width / 2, height, b2, b1, X_AXIS);
+
+  setGradient(50, 90, 540, 80, c1, c2, Y_AXIS);
+  setGradient(50, 190, 540, 80, c2, c1, X_AXIS);
+}
+
+function setGradient(x, y, w, h, c1, c2, axis) {
+  noFill();
+
+  if (axis === Y_AXIS) {
+    for (let i = y; i <= y + h; i++) {
+      let inter = map(i, y, y + h, 0, 1);
+      let c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x + w, i);
+    }
+  } else if (axis === X_AXIS) {
+    for (let i = x; i <= x + w; i++) {
+      let inter = map(i, x, x + w, 0, 1);
+      let c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y + h);
+    }
+  }
 }<\/script></body></html>`);doc.close();})();</script>
-          <div class="example-info"><h3>Conditionals 1</h3><p>Control example</p></div>
+          <div class="example-info"><h3>Simple Linear Gradient</h3><p>Color example</p></div>
         </a>
       </div>
       <div class="examples-footer">
