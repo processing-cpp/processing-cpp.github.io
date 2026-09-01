@@ -62,12 +62,10 @@
     style.textContent = `
       html.dark-pre body { background:#1a1a2e !important; }
       pre#code-pre { display:none !important; }
-      .syntax-block { display:none !important; }
       .CodeMirror-scroll { border:none !important; background:transparent !important; }
       .CodeMirror-hscrollbar, .CodeMirror-vscrollbar { display:none !important; }
 
       pre#code-pre { display:none !important; }
-      .syntax-block { display:none !important; }
       .CodeMirror-scroll { border:none !important; background:transparent !important; }
       .CodeMirror-hscrollbar, .CodeMirror-vscrollbar { display:none !important; }
 
