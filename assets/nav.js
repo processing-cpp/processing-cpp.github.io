@@ -138,6 +138,7 @@
               scrollbarStyle: 'null',
               viewportMargin: Infinity,
             });
+            cm.setSize('100%', cm.defaultTextHeight() * cm.lineCount() + 10);
           });
         });
       });
