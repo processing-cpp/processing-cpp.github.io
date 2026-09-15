@@ -181,7 +181,15 @@ function stopSketch() {
 }
 
 window.addEventListener('message', e => {
-  if (e.data === 'running') setStatus('Running', 'ok');
+  if (e.data === 'running') {
+    setStatus('Running', 'ok');
+
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.style.display = 'none';
+
+    const btn = document.getElementById('btn-run');
+    if (btn) btn.disabled = false;
+  }
 });
 
 // Load default sketch on page load using inline JS blob
@@ -248,6 +256,9 @@ async function runSketch() {
     ep.textContent = data.error || 'Unknown error';
     ep.style.display = 'block';
     btn.disabled = false;
+
+    if (overlay) overlay.style.display = 'none';
+
     return;
   }
 
