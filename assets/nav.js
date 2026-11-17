@@ -40,9 +40,12 @@
     ms.id = 'mode-bar-style';
     ms.textContent =
       '.mode-bar{display:flex;align-items:center;gap:1.25rem;margin-right:auto;min-width:0;}' +
-      '.mode-bar .nav-logo{margin:0 !important;text-decoration:none;opacity:.45;transition:opacity .15s;}' +
-      '.mode-bar .nav-logo:hover,.mode-bar .nav-logo.current{opacity:1;}' +
-      'body.dark-mode .mode-bar .nav-title-bottom{color:var(--mc) !important;}' +
+      '.mode-bar .nav-logo{margin:0 !important;text-decoration:none;padding-bottom:3px;border-bottom:3px solid transparent;}' +
+      '.mode-bar .nav-logo.current{border-bottom-color:var(--mc);}' +
+      '.mode-bar .nav-logo:hover{border-bottom-color:var(--mc);}' +
+      '#site-nav .mode-bar .nav-logo .nav-title-top{color:#003f6b !important;}' +
+      '#site-nav .mode-bar .nav-logo .nav-title-bottom{color:var(--mc) !important;}' +
+      'body.dark-mode #site-nav .mode-bar .nav-logo .nav-title-top{color:#cdd6f4 !important;}' +
       '@media(max-width:800px){.mode-bar{gap:.6rem;}.mode-bar .nav-logo:not(.current) .nav-title{display:none;}}';
     document.head.appendChild(ms);
   }
