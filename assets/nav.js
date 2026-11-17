@@ -21,16 +21,37 @@
     return `<a href="${prefix}${href}"${active}${s}>${label}</a>`;
   }
 
+/*modes-start*/
+  const MODES_CURRENT = 'cpp';
+  const MODES_LIST = [
+    ['cpp', 'C++', 'https://processing-cpp.github.io', '#e8b400', 'cpp-logo.png'],
+    ['rust', 'Rust', 'https://processing-rust.github.io', '#ce422b', 'rust-logo.png'],
+    ['lua', 'Lua', 'https://processing-lua.github.io', '#2c6bd6', 'lua-logo.png'],
+    ['scheme', 'Scheme', 'https://processing-scheme.github.io', '#8a4fd1', 'scheme-logo.png']
+  ];
+  const modeBar = '<div class="mode-bar">' + MODES_LIST.map(function (m) {
+    return '<a href="' + m[2] + '/" class="nav-logo mode-tab' + (m[0] === MODES_CURRENT ? ' current' : '') + '" style="--mc:' + m[3] + '">' +
+      '<img src="' + m[2] + '/assets/' + m[4] + '" alt="Processing for ' + m[1] + '">' +
+      '<div class="nav-title"><span class="nav-title-top">Processing</span>' +
+      '<span class="nav-title-bottom" style="color:' + m[3] + '">' + m[1] + '</span></div></a>';
+  }).join('') + '</div>';
+  if (!document.getElementById('mode-bar-style')) {
+    const ms = document.createElement('style');
+    ms.id = 'mode-bar-style';
+    ms.textContent =
+      '.mode-bar{display:flex;align-items:center;gap:1.25rem;margin-right:auto;min-width:0;}' +
+      '.mode-bar .nav-logo{margin:0 !important;text-decoration:none;opacity:.45;transition:opacity .15s;}' +
+      '.mode-bar .nav-logo:hover,.mode-bar .nav-logo.current{opacity:1;}' +
+      'body.dark-mode .mode-bar .nav-title-bottom{color:var(--mc) !important;}' +
+      '@media(max-width:800px){.mode-bar{gap:.6rem;}.mode-bar .nav-logo:not(.current) .nav-title{display:none;}}';
+    document.head.appendChild(ms);
+  }
+  /*modes-end*/
+
   const nav = document.getElementById('site-nav');
   if (nav) {
     nav.innerHTML = `
-      <a href="${SITE}" class="nav-logo">
-        <img src="${prefix}assets/cpp-logo.png" alt="Processing for C++">
-        <div class="nav-title">
-          <span class="nav-title-top">Processing</span>
-          <span class="nav-title-bottom">C++</span>
-        </div>
-      </a>
+      ${modeBar}
       <button class="hamburger" style="display:${window.NAV_NO_HAMBURGER?"none":""}" style="display:none" onclick="
         var s = document.querySelector('.sidebar-outer, .sidebar');
         if(s) s.classList.toggle('open');
@@ -262,20 +283,4 @@
       if (localStorage.getItem('darkMode') === '1') applyDark(true);
     } catch(e) {}
   })();
-})();
-
-/* mode-switcher */
-(function () {
-  function add() {
-    var side = document.getElementById('site-sidebar') || document.getElementById('sidebar');
-    if (!side || side.querySelector('.mode-link')) return;
-    var css = document.createElement('style');
-    css.textContent = '.mode-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#999;padding:14px 12px 4px;}' +
-      '.mode-link{display:block;padding:5px 10px;margin:2px 0;border-left:3px solid var(--mc);color:#555;text-decoration:none;font-size:14px;}' +
-      '.mode-link.current{background:#f7f7f7;color:#111;font-weight:600;}';
-    document.head.appendChild(css);
-    side.insertAdjacentHTML('beforeend', '<div class="mode-title">Modes</div><a class="mode-link current" style="--mc:#e8b400" href="https://processing-cpp.github.io/">C++</a><a class="mode-link" style="--mc:#2c6bd6" href="https://processing-lua.github.io/">Lua</a><a class="mode-link" style="--mc:#ce422b" href="https://processing-rust.github.io/">Rust</a><a class="mode-link" style="--mc:#8a4fd1" href="https://processing-scheme.github.io/">Scheme</a>');
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
-  setTimeout(add, 300);
 })();
