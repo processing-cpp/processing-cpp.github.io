@@ -11,7 +11,7 @@ from pathlib import Path
 AUTHOR = "llamasjc"
 GITHUB = f"https://github.com/{AUTHOR}"
 DISCORD = "https://discord.gg/Un3DFmrUje"
-EMAIL = "jose@llamasj.com"
+EMAIL = "pep84c@gmail.com"
 
 MODES = {
     "cpp":    {"name": "C++",    "site": "https://processing-cpp.github.io",    "color": "#e8b400", "dark": "#b8860b", "badge": "C++"},
