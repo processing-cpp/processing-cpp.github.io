@@ -103,6 +103,26 @@ def modes_block(current):
   {END}"""
 
 
+def dev_banner(m):
+    return f"""
+/* dev-banner */
+(function () {{
+  function add() {{
+    if (document.getElementById('dev-banner')) return;
+    var nav = document.getElementById('site-nav');
+    var b = document.createElement('div');
+    b.id = 'dev-banner';
+    b.textContent = 'Under development';
+    b.style.cssText = 'background:{m["color"]};color:#fff;text-align:center;font-family:"Space Grotesk",sans-serif;' +
+      'font-weight:700;font-size:clamp(1.6rem,5vw,3rem);letter-spacing:.02em;padding:.6em 1rem;line-height:1.1;';
+    if (nav && nav.parentNode) nav.parentNode.insertBefore(b, nav.nextSibling);
+    else document.body.insertBefore(b, document.body.firstChild);
+  }}
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
+}})();
+"""
+
+
 def patch_source_nav(src):
     """Move the mode links from the sidebar into the top bar of the C++ nav.js."""
     nav = src / "assets" / "nav.js"
@@ -188,6 +208,8 @@ def clone(key, src):
             text = rebrand(text, m)
             if START in text:
                 text = fix_modes(text, key)
+            if rel.as_posix() == "assets/nav.js":
+                text = text.rstrip() + "\n" + dev_banner(m)
             out.write_text(text, errors="surrogateescape")
         else:
             shutil.copy2(path, out)
