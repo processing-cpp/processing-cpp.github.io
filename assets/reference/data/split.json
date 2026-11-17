@@ -1,0 +1,26 @@
+{
+  "slug": "split",
+  "name": "split()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Splits a string into substrings using a delimiter character.",
+  "syntax": "std::vector<std::string> split(std::string s, char d)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "the string to split"
+    },
+    {
+      "name": "d",
+      "type": "char",
+      "desc": "delimiter character"
+    }
+  ],
+  "returns": "std::vector<std::string>",
+  "related": [
+    "splitTokens",
+    "join",
+    "trim"
+  ]
+}

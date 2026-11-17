@@ -1,0 +1,21 @@
+{
+  "slug": "shininess",
+  "name": "shininess()",
+  "cat": "Lights_Camera",
+  "subcat": "Material_Properties",
+  "desc": "Sets the amount of gloss in the surface of shapes. Used with specular().",
+  "syntax": "void shininess(float s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "float",
+      "desc": "degree of shininess"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "specular",
+    "ambient",
+    "emissive"
+  ]
+}

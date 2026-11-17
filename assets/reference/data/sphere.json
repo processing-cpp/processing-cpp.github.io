@@ -1,0 +1,20 @@
+{
+  "slug": "sphere",
+  "name": "sphere()",
+  "cat": "Shape",
+  "subcat": "3D_Primitives",
+  "desc": "Draws a sphere. Use sphereDetail() to control tessellation. Must be in P3D mode.",
+  "syntax": "void sphere(float r)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "radius of the sphere"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "box",
+    "sphereDetail"
+  ]
+}

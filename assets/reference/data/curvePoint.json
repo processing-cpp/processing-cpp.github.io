@@ -1,0 +1,40 @@
+{
+  "slug": "curvePoint",
+  "name": "curvePoint()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Evaluates the Catmull-Rom curve at parameter t.",
+  "syntax": "float curvePoint(float a, float b, float c, float d, float t)",
+  "params": [
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "coordinate of first control point"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "coordinate of first point"
+    },
+    {
+      "name": "c",
+      "type": "float",
+      "desc": "coordinate of second point"
+    },
+    {
+      "name": "d",
+      "type": "float",
+      "desc": "coordinate of second control point"
+    },
+    {
+      "name": "t",
+      "type": "float",
+      "desc": "value between 0 and 1"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "curve",
+    "curveTangent"
+  ]
+}

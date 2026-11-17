@@ -1,0 +1,14 @@
+{
+  "slug": "printProjection",
+  "name": "printProjection()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Prints the current projection matrix to the console.",
+  "syntax": "void printProjection()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "perspective",
+    "printCamera"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "focused",
+  "name": "focused",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Confirms if the sketch window is focused, meaning it is active and will accept keyboard or mouse input. True when focused.",
+  "syntax": "focused",
+  "params": [],
+  "returns": "bool",
+  "related": []
+}

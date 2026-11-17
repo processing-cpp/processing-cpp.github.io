@@ -1,0 +1,14 @@
+{
+  "slug": "hour",
+  "name": "hour()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current hour as a value from 0 to 23.",
+  "syntax": "int hour()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "minute",
+    "second"
+  ]
+}

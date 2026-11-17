@@ -1,0 +1,19 @@
+{
+  "slug": "radians",
+  "name": "radians()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "Converts a degree measurement to its corresponding value in radians.",
+  "syntax": "float radians(float d)",
+  "params": [
+    {
+      "name": "d",
+      "type": "float",
+      "desc": "angle in degrees"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "degrees"
+  ]
+}

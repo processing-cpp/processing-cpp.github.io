@@ -1,0 +1,13 @@
+{
+  "slug": "mouseReleased",
+  "name": "mouseReleased()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called every time a mouse button is released.",
+  "syntax": "void mouseReleased()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "mousePressed_fn"
+  ]
+}

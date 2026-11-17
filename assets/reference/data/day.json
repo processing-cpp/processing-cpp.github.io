@@ -1,0 +1,14 @@
+{
+  "slug": "day",
+  "name": "day()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current day as a value from 1 to 31.",
+  "syntax": "int day()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "month",
+    "year"
+  ]
+}

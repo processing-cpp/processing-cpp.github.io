@@ -1,0 +1,15 @@
+{
+  "slug": "mouseX",
+  "name": "mouseX",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "The system variable mouseX always contains the current horizontal position of the mouse.",
+  "syntax": "mouseX",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "mouseY",
+    "pmouseX",
+    "mousePressed_var"
+  ]
+}

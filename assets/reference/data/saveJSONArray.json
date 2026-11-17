@@ -1,0 +1,30 @@
+{
+  "slug": "saveJSONArray",
+  "name": "saveJSONArray()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Saves a JSONValue array to a file.",
+  "syntax": "bool saveJSONArray(std::string path, const JSONValue& v, int indent)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "v",
+      "type": "JSONValue",
+      "desc": "the JSON array value"
+    },
+    {
+      "name": "indent",
+      "type": "int",
+      "desc": "indentation spaces (default 2)"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadJSONArray",
+    "saveJSONObject"
+  ]
+}

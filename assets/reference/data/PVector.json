@@ -1,0 +1,113 @@
+{
+  "slug": "PVector",
+  "name": "PVector",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "A class to describe a two or three dimensional vector. Commonly used to represent position, velocity, or direction.",
+  "syntax": "PVector v\nPVector v(x, y)\nPVector v(x, y, z)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x component (optional)"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y component (optional)"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z component (optional)"
+    }
+  ],
+  "returns": "PVector",
+  "related": [],
+  "methods": [
+    {
+      "name": "mag()",
+      "desc": "Magnitude (length) of the vector"
+    },
+    {
+      "name": "magSq()",
+      "desc": "Magnitude squared"
+    },
+    {
+      "name": "add(PVector v)",
+      "desc": "Add another vector"
+    },
+    {
+      "name": "sub(PVector v)",
+      "desc": "Subtract another vector"
+    },
+    {
+      "name": "mult(float s)",
+      "desc": "Multiply by scalar"
+    },
+    {
+      "name": "div(float s)",
+      "desc": "Divide by scalar"
+    },
+    {
+      "name": "normalize()",
+      "desc": "Normalize to unit length"
+    },
+    {
+      "name": "limit(float max)",
+      "desc": "Limit the magnitude"
+    },
+    {
+      "name": "setMag(float m)",
+      "desc": "Set the magnitude"
+    },
+    {
+      "name": "dot(PVector v)",
+      "desc": "Dot product"
+    },
+    {
+      "name": "cross(PVector v)",
+      "desc": "Cross product"
+    },
+    {
+      "name": "dist(PVector v)",
+      "desc": "Distance to another vector"
+    },
+    {
+      "name": "heading()",
+      "desc": "Angle the vector makes with positive x-axis"
+    },
+    {
+      "name": "angleBetween(PVector v)",
+      "desc": "Angle between two vectors"
+    },
+    {
+      "name": "lerp(PVector v, float t)",
+      "desc": "Interpolate towards another vector"
+    },
+    {
+      "name": "rotate(float angle)",
+      "desc": "Rotate by an angle (2D)"
+    },
+    {
+      "name": "copy()",
+      "desc": "Return a copy"
+    },
+    {
+      "name": "toString()",
+      "desc": "String representation"
+    },
+    {
+      "name": "PVector::fromAngle(float a)",
+      "desc": "Create from angle (static)"
+    },
+    {
+      "name": "PVector::random2D()",
+      "desc": "Random 2D unit vector (static)"
+    },
+    {
+      "name": "PVector::random3D()",
+      "desc": "Random 3D unit vector (static)"
+    }
+  ]
+}

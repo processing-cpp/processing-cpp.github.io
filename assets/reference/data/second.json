@@ -1,0 +1,15 @@
+{
+  "slug": "second",
+  "name": "second()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current second as a value from 0 to 59.",
+  "syntax": "int second()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "minute",
+    "hour",
+    "millis"
+  ]
+}

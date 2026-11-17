@@ -1,0 +1,14 @@
+{
+  "slug": "pixelHeight",
+  "name": "pixelHeight",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Actual framebuffer height in pixels. Differs from height on HiDPI screens.",
+  "syntax": "pixelHeight",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "pixelWidth",
+    "pixelDensity"
+  ]
+}

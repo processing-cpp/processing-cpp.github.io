@@ -1,0 +1,19 @@
+{
+  "slug": "reverse_arr",
+  "name": "reverse()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Reverses the order of a std::vector.",
+  "syntax": "std::vector<T> reverse(std::vector<T> arr)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the vector to reverse"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "sort_arr"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "PShader_class",
+  "name": "PShader",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Datatype for GLSL shaders. Load with loadShader() and apply with shader().",
+  "syntax": "PShader* s = loadShader(\"frag.glsl\")",
+  "params": [],
+  "returns": "PShader",
+  "related": [
+    "loadShader",
+    "shader_fn",
+    "resetShader"
+  ],
+  "methods": [
+    {
+      "name": "set(std::string name, float v)",
+      "desc": "Set a uniform float"
+    },
+    {
+      "name": "set(std::string name, int v)",
+      "desc": "Set a uniform int"
+    },
+    {
+      "name": "set(std::string name, float x, float y)",
+      "desc": "Set a uniform vec2"
+    },
+    {
+      "name": "set(std::string name, float x, float y, float z)",
+      "desc": "Set a uniform vec3"
+    },
+    {
+      "name": "bind()",
+      "desc": "Activate the shader"
+    },
+    {
+      "name": "unbind()",
+      "desc": "Deactivate the shader"
+    }
+  ]
+}

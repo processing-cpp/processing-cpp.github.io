@@ -1,0 +1,46 @@
+{
+  "slug": "fill",
+  "name": "fill()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the color used to fill shapes.",
+  "syntax": "void fill(float gray)\nvoid fill(float gray, float a)\nvoid fill(float r, float g, float b)\nvoid fill(float r, float g, float b, float a)\nvoid fill(color c)",
+  "params": [
+    {
+      "name": "gray",
+      "type": "float",
+      "desc": "grayscale value"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "alpha (optional)"
+    },
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "a color value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noFill",
+    "stroke",
+    "background"
+  ]
+}

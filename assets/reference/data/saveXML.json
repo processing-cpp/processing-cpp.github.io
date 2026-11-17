@@ -1,0 +1,26 @@
+{
+  "slug": "saveXML",
+  "name": "saveXML()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Saves an XML object to a file.",
+  "syntax": "bool saveXML(std::string path, const XML& x)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "x",
+      "type": "XML",
+      "desc": "the XML object to save"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadXML",
+    "parseXML",
+    "XML_class"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "PrintWriter_class",
+  "name": "PrintWriter",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Writes text to a file. Create with createWriter(). Always call close() or flush() when done.",
+  "syntax": "PrintWriter* writer = createWriter(\"output.txt\")",
+  "params": [],
+  "returns": "PrintWriter",
+  "related": [
+    "createWriter",
+    "saveStrings"
+  ],
+  "methods": [
+    {
+      "name": "print(T v)",
+      "desc": "Writes a value without a newline"
+    },
+    {
+      "name": "println(T v)",
+      "desc": "Writes a value followed by a newline"
+    },
+    {
+      "name": "println()",
+      "desc": "Writes a blank line"
+    },
+    {
+      "name": "flush()",
+      "desc": "Flushes the buffer to disk"
+    },
+    {
+      "name": "close()",
+      "desc": "Closes the file"
+    }
+  ]
+}

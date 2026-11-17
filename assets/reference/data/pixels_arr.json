@@ -1,0 +1,16 @@
+{
+  "slug": "pixels_arr",
+  "name": "pixels[]",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Array containing the values for all the pixels in the display window or PImage. Must call loadPixels() before reading and updatePixels() after writing. Each value is a packed ARGB color integer.",
+  "syntax": "pixels[i]\npixels[y * width + x]",
+  "params": [],
+  "returns": "std::vector<unsigned int>",
+  "related": [
+    "loadPixels",
+    "updatePixels",
+    "get_pixel",
+    "set_pixel"
+  ]
+}

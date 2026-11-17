@@ -1,0 +1,14 @@
+{
+  "slug": "windowMoved",
+  "name": "windowMoved()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Called when the sketch window is moved. Define this function in your sketch to respond to window move events.",
+  "syntax": "void windowMoved()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "windowResized",
+    "windowMove"
+  ]
+}

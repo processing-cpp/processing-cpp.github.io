@@ -1,0 +1,25 @@
+{
+  "slug": "filter",
+  "name": "filter()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Applies a filter to the display. Available filters: GRAY, INVERT, THRESHOLD.",
+  "syntax": "void filter(int mode)\nvoid filter(int mode, float param)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "GRAY, INVERT, THRESHOLD, BLUR_FILTER, POSTERIZE"
+    },
+    {
+      "name": "param",
+      "type": "float",
+      "desc": "parameter for some filters (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "loadPixels",
+    "PImage"
+  ]
+}

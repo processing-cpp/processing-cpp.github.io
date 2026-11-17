@@ -1,0 +1,31 @@
+{
+  "slug": "lerp",
+  "name": "lerp()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates a number between two numbers at a specific increment. amt 0.0 returns a, amt 1.0 returns b.",
+  "syntax": "float lerp(float a, float b, float t)",
+  "params": [
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "first value"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "second value"
+    },
+    {
+      "name": "t",
+      "type": "float",
+      "desc": "between 0.0 and 1.0"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "map",
+    "norm",
+    "lerpColor"
+  ]
+}

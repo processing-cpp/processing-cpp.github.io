@@ -1,0 +1,20 @@
+{
+  "slug": "loadXML",
+  "name": "loadXML()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Loads an XML file and returns an XML object.",
+  "syntax": "XML loadXML(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the XML file"
+    }
+  ],
+  "returns": "XML",
+  "related": [
+    "saveXML",
+    "parseXML"
+  ]
+}

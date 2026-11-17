@@ -1,0 +1,15 @@
+{
+  "slug": "TWO_PI",
+  "name": "TWO_PI",
+  "cat": "Constants",
+  "subcat": "",
+  "desc": "TWO_PI is a mathematical constant with the value 6.28318530717958647693.",
+  "syntax": "TWO_PI",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "PI",
+    "HALF_PI",
+    "TAU"
+  ]
+}

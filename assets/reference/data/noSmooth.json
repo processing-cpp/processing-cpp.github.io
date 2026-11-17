@@ -1,0 +1,13 @@
+{
+  "slug": "noSmooth",
+  "name": "noSmooth()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Draws all geometry with jagged (aliased) edges.",
+  "syntax": "void noSmooth()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "smooth"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "createInput",
+  "name": "createInput()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Opens a file for binary reading. Returns a std::ifstream pointer.",
+  "syntax": "std::ifstream* createInput(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    }
+  ],
+  "returns": "std::ifstream*",
+  "related": [
+    "loadBytes",
+    "createOutput"
+  ]
+}

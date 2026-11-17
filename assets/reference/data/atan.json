@@ -1,0 +1,22 @@
+{
+  "slug": "atan",
+  "name": "atan()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "The inverse of tan, returns the arc tangent of a value.",
+  "syntax": "float atan(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "tan",
+    "atan2",
+    "asin",
+    "acos"
+  ]
+}

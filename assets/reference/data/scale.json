@@ -1,0 +1,30 @@
+{
+  "slug": "scale",
+  "name": "scale()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Increases or decreases the size of shapes by expanding and contracting vertices.",
+  "syntax": "void scale(float s)\nvoid scale(float sx, float sy)",
+  "params": [
+    {
+      "name": "s",
+      "type": "float",
+      "desc": "percentage to scale uniformly"
+    },
+    {
+      "name": "sx",
+      "type": "float",
+      "desc": "x-axis scale factor"
+    },
+    {
+      "name": "sy",
+      "type": "float",
+      "desc": "y-axis scale factor"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "translate",
+    "rotate"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "TAU",
+  "name": "TAU",
+  "cat": "Constants",
+  "subcat": "",
+  "desc": "TAU is an alias for TWO_PI with value 6.28318530717958647693.",
+  "syntax": "TAU",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "PI",
+    "TWO_PI"
+  ]
+}

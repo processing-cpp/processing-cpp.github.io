@@ -1,0 +1,20 @@
+{
+  "slug": "abs",
+  "name": "abs()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the absolute value (magnitude) of a number.",
+  "syntax": "float abs(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "number to process"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sq",
+    "sqrt"
+  ]
+}

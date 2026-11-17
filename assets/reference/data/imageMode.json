@@ -1,0 +1,19 @@
+{
+  "slug": "imageMode",
+  "name": "imageMode()",
+  "cat": "Image",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Modifies the location from which images are drawn. Default is CORNER.",
+  "syntax": "void imageMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "CORNER, CORNERS, or CENTER"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "image"
+  ]
+}

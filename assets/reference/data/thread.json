@@ -1,0 +1,19 @@
+{
+  "slug": "thread",
+  "name": "thread()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Runs a function on a new detached thread. Accepts a lambda or std::function.",
+  "syntax": "void thread(std::function<void()> fn)",
+  "params": [
+    {
+      "name": "fn",
+      "type": "std::function<void()>",
+      "desc": "the function to run on a separate thread"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "delay"
+  ]
+}

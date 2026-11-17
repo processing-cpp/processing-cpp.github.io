@@ -1,0 +1,61 @@
+{
+  "slug": "blend_fn",
+  "name": "blend()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Copies a region of pixels from one image into another with full alpha channel blending. Blend modes include BLEND, ADD, SUBTRACT, MULTIPLY, SCREEN, DARKEST, LIGHTEST, DIFFERENCE, EXCLUSION.",
+  "syntax": "void blend(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode)",
+  "params": [
+    {
+      "name": "sx",
+      "type": "int",
+      "desc": "x-coordinate of source region"
+    },
+    {
+      "name": "sy",
+      "type": "int",
+      "desc": "y-coordinate of source region"
+    },
+    {
+      "name": "sw",
+      "type": "int",
+      "desc": "source region width"
+    },
+    {
+      "name": "sh",
+      "type": "int",
+      "desc": "source region height"
+    },
+    {
+      "name": "dx",
+      "type": "int",
+      "desc": "x-coordinate of destination"
+    },
+    {
+      "name": "dy",
+      "type": "int",
+      "desc": "y-coordinate of destination"
+    },
+    {
+      "name": "dw",
+      "type": "int",
+      "desc": "destination width"
+    },
+    {
+      "name": "dh",
+      "type": "int",
+      "desc": "destination height"
+    },
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "blend mode constant"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "blendMode",
+    "copy_fn",
+    "filter"
+  ]
+}

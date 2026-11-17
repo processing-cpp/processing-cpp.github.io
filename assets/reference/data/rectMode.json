@@ -1,0 +1,20 @@
+{
+  "slug": "rectMode",
+  "name": "rectMode()",
+  "cat": "Shape",
+  "subcat": "Attributes",
+  "desc": "Modifies the location from which rectangles are drawn. Default is CORNER.",
+  "syntax": "void rectMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "CORNER, CORNERS, CENTER, or RADIUS"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "rect",
+    "square"
+  ]
+}

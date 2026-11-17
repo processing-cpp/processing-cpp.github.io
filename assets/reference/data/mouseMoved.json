@@ -1,0 +1,13 @@
+{
+  "slug": "mouseMoved",
+  "name": "mouseMoved()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called every time the mouse moves and no button is pressed.",
+  "syntax": "void mouseMoved()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "mouseDragged"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "acos",
+  "name": "acos()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "The inverse of cos, returns the arc cosine of a value.",
+  "syntax": "float acos(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "value between -1 and 1"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "cos",
+    "asin",
+    "atan"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "red",
+  "name": "red()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Extracts the red value from a color.",
+  "syntax": "float red(color c)",
+  "params": [
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "any color value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "green",
+    "blue",
+    "alpha",
+    "hue",
+    "saturation",
+    "brightness"
+  ]
+}

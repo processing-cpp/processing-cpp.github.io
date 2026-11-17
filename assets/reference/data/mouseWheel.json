@@ -1,0 +1,19 @@
+{
+  "slug": "mouseWheel",
+  "name": "mouseWheel()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called when the mouse wheel moves. The count parameter is positive when scrolled down and negative when scrolled up.",
+  "syntax": "void mouseWheel(int count)",
+  "params": [
+    {
+      "name": "count",
+      "type": "int",
+      "desc": "scroll amount, positive=down, negative=up"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "mouseMoved"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "subset",
+  "name": "subset()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Extracts an array of elements from an existing vector.",
+  "syntax": "std::vector<T> subset(std::vector<T> arr, int start)\nstd::vector<T> subset(std::vector<T> arr, int start, int count)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the source vector"
+    },
+    {
+      "name": "start",
+      "type": "int",
+      "desc": "starting index"
+    },
+    {
+      "name": "count",
+      "type": "int",
+      "desc": "number of elements (optional)"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "splice",
+    "append"
+  ]
+}

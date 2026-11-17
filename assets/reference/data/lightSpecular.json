@@ -1,0 +1,30 @@
+{
+  "slug": "lightSpecular",
+  "name": "lightSpecular()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Sets the specular color for lights. Affects materials with specular component.",
+  "syntax": "void lightSpecular(float r, float g, float b)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "specular",
+    "lights"
+  ]
+}

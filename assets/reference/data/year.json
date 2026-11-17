@@ -1,0 +1,14 @@
+{
+  "slug": "year",
+  "name": "year()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current year as an integer.",
+  "syntax": "int year()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "month",
+    "day"
+  ]
+}

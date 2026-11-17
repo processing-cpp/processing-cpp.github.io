@@ -1,0 +1,13 @@
+{
+  "slug": "fullScreen",
+  "name": "fullScreen()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Opens the sketch in fullscreen mode.",
+  "syntax": "void fullScreen()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "size"
+  ]
+}

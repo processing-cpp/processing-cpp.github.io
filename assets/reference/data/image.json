@@ -1,0 +1,41 @@
+{
+  "slug": "image",
+  "name": "image()",
+  "cat": "Image",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Displays an image at the given position. Optionally specify width and height.",
+  "syntax": "void image(PImage* img, float x, float y)\nvoid image(PImage* img, float x, float y, float w, float h)",
+  "params": [
+    {
+      "name": "img",
+      "type": "PImage*",
+      "desc": "the image to display"
+    },
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width (optional)"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "loadImage",
+    "imageMode",
+    "tint"
+  ]
+}

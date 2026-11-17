@@ -1,0 +1,25 @@
+{
+  "slug": "arrayCopy",
+  "name": "arrayCopy()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Copies the contents of one vector into another.",
+  "syntax": "void arrayCopy(std::vector<T> src, std::vector<T> dst)",
+  "params": [
+    {
+      "name": "src",
+      "type": "std::vector<T>",
+      "desc": "source vector"
+    },
+    {
+      "name": "dst",
+      "type": "std::vector<T>",
+      "desc": "destination vector"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "concat",
+    "subset"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "textWidth",
+  "name": "textWidth()",
+  "cat": "Typography",
+  "subcat": "Metrics",
+  "desc": "Calculates and returns the width of any character or text string in the current font.",
+  "syntax": "float textWidth(std::string s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "the string to measure"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "text",
+    "textAscent",
+    "textDescent"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "triangle",
+  "name": "triangle()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a triangle to the screen using the coordinates of its three vertices.",
+  "syntax": "void triangle(float x1, float y1, float x2, float y2, float x3, float y3)",
+  "params": [
+    {
+      "name": "x1",
+      "type": "float",
+      "desc": "x-coordinate of the first vertex"
+    },
+    {
+      "name": "y1",
+      "type": "float",
+      "desc": "y-coordinate of the first vertex"
+    },
+    {
+      "name": "x2",
+      "type": "float",
+      "desc": "x-coordinate of the second vertex"
+    },
+    {
+      "name": "y2",
+      "type": "float",
+      "desc": "y-coordinate of the second vertex"
+    },
+    {
+      "name": "x3",
+      "type": "float",
+      "desc": "x-coordinate of the third vertex"
+    },
+    {
+      "name": "y3",
+      "type": "float",
+      "desc": "y-coordinate of the third vertex"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "quad"
+  ]
+}

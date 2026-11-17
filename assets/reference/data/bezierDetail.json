@@ -1,0 +1,19 @@
+{
+  "slug": "bezierDetail",
+  "name": "bezierDetail()",
+  "cat": "Shape",
+  "subcat": "Curves",
+  "desc": "Sets the resolution at which bezier curves display. Default is 20.",
+  "syntax": "void bezierDetail(int d)",
+  "params": [
+    {
+      "name": "d",
+      "type": "int",
+      "desc": "resolution of the bezier curve"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "bezier"
+  ]
+}

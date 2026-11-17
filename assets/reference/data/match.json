@@ -1,0 +1,24 @@
+{
+  "slug": "match",
+  "name": "match()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Uses a regular expression to match a string. Returns a vector of matches.",
+  "syntax": "std::vector<std::string> match(std::string s, std::string pattern)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "the string to search"
+    },
+    {
+      "name": "pattern",
+      "type": "std::string",
+      "desc": "regular expression pattern"
+    }
+  ],
+  "returns": "std::vector<std::string>",
+  "related": [
+    "matchAll"
+  ]
+}

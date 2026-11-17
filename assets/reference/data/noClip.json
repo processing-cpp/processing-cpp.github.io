@@ -1,0 +1,13 @@
+{
+  "slug": "noClip",
+  "name": "noClip()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Disables the clipping region set with clip().",
+  "syntax": "void noClip()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "clip"
+  ]
+}

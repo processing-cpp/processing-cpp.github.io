@@ -1,0 +1,14 @@
+{
+  "slug": "minute",
+  "name": "minute()",
+  "cat": "Input",
+  "subcat": "Time_and_Date",
+  "desc": "Returns the current minute as a value from 0 to 59.",
+  "syntax": "int minute()",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "second",
+    "hour"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "noiseSeed",
+  "name": "noiseSeed()",
+  "cat": "Math",
+  "subcat": "Random",
+  "desc": "Sets the seed value for noise().",
+  "syntax": "void noiseSeed(int seed)",
+  "params": [
+    {
+      "name": "seed",
+      "type": "int",
+      "desc": "seed value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noise",
+    "noiseDetail"
+  ]
+}

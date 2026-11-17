@@ -1,0 +1,14 @@
+{
+  "slug": "resetMatrix",
+  "name": "resetMatrix()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Replaces the current matrix with the identity matrix.",
+  "syntax": "void resetMatrix()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "applyMatrix",
+    "printMatrix"
+  ]
+}

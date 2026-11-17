@@ -1,0 +1,28 @@
+{
+  "slug": "BufferedReader_class",
+  "name": "BufferedReader",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Reads text from a file line by line. Create with createReader(). Close when done.",
+  "syntax": "BufferedReader* reader = createReader(\"data.txt\")",
+  "params": [],
+  "returns": "BufferedReader",
+  "related": [
+    "createReader",
+    "loadStrings"
+  ],
+  "methods": [
+    {
+      "name": "readLine()",
+      "desc": "Reads and returns the next line as std::string. Returns empty string at EOF."
+    },
+    {
+      "name": "ready()",
+      "desc": "Returns true if the file is open and has more data"
+    },
+    {
+      "name": "close()",
+      "desc": "Closes the file"
+    }
+  ]
+}

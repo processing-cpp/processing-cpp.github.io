@@ -1,0 +1,13 @@
+{
+  "slug": "noStroke",
+  "name": "noStroke()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Disables drawing the stroke (outline).",
+  "syntax": "void noStroke()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "stroke"
+  ]
+}

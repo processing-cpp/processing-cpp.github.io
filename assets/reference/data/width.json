@@ -1,0 +1,14 @@
+{
+  "slug": "width",
+  "name": "width",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the width of the display window as set by size().",
+  "syntax": "width",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "height",
+    "size"
+  ]
+}

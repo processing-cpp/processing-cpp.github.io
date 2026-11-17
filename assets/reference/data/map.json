@@ -1,0 +1,41 @@
+{
+  "slug": "map",
+  "name": "map()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Re-maps a number from one range to another.",
+  "syntax": "float map(float value, float start1, float stop1, float start2, float stop2)",
+  "params": [
+    {
+      "name": "value",
+      "type": "float",
+      "desc": "the incoming value to be converted"
+    },
+    {
+      "name": "start1",
+      "type": "float",
+      "desc": "lower bound of the input range"
+    },
+    {
+      "name": "stop1",
+      "type": "float",
+      "desc": "upper bound of the input range"
+    },
+    {
+      "name": "start2",
+      "type": "float",
+      "desc": "lower bound of the output range"
+    },
+    {
+      "name": "stop2",
+      "type": "float",
+      "desc": "upper bound of the output range"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "norm",
+    "lerp",
+    "constrain"
+  ]
+}

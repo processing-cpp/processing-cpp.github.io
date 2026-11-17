@@ -1,0 +1,16 @@
+{
+  "slug": "draw",
+  "name": "draw()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Continuously executes the code inside its block until the program is stopped or noLoop() is called.",
+  "syntax": "void draw()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "setup",
+    "noLoop",
+    "loop",
+    "redraw"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "redraw",
+  "name": "redraw()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Executes the code within draw() one time.",
+  "syntax": "void redraw()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "draw",
+    "loop",
+    "noLoop"
+  ]
+}

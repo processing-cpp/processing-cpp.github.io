@@ -1,0 +1,20 @@
+{
+  "slug": "applyMatrix",
+  "name": "applyMatrix()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Multiplies the current matrix by the specified 4x4 matrix.",
+  "syntax": "void applyMatrix(float n00, float n01, float n02, float n03, ...)",
+  "params": [
+    {
+      "name": "n00-n33",
+      "type": "float",
+      "desc": "16 values of a 4x4 matrix"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "resetMatrix",
+    "pushMatrix"
+  ]
+}

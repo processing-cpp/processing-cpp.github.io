@@ -1,0 +1,19 @@
+{
+  "slug": "printArray",
+  "name": "printArray()",
+  "cat": "Output",
+  "subcat": "Text_Area",
+  "desc": "Prints the contents of a std::vector to the console with indices.",
+  "syntax": "void printArray(std::vector<T> a)",
+  "params": [
+    {
+      "name": "a",
+      "type": "std::vector<T>",
+      "desc": "the vector to print"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "println"
+  ]
+}

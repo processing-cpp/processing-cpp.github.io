@@ -1,0 +1,13 @@
+{
+  "slug": "clear",
+  "name": "clear()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Clears the pixels within a buffer. Equivalent to background with 0 alpha.",
+  "syntax": "void clear()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "background"
+  ]
+}

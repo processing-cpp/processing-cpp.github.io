@@ -1,0 +1,23 @@
+{
+  "slug": "rotate",
+  "name": "rotate()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Rotates a shape by the angle parameter. Angles are in radians.",
+  "syntax": "void rotate(float angle)",
+  "params": [
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "angle in radians"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "rotateX",
+    "rotateY",
+    "rotateZ",
+    "translate",
+    "scale"
+  ]
+}

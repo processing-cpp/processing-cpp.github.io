@@ -1,0 +1,13 @@
+{
+  "slug": "noLights",
+  "name": "noLights()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Disables all lighting. Geometry will be rendered flat with fill color only.",
+  "syntax": "void noLights()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "lights"
+  ]
+}

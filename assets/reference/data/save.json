@@ -1,0 +1,19 @@
+{
+  "slug": "save",
+  "name": "save()",
+  "cat": "Output",
+  "subcat": "Image",
+  "desc": "Saves an image from the display window. The filename must include an extension (PNG, JPG).",
+  "syntax": "void save(std::string filename)",
+  "params": [
+    {
+      "name": "filename",
+      "type": "std::string",
+      "desc": "filename with extension"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "saveFrame"
+  ]
+}

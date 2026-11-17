@@ -1,0 +1,14 @@
+{
+  "slug": "keyTyped",
+  "name": "keyTyped()",
+  "cat": "Input",
+  "subcat": "Keyboard",
+  "desc": "Called once every time a key is pressed, but action keys such as Ctrl, Shift, and Alt are ignored.",
+  "syntax": "void keyTyped()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "keyPressed_fn",
+    "key"
+  ]
+}

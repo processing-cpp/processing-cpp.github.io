@@ -1,0 +1,55 @@
+{
+  "slug": "quad",
+  "name": "quad()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a quadrilateral (a four-sided polygon) using the x and y coordinates of its four vertices.",
+  "syntax": "void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)",
+  "params": [
+    {
+      "name": "x1",
+      "type": "float",
+      "desc": "x of first vertex"
+    },
+    {
+      "name": "y1",
+      "type": "float",
+      "desc": "y of first vertex"
+    },
+    {
+      "name": "x2",
+      "type": "float",
+      "desc": "x of second vertex"
+    },
+    {
+      "name": "y2",
+      "type": "float",
+      "desc": "y of second vertex"
+    },
+    {
+      "name": "x3",
+      "type": "float",
+      "desc": "x of third vertex"
+    },
+    {
+      "name": "y3",
+      "type": "float",
+      "desc": "y of third vertex"
+    },
+    {
+      "name": "x4",
+      "type": "float",
+      "desc": "x of fourth vertex"
+    },
+    {
+      "name": "y4",
+      "type": "float",
+      "desc": "y of fourth vertex"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "triangle",
+    "rect"
+  ]
+}

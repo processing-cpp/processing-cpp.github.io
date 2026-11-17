@@ -1,0 +1,15 @@
+{
+  "slug": "popStyle",
+  "name": "popStyle()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Restores the previous style settings saved with pushStyle().",
+  "syntax": "void popStyle()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "pushStyle",
+    "push",
+    "pop"
+  ]
+}

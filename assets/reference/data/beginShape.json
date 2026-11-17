@@ -1,0 +1,20 @@
+{
+  "slug": "beginShape",
+  "name": "beginShape()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Using beginShape() and endShape() allows creating complex forms. Optionally pass a shape kind.",
+  "syntax": "void beginShape()\nvoid beginShape(int kind)",
+  "params": [
+    {
+      "name": "kind",
+      "type": "int",
+      "desc": "POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, QUAD_STRIP (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "endShape",
+    "vertex"
+  ]
+}

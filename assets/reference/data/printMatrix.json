@@ -1,0 +1,14 @@
+{
+  "slug": "printMatrix",
+  "name": "printMatrix()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Prints the current matrix to the console.",
+  "syntax": "void printMatrix()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "applyMatrix",
+    "resetMatrix"
+  ]
+}

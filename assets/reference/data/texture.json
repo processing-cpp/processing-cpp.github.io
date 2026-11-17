@@ -1,0 +1,21 @@
+{
+  "slug": "texture",
+  "name": "texture()",
+  "cat": "Image",
+  "subcat": "Textures",
+  "desc": "Sets a texture to be applied to vertex points. Must be called between beginShape() and endShape().",
+  "syntax": "void texture(PImage& img)",
+  "params": [
+    {
+      "name": "img",
+      "type": "PImage",
+      "desc": "image to use as texture"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "textureMode",
+    "textureWrap",
+    "vertex"
+  ]
+}

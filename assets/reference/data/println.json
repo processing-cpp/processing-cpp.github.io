@@ -1,0 +1,19 @@
+{
+  "slug": "println",
+  "name": "println()",
+  "cat": "Output",
+  "subcat": "Text_Area",
+  "desc": "Writes to the console, followed by a newline. Call with no args for a blank line.",
+  "syntax": "void println()\nvoid println(T v)",
+  "params": [
+    {
+      "name": "v",
+      "type": "any",
+      "desc": "the value to print (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "print"
+  ]
+}

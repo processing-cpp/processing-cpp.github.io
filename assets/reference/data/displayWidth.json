@@ -1,0 +1,14 @@
+{
+  "slug": "displayWidth",
+  "name": "displayWidth",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the full monitor width in pixels.",
+  "syntax": "displayWidth",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "displayHeight",
+    "width"
+  ]
+}

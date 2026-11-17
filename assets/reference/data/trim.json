@@ -1,0 +1,20 @@
+{
+  "slug": "trim",
+  "name": "trim()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Removes whitespace characters from the beginning and end of a string.",
+  "syntax": "std::string trim(std::string s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "std::string",
+      "desc": "string to trim"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "split",
+    "join"
+  ]
+}

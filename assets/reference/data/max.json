@@ -1,0 +1,30 @@
+{
+  "slug": "max",
+  "name": "max()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Determines the largest value in a sequence of numbers. Supports two or three arguments.",
+  "syntax": "float max(float a, float b)\nfloat max(float a, float b, float c)",
+  "params": [
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "first value"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "second value"
+    },
+    {
+      "name": "c",
+      "type": "float",
+      "desc": "third value (optional)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "min",
+    "constrain"
+  ]
+}

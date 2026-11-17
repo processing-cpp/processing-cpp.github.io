@@ -1,0 +1,30 @@
+{
+  "slug": "normal",
+  "name": "normal()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Sets the current normal vector. Used to specify the surface orientation for lighting calculations.",
+  "syntax": "void normal(float nx, float ny, float nz)",
+  "params": [
+    {
+      "name": "nx",
+      "type": "float",
+      "desc": "x component of normal"
+    },
+    {
+      "name": "ny",
+      "type": "float",
+      "desc": "y component of normal"
+    },
+    {
+      "name": "nz",
+      "type": "float",
+      "desc": "z component of normal"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "beginShape"
+  ]
+}

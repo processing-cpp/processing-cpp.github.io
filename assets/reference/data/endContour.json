@@ -1,0 +1,14 @@
+{
+  "slug": "endContour",
+  "name": "endContour()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "The companion to beginContour().",
+  "syntax": "void endContour()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "beginContour",
+    "endShape"
+  ]
+}

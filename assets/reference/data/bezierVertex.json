@@ -1,0 +1,46 @@
+{
+  "slug": "bezierVertex",
+  "name": "bezierVertex()",
+  "cat": "Shape",
+  "subcat": "Vertex",
+  "desc": "Specifies vertex coordinates for bezier curves inside beginShape()/endShape().",
+  "syntax": "void bezierVertex(float cx1, float cy1, float cx2, float cy2, float x, float y)",
+  "params": [
+    {
+      "name": "cx1",
+      "type": "float",
+      "desc": "x of first control point"
+    },
+    {
+      "name": "cy1",
+      "type": "float",
+      "desc": "y of first control point"
+    },
+    {
+      "name": "cx2",
+      "type": "float",
+      "desc": "x of second control point"
+    },
+    {
+      "name": "cy2",
+      "type": "float",
+      "desc": "y of second control point"
+    },
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x of anchor point"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y of anchor point"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "beginShape",
+    "vertex",
+    "curveVertex"
+  ]
+}

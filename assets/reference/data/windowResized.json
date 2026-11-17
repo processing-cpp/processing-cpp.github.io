@@ -1,0 +1,15 @@
+{
+  "slug": "windowResized",
+  "name": "windowResized()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Called when the sketch window is resized. Define this function in your sketch to respond to window resize events.",
+  "syntax": "void windowResized()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "windowMoved",
+    "windowResizable",
+    "windowResize"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "noCursor",
+  "name": "noCursor()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Hides the cursor from view.",
+  "syntax": "void noCursor()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "cursor"
+  ]
+}

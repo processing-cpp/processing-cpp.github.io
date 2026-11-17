@@ -1,0 +1,20 @@
+{
+  "slug": "shader_fn",
+  "name": "shader()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Applies a PShader to the rendering pipeline.",
+  "syntax": "void shader(PShader& s)",
+  "params": [
+    {
+      "name": "s",
+      "type": "PShader",
+      "desc": "the shader to apply"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "loadShader",
+    "resetShader"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "loadTable",
+  "name": "loadTable()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Loads a CSV or TSV file into a Table object.",
+  "syntax": "Table* loadTable(std::string path, std::string options)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the file"
+    },
+    {
+      "name": "options",
+      "type": "std::string",
+      "desc": "\"header\" to treat first row as column names"
+    }
+  ],
+  "returns": "Table*",
+  "related": [
+    "saveTable"
+  ]
+}

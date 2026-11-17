@@ -1,0 +1,21 @@
+{
+  "slug": "strokeWeight",
+  "name": "strokeWeight()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Sets the width of the stroke used for lines, points, and shape borders.",
+  "syntax": "void strokeWeight(float w)",
+  "params": [
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "stroke weight in pixels"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "stroke",
+    "strokeCap",
+    "strokeJoin"
+  ]
+}

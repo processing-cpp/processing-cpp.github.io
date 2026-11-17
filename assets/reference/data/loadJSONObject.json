@@ -1,0 +1,20 @@
+{
+  "slug": "loadJSONObject",
+  "name": "loadJSONObject()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Loads a JSON file and returns a JSONValue object.",
+  "syntax": "JSONValue loadJSONObject(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the JSON file"
+    }
+  ],
+  "returns": "JSONValue",
+  "related": [
+    "saveJSONObject",
+    "loadJSONArray"
+  ]
+}

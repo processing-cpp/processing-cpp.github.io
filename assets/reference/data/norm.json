@@ -1,0 +1,30 @@
+{
+  "slug": "norm",
+  "name": "norm()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Normalizes a number from a range into a value between 0.0 and 1.0.",
+  "syntax": "float norm(float v, float lo, float hi)",
+  "params": [
+    {
+      "name": "v",
+      "type": "float",
+      "desc": "incoming value"
+    },
+    {
+      "name": "lo",
+      "type": "float",
+      "desc": "lower bound"
+    },
+    {
+      "name": "hi",
+      "type": "float",
+      "desc": "upper bound"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "map",
+    "lerp"
+  ]
+}

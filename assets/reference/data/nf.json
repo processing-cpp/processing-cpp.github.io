@@ -1,0 +1,26 @@
+{
+  "slug": "nf",
+  "name": "nf()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Formats a number as a string with a specified number of digits.",
+  "syntax": "std::string nf(float v, int digits)\nstd::string nf(float v, int left, int right)",
+  "params": [
+    {
+      "name": "v",
+      "type": "float",
+      "desc": "the number to format"
+    },
+    {
+      "name": "digits",
+      "type": "int",
+      "desc": "number of decimal places or left digits"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "nfc",
+    "nfp",
+    "nfs"
+  ]
+}

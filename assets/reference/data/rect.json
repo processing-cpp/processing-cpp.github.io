@@ -1,0 +1,40 @@
+{
+  "slug": "rect",
+  "name": "rect()",
+  "cat": "Shape",
+  "subcat": "2d_Primitives",
+  "desc": "Draws a rectangle to the screen. The fourth parameter can be a corner radius.",
+  "syntax": "void rect(float x, float y, float w, float h)\nvoid rect(float x, float y, float w, float h, float r)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate of the upper-left corner"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate of the upper-left corner"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height"
+    },
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "corner radius (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "square",
+    "rectMode"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "noFill",
+  "name": "noFill()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Disables filling geometry. Shapes will only have a stroke outline.",
+  "syntax": "void noFill()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "fill"
+  ]
+}

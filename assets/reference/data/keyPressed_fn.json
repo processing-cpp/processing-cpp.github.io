@@ -1,0 +1,15 @@
+{
+  "slug": "keyPressed_fn",
+  "name": "keyPressed()",
+  "cat": "Input",
+  "subcat": "Keyboard",
+  "desc": "Called once every time a key is pressed.",
+  "syntax": "void keyPressed()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "keyReleased",
+    "key",
+    "keyCode"
+  ]
+}

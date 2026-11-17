@@ -1,0 +1,14 @@
+{
+  "slug": "pmouseX",
+  "name": "pmouseX",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "The horizontal position of the mouse in the previous frame.",
+  "syntax": "pmouseX",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "pmouseY",
+    "mouseX"
+  ]
+}

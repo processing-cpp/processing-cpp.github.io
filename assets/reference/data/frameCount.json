@@ -1,0 +1,13 @@
+{
+  "slug": "frameCount",
+  "name": "frameCount",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "System variable storing the number of frames displayed since the sketch started.",
+  "syntax": "frameCount",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "frameRate_var"
+  ]
+}

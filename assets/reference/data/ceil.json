@@ -1,0 +1,20 @@
+{
+  "slug": "ceil",
+  "name": "ceil()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the closest integer that is greater than or equal to the value of the parameter.",
+  "syntax": "float ceil(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "number to evaluate"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "floor",
+    "round"
+  ]
+}

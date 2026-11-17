@@ -1,0 +1,14 @@
+{
+  "slug": "endCamera",
+  "name": "endCamera()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Closes a camera definition started with beginCamera().",
+  "syntax": "void endCamera()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "beginCamera",
+    "camera"
+  ]
+}

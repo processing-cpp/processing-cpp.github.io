@@ -1,0 +1,13 @@
+{
+  "slug": "mouseButton",
+  "name": "mouseButton",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "When mousePressed is true, mouseButton holds which button is pressed: LEFT, RIGHT, or CENTER.",
+  "syntax": "mouseButton",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "mousePressed_var"
+  ]
+}

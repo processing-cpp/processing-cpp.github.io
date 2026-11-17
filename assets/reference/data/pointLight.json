@@ -1,0 +1,46 @@
+{
+  "slug": "pointLight",
+  "name": "pointLight()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Adds a point light. Emanates from a specific position in all directions.",
+  "syntax": "void pointLight(float r, float g, float b, float x, float y, float z)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-position"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-position"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "z-position"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "directionalLight",
+    "spotLight"
+  ]
+}

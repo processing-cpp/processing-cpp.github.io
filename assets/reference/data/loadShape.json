@@ -1,0 +1,21 @@
+{
+  "slug": "loadShape",
+  "name": "loadShape()",
+  "cat": "Shape",
+  "subcat": "Loading_and_Displaying",
+  "desc": "Loads geometry into a variable of type PShape. Supports SVG and OBJ files.",
+  "syntax": "PShape* loadShape(std::string path)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to the SVG or OBJ file"
+    }
+  ],
+  "returns": "PShape*",
+  "related": [
+    "shape",
+    "createShape",
+    "PShape"
+  ]
+}

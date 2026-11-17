@@ -1,0 +1,32 @@
+{
+  "slug": "camera",
+  "name": "camera()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Sets the position of the camera by defining the eye position, center of the scene, and up direction.",
+  "syntax": "void camera()\nvoid camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ)",
+  "params": [
+    {
+      "name": "eyeX/Y/Z",
+      "type": "float",
+      "desc": "position of the camera eye"
+    },
+    {
+      "name": "centerX/Y/Z",
+      "type": "float",
+      "desc": "center of the scene"
+    },
+    {
+      "name": "upX/Y/Z",
+      "type": "float",
+      "desc": "up direction vector"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "perspective",
+    "ortho",
+    "beginCamera",
+    "endCamera"
+  ]
+}

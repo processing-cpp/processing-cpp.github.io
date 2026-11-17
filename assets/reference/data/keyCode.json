@@ -1,0 +1,14 @@
+{
+  "slug": "keyCode",
+  "name": "keyCode",
+  "cat": "Input",
+  "subcat": "Keyboard",
+  "desc": "Used to detect special keys: UP, DOWN, LEFT, RIGHT, ALT, CONTROL, SHIFT, etc. Only valid when key == CODED.",
+  "syntax": "keyCode",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "key",
+    "keyPressed_fn"
+  ]
+}

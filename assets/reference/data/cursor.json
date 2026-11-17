@@ -1,0 +1,19 @@
+{
+  "slug": "cursor",
+  "name": "cursor()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Sets the cursor to a predefined shape or restores the default cursor.",
+  "syntax": "void cursor()\nvoid cursor(int type)",
+  "params": [
+    {
+      "name": "type",
+      "type": "int",
+      "desc": "ARROW, CROSS, HAND, MOVE, TEXT_CURSOR, WAIT (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noCursor"
+  ]
+}

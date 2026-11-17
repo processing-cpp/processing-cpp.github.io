@@ -1,0 +1,15 @@
+{
+  "slug": "lights",
+  "name": "lights()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Sets the default ambient light, directional light, falloff, and specular values. Equivalent to calling ambientLight() and directionalLight() with default parameters.",
+  "syntax": "void lights()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "noLights",
+    "ambientLight",
+    "directionalLight"
+  ]
+}

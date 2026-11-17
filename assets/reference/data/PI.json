@@ -1,0 +1,16 @@
+{
+  "slug": "PI",
+  "name": "PI",
+  "cat": "Constants",
+  "subcat": "",
+  "desc": "PI is a mathematical constant with the value 3.14159265358979323846.",
+  "syntax": "PI",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "TWO_PI",
+    "HALF_PI",
+    "QUARTER_PI",
+    "TAU"
+  ]
+}

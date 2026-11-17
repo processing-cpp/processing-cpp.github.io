@@ -1,0 +1,36 @@
+{
+  "slug": "emissive",
+  "name": "emissive()",
+  "cat": "Lights_Camera",
+  "subcat": "Material_Properties",
+  "desc": "Sets the emissive color of a shape. Emissive color appears to glow.",
+  "syntax": "void emissive(float r, float g, float b)\nvoid emissive(color c)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "a color value"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "ambient",
+    "specular",
+    "shininess"
+  ]
+}

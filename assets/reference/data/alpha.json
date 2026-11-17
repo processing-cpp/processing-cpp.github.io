@@ -1,0 +1,21 @@
+{
+  "slug": "alpha",
+  "name": "alpha()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Extracts the alpha value from a color.",
+  "syntax": "float alpha(color c)",
+  "params": [
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "any color value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "red",
+    "green",
+    "blue"
+  ]
+}

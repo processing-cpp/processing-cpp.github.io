@@ -1,0 +1,14 @@
+{
+  "slug": "textDescent",
+  "name": "textDescent()",
+  "cat": "Typography",
+  "subcat": "Metrics",
+  "desc": "Returns the descent of the current font at its current size. The descent is the distance below the baseline.",
+  "syntax": "float textDescent()",
+  "params": [],
+  "returns": "float",
+  "related": [
+    "textAscent",
+    "textSize"
+  ]
+}

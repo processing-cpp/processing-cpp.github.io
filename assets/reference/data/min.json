@@ -1,0 +1,30 @@
+{
+  "slug": "min",
+  "name": "min()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Determines the smallest value in a sequence of numbers. Supports two or three arguments.",
+  "syntax": "float min(float a, float b)\nfloat min(float a, float b, float c)",
+  "params": [
+    {
+      "name": "a",
+      "type": "float",
+      "desc": "first value"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "second value"
+    },
+    {
+      "name": "c",
+      "type": "float",
+      "desc": "third value (optional)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "max",
+    "constrain"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "clip",
+  "name": "clip()",
+  "cat": "Rendering",
+  "subcat": "Shaders",
+  "desc": "Limits the rendering to a rectangular area. Only pixels inside the clip region will be drawn.",
+  "syntax": "void clip(float x, float y, float w, float h)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "x-coordinate"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "y-coordinate"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width of clip region"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height of clip region"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noClip"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "captureMouse",
+  "name": "captureMouse()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Locks the cursor to the window and enables raw mouse input, removing OS acceleration. Essential for FPS-style games. Use releaseMouse() to unlock.",
+  "syntax": "void captureMouse()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "releaseMouse",
+    "mouseDX",
+    "mouseDY"
+  ],
+  "impl": "// captureMouse(): locks cursor to window and provides unlimited delta movement.\n// Use releaseMouse() or press ESC to free it.\nvoid captureMouse() {\n    if (gWindow) {\n        glfwSetInputMode(gWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);\n        // Enable raw motion if supported (removes OS acceleration)\n        if (glfwRawMouseMotionSupported())\n            glfwSetInputMode(gWindow, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);\n    }\n}"
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "spotLight",
+  "name": "spotLight()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Adds a spotlight. Creates a cone of light from a specific position pointing in a direction.",
+  "syntax": "void spotLight(float r, float g, float b, float x, float y, float z, float nx, float ny, float nz, float angle, float concentration)",
+  "params": [
+    {
+      "name": "r/g/b",
+      "type": "float",
+      "desc": "color components"
+    },
+    {
+      "name": "x/y/z",
+      "type": "float",
+      "desc": "position"
+    },
+    {
+      "name": "nx/ny/nz",
+      "type": "float",
+      "desc": "direction"
+    },
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "cone angle in radians"
+    },
+    {
+      "name": "concentration",
+      "type": "float",
+      "desc": "exponent determining center bias"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "pointLight",
+    "directionalLight"
+  ]
+}

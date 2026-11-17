@@ -1,0 +1,26 @@
+{
+  "slug": "random",
+  "name": "random()",
+  "cat": "Math",
+  "subcat": "Random",
+  "desc": "Generates random numbers. With one argument, returns a value from 0 up to (but not including) the parameter. With two arguments, returns a value from the first to the second.",
+  "syntax": "float random(float high)\nfloat random(float low, float high)",
+  "params": [
+    {
+      "name": "high",
+      "type": "float",
+      "desc": "upper bound"
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "desc": "lower bound (optional)"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "randomSeed",
+    "noise",
+    "randomGaussian"
+  ]
+}

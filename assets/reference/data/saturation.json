@@ -1,0 +1,21 @@
+{
+  "slug": "saturation",
+  "name": "saturation()",
+  "cat": "Color",
+  "subcat": "Creating_and_Reading",
+  "desc": "Extracts the saturation value from a color (HSB mode).",
+  "syntax": "float saturation(color c)",
+  "params": [
+    {
+      "name": "c",
+      "type": "color",
+      "desc": "any color value"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "hue",
+    "brightness",
+    "colorMode"
+  ]
+}

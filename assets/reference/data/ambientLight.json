@@ -1,0 +1,36 @@
+{
+  "slug": "ambientLight",
+  "name": "ambientLight()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Adds an ambient light. Ambient light has no position or direction.",
+  "syntax": "void ambientLight(float r, float g, float b)\nvoid ambientLight(float r, float g, float b, float x, float y, float z)",
+  "params": [
+    {
+      "name": "r",
+      "type": "float",
+      "desc": "red component"
+    },
+    {
+      "name": "g",
+      "type": "float",
+      "desc": "green component"
+    },
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "blue component"
+    },
+    {
+      "name": "x/y/z",
+      "type": "float",
+      "desc": "position (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "directionalLight",
+    "pointLight"
+  ]
+}

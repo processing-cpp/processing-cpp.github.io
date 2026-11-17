@@ -1,0 +1,35 @@
+{
+  "slug": "box",
+  "name": "box()",
+  "cat": "Shape",
+  "subcat": "3D_Primitives",
+  "desc": "A box is an extruded rectangle. Use in P3D mode. A box with equal dimensions is a cube.",
+  "syntax": "void box(float size)\nvoid box(float w, float h, float d)",
+  "params": [
+    {
+      "name": "size",
+      "type": "float",
+      "desc": "dimension of the box in all directions"
+    },
+    {
+      "name": "w",
+      "type": "float",
+      "desc": "width"
+    },
+    {
+      "name": "h",
+      "type": "float",
+      "desc": "height"
+    },
+    {
+      "name": "d",
+      "type": "float",
+      "desc": "depth"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "sphere",
+    "size"
+  ]
+}

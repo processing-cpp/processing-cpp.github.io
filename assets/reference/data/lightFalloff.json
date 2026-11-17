@@ -1,0 +1,30 @@
+{
+  "slug": "lightFalloff",
+  "name": "lightFalloff()",
+  "cat": "Lights_Camera",
+  "subcat": "Lights",
+  "desc": "Sets the falloff rates for point lights, spot lights, and ambient lights.",
+  "syntax": "void lightFalloff(float constant, float linear, float quadratic)",
+  "params": [
+    {
+      "name": "constant",
+      "type": "float",
+      "desc": "constant falloff factor"
+    },
+    {
+      "name": "linear",
+      "type": "float",
+      "desc": "linear falloff factor"
+    },
+    {
+      "name": "quadratic",
+      "type": "float",
+      "desc": "quadratic falloff factor"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "lights",
+    "pointLight"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "perspective",
+  "name": "perspective()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Sets a perspective projection. Simulates natural foreshortening. No args sets default.",
+  "syntax": "void perspective()\nvoid perspective(float fov, float aspect, float zNear, float zFar)",
+  "params": [
+    {
+      "name": "fov",
+      "type": "float",
+      "desc": "field of view angle in radians"
+    },
+    {
+      "name": "aspect",
+      "type": "float",
+      "desc": "width/height ratio"
+    },
+    {
+      "name": "zNear",
+      "type": "float",
+      "desc": "near clipping plane"
+    },
+    {
+      "name": "zFar",
+      "type": "float",
+      "desc": "far clipping plane"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "ortho",
+    "camera",
+    "frustum"
+  ]
+}

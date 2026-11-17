@@ -1,0 +1,13 @@
+{
+  "slug": "mouseDragged",
+  "name": "mouseDragged()",
+  "cat": "Input",
+  "subcat": "Mouse",
+  "desc": "Called once every time the mouse moves while a button is held.",
+  "syntax": "void mouseDragged()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "mouseMoved"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "updatePixels",
+  "name": "updatePixels()",
+  "cat": "Image",
+  "subcat": "Pixels",
+  "desc": "Updates the display window with the data in the pixels[] array.",
+  "syntax": "void updatePixels()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "loadPixels",
+    "pixels"
+  ]
+}

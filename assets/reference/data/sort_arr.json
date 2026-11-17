@@ -1,0 +1,19 @@
+{
+  "slug": "sort_arr",
+  "name": "sort()",
+  "cat": "Data",
+  "subcat": "Array_Functions",
+  "desc": "Sorts a std::vector in ascending order.",
+  "syntax": "std::vector<T> sort(std::vector<T> arr)",
+  "params": [
+    {
+      "name": "arr",
+      "type": "std::vector<T>",
+      "desc": "the vector to sort"
+    }
+  ],
+  "returns": "std::vector<T>",
+  "related": [
+    "reverse_arr"
+  ]
+}

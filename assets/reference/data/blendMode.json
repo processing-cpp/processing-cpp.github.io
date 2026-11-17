@@ -1,0 +1,19 @@
+{
+  "slug": "blendMode",
+  "name": "blendMode()",
+  "cat": "Color",
+  "subcat": "Setting",
+  "desc": "Blends the pixels in the display window with the pixels underneath using a defined blend mode.",
+  "syntax": "void blendMode(int mode)",
+  "params": [
+    {
+      "name": "mode",
+      "type": "int",
+      "desc": "BLEND, ADD, SUBTRACT, MULTIPLY, SCREEN, DARKEST, LIGHTEST, DIFFERENCE, EXCLUSION"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "blend"
+  ]
+}

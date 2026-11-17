@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processing for C++</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <style>
+    @font-face {
+      font-family: "ProcessingSans";
+      src: url("/assets/ProcessingSansPro-Regular.ttf") format("truetype");
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111; background: #fff; }
+    a { color: #111; text-decoration: none; }
+
+    /* Nav: matches all other pages via nav.js injection */
+    #site-nav {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; position: sticky; top: 0; background: #fff; z-index: 100;
+    }
+
+    .layout { display: flex; min-height: calc(100vh - 60px); }
+
+    /* Sidebar: matches other pages exactly */
+    .sidebar {
+      width: 220px;
+      min-width: 220px;
+      border-right: 1px solid #e0e0e0;
+      padding: 1.5rem 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      background: #fff;
+    }
+    .sidebar a {
+      font-size: 14px;
+      color: #555;
+      padding: 0.4rem 0;
+      display: block;
+    }
+    .sidebar a:hover { color: #111; }
+    .sidebar a.active { color: #111; font-weight: 500; }
+
+    .page-body { flex: 1; overflow-x: hidden; }
+
+    /* Hero */
+    .main {
+      height: calc(100vh - 60px);
+      min-height: 400px;
+      max-height: 560px;
+      display: flex;
+      align-items: center;
+      padding: 0 5rem;
+      gap: 4rem;
+      position: relative;
+    }
+    .left { flex: 1; }
+    .left h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .left h1 .proc {
+      font-family: "ProcessingSans", sans-serif;
+      color: #003f6b;
+      font-weight: 400;
+    }
+    .left p { font-size: 1rem; color: #555; }
+    .left p a { color: #111; border-bottom: 1px solid #111; font-weight: 500; }
+    .right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+    .right img { width: 340px; height: 340px; object-fit: contain; }
+
+    /* Arrow: positioned inside .main so it's always visible above the fold */
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #bbb;
+      font-size: 22px;
+      animation: bounce 1.8s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* Examples section */
+    .examples-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      border-top: 1px solid #e0e0e0;
+    }
+    .examples-section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 2.5rem; }
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .example-card { background: #fff; overflow: hidden; display: block; text-decoration: none; color: inherit; }
+    .example-card:hover .example-info h3 { color: #e8b400; }
+    .example-canvas { width: 100%; aspect-ratio: 16/9; background: #000; display: block; }
+    .example-info { padding: 1rem 1.25rem; border-top: 1px solid #e0e0e0; }
+    .example-info h3 { font-size: 14px; font-weight: 500; margin-bottom: 0.2rem; }
+    .example-info p { font-size: 12px; color: #888; }
+    .examples-footer { padding: 3rem; text-align: center; }
+    .examples-footer a { font-size: 14px; color: #555; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
+    .examples-footer a:hover { color: #111; border-color: #111; }
+
+    .getting-started-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 3rem 5rem;
+    }
+    .getting-started-section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .gs-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .gs-card { border: 1px solid #e0e0e0; border-radius: 10px; padding: 1.5rem; }
+    .gs-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .gs-card p { font-size: 13px; color: #777; line-height: 1.6; margin-bottom: 1rem; }
+    .gs-card-link { font-size: 13px; font-weight: 600; color: #111; }
+    .gs-card-link:hover { color: #e8b400; }
+
+    /* Hero actions: Reference link + single Download button */
+    .hero-actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 1.5rem; }
+    .hero-link { font-size: 14px; font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+    .hero-link:hover { border-bottom-color: #111; }
+    .hero-btn-download {
+      display: inline-block;
+      background: #e8b400;
+      color: #111;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .hero-btn-download:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(232,180,0,0.35); }
+    .hero-btn-editor { background:#4b9cd3; color:#fff; }
+    .hero-btn-editor:hover { box-shadow: 0 4px 10px rgba(75,156,211,0.35); }
+
+    @media (max-width: 768px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+    }
+
+    footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed; top: 60px; left: -240px;
+        width: 240px; height: calc(100vh - 60px);
+        z-index: 200; transition: left 0.25s ease;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+      }
+      .sidebar.open { left: 0; }
+      /* Stack hero: text first, logo second, examples below */
+      .main { flex-direction: column; padding: 2rem 1.25rem; height: auto; max-height: none; }
+      .left { order: 1; width: 100%; }
+      .right { order: 2; width: 100%; display: flex; justify-content: center; margin: 1.5rem 0 0; }
+      #hero-preview { width: 280px; height: 320px; }
+      /* Single column examples and cards */
+      .examples-grid { grid-template-columns: 1fr; }
+      .gs-cards { grid-template-columns: 1fr; }
+      .getting-started-section { padding: 2rem 1.25rem; }
+      /* Hide the arrow editor toggle on mobile */
+      button[onclick="toggleHeroEditor()"] { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="site-nav"></nav>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar"></div>
+
+  <div class="page-body">
+    <div class="main">
+      <div class="left" style="display:flex;flex-direction:column;gap:1rem;min-width:0;flex:1;">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:600;line-height:1.2;margin-bottom:0.75rem;">
+          Welcome to <span style="color:#003f6b;">Processing</span> for <span style="color:#e8b400;">C++</span>!
+        </h1>
+        <p style="font-size:0.95rem;color:#555;line-height:1.8;max-width:440px;font-family:'Space Grotesk',sans-serif;">
+          Processing has helped hundreds of thousands of students, artists, and developers learn to code through visual work. C++ Mode takes that same idea further. You write sketches exactly the way you always have, but they compile to native C++ under the hood. If you already know Processing, you already know most of what you need.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-link" href="/reference">Reference</a>
+          <a class="hero-btn-download" href="/downloads">Download</a>
+          <a class="hero-btn-download hero-btn-editor" href="/editor">Open Editor</a>
+        </div>
+        <textarea id="hero-editor" style="display:none;"></textarea>
+
+        <!-- Fullscreen editor overlay -->
+        <div id="hero-editor-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:1000;flex-direction:column;">
+          <div style="background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:8px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <span style="font-family:monospace;font-size:12px;color:#888;flex:1;">sketch.cpp</span>
+            <button id="hero-run-btn" style="background:#e8b400;color:#111;border:none;padding:5px 18px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;">&#9654; Run</button>
+            <button onclick="toggleHeroEditor()" style="background:#c00;border:none;color:#fff;padding:5px 14px;border-radius:4px;font-size:12px;cursor:pointer;font-weight:600;">&#10005; Close</button>
+          </div>
+          <div style="display:flex;flex:1;overflow:hidden;">
+            <div id="hero-cm-wrap" style="flex:1;overflow:auto;border-right:1px solid #e0e0e0;"></div>
+            <div id="hero-preview-overlay" style="width:50%;position:relative;background:#000;">
+              <iframe sandbox="allow-scripts allow-same-origin"
+                style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+                src="/assets/logo_sketch.html"></iframe>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:#aaa;">Independently developed by Jose Gonzalez Llamas</p>
+      </div>
+      <div class="right" style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+          <button id="hero-sketch-run-btn" style="background:#e8b400;color:#111;border:none;padding:5px 16px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;display:none;">&#9654; Run</button>
+          <button onclick="toggleHeroEditor()" style="background:none;border:none;cursor:pointer;padding:4px;" title="Open editor">
+            <svg id="hero-arrow-svg" width="36" height="36" viewBox="0 0 36 36" style="transition:transform 0.3s ease;">
+              <path d="M28 18L4 18M12 10L4 18L12 26" stroke="#e8b400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div id="hero-preview" style="width:320px;height:380px;position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.08);flex-shrink:0;background:#fff;">
+          <iframe id="hero-iframe" sandbox="allow-scripts allow-same-origin"
+            style="position:absolute;top:0;left:0;width:600px;height:700px;border:none;transform-origin:top left;transform:scale(0.533);"
+            src="/assets/logo_sketch.html"></iframe>
+          <button onclick="toggleHeroEditor()" style="margin-top:0.5rem;background:none;border:1px solid #e0e0e0;color:#555;padding:6px 18px;border-radius:4px;font-size:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;">Open Editor</button>
+        </div>
+      </div>
+      <div class="scroll-hint">↓</div>
+    </div>
+    <div class="examples-section">
+      <h2>Examples</h2>
+      <div class="examples-grid">
+        <a class="example-card" href="/examples/mandelbrot.html" id="card1">
+          <iframe class="example-canvas" id="c1" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c1');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>function setup() {
+    createCanvas(300,300);
+    pixelDensity(1);
+    noLoop();
+    background(255);
+
+    let w = 4;
+    let h = (w * height) / width;
+
+    let xmin = -w / 2;
+    let ymin = -h / 2;
+
+    loadPixels();
+
+    let maxiterations = 100;
+
+    let xmax = xmin + w;
+    let ymax = ymin + h;
+
+    let dx = (xmax - xmin) / width;
+    let dy = (ymax - ymin) / height;
+
+    let y = ymin;
+    for (let j = 0; j < height; j++) {
+        let x = xmin;
+        for (let i = 0; i < width; i++) {
+
+            let a = x;
+            let b = y;
+            let n = 0;
+            let maxAbs = 4.0;
+            let absOld = 0.0;
+            let convergeNumber = maxiterations;
+
+            while (n < maxiterations) {
+                let aa = a * a;
+                let bb = b * b;
+                let absVal = sqrt(aa + bb);
+                if (absVal > maxAbs) {
+                    let diffToLast = absVal - absOld;
+                    let diffToMax  = maxAbs - absOld;
+                    convergeNumber = n + diffToMax / diffToLast;
+                    break;
+                }
+                let twoab = 2.0 * a * b;
+                a = aa - bb + x;
+                b = twoab + y;
+                n++;
+                absOld = absVal;
+            }
+
+            let idx = (i + j * width) * 4;
+            if (n == maxiterations) {
+                pixels[idx]     = 0;
+                pixels[idx + 1] = 0;
+                pixels[idx + 2] = 0;
+                pixels[idx + 3] = 255;
+            } else {
+                let norm = map(convergeNumber, 0, maxiterations, 0, 1);
+                let bright = map(sqrt(norm), 0, 1, 0, 255);
+                pixels[idx]     = bright;
+                pixels[idx + 1] = bright;
+                pixels[idx + 2] = bright;
+                pixels[idx + 3] = 255;
+            }
+            x += dx;
+        }
+        y += dy;
+    }
+    updatePixels();
+}
+
+function draw() {}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Mandelbrot</h3><p>Fractals And L-Systems example</p></div>
+        </a>
+        <a class="example-card" href="/examples/rotate-push-pop.html" id="card2">
+          <iframe class="example-canvas" id="c2" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c2');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>let a = 0;
+let offset;
+let num = 12;
+
+function setup() {
+  createCanvas(300,300, WEBGL);
+  noStroke();
+  offset = PI / 24.0;
+}
+
+function draw() {
+  background(0, 0, 26);
+  ambientLight(150);
+  directionalLight(255, 255, 255, 0, 0, -1);
+  directionalLight(100, 100, 100, 0, 0, 1);
+
+  // Move camera closer — default WEBGL camera is too far
+  translate(0, 0, 150);
+
+  for (let i = 0; i < num; i++) {
+    let gray = map(i, 0, num - 1, 0, 255);
+    push();
+    fill(gray);
+    rotateY(a + offset * i);
+    rotateX(a / 2 + offset * i);
+    box(150);
+    pop();
+  }
+  a += 0.01;
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Rotate Push Pop</h3><p>Transform example</p></div>
+        </a>
+        <a class="example-card" href="/examples/flocking.html" id="card3">
+          <iframe class="example-canvas" id="c3" width="300" height="300" style="width:100%;aspect-ratio:1;border:none;display:block;background:#000;" scrolling="no"></iframe><script>(function(){const iframe=document.getElementById('c3');const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();doc.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{overflow:hidden;}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"><\/script></head><body><script>// Flock class
+class Flock {
+  constructor() {
+    this.boids = [];
+  }
+
+  run() {
+    for (let b of this.boids) {
+      b.run(this.boids);
+    }
+  }
+
+  addBoid(b) {
+    this.boids.push(b);
+  }
+}
+
+// Boid class
+class Boid {
+  constructor(x, y) {
+    this.acceleration = createVector(0, 0);
+    let angle = random(TWO_PI);
+    this.velocity = createVector(cos(angle), sin(angle));
+    this.position = createVector(x, y);
+    this.r = 2.0;
+    this.maxspeed = 2;
+    this.maxforce = 0.03;
+  }
+
+  run(boids) {
+    this.flock(boids);
+    this.update();
+    this.borders();
+    this.render();
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  flock(boids) {
+    let sep = this.separate(boids);
+    let ali = this.align(boids);
+    let coh = this.cohesion(boids);
+    sep.mult(1.5);
+    ali.mult(1.0);
+    coh.mult(1.0);
+    this.applyForce(sep);
+    this.applyForce(ali);
+    this.applyForce(coh);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxspeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  seek(target) {
+    let desired = p5.Vector.sub(target, this.position);
+    desired.normalize();
+    desired.mult(this.maxspeed);
+    let steer = p5.Vector.sub(desired, this.velocity);
+    steer.limit(this.maxforce);
+    return steer;
+  }
+
+  render() {
+    let theta = this.velocity.heading() + radians(90);
+    fill(200, 100);
+    stroke(255);
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(theta);
+    beginShape(TRIANGLES);
+    vertex(0, -this.r * 2);
+    vertex(-this.r, this.r * 2);
+    vertex(this.r, this.r * 2);
+    endShape();
+    pop();
+  }
+
+  borders() {
+    if (this.position.x < -this.r) this.position.x = width + this.r;
+    if (this.position.y < -this.r) this.position.y = height + this.r;
+    if (this.position.x > width + this.r) this.position.x = -this.r;
+    if (this.position.y > height + this.r) this.position.y = -this.r;
+  }
+
+  separate(boids) {
+    let desiredseparation = 25.0;
+    let steer = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < desiredseparation)) {
+        let diff = p5.Vector.sub(this.position, other.position);
+        diff.normalize();
+        diff.div(d);
+        steer.add(diff);
+        count++;
+      }
+    }
+    if (count > 0) steer.div(count);
+    if (steer.mag() > 0) {
+      steer.normalize();
+      steer.mult(this.maxspeed);
+      steer.sub(this.velocity);
+      steer.limit(this.maxforce);
+    }
+    return steer;
+  }
+
+  align(boids) {
+    let neighbordist = 50;
+    let sum = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.velocity);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      sum.normalize();
+      sum.mult(this.maxspeed);
+      let steer = p5.Vector.sub(sum, this.velocity);
+      steer.limit(this.maxforce);
+      return steer;
+    }
+    return createVector(0, 0);
+  }
+
+  cohesion(boids) {
+    let neighbordist = 50;
+    let sum = createVector(0, 0);
+    let count = 0;
+    for (let other of boids) {
+      let d = p5.Vector.dist(this.position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.position);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      return this.seek(sum);
+    }
+    return createVector(0, 0);
+  }
+}
+
+let flock;
+
+function setup() {
+  createCanvas(300,300);
+  flock = new Flock();
+  for (let i = 0; i < 150; i++) {
+    flock.addBoid(new Boid(width / 2, height / 2));
+  }
+}
+
+function draw() {
+  background(50);
+  flock.run();
+}
+
+function mousePressed() {
+  flock.addBoid(new Boid(mouseX, mouseY));
+}<\/script></body></html>`);doc.close();})();</script>
+          <div class="example-info"><h3>Flocking</h3><p>Simulate example</p></div>
+        </a>
+      </div>
+      <div class="examples-footer">
+        <a href="/examples">View all examples →</a>
+      </div>
+    </div>
+
+    <div class="getting-started-section">
+      <h2>Getting Started</h2>
+      <div class="gs-cards">
+        <div class="gs-card">
+          <h3>Looking for the C++ Mode?</h3>
+          <p>Install C++ Mode straight from the Processing IDE's Contribution Manager. No separate download needed.</p>
+          <a class="gs-card-link" href="/downloads#cpp-mode">See how →</a>
+        </div>
+        <div class="gs-card">
+          <h3>Download the headers</h3>
+          <p>Using your own editor and build system? Drop the engine into your project as a plug-and-play folder or a CMake target.</p>
+          <a class="gs-card-link" href="/downloads">Go to downloads →</a>
+        </div>
+        <div class="gs-card">
+          <h3>New to C++ Mode?</h3>
+          <p>Walk through creating your first sketch, from opening Processing to seeing something on screen.</p>
+          <a class="gs-card-link" href="/gettingstarted">Getting started tutorial →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>C++ Mode for Processing</p>
+  <p class="footer-contact"><a href="mailto:jose@llamasj.com">jose@llamasj.com</a></p>
+</footer>
+
+<script src="./assets/nav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="/assets/cppmode-theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="/assets/cppmode-keywords.js"></script>
+<script src="/assets/cppmode.js"></script>
+<script>
+const HERO_API = 'https://wcpp.llamasj.com';
+const HERO_DEFAULT = `enum PartType { HALF_O, PLUS, PLUS_SHADOW };
+struct Part {
+  PartType type;
+  float x, y, rot, r, t, s;
+  color col;
+};
+void drawHalfO(Part& p) {
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
+  noStroke(); fill(p.col); beginShape();
+  for (float a=radians(90);a<=radians(270);a+=0.02f)
+    vertex(cos(a)*p.r, sin(a)*p.r);
+  for (float a=radians(270);a>=radians(90);a-=0.02f)
+    vertex(cos(a)*(p.r-p.t), sin(a)*(p.r-p.t));
+  endShape(CLOSE); popMatrix();
+}
+void drawPlus(Part& p, float o) {
+  pushMatrix(); translate(p.x,p.y); rotate(p.rot);
+  rectMode(CENTER); noStroke(); fill(p.col);
+  rect(o,o,p.t,p.s,10); rect(o,o,p.s,p.t,10);
+  popMatrix();
+}
+Part parts[3];
+void setup() {
+  size(600, 700);
+  parts[0] = {PLUS_SHADOW, 411,340,-0.5f,0,55,170,color(190,145,85)};
+  parts[1] = {HALF_O,      261,344, 0,  180,70,0, color(255,210,60)};
+  parts[2] = {PLUS,        319,348,-0.5f,0,55,170,color(255,210,60)};
+  noLoop();
+}
+void draw() {
+  background(255);
+  for (int i=0; i<3; i++) {
+    if (parts[i].type==HALF_O)      drawHalfO(parts[i]);
+    if (parts[i].type==PLUS_SHADOW) drawPlus(parts[i], 6);
+    if (parts[i].type==PLUS)        drawPlus(parts[i], 0);
+  }
+}`;
+
+let heroEditor = null;
+let heroEditorOpen = false;
+
+function toggleHeroEditor() {
+  heroEditorOpen = !heroEditorOpen;
+  const overlay = document.getElementById('hero-editor-overlay');
+  const arrow = document.getElementById('hero-arrow-svg');
+  const runBtn = document.getElementById('hero-sketch-run-btn');
+
+  if (heroEditorOpen) {
+    overlay.style.display = 'flex';
+    arrow.style.transform = 'rotate(180deg)';
+    runBtn.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    // Init CodeMirror lazily on first open
+    if (!heroEditor) {
+      heroEditor = CodeMirror(document.getElementById('hero-cm-wrap'), {
+        mode: 'cppmode', theme: 'cppmode', lineNumbers: true,
+        indentUnit: 2, tabSize: 2, lineWrapping: false,
+        extraKeys: { Tab: function(cm) { cm.replaceSelection('  '); } },
+        value: HERO_DEFAULT,
+      });
+      heroEditor.setSize('100%', '100%');
+    }
+    setTimeout(() => heroEditor.refresh(), 50);
+  } else {
+    overlay.style.display = 'none';
+    arrow.style.transform = '';
+    runBtn.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+function heroLaunch(html) {
+  const area = document.getElementById('hero-preview-overlay');
+  const old = area.querySelector('iframe');
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+  iframe.src = URL.createObjectURL(new Blob([html], {type:'text/html'}));
+  if (old) { area.replaceChild(iframe, old); try{URL.revokeObjectURL(old.src);}catch(e){} }
+  else area.appendChild(iframe);
+}
+
+async function heroRun() {
+  const btn = document.getElementById('hero-run-btn');
+  const btn2 = document.getElementById('hero-sketch-run-btn');
+  [btn,btn2].forEach(b=>{b.textContent='...';b.disabled=true;});
+  try {
+    const resp = await fetch(HERO_API + '/compile', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({code: heroEditor ? heroEditor.getValue() : HERO_DEFAULT}),
+    });
+    const data = await resp.json();
+    if (data.error) { alert('Error:\n' + data.error.substring(0,300)); }
+    else {
+      const jsUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
+      function b64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+      const wa = b64(data.wasm), da = data.data ? b64(data.data) : new Uint8Array(0);
+      const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;overflow:hidden}body{background:#fff}canvas{display:block}<\/style><\/head><body><canvas id="canvas"><\/canvas><script>(function(){window.Module={canvas:document.getElementById("canvas"),wasmBinary:new Uint8Array(${JSON.stringify(Array.from(wa))}),getPreloadedPackage:function(){return new Uint8Array(${JSON.stringify(Array.from(da))}).buffer;},print:console.log,printErr:console.warn};})();<\/script><script src="${jsUrl}"><\/script><\/body><\/html>`;
+      heroLaunch(html);
+    }
+  } catch(e) { alert('Server unreachable: ' + e.message); }
+  [btn,btn2].forEach(b=>{b.textContent='▶ Run';b.disabled=false;});
+}
+
+document.getElementById('hero-run-btn').addEventListener('click', heroRun);
+document.getElementById('hero-sketch-run-btn').addEventListener('click', heroRun);
+</script>
+
+</body>
+</html>

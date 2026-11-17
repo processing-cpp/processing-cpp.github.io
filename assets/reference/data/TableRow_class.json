@@ -1,0 +1,44 @@
+{
+  "slug": "TableRow_class",
+  "name": "TableRow",
+  "cat": "Data",
+  "subcat": "Composite",
+  "desc": "Represents a single row in a Table. Access values by column index or name.",
+  "syntax": "TableRow row(rowData, columns)",
+  "params": [],
+  "returns": "TableRow",
+  "related": [
+    "Table_class",
+    "loadTable"
+  ],
+  "methods": [
+    {
+      "name": "getString(int i)",
+      "desc": "Gets value at column index as string"
+    },
+    {
+      "name": "getString(std::string col)",
+      "desc": "Gets value by column name as string"
+    },
+    {
+      "name": "getInt(int i)",
+      "desc": "Gets value at column index as int"
+    },
+    {
+      "name": "getFloat(int i)",
+      "desc": "Gets value at column index as float"
+    },
+    {
+      "name": "setString(int i, std::string v)",
+      "desc": "Sets value at column index"
+    },
+    {
+      "name": "setInt(int i, int v)",
+      "desc": "Sets value as int"
+    },
+    {
+      "name": "setFloat(int i, float v)",
+      "desc": "Sets value as float"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "sq",
+  "name": "sq()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Squares a number (multiplies a number by itself). Same as x*x.",
+  "syntax": "float sq(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "number to square"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sqrt",
+    "pow",
+    "abs"
+  ]
+}

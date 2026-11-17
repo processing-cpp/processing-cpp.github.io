@@ -1,0 +1,186 @@
+# CppMode compiler error reference. Each entry becomes a static page at
+# /error/<code>.html via regen_errors.py. Keep entries in this single
+# file so the whole list stays easy to scan and keep in sync with the
+# actual error messages in Processing.h.
+#
+# Fields:
+#   code    - e.g. E0001
+#   title   - short description shown as the page heading
+#   type    - label shown under the title (e.g. "Compiler Error",
+#             "Linker Error", "Runtime Error")
+#   summary - what the error means
+#   fix     - how to fix it
+#   before/after - optional code comparison
+#   notes   - optional extra notes
+
+- code: E0001
+  title: PGraphics needs to be a pointer
+  type: Compiler Error
+  summary: >
+    A PGraphics buffer holds onto real graphics-card resources behind
+    the scenes. Two copies of the same PGraphics could end up fighting
+    over those resources, so copying isn't allowed.
+  fix: >
+    Use PGraphics* instead of PGraphics.
+  before: |
+    PGraphics pg;
+    pg = createGraphics(400, 300);
+    pg.beginDraw();
+    pg.background(255);
+    pg.endDraw();
+  after: |
+    PGraphics* pg;
+    pg = createGraphics(400, 300);
+    pg->beginDraw();
+    pg->background(255);
+    pg->endDraw();
+  notes: >
+    Once pg is a pointer, use -> instead of the dot you'd use in Java.
+
+- code: E0002
+  title: PImage needs to be a pointer
+  type: Compiler Error
+  summary: >
+    Just like PGraphics, a PImage holds onto a graphics-card resource
+    (the loaded image's texture). Copying isn't allowed for the same
+    reason.
+  fix: >
+    Use PImage* instead of PImage.
+  before: |
+    PImage img;
+    img = loadImage("photo.jpg");
+    image(img, 0, 0);
+  after: |
+    PImage* img;
+    img = loadImage("photo.jpg");
+    image(img, 0, 0);
+  notes: >
+    image() already accepts the pointer directly, so you only need ->
+    when reading something off the image itself, like img->width.
+
+- code: E0003
+  title: PShader needs to be a pointer
+  type: Compiler Error
+  summary: >
+    A PShader holds onto a compiled program running on the graphics
+    card. Copying isn't allowed for the same reason as PGraphics and
+    PImage.
+  fix: >
+    Use PShader* instead of PShader.
+  before: |
+    PShader shader;
+    shader = loadShader("frag.glsl");
+    shader(shader);
+  after: |
+    PShader* shader;
+    shader = loadShader("frag.glsl");
+    shader(shader);
+  notes: >
+    Use -> for calling methods on the shader itself, like
+    shader->set(...).
+
+- code: E0004
+  title: Java-style array declarations aren't supported
+  type: Unsupported Java Syntax
+  summary: >
+    Writing "int[] a = new int[10];" the way you would in Java doesn't
+    work in C++. CppMode catches this specific pattern before compiling
+    and points you to the right way to write it instead.
+  fix: >
+    Use Array<T> instead, with the size in parentheses.
+  before: |
+    int[] a = new int[10];
+  after: |
+    Array<int> a(10);
+  notes: >
+    Array<int> behaves exactly like a Java int array: it starts out
+    filled with zeros, it has a fixed length, and reading or writing
+    past the end of it throws a clear error instead of silently
+    corrupting memory.
+
+- code: E0005
+  title: ArrayList.get() returns a pointer, not a value
+  type: Compiler Error
+  summary: >
+    ArrayList<UserType> stores objects as pointers (T*) internally, which
+    matches Java's reference semantics at the C++ level. That means .get()
+    hands back a T*, not a copy of the object. Trying to assign it directly
+    to a T variable won't compile because you can't copy a pointer into a
+    plain object.
+  fix: >
+    Declare the variable as a pointer and use arrow syntax to access its
+    fields and methods.
+  before: |
+    ArrayList<Particle> particles;
+    Particle p = particles.get(0);
+    p.update();
+  after: |
+    ArrayList<Particle> particles;
+    Particle* p = particles.get(0);
+    p->update();
+  notes: >
+    This mirrors how Java actually works under the hood. When you write
+    Particle p = list.get(0) in Java, p is a reference to the original
+    object, not a copy of it. CppMode maps that directly to a C++ pointer
+    so the same mutation and lifetime behaviour applies. Adding objects
+    works with either particles.add(Particle(x, y)) or
+    particles.add(new Particle(x, y)) — CppMode handles heap allocation
+    in both cases. Calling particles.remove(0) removes the pointer from
+    the list but does not delete the object. Related: E0004.
+- code: E0006
+  title: Java static access syntax not valid in C++
+  type: Compiler Error
+  summary: >
+    Writing ClassName.member() or ClassName.CONSTANT the way you would in Java
+    doesn't work in C++ for static access. The dot operator in C++ means
+    instance member access, not static. CppMode detects this pattern for
+    common wrapper classes and any uppercase-named class it can identify as
+    static-only.
+  fix: >
+    Use :: instead of . when accessing static methods or fields on a class name.
+  before: |
+    int n = Integer.parseInt("42");
+    float f = Float.parseFloat("3.14");
+    float pi = Math.PI;
+  after: |
+    int n = Integer::parseInt("42");
+    float f = Float::parseFloat("3.14");
+    float pi = Math::PI;
+  notes: >
+    This covers both method calls and field access. The check applies to
+    known static-only classes: Integer, Float, Double, Long, Boolean,
+    Character, Byte, Short, Math, Arrays, Collections, System, Thread,
+    Runtime, Class, and Objects. It skips known instance types like PImage,
+    PFont, PVector, PShape, and PGraphics even though they start with an
+    uppercase letter. For your own classes, use :: for anything declared
+    static and . only on an actual instance. Related: E0004, E0005.
+- code: E0007
+  title: Variable name shadows a Processing type
+  type: Compiler Error
+  summary: >
+    The variable name you used matches a type or name that CppMode pulls into
+    scope automatically. The confirmed case is color — when you write
+    int color = 255, CppMode's type-fixing pass later rewrites the declaration
+    to color color = 255, which is a type-redeclaration error and crashes the
+    build. Even without that rewrite, using color as a variable name in any
+    scope where Processing::color is visible causes ambiguity the compiler
+    can't resolve.
+  fix: >
+    Rename the variable to something that doesn't clash with the Processing
+    API. For color, the usual alternatives are col, clr, or c.
+  before: |
+    int color = 255;
+    fill(color);
+  after: |
+    int col = 255;
+    fill(col);
+  notes: >
+    CppMode uses a global "using namespace Processing" which pulls in
+    everything at once — types like color and PVector, functions like fill,
+    noise, and line, and constants like PI and TWO_PI. In principle any of
+    those names could shadow a variable you define. In practice only color
+    is a confirmed crasher right now, which is why E0007 only flags that one
+    name. If you hit a similar ambiguity with a different name, renaming the
+    variable is always the fix. The long-term solution is scoping the
+    namespace import inside the sketch struct rather than at global scope,
+    but that is a larger engine change. Related: E0005, E0006.

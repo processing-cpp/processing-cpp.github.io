@@ -1,0 +1,29 @@
+{
+  "slug": "saveTable",
+  "name": "saveTable()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Saves a Table to a CSV or TSV file.",
+  "syntax": "bool saveTable(std::string path, Table t, std::string ext)",
+  "params": [
+    {
+      "name": "path",
+      "type": "std::string",
+      "desc": "path to write to"
+    },
+    {
+      "name": "t",
+      "type": "Table",
+      "desc": "the table to save"
+    },
+    {
+      "name": "ext",
+      "type": "std::string",
+      "desc": "\"csv\" or \"tsv\" (default csv)"
+    }
+  ],
+  "returns": "bool",
+  "related": [
+    "loadTable"
+  ]
+}

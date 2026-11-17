@@ -1,0 +1,14 @@
+{
+  "slug": "pixelWidth",
+  "name": "pixelWidth",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Actual framebuffer width in pixels. Differs from width on HiDPI screens.",
+  "syntax": "pixelWidth",
+  "params": [],
+  "returns": "int",
+  "related": [
+    "pixelHeight",
+    "pixelDensity"
+  ]
+}

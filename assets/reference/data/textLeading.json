@@ -1,0 +1,20 @@
+{
+  "slug": "textLeading",
+  "name": "textLeading()",
+  "cat": "Typography",
+  "subcat": "Attributes",
+  "desc": "Sets the spacing between lines of text in units of pixels.",
+  "syntax": "void textLeading(float leading)",
+  "params": [
+    {
+      "name": "leading",
+      "type": "float",
+      "desc": "spacing between lines"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "text",
+    "textSize"
+  ]
+}

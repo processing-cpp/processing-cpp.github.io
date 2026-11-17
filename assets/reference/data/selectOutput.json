@@ -1,0 +1,25 @@
+{
+  "slug": "selectOutput",
+  "name": "selectOutput()",
+  "cat": "Output",
+  "subcat": "Files",
+  "desc": "Opens a file chooser dialog to select an output file. Returns the path.",
+  "syntax": "std::string selectOutput(std::string prompt, std::string filter)",
+  "params": [
+    {
+      "name": "prompt",
+      "type": "std::string",
+      "desc": "dialog message"
+    },
+    {
+      "name": "filter",
+      "type": "std::string",
+      "desc": "file extension filter (optional)"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "selectInput",
+    "selectFolder"
+  ]
+}

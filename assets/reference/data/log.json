@@ -1,0 +1,19 @@
+{
+  "slug": "log",
+  "name": "log()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Calculates the natural logarithm (base e) of a number.",
+  "syntax": "float log(float x)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "number greater than 0"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "exp"
+  ]
+}

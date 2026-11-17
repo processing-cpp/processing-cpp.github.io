@@ -1,0 +1,20 @@
+{
+  "slug": "binary",
+  "name": "binary()",
+  "cat": "Data",
+  "subcat": "String_Functions",
+  "desc": "Converts an integer to a binary string representation (32 characters).",
+  "syntax": "std::string binary(int v)",
+  "params": [
+    {
+      "name": "v",
+      "type": "int",
+      "desc": "value to convert"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "unbinary",
+    "hex"
+  ]
+}

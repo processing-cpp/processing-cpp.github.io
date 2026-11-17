@@ -1,0 +1,20 @@
+{
+  "slug": "frameRate_fn",
+  "name": "frameRate()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Sets the target number of frames to display per second.",
+  "syntax": "void frameRate(int fps)",
+  "params": [
+    {
+      "name": "fps",
+      "type": "int",
+      "desc": "target frames per second"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "frameRate_var",
+    "frameCount"
+  ]
+}

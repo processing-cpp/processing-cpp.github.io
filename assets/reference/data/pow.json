@@ -1,0 +1,26 @@
+{
+  "slug": "pow",
+  "name": "pow()",
+  "cat": "Math",
+  "subcat": "Calculation",
+  "desc": "Facilitates exponential expressions. Calculates b raised to the power e.",
+  "syntax": "float pow(float b, float e)",
+  "params": [
+    {
+      "name": "b",
+      "type": "float",
+      "desc": "base of the expression"
+    },
+    {
+      "name": "e",
+      "type": "float",
+      "desc": "power by which to raise the base"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "sqrt",
+    "sq",
+    "exp"
+  ]
+}

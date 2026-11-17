@@ -1,0 +1,45 @@
+{
+  "slug": "ortho",
+  "name": "ortho()",
+  "cat": "Lights_Camera",
+  "subcat": "Camera",
+  "desc": "Sets an orthographic projection, where objects appear flat and no foreshortening occurs.",
+  "syntax": "void ortho()\nvoid ortho(float left, float right, float bottom, float top, float near, float far)",
+  "params": [
+    {
+      "name": "left",
+      "type": "float",
+      "desc": "left clipping plane"
+    },
+    {
+      "name": "right",
+      "type": "float",
+      "desc": "right clipping plane"
+    },
+    {
+      "name": "bottom",
+      "type": "float",
+      "desc": "bottom clipping plane"
+    },
+    {
+      "name": "top",
+      "type": "float",
+      "desc": "top clipping plane"
+    },
+    {
+      "name": "near",
+      "type": "float",
+      "desc": "near clipping plane"
+    },
+    {
+      "name": "far",
+      "type": "float",
+      "desc": "far clipping plane"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "perspective",
+    "camera"
+  ]
+}

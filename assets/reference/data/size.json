@@ -1,0 +1,31 @@
+{
+  "slug": "size",
+  "name": "size()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Defines the dimension of the display window. Call in setup(). Optionally pass P2D or P3D as renderer.",
+  "syntax": "void size(int w, int h)\nvoid size(int w, int h, int renderer)",
+  "params": [
+    {
+      "name": "w",
+      "type": "int",
+      "desc": "width of the window in pixels"
+    },
+    {
+      "name": "h",
+      "type": "int",
+      "desc": "height of the window in pixels"
+    },
+    {
+      "name": "renderer",
+      "type": "int",
+      "desc": "P2D or P3D (optional)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "width",
+    "height",
+    "fullScreen"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "pixelDensity",
+  "name": "pixelDensity()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Sets the pixel density for high-DPI (HiDPI/Retina) displays.",
+  "syntax": "void pixelDensity(int d)",
+  "params": [
+    {
+      "name": "d",
+      "type": "int",
+      "desc": "pixel density (1 or 2)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "pixelWidth",
+    "pixelHeight"
+  ]
+}

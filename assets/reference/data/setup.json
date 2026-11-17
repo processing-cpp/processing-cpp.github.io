@@ -1,0 +1,13 @@
+{
+  "slug": "setup",
+  "name": "setup()",
+  "cat": "Structure",
+  "subcat": "",
+  "desc": "Called once when the program starts. Define initial environment properties such as screen size and background color.",
+  "syntax": "void setup()",
+  "params": [],
+  "returns": "void",
+  "related": [
+    "draw"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "sin",
+  "name": "sin()",
+  "cat": "Math",
+  "subcat": "Trigonometry",
+  "desc": "Calculates the sine of an angle in radians.",
+  "syntax": "float sin(float angle)",
+  "params": [
+    {
+      "name": "angle",
+      "type": "float",
+      "desc": "angle in radians"
+    }
+  ],
+  "returns": "float",
+  "related": [
+    "cos",
+    "tan",
+    "radians"
+  ]
+}

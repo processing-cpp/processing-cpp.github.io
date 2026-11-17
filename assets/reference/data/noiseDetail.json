@@ -1,0 +1,25 @@
+{
+  "slug": "noiseDetail",
+  "name": "noiseDetail()",
+  "cat": "Math",
+  "subcat": "Random",
+  "desc": "Adjusts the character and level of detail produced by the Perlin noise function.",
+  "syntax": "void noiseDetail(int octaves, float falloff)",
+  "params": [
+    {
+      "name": "octaves",
+      "type": "int",
+      "desc": "number of octaves (1-8 typical)"
+    },
+    {
+      "name": "falloff",
+      "type": "float",
+      "desc": "falloff factor for each octave (default 0.5)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "noise",
+    "noiseSeed"
+  ]
+}

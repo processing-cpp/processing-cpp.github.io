@@ -1,0 +1,20 @@
+{
+  "slug": "selectFolder",
+  "name": "selectFolder()",
+  "cat": "Input",
+  "subcat": "Files",
+  "desc": "Opens a folder chooser dialog. Returns the selected folder path.",
+  "syntax": "std::string selectFolder(std::string prompt)",
+  "params": [
+    {
+      "name": "prompt",
+      "type": "std::string",
+      "desc": "dialog message"
+    }
+  ],
+  "returns": "std::string",
+  "related": [
+    "selectInput",
+    "selectOutput"
+  ]
+}

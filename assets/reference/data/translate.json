@@ -1,0 +1,32 @@
+{
+  "slug": "translate",
+  "name": "translate()",
+  "cat": "Transform",
+  "subcat": "",
+  "desc": "Specifies an amount to displace objects. Supports 2D and 3D.",
+  "syntax": "void translate(float x, float y)\nvoid translate(float x, float y, float z)",
+  "params": [
+    {
+      "name": "x",
+      "type": "float",
+      "desc": "left/right displacement"
+    },
+    {
+      "name": "y",
+      "type": "float",
+      "desc": "up/down displacement"
+    },
+    {
+      "name": "z",
+      "type": "float",
+      "desc": "forward/backward displacement (optional, 3D)"
+    }
+  ],
+  "returns": "void",
+  "related": [
+    "rotate",
+    "scale",
+    "push",
+    "pop"
+  ]
+}

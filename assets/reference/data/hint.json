@@ -1,0 +1,17 @@
+{
+  "slug": "hint",
+  "name": "hint()",
+  "cat": "Environment",
+  "subcat": "",
+  "desc": "Set hints for the renderer. Use ENABLE_DEPTH_TEST, DISABLE_DEPTH_TEST, ENABLE_DEPTH_SORT, etc.",
+  "syntax": "void hint(int which)",
+  "params": [
+    {
+      "name": "which",
+      "type": "int",
+      "desc": "a hint constant such as ENABLE_DEPTH_TEST or DISABLE_DEPTH_TEST"
+    }
+  ],
+  "returns": "void",
+  "related": []
+}
