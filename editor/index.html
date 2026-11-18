@@ -308,5 +308,103 @@ function toggleDark() {
   applyDark(darkMode);
 }
 </script>
+<script>
+// cppmode-editor-errors: a Copy button on the error panel, and the loading overlay always
+// clears: on a runtime error inside the sketch, or after a timeout if it never starts.
+(function () {
+  const START_TIMEOUT_MS = 20000;
+  let startTimer = null;
+
+  function panel() { return document.getElementById('error-panel'); }
+  function overlay() { return document.getElementById('loading-overlay'); }
+
+  // Copy button, kept next to the panel and shown whenever the panel is shown
+  const copyBtn = document.createElement('button');
+  copyBtn.id = 'error-copy';
+  copyBtn.type = 'button';
+  copyBtn.textContent = 'Copy error';
+  copyBtn.style.cssText = 'display:none;margin:4px 0;font:inherit;font-size:12px;padding:2px 10px;cursor:pointer;';
+  copyBtn.addEventListener('click', async () => {
+    const text = panel() ? panel().textContent : '';
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e2) {}
+      ta.remove();
+    }
+    copyBtn.textContent = 'Copied';
+    setTimeout(() => { copyBtn.textContent = 'Copy error'; }, 1500);
+  });
+  function syncCopy() {
+    const ep = panel();
+    if (!ep) return;
+    if (copyBtn.parentNode !== ep.parentNode) ep.parentNode.insertBefore(copyBtn, ep);
+    const shown = ep.style.display !== 'none' && ep.textContent.trim() !== '';
+    copyBtn.style.display = shown ? 'inline-block' : 'none';
+  }
+  const ep0 = panel();
+  if (ep0) {
+    new MutationObserver(syncCopy).observe(ep0, { attributes: true, attributeFilter: ['style'], childList: true, characterData: true, subtree: true });
+    syncCopy();
+  }
+
+  function finish() {
+    if (startTimer) { clearTimeout(startTimer); startTimer = null; }
+    const ov = overlay(); if (ov) ov.style.display = 'none';
+    const btn = document.getElementById('btn-run'); if (btn) btn.disabled = false;
+  }
+
+  function showSketchError(msg) {
+    finish();
+    if (typeof setStatus === 'function') setStatus('Error', 'error');
+    const ep = panel();
+    if (ep) {
+      ep.textContent = ep.textContent ? ep.textContent + '\n' + msg : msg;
+      ep.style.display = 'block';
+    }
+  }
+
+  // 'running' from the sketch clears the timer (the page's own handler hides the overlay)
+  window.addEventListener('message', e => { if (e.data === 'running') finish(); });
+
+  // Watch each sketch the page starts
+  if (typeof launchIframe === 'function') {
+    const originalLaunch = launchIframe;
+    launchIframe = function (html) {
+      const result = originalLaunch.apply(this, arguments);
+      if (startTimer) clearTimeout(startTimer);
+      startTimer = setTimeout(() => {
+        startTimer = null;
+        const ov = overlay();
+        if (ov && ov.style.display !== 'none') {
+          showSketchError('The sketch compiled but did not start within ' + (START_TIMEOUT_MS / 1000) +
+                          ' seconds. The browser console (F12) may have more details.');
+        }
+      }, START_TIMEOUT_MS);
+      const area = document.getElementById('preview-area');
+      const frame = area ? area.querySelector('iframe') : null;
+      if (frame) {
+        // The sketch runs from a blob: URL made by this page, so it shares our origin and
+        // its errors can be read here. Hook them each time the frame (re)loads.
+        frame.addEventListener('load', () => {
+          let w;
+          try { w = frame.contentWindow; w.addEventListener; } catch (e) { return; }
+          w.addEventListener('error', ev => {
+            const m = ev.error && ev.error.message ? ev.error.message : (ev.message || 'unknown error');
+            showSketchError('Sketch error: ' + m);
+          });
+          w.addEventListener('unhandledrejection', ev => {
+            const r = ev.reason;
+            showSketchError('Sketch error: ' + (r && r.message ? r.message : String(r)));
+          });
+        });
+      }
+      return result;
+    };
+  }
+})();
+</script>
 </body>
 </html>
