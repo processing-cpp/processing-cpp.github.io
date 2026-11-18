@@ -7,7 +7,7 @@ generic rebrand. DROP[key] are pages the mode has no equivalent for.
 
 C = 'style="font-family:monospace;background:#f4f4f4;padding:1px 5px;border-radius:3px;"'
 
-REPO = {"lua": "https://github.com/llamasjc/LuaMode", "rust": "https://github.com/llamasjc/RustMode"}
+REPO = {"lua": "https://github.com/llamasjc/processing-lua", "rust": "https://github.com/llamasjc/processing-rust"}
 
 FIRST = {
     "lua": """function setup()
@@ -41,7 +41,7 @@ void draw() {
 def install_steps(key):
     name = {"lua": "Lua", "rust": "Rust"}[key]
     return f"""<ol class="step-list">
-        <li>Download <strong>{name}Mode.zip</strong> from the <a href="{REPO[key]}/releases/latest" style="border-bottom:1px solid #ddd;">latest release</a>.</li>
+        <li>Download the {name} Mode zip from the <a href="{REPO[key]}/releases/latest" style="border-bottom:1px solid #ddd;">latest release</a>.</li>
         <li>Unzip it into the <strong>modes</strong> folder of your sketchbook (Processing shows where the sketchbook is in <strong>File &gt; Preferences</strong>), so you have <code>sketchbook/modes/{name}Mode</code>.</li>
         <li>Restart Processing and pick <strong>{name}</strong> from the mode dropdown in the top-right of the editor.</li>
       </ol>"""
