@@ -2,8 +2,10 @@
 """Clone the C++ site 1:1 into the Lua, Rust and Scheme site folders.
 
 Same pages, same UI. Branding (name, colors, logo path, site URL) is swapped.
-Per-item reference and example pages are dropped, so links to them 404 on
-purpose until each mode has its own docs.
+Example pages are made from each mode's own translations in
+<site>/content/examples/<name>.<ext> (the code block is swapped, everything
+else is the C++ page). Reference pages come from <site>/content/reference.yml
+the same way. A page with no translation is left out.
 
 Run from the root of processing-cpp.github.io:
     python3 clone_mode_sites.py            # all three
@@ -14,6 +16,8 @@ import re
 import shutil
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent / "mode_sites"))
+import pages as PAGES
 
 AUTHOR = "llamasjc"
 SRC_SITE = "https://processing-cpp.github.io"
@@ -25,11 +29,11 @@ MODES = {
 }
 
 # Never copied into the clones.
-SKIP_NAMES = {".git", "make_mode_sites.py", "clone_mode_sites.py", "retry.py", "CNAME"}
+SKIP_NAMES = {".git", "make_mode_sites.py", "clone_mode_sites.py", "retry.py", "CNAME", "mode_sites", "__pycache__"}
 SKIP_GLOBS = ["regen*.py", "regen*.sh", "*.backup", "*.bak"]
 # Dropped so the mode has no C++ docs or examples: every page in these
 # folders except the index.
-DROP_ITEM_PAGES = ["reference", "examples"]
+DROP_ITEM_PAGES = ["reference"]
 TEXT_EXT = {".html", ".js", ".css", ".md", ".json", ".txt", ".yml", ".svg"}
 ORDER = ["cpp", "rust", "lua", "scheme"]
 START, END = "/*modes-start*/", "/*modes-end*/"
@@ -52,14 +56,14 @@ ABOUT_STEPS_OLD = "structs, vectors, pointers, templates"
 COPY = {
     "lua": {
         HERO_OLD: "Lua Mode brings that same idea to Lua. It is a small language that reads almost like "
-                  "plain English, and your sketches run on the same native engine as C++ Mode.",
+                  "plain English, and your sketches run on the same native engine as Rust Mode.",
         ABOUT_HARD_OLD: "Lua is easy to learn, but drawing with it usually means picking a game framework, "
                         "wiring up a window, and learning its way of doing things before anything shows up.",
         ABOUT_STEPS_OLD: "tables, closures, metatables, coroutines",
     },
     "rust": {
         HERO_OLD: "Rust Mode brings that same idea to Rust. You get Rust's speed and safety, and your "
-                  "sketches run on the same native engine as C++ Mode.",
+                  "sketches compile to native programs.",
         ABOUT_HARD_OLD: "Getting started with Rust is hard. Before you can draw anything you need to set up "
                         "Cargo, pick a graphics crate, fight the borrow checker, and write a lot of setup code.",
         ABOUT_STEPS_OLD: "structs, enums, ownership, traits",
@@ -175,6 +179,35 @@ def rebrand(text, m):
     return text
 
 
+def write_reference(src, dst, ref, m):
+    import importlib.util, yaml
+    spec = importlib.util.spec_from_file_location("regen_reference", src / "regen_reference.py")
+    rr = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rr)
+    repo = {"Lua": "LuaMode", "Rust": "RustMode"}.get(m["name"], m["camel"] + "Mode")
+
+    def render_impl(entry):
+        return "".join(rr.render_under_the_hood_block(f"{repo}/{label}", code) for label, code in entry.get("uth") or [])
+    rr.render_impl = render_impl
+    data = yaml.safe_load(ref.read_text())
+    by = {e["slug"]: e for e in data["entries"]}
+    out = dst / "reference"
+    out.mkdir(exist_ok=True)
+    pages = {"index.html": rr.render_index(data["sidebar"], by)}
+    for e in data["entries"]:
+        pages[e["slug"] + ".html"] = rr.render_page(e, data["sidebar"], by)
+    for name, text in pages.items():
+        (out / name).write_text(rebrand(text, m))
+
+
+def swap_code(page, code):
+    """The example page with its code block holding the mode's translation."""
+    import html as _html
+    start = page.index('<div class="syntax-block">') + len('<div class="syntax-block">')
+    end = page.index("</div>\n  </div>\n</div>", start)
+    return page[:start] + _html.escape(code.rstrip("\n") + "\n", quote=False) + page[end:]
+
+
 def fix_modes(text, key):
     a, b = text.index(START), text.index(END) + len(END)
     return text[:a] + modes_block(key) + text[b:]
@@ -197,7 +230,7 @@ def clone(key, src):
     dst = src.parent / f"processing-{key}.github.io"
     dst.mkdir(exist_ok=True)
     for child in dst.iterdir():
-        if child.name == ".git":
+        if child.name in (".git", "content"):
             continue
         shutil.rmtree(child) if child.is_dir() else child.unlink()
     count = 0
@@ -205,22 +238,52 @@ def clone(key, src):
         if path.is_dir() or skip(path, src):
             continue
         rel = path.relative_to(src)
+        if any(rel.as_posix() == d or rel.as_posix().startswith(d + "/") for d in PAGES.DROP.get(key, [])):
+            continue
         rel = Path(rebrand(str(rel), m))  # e.g. assets/cppmode-theme.css -> luamode-theme.css
         out = dst / rel
         out.parent.mkdir(parents=True, exist_ok=True)
+        if len(rel.parts) == 2 and rel.parts[0] == "examples" and rel.name != "index.html" and rel.suffix == ".html":
+            code_file = dst / "content" / "examples" / (rel.stem + "." + m["ext"])
+            if not code_file.exists():
+                continue
         if path.suffix.lower() in TEXT_EXT:
             text = path.read_text(errors="surrogateescape")
+            for old, new in PAGES.TEXT.get(key, []):
+                text = text.replace(old, new)
             for old, new in COPY[key].items():
                 text = text.replace(old, new)
+            if key in PAGES.CONTENT and rel.as_posix() in PAGES.CONTENT[key]:
+                a = text.index('<div class="content">')
+                b = text.index("</div>\n<footer", a) if "</div>\n<footer" in text[a:] else text.index("<footer", a)
+                text = text[:a] + PAGES.CONTENT[key][rel.as_posix()] + "\n" + text[b:]
+            if key in PAGES.DROP and rel.as_posix() == "index.html":
+                # no web editor for this mode
+                text = re.sub(r'<a[^>]*href="[^"]*editor[^"]*"[^>]*>.*?</a>', "", text, flags=re.S)
+                text = text.replace("</head>", "<style>button[onclick=\"toggleHeroEditor()\"], #hero-sketch-run-btn { display: none !important; }</style>\n</head>", 1)
+            if key in PAGES.DROP and rel.as_posix() == "assets/nav.js":
+                text = text.replace("      ${link('editor', 'Editor')}\n", "")
+                text = re.sub(r"\s*<a href=\"\$\{prefix\}error/index.html\"[^\n]*Errors</a>", "", text)
             text = rebrand(text, m)
             if START in text:
                 text = fix_modes(text, key)
             if rel.as_posix() == "assets/nav.js":
                 text = text.rstrip() + "\n" + dev_banner(m)
+            if len(rel.parts) == 2 and rel.parts[0] == "examples" and rel.name != "index.html":
+                text = swap_code(text, code_file.read_text())
             out.write_text(text, errors="surrogateescape")
         else:
             shutil.copy2(path, out)
         count += 1
+    # reference pages from the mode's own reference.yml
+    ref = dst / "content" / "reference.yml"
+    if ref.exists():
+        write_reference(src, dst, ref, m)
+    # the code highlighter for the mode's own language
+    hl = src / "mode_sites" / f"{key}mode.js"
+    if hl.exists():
+        shutil.copy2(hl, dst / "assets" / f"{key}mode.js")
+        shutil.copy2(hl, dst / "assets" / f"cm-{key}mode.js")
     (dst / "README.md").write_text(readme(key))
     print(f"{key}: {count} files -> {dst}")
 
