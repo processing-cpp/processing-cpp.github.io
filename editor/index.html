@@ -239,7 +239,7 @@ async function runSketch() {
     resp = await fetch(API + '/compile', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({code: editor.getValue(), slim: true}),
+      body: JSON.stringify({code: editor.getValue(), slim: true, dyn: true}),
     });
     data = await resp.json();
   } catch(e) {
@@ -269,12 +269,13 @@ async function runSketch() {
   if (data.js_url) {
     const b64 = buf => { const b = new Uint8Array(buf); let out = ''; for (let i = 0; i < b.length; i += 0x8000) out += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(out); };
     try {
-      const [jsText, wasmBuf, dataBuf] = await Promise.all([
+      const [jsText, wasmBuf, dataBuf, sketchBuf] = await Promise.all([
         fetch(API + data.js_url).then(r => { if (!r.ok) throw new Error('js ' + r.status); return r.text(); }),
         fetch(API + data.wasm_url).then(r => { if (!r.ok) throw new Error('wasm ' + r.status); return r.arrayBuffer(); }),
         data.data_url ? fetch(API + data.data_url).then(r => { if (!r.ok) throw new Error('data ' + r.status); return r.arrayBuffer(); }) : Promise.resolve(new ArrayBuffer(0)),
+        data.sketch_url ? fetch(API + data.sketch_url).then(r => { if (!r.ok) throw new Error('sketch ' + r.status); return r.arrayBuffer(); }) : Promise.resolve(null),
       ]);
-      jsUrl = URL.createObjectURL(new Blob([jsText], {type:'application/javascript'}));
+      jsUrl = URL.createObjectURL(new Blob([(sketchBuf ? 'var CPPMODE_SKETCH_B64 = "' + b64(sketchBuf) + '";\n' : '') + jsText], {type:'application/javascript'}));
       wasmB64 = b64(wasmBuf);
       dataB64 = dataBuf.byteLength ? b64(dataBuf) : '';
     } catch (e) {
