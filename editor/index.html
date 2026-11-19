@@ -239,7 +239,7 @@ async function runSketch() {
     resp = await fetch(API + '/compile', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({code: editor.getValue()}),
+      body: JSON.stringify({code: editor.getValue(), slim: true}),
     });
     data = await resp.json();
   } catch(e) {
@@ -263,8 +263,33 @@ async function runSketch() {
   }
 
   btn.disabled = false;
-  const jsUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
-  launchIframe(makeIframeHTML(jsUrl, data.wasm, data.data || ''));
+  // cppmode-slim: the server sends URLs; the browser caches the font and JS, so a run
+  // usually only downloads the new wasm. Old-style replies still work.
+  let jsUrl, wasmB64, dataB64;
+  if (data.js_url) {
+    const b64 = buf => { const b = new Uint8Array(buf); let out = ''; for (let i = 0; i < b.length; i += 0x8000) out += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(out); };
+    try {
+      const [jsText, wasmBuf, dataBuf] = await Promise.all([
+        fetch(API + data.js_url).then(r => { if (!r.ok) throw new Error('js ' + r.status); return r.text(); }),
+        fetch(API + data.wasm_url).then(r => { if (!r.ok) throw new Error('wasm ' + r.status); return r.arrayBuffer(); }),
+        data.data_url ? fetch(API + data.data_url).then(r => { if (!r.ok) throw new Error('data ' + r.status); return r.arrayBuffer(); }) : Promise.resolve(new ArrayBuffer(0)),
+      ]);
+      jsUrl = URL.createObjectURL(new Blob([jsText], {type:'application/javascript'}));
+      wasmB64 = b64(wasmBuf);
+      dataB64 = dataBuf.byteLength ? b64(dataBuf) : '';
+    } catch (e) {
+      setStatus('Download failed', 'error');
+      ep.textContent = 'Could not download the built sketch: ' + e.message;
+      ep.style.display = 'block';
+      btn.disabled = false;
+      if (overlay) overlay.style.display = 'none';
+      return;
+    }
+  } else {
+    jsUrl = URL.createObjectURL(new Blob([data.js], {type:'application/javascript'}));
+    wasmB64 = data.wasm; dataB64 = data.data || '';
+  }
+  launchIframe(makeIframeHTML(jsUrl, wasmB64, dataB64));
 }
 
 document.addEventListener('keydown', e => {
