@@ -33,14 +33,14 @@
     // Reset equation first (SUBTRACT changes it)
     glBlendEquation(GL_FUNC_ADD);
     switch (mode) {
-        case ADD: glBlendFunc(GL_SRC_ALPHA, GL_ONE); break;
-        case MULTIPLY: glBlendFunc(GL_DST_COLOR, GL_ZERO); break;
-        case SCREEN: glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR); break;
+        case ADD:      glBlendFunc(GL_SRC_ALPHA, GL_ONE);                break;
+        case MULTIPLY: glBlendFunc(GL_DST_COLOR, GL_ZERO);               break;
+        case SCREEN:   glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);      break;
         case SUBTRACT:
             glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE);
             break;
-        default: glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
+        default:       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
     }
 }</div>
   </div>

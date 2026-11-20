@@ -34,7 +34,7 @@ inline void PGraphics::lightSpecular(float r, float g, float b) { if(PApplet::g_
     pendingSpecR = lc(r); pendingSpecG = lc(g); pendingSpecB = lc(b);
     // Also apply to any already-created lights
     for (int i = 0; i &lt; lightIndex; i++) {
-        GLenum lt = GL_LIGHT0 + i;
+        GLenum  lt  = GL_LIGHT0 + i;
         GLfloat col[] = { pendingSpecR, pendingSpecG, pendingSpecB, 1.0f };
         glLightfv(lt, GL_SPECULAR, col);
     }

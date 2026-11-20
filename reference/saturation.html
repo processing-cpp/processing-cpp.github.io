@@ -33,11 +33,12 @@
         float mn=std::fmin(r,std::fmin(g,b));
         return mx==0 ? 0 : ((mx-mn)/mx)*100.f;
     }
+
 float saturation(color c);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::saturation(color c) {
     unsigned int v = c.value;
-    float r = (v &gt;&gt; 16 &amp; 0xFF) / 255.f;
-    float g = (v &gt;&gt; 8 &amp; 0xFF) / 255.f;
-    float b = (v &amp; 0xFF) / 255.f;
+    float r  = (v &gt;&gt; 16 &amp; 0xFF) / 255.f;
+    float g  = (v &gt;&gt;  8 &amp; 0xFF) / 255.f;
+    float b  = (v       &amp; 0xFF) / 255.f;
     float mx = max(r, max(g, b));
     float mn = min(r, min(g, b));
     return (mx == 0 ? 0 : (mx - mn) / mx) * colorMaxS;

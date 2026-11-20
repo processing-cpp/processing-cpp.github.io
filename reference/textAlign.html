@@ -36,10 +36,10 @@ inline void PGraphics::textAlign(int alignX) { if(PApplet::g_papplet) PApplet::g
 inline void PGraphics::textAlign(int alignX, int alignY) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;textAlign(alignX,alignY); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::textAlign(int alignX, int alignY) {
     // Map standard constants (LEFT=37, RIGHT=39, CENTER=3) to align constants
     auto mapAlign=[](int a)-&gt;int{
-        if(a==37||a==20) return LEFT_ALIGN; // LEFT or LEFT_ALIGN
-        if(a==39||a==21) return RIGHT_ALIGN; // RIGHT or RIGHT_ALIGN
+        if(a==37||a==20) return LEFT_ALIGN;   // LEFT or LEFT_ALIGN
+        if(a==39||a==21) return RIGHT_ALIGN;  // RIGHT or RIGHT_ALIGN
         if(a==3 ||a==25) return CENTER_ALIGN; // CENTER or CENTER_ALIGN
-        if(a==0) return BASELINE;
+        if(a==0)         return BASELINE;
         return a;
     };
     g_textAlignX = mapAlign(alignX);

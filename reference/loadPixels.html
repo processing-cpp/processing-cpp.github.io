@@ -32,14 +32,16 @@
 void loadPixels();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::loadPixels() {
     int total = winWidth * winHeight;
     pixels.resize(total);
+
     std::vector&lt;unsigned char&gt; rgba(total * 4);
     glReadPixels(0, 0, winWidth, winHeight, GL_RGBA, GL_UNSIGNED_BYTE, rgba.data());
+
     for (int i = 0; i &lt; total; i++) {
         unsigned char r = rgba[i*4 + 0];
         unsigned char g = rgba[i*4 + 1];
         unsigned char b = rgba[i*4 + 2];
         unsigned char a = rgba[i*4 + 3];
-        pixels[i] = (a &lt;&lt; 24) | (r &lt;&lt; 16) | (g &lt;&lt; 8) | b; // ARGB format
+        pixels[i] = (a &lt;&lt; 24) | (r &lt;&lt; 16) | (g &lt;&lt; 8) | b;  // ARGB format
     }
 }</div>
   </div>

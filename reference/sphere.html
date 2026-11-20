@@ -58,6 +58,7 @@ inline void PGraphics::sphere(float r) { if(PApplet::g_papplet) PApplet::g_pappl
                 glNormal3f(x0,y0,z0); glVertex3f(r*x0,r*y0,r*z0);
             }
             glEnd();
+        }
         if (usePhong) glUseProgram(0);
     }
     if(doStroke){
@@ -70,6 +71,7 @@ inline void PGraphics::sphere(float r) { if(PApplet::g_papplet) PApplet::g_pappl
                        r*std::cos(lat)*std::sin(lng));
         };
         glBegin(GL_LINES);
+        for(int i=0;i&lt;stacks;i++){
             float lat0=PI*(-0.5f+(float)i/stacks);
             float lat1=PI*(-0.5f+(float)(i+1)/stacks);
             for(int j=0;j&lt;slices;j++){
@@ -82,12 +84,20 @@ inline void PGraphics::sphere(float r) { if(PApplet::g_papplet) PApplet::g_pappl
                 sv(lat0,lng0); sv(lat1,lng0);
                 // Diagonal (gives the characteristic triangulated look)
                 sv(lat0,lng1); sv(lat1,lng0);
+            }
+        }
         // Top latitude ring
         {
             float lat1=PI*(-0.5f+(float)stacks/stacks);
+            for(int j=0;j&lt;slices;j++){
+                float lng0=TWO_PI*(float)j/slices;
+                float lng1=TWO_PI*(float)(j+1)/slices;
                 sv(lat1,lng0); sv(lat1,lng1);
+            }
+        }
         glEnd();
         restoreLighting();
+    }
 }</div>
   </div>
 </div>

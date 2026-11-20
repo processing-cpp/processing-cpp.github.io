@@ -41,9 +41,12 @@ inline void arc(float x,float y,float w,float h,float s,float e,int m){ if(PAppl
     resolveEllipse(cx, cy, rx, ry);
     drawEllipseGeom(cx, cy, rx, ry, startAngle, endAngle);
 }
+
 void PApplet::arc(float cx, float cy, float w, float h, float startAngle, float endAngle, int /*mode*/) {
     // mode = OPEN / CHORD / PIE -- basic implementation uses OPEN
     arc(cx, cy, w, h, startAngle, endAngle);
+}
+
 arc(cx, cy, w, h, startAngle, endAngle);</div>
   </div>
 </div>

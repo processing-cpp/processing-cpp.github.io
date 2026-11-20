@@ -33,53 +33,62 @@ PVector v(x, y, z)</div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class PVector {
 public:
     float x, y, z;
+
     // Constructors
-    PVector() : x(0), y(0), z(0) {}
-    PVector(float x, float y) : x(x), y(y), z(0) {}
-    PVector(float x, float y, float z): x(x), y(y), z(z) {}
+    PVector()                        : x(0),  y(0),  z(0)  {}
+    PVector(float x, float y)        : x(x),  y(y),  z(0)  {}
+    PVector(float x, float y, float z): x(x), y(y),  z(z)  {}
+
     // Setters
     PVector&amp; set(float _x, float _y, float _z=0) { x=_x; y=_y; z=_z; return *this; }
-    PVector&amp; set(const PVector&amp; v) { x=v.x; y=v.y; z=v.z; return *this; }
-    PVector copy() const { return PVector(x, y, z); }
+    PVector&amp; set(const PVector&amp; v)               { x=v.x; y=v.y; z=v.z; return *this; }
+    PVector  copy() const { return PVector(x, y, z); }
+
     // Magnitude
-    float mag() const { return std::sqrt(x*x + y*y + z*z); }
+    float mag()   const { return std::sqrt(x*x + y*y + z*z); }
     float magSq() const { return x*x + y*y + z*z; }
+
     // Arithmetic (in-place)
     PVector&amp; add(float _x, float _y, float _z=0) { x+=_x; y+=_y; z+=_z; return *this; }
-    PVector&amp; add(const PVector&amp; v) { x+=v.x; y+=v.y; z+=v.z; return *this; }
+    PVector&amp; add(const PVector&amp; v)               { x+=v.x; y+=v.y; z+=v.z; return *this; }
     PVector&amp; sub(float _x, float _y, float _z=0) { x-=_x; y-=_y; z-=_z; return *this; }
-    PVector&amp; sub(const PVector&amp; v) { x-=v.x; y-=v.y; z-=v.z; return *this; }
-    PVector&amp; mult(float s) { x*=s; y*=s; z*=s; return *this; }
-    PVector&amp; div(float s) { x/=s; y/=s; z/=s; return *this; }
+    PVector&amp; sub(const PVector&amp; v)               { x-=v.x; y-=v.y; z-=v.z; return *this; }
+    PVector&amp; mult(float s)  { x*=s; y*=s; z*=s; return *this; }
+    PVector&amp; div(float s)   { x/=s; y/=s; z/=s; return *this; }
+
     // Arithmetic (static, returns new vector)
-    static PVector add(const PVector&amp; a, const PVector&amp; b) { return PVector(a.x+b.x, a.y+b.y, a.z+b.z); }
-    static PVector sub(const PVector&amp; a, const PVector&amp; b) { return PVector(a.x-b.x, a.y-b.y, a.z-b.z); }
-    static PVector mult(const PVector&amp; v, float s) { return PVector(v.x*s, v.y*s, v.z*s); }
-    static PVector div(const PVector&amp; v, float s) { return PVector(v.x/s, v.y/s, v.z/s); }
+    static PVector add(const PVector&amp; a, const PVector&amp; b)  { return PVector(a.x+b.x, a.y+b.y, a.z+b.z); }
+    static PVector sub(const PVector&amp; a, const PVector&amp; b)  { return PVector(a.x-b.x, a.y-b.y, a.z-b.z); }
+    static PVector mult(const PVector&amp; v, float s)           { return PVector(v.x*s,   v.y*s,   v.z*s);   }
+    static PVector div(const PVector&amp; v, float s)            { return PVector(v.x/s,   v.y/s,   v.z/s);   }
+
     // Operators
-    PVector operator+(const PVector&amp; v) const { return PVector(x+v.x, y+v.y, z+v.z); }
-    PVector operator-(const PVector&amp; v) const { return PVector(x-v.x, y-v.y, z-v.z); }
-    PVector operator*(float s) const { return PVector(x*s, y*s, z*s); }
-    PVector operator/(float s) const { return PVector(x/s, y/s, z/s); }
-    PVector&amp; operator+=(const PVector&amp; v) { return add(v); }
-    PVector&amp; operator-=(const PVector&amp; v) { return sub(v); }
-    PVector&amp; operator*=(float s) { return mult(s); }
-    PVector&amp; operator/=(float s) { return div(s); }
+    PVector  operator+(const PVector&amp; v) const { return PVector(x+v.x, y+v.y, z+v.z); }
+    PVector  operator-(const PVector&amp; v) const { return PVector(x-v.x, y-v.y, z-v.z); }
+    PVector  operator*(float s)          const { return PVector(x*s,   y*s,   z*s);   }
+    PVector  operator/(float s)          const { return PVector(x/s,   y/s,   z/s);   }
+    PVector&amp; operator+=(const PVector&amp; v) { return add(v);  }
+    PVector&amp; operator-=(const PVector&amp; v) { return sub(v);  }
+    PVector&amp; operator*=(float s)          { return mult(s); }
+    PVector&amp; operator/=(float s)          { return div(s);  }
     bool operator==(const PVector&amp; v) const { return x==v.x &amp;&amp; y==v.y &amp;&amp; z==v.z; }
     bool operator!=(const PVector&amp; v) const { return !(*this==v); }
+
     // Dot / cross product
-    float dot(const PVector&amp; v) const { return x*v.x + y*v.y + z*v.z; }
-    float dot(float _x, float _y, float _z=0) const { return x*_x + y*_y + z*_z; }
-    static float dot(const PVector&amp; a, const PVector&amp; b) { return a.dot(b); }
-    PVector cross(const PVector&amp; v) const { return PVector(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x); }
-    static PVector cross(const PVector&amp; a, const PVector&amp; b) { return a.cross(b); }
+    float   dot(const PVector&amp; v)                       const { return x*v.x + y*v.y + z*v.z; }
+    float   dot(float _x, float _y, float _z=0)        const { return x*_x  + y*_y  + z*_z;  }
+    static float    dot(const PVector&amp; a, const PVector&amp; b)   { return a.dot(b); }
+    PVector cross(const PVector&amp; v)                     const { return PVector(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x); }
+    static PVector  cross(const PVector&amp; a, const PVector&amp; b) { return a.cross(b); }
+
     // Normalization / limits
-    PVector&amp; normalize() { float m=mag(); if(m&gt;0) div(m); return *this; }
-    PVector normalized() const { PVector v(*this); return v.normalize(); }
-    PVector&amp; limit(float mx) { if(magSq()&gt;mx*mx){ normalize(); mult(mx); } return *this; }
-    PVector&amp; setMag(float m) { normalize(); mult(m); return *this; }
+    PVector&amp; normalize()  { float m=mag(); if(m&gt;0) div(m); return *this; }
+    PVector  normalized() const { PVector v(*this); return v.normalize(); }
+    PVector&amp; limit(float mx)  { if(magSq()&gt;mx*mx){ normalize(); mult(mx); } return *this; }
+    PVector&amp; setMag(float m)  { normalize(); mult(m); return *this; }
+
     // Distance / angle
-    float dist(const PVector&amp; v) const { float dx=x-v.x,dy=y-v.y,dz=z-v.z; return std::sqrt(dx*dx+dy*dy+dz*dz); }
+    float dist(const PVector&amp; v)                     const { float dx=x-v.x,dy=y-v.y,dz=z-v.z; return std::sqrt(dx*dx+dy*dy+dz*dz); }
     static float dist(const PVector&amp; a, const PVector&amp; b) { return a.dist(b); }
     float heading() const { return std::atan2(y, x); }
     float angleBetween(const PVector&amp; v) const {
@@ -90,26 +99,34 @@ public:
         return std::acos(c);
     }
     static float angleBetween(const PVector&amp; a, const PVector&amp; b) { return a.angleBetween(b); }
+
     // Mutation
     PVector&amp; rotate(float t) { float c=std::cos(t),s=std::sin(t),nx=x*c-y*s,ny=x*s+y*c; x=nx; y=ny; return *this; }
     PVector&amp; lerp(const PVector&amp; v, float t) { x+=(v.x-x)*t; y+=(v.y-y)*t; z+=(v.z-z)*t; return *this; }
     PVector&amp; lerp(float _x, float _y, float _z, float t) { x+=(_x-x)*t; y+=(_y-y)*t; z+=(_z-z)*t; return *this; }
     static PVector lerp(const PVector&amp; a, const PVector&amp; b, float t) {
         return PVector(a.x+(b.x-a.x)*t, a.y+(b.y-a.y)*t, a.z+(b.z-a.z)*t);
+    }
+
     // Static constructors
     static PVector fromAngle(float a, float len=1.0f) { return PVector(std::cos(a)*len, std::sin(a)*len); }
     static PVector random2D() {
         float a = static_cast&lt;float&gt;(rand()) / RAND_MAX * 6.28318f;
         return fromAngle(a);
+    }
     static PVector random3D() {
         float t = static_cast&lt;float&gt;(rand()) / RAND_MAX * 6.28318f;
         float p = std::acos(2.0f * static_cast&lt;float&gt;(rand()) / RAND_MAX - 1.0f);
         return PVector(std::sin(p)*std::cos(t), std::sin(p)*std::sin(t), std::cos(p));
+    }
+
     std::string toString() const {
         std::ostringstream ss;
         ss &lt;&lt; "[ " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; ", " &lt;&lt; z &lt;&lt; " ]";
         return ss.str();
+    }
 };
+
 return PVector(verts[i].x, verts[i].y, verts[i].z);
 inline PVector createVector(float x, float y, float z=0) { return PVector(x, y, z);</div>
   </div>

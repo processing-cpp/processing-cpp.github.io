@@ -30,23 +30,25 @@
     <h2>Related</h2><div class="related-links"><a href="Table_class.html">Table_class</a><a href="loadTable.html">loadTable</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class TableRow {
 public:
-    std::vector&lt;std::string&gt;* row = nullptr;
+    std::vector&lt;std::string&gt;* row  = nullptr;
     std::vector&lt;std::string&gt;* cols = nullptr;
+
     TableRow() = default;
     TableRow(std::vector&lt;std::string&gt;&amp; r, std::vector&lt;std::string&gt;&amp; c) : row(&amp;r), cols(&amp;c) {}
-    std::string getString(int i) const { return (row&amp;&amp;i&lt;(int)row-&gt;size())?(*row)[i]:""; }
-    std::string getString(const std::string&amp; col) const {
+
+    std::string getString(int i)                   const { return (row&amp;&amp;i&lt;(int)row-&gt;size())?(*row)[i]:""; }
+    std::string getString(const std::string&amp; col)  const {
         if (!cols) return "";
         for (int i=0;i&lt;(int)cols-&gt;size();i++) if((*cols)[i]==col) return getString(i);
         return "";
     }
-    int getInt(int i) const { auto s=getString(i); return s.empty()?0:std::stoi(s); }
-    int getInt(const std::string&amp; c) const { auto s=getString(c); return s.empty()?0:std::stoi(s); }
-    float getFloat(int i) const { auto s=getString(i); return s.empty()?0:std::stof(s); }
-    float getFloat(const std::string&amp; c)const{ auto s=getString(c); return s.empty()?0:std::stof(s); }
-    void setString(int i, const std::string&amp; v) { if(row&amp;&amp;i&lt;(int)row-&gt;size()) (*row)[i]=v; }
-    void setInt(int i, int v) { setString(i, std::to_string(v)); }
-    void setFloat(int i, float v) { setString(i, std::to_string(v)); }
+    int   getInt(int i)                const { auto s=getString(i);   return s.empty()?0:std::stoi(s); }
+    int   getInt(const std::string&amp; c) const { auto s=getString(c);   return s.empty()?0:std::stoi(s); }
+    float getFloat(int i)              const { auto s=getString(i);   return s.empty()?0:std::stof(s); }
+    float getFloat(const std::string&amp; c)const{ auto s=getString(c);   return s.empty()?0:std::stof(s); }
+    void  setString(int i, const std::string&amp; v) { if(row&amp;&amp;i&lt;(int)row-&gt;size()) (*row)[i]=v; }
+    void  setInt(int i, int v)                   { setString(i, std::to_string(v)); }
+    void  setFloat(int i, float v)               { setString(i, std::to_string(v)); }
 };</div>
   </div>
 </div>

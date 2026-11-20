@@ -48,16 +48,32 @@ inline void vertex(float x,float y,float z){ if(PApplet::g_papplet) PApplet::g_p
 inline void vertex(float x,float y,float u,float v){ if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y,u,v); }
 inline void PGraphics::vertex(float x, float y) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;vertex(x,y); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::vertex(float x, float y) {
     if (inContour) { contourVerts.push_back({x,y}); return; }
-    if (!inShape) return;
+    if (!inShape)  return;
     shapeVerts.push_back({x, y});
     shapeVerts3D.push_back({x, y, 0.0f});
 }
+
 void PApplet::vertex(float x, float y, float z) {
+    if (inContour) { contourVerts.push_back({x,y}); return; }
+    if (!inShape)  return;
+    shapeVerts.push_back({x, y});
     shapeVerts3D.push_back({x, y, z});
     if (z != 0.0f) shape3D = true;
+}
+
 void PApplet::vertex(float x, float y, float u, float v) {
+    if (!inShape) return;
+    shapeVerts.push_back({x, y});
+    shapeVerts3D.push_back({x, y, 0.0f});
     // UV stored for future texture mapping support
-void PApplet::vertex(float x, float y, float z, float u, float v) {</div>
+}
+
+void PApplet::vertex(float x, float y, float z, float u, float v) {
+    if (!inShape) return;
+    shapeVerts.push_back({x, y});
+    shapeVerts3D.push_back({x, y, z});
+    if (z != 0.0f) shape3D = true;
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

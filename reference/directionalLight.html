@@ -32,10 +32,12 @@
 inline void PGraphics::directionalLight(float r, float g, float b, float nx, float ny, float nz) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;directionalLight(r,g,b,nx,ny,nz); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::directionalLight(float r, float g, float b, float nx, float ny, float nz) {
     if (lightIndex &gt;= 8) return;
     GLenum lt = GL_LIGHT0 + lightIndex++;
-    GLfloat col[] = { lc(r), lc(g), lc(b), 1.0f };
+
+    GLfloat col[]  = { lc(r), lc(g), lc(b), 1.0f };
     // Negate direction and flip Y to compensate for glScalef(1,-1,1) in modelview
-    GLfloat pos[] = { -nx, ny, -nz, 0.0f };
+    GLfloat pos[]  = { -nx, ny, -nz, 0.0f };
     GLfloat zero[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
     glEnable(GL_LIGHTING);
     glEnable(GL_NORMALIZE);
     glDisable(GL_COLOR_MATERIAL);
@@ -47,8 +49,8 @@ inline void PGraphics::directionalLight(float r, float g, float b, float nx, flo
     lightsEnabled = true;
     GLfloat spec[] = { pendingSpecR, pendingSpecG, pendingSpecB, 1.0f };
     glEnable(lt);
-    glLightfv(lt, GL_AMBIENT, zero);
-    glLightfv(lt, GL_DIFFUSE, col);
+    glLightfv(lt, GL_AMBIENT,  zero);
+    glLightfv(lt, GL_DIFFUSE,  col);
     glLightfv(lt, GL_SPECULAR, spec);
     // Set in pure eye space (no world transforms) like Java Processing.
     // toward-light in eye space: negate direction, flip Y for our Y-down convention.

@@ -32,9 +32,9 @@
     std::ifstream f;
 public:
     explicit BufferedReader(const std::string&amp; path) : f(path) {}
-    bool ready() const { return f.is_open() &amp;&amp; f.good(); }
-    std::string readLine() { std::string l; std::getline(f,l); return f?l:""; }
-    void close() { f.close(); }
+    bool        ready()    const { return f.is_open() &amp;&amp; f.good(); }
+    std::string readLine()       { std::string l; std::getline(f,l); return f?l:""; }
+    void        close()          { f.close(); }
 };</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">BufferedReader* PApplet::createReader(const std::string&amp; path){ return new BufferedReader(path);</div>
   </div>
 </div>

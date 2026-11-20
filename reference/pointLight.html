@@ -32,19 +32,21 @@
 inline void PGraphics::pointLight(float r, float g, float b, float x, float y, float z) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;pointLight(r,g,b,x,y,z); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::pointLight(float r, float g, float b, float x, float y, float z) {
     if (lightIndex &gt;= 8) return;
     GLenum lt = GL_LIGHT0 + lightIndex++;
-    GLfloat col[] = { lc(r), lc(g), lc(b), 1.0f };
-    GLfloat pos[] = { x, y, z, 1.0f }; // w=1 = positional
+
+    GLfloat col[]  = { lc(r), lc(g), lc(b), 1.0f };
+    GLfloat pos[]  = { x, y, z, 1.0f };            // w=1 = positional
     GLfloat zero[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
     glEnable(GL_LIGHTING);
     glEnable(GL_NORMALIZE);
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(lt);
-    glLightfv(lt, GL_AMBIENT, zero);
-    glLightfv(lt, GL_DIFFUSE, col);
+    glLightfv(lt, GL_AMBIENT,  zero);
+    glLightfv(lt, GL_DIFFUSE,  col);
     glLightfv(lt, GL_SPECULAR, zero);
-    glLightf(lt, GL_CONSTANT_ATTENUATION, 1.0f);
-    glLightf(lt, GL_LINEAR_ATTENUATION, 0.0f);
+    glLightf(lt, GL_CONSTANT_ATTENUATION,  1.0f);
+    glLightf(lt, GL_LINEAR_ATTENUATION,    0.0f);
     glLightf(lt, GL_QUADRATIC_ATTENUATION, 0.0f);
     // Position transformed by current modelview (world space)
     glLightfv(lt, GL_POSITION, pos);

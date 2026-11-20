@@ -33,6 +33,7 @@
     static auto start = steady_clock::now();
     return static_cast&lt;unsigned long&gt;(duration_cast&lt;milliseconds&gt;(steady_clock::now()-start).count());
 }
+
 static unsigned long millis() {
         static auto _start = std::chrono::steady_clock::now();
         return (unsigned long)std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(

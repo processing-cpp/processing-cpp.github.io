@@ -78,23 +78,30 @@ def render_returns(returns):
 
 
 def tidy_code(code):
-    """Snippets pulled from the sources: no blank lines between one-liners,
-    no column padding inside a line, and each distinct line once."""
+    """Snippets pulled from the sources come as pieces separated by blank
+    lines, often the same one-liner from several classes. Each piece once;
+    one-liners without their column padding and without blank lines between
+    them. Longer pieces stay exactly as written."""
     import re as _re
-    out, seen = [], set()
-    for line in code.split("\n"):
-        if not line.strip():
+    pieces = [p.strip("\n") for p in _re.split(r"\n[ \t]*\n", code) if p.strip()]
+    norm = lambda p: _re.sub(r"\s+", " ", p.strip())
+    kept = []
+    for p in pieces:
+        n = norm(p)
+        if any(norm(k) == n for k in kept):
             continue
-        lead = line[:len(line) - len(line.lstrip())]
-        body = _re.sub(r"[ \t]{2,}", " ", line.strip())
-        key = lead + body
-        if key in seen:
+        # a one-liner cut short (no closing brace) next to the whole one
+        if "\n" not in p and any(norm(o) != n and norm(o).startswith(n) for o in pieces):
             continue
-        seen.add(key)
-        out.append(key)
-    # a one-liner cut short is the same line as the whole one
-    full = [l for l in out if len(out) > 1 and not any(o != l and o.startswith(l) and "{" in l for o in out)]
-    return "\n".join(full or out)
+        kept.append(p)
+    out = []
+    for p in kept:
+        one = "\n" not in p
+        text = _re.sub(r"(?<=\S)[ \t]{2,}", " ", p.strip()) if one else p
+        if out and not (one and out[-1][1]):
+            out.append(("", False))
+        out.append((text, one))
+    return "\n".join(t for t, _ in out)
 
 
 def render_under_the_hood_block(label, code):

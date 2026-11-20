@@ -33,6 +33,7 @@ float random(float low, float high)</div>
 float random(float hi);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">float PApplet::random(float lo, float hi) {
     return lo + _rngDist(_rng) * (hi - lo);
 }
+
 float PApplet::random(float hi) { return random(0.f, hi); }</div>
   </div>
 </div>

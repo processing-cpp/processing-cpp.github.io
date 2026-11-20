@@ -33,24 +33,30 @@ XML* child = xml.getChild("element")</div>
     std::string name, content;
     std::map&lt;std::string,std::string&gt; attributes;
     std::vector&lt;XML&gt; children;
+
     XML() = default;
     explicit XML(const std::string&amp; n) : name(n) {}
-    std::string getName() const { return name; }
+
+    std::string getName()    const { return name;    }
     std::string getContent() const { return content; }
-    bool hasAttribute(const std::string&amp; k) const { return attributes.count(k)&gt;0; }
+
+    bool        hasAttribute(const std::string&amp; k)                     const { return attributes.count(k)&gt;0; }
     std::string getAttribute(const std::string&amp; k, const std::string&amp; def="") const {
         auto it = attributes.find(k);
         return it != attributes.end() ? it-&gt;second : def;
     }
-    int getAttributeInt(const std::string&amp; k, int def=0) const { return hasAttribute(k) ? std::stoi(attributes.at(k)) : def; }
+    int   getAttributeInt(const std::string&amp; k, int def=0)     const { return hasAttribute(k) ? std::stoi(attributes.at(k)) : def; }
     float getAttributeFloat(const std::string&amp; k, float def=0) const { return hasAttribute(k) ? std::stof(attributes.at(k)) : def; }
+
     void setAttribute(const std::string&amp; k, const std::string&amp; v) { attributes[k]=v; }
     void setContent(const std::string&amp; c) { content=c; }
-    XML* addChild(const std::string&amp; n) { children.push_back(XML(n)); return &amp;children.back(); }
-    XML* getChild(int i) { return i&lt;(int)children.size()?&amp;children[i]:nullptr; }
-    XML* getChild(const std::string&amp; n) { for(auto&amp; c:children) if(c.name==n) return &amp;c; return nullptr; }
-    int getChildCount() const { return (int)children.size(); }
+
+    XML*              addChild(const std::string&amp; n)  { children.push_back(XML(n)); return &amp;children.back(); }
+    XML*              getChild(int i)                  { return i&lt;(int)children.size()?&amp;children[i]:nullptr; }
+    XML*              getChild(const std::string&amp; n)   { for(auto&amp; c:children) if(c.name==n) return &amp;c; return nullptr; }
+    int               getChildCount()           const  { return (int)children.size(); }
     std::vector&lt;XML*&gt; getChildren(const std::string&amp; n){ std::vector&lt;XML*&gt; r; for(auto&amp; c:children) if(c.name==n) r.push_back(&amp;c); return r; }
+
     std::string toString(int indent=0) const;
 };</div>
   </div>

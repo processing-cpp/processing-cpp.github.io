@@ -33,11 +33,13 @@ void perspective(float fov, float aspect, float zNear, float zFar)</div>
 void perspective(float fov, float aspect, float zNear, float zFar);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::perspective(){
     applyDefaultCamera();
 }
+
 void PApplet::perspective(float fov, float aspect, float zNear, float zFar) {
     glMatrixMode(GL_PROJECTION); glLoadIdentity();
     glScalef(1,-1,1);
     _gluPerspective(degrees(fov), aspect, zNear, zFar);
-    applyStandardModelview();</div>
+    applyStandardModelview();
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

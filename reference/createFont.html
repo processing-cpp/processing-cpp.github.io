@@ -39,10 +39,12 @@
     } else {
         baseName = ""; // will build paths with extensions below
     }
+
     std::string nameNoExt = name;
     if (nameNoExt.size() &gt; 4 &amp;&amp; (nameNoExt.substr(nameNoExt.size()-4) == ".ttf"
                                || nameNoExt.substr(nameNoExt.size()-4) == ".otf"))
         nameNoExt = nameNoExt.substr(0, nameNoExt.size()-4);
+
     std::vector&lt;std::string&gt; paths = {
         // Try exact name first (may already have extension)
         name,
@@ -70,6 +72,7 @@
         std::string("/Library/Fonts/") + name,
         std::string("/System/Library/Fonts/") + name,
     };
+
     // Also search system font dirs recursively (Linux: fc-list output)
     #ifndef _WIN32
     {
@@ -90,13 +93,17 @@
             }
             pclose(fc);
         }
+    }
     #endif
+
     bool found = false;
     for (auto&amp; p : paths) {
         if (tryLoadTTF(p, size)) { found = true; break; }
+    }
     if (!found) {
         std::cerr &lt;&lt; "[font] Could not find font: " &lt;&lt; name &lt;&lt; "\n";
         std::cerr &lt;&lt; "[font] Put the .ttf file in your sketch's data/ folder\n";
+    }
     _fontPool.push_back(std::move(f)); return &amp;_fontPool.back();
 }</div>
   </div>

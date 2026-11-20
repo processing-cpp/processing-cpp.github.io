@@ -31,6 +31,7 @@ void size(int w, int h, int renderer)</div>
     <h2>Related</h2><div class="related-links"><a href="width.html">width</a><a href="height.html">height</a><a href="fullScreen.html">fullScreen</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">template&lt;typename T&gt; inline void printArray(const std::vector&lt;T&gt;&amp; a) {
     for (size_t i=0; i&lt;a.size();
+
 for (size_t i=0; i&lt;v.size();
 int size() const { if(isArray())return (int)arr-&gt;size(); if(isObject())return (int)obj-&gt;size(); return 0; }
 XML* getChild(int i) { return i&lt;(int)children.size()?&amp;children[i]:nullptr;
@@ -57,11 +58,14 @@ float size = 12;
 PFont(const std::string&amp; n, float s) : name(n), size(s), loaded(true) {}
 void size(int w, int h);
 void size(int w, int h, int renderer);
+
 template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
     void size(A w,B h){ size((int)w,(int)h);
+
+template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmetic_v&lt;A&gt;&amp;&amp;std::is_arithmetic_v&lt;B&gt;&gt;&gt;
     void size(A w,B h,int renderer){ size((int)w,(int)h,renderer);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::size(int w,int h){
     winWidth=w;winHeight=h;
-    logicalW=w;logicalH=h; // remember what the sketch requested
+    logicalW=w;logicalH=h;  // remember what the sketch requested
     pixelWidth=w;pixelHeight=h;
     if(gWindow){
         glfwSetWindowSize(gWindow,w,h);
@@ -79,13 +83,14 @@ template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmeti
                 // Check if the logical window size matches what we requested
                 int lw=0,lh=0;
                 glfwGetWindowSize(gWindow,&amp;lw,&amp;lh);
-                if(lw==w &amp;&amp; lh==h) break; // exact match
+                if(lw==w &amp;&amp; lh==h) break;  // exact match
             }
             if(_wait&gt;=50){ // after 50ms, accept whatever we have
                 int fw2=0,fh2=0;
                 glfwGetFramebufferSize(gWindow,&amp;fw2,&amp;fh2);
                 if(fw2&gt;0&amp;&amp;fh2&gt;0){ pixelWidth=fw2; pixelHeight=fh2; }
                 break;
+            }
             #ifdef _WIN32
             Sleep(1);
             #else
@@ -99,6 +104,7 @@ template&lt;typename A,typename B,typename=std::enable_if_t&lt;std::is_arithmeti
         setProjection(w,h);
     }
 }
+
 void PApplet::size(int w,int h,int renderer){
     defaultP3D=(renderer==P3D);
     size(w,h);
@@ -115,6 +121,9 @@ void PApplet::size(int w,int h,int renderer){
         glClearColor(0.8f,0.8f,0.8f,1); // Java Processing default grey (204,204,204)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         applyDefaultCamera();
+    }
+}
+
 size(w,h);
 void PApplet::windowResize(int w,int h){size(w,h);
 return s.size() * (BF_GW+1) * scale;

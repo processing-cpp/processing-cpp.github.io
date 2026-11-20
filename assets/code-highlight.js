@@ -10,6 +10,10 @@
       'html body .cm-static-wrap .CodeMirror-hscrollbar { display: block !important; }';
     document.head.appendChild(st);
   }
+  // the page's dark mode, already on (body) or about to be (set on <html> before the page draws)
+  function isDark() {
+    return document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-pre');
+  }
   function highlight() {
     // Handle <pre> blocks
     document.querySelectorAll('pre').forEach(function (pre) {
@@ -24,7 +28,7 @@
       var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
-        theme: 'cppmode',
+        theme: isDark() ? 'cppmode-dark' : 'cppmode',
         readOnly: true,
         lineNumbers: false,
         lineWrapping: false,
@@ -46,7 +50,7 @@
       var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
-        theme: 'cppmode',
+        theme: isDark() ? 'cppmode-dark' : 'cppmode',
         readOnly: true,
         lineNumbers: false,
         lineWrapping: false,
@@ -68,7 +72,7 @@
       var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
-        theme: 'cppmode',
+        theme: isDark() ? 'cppmode-dark' : 'cppmode',
         readOnly: true,
         lineNumbers: true,
         lineWrapping: false,

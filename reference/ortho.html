@@ -33,8 +33,8 @@ void ortho(float left, float right, float bottom, float top, float near, float f
 void ortho(float l, float r, float b, float t, float n, float f);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::ortho() {
     // Default ortho: 1:1 pixel mapping, origin at top-left, Y increases downward.
     // glOrtho(l, r, bottom, top, near, far):
-    // bottom = winHeight (screen bottom = large Y in Processing)
-    // top = 0 (screen top = Y=0 in Processing)
+    //   bottom = winHeight (screen bottom = large Y in Processing)
+    //   top    = 0         (screen top    = Y=0 in Processing)
     // gluLookAt is NOT used here -- we want raw screen-space coordinates,
     // so we use a simple identity modelview with Y-flipped glOrtho.
     glMatrixMode(GL_PROJECTION); glLoadIdentity();
@@ -45,6 +45,7 @@ void ortho(float l, float r, float b, float t, float n, float f);</div><h2>Under
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 }
+
 void PApplet::ortho(float l, float r, float b, float t, float n, float f) {
     // Processing Java ortho() uses the SAME standard modelview as perspective()
     // (eye at eyeZ above canvas center, looking at canvas center).
@@ -55,9 +56,11 @@ void PApplet::ortho(float l, float r, float b, float t, float n, float f) {
     // With the standard camera, world point (w/2, h/2, 0) is at screen center.
     // ortho(-w/2, w/2, -h/2, h/2) covers that range around the camera target.
     // So translate(w/2, h/2) correctly lands at the center of the screen.
-    glScalef(1,-1,1); // Y-flip before ortho (Java order)
+    glMatrixMode(GL_PROJECTION); glLoadIdentity();
+    glScalef(1,-1,1);  // Y-flip before ortho (Java order)
     glOrtho(l, r, b, t, n, f);
-    applyStandardModelview();</div>
+    applyStandardModelview();
+}</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>

@@ -31,6 +31,7 @@
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">static bool saveJSONObject(const std::string&amp; path, const JSONValue&amp; v, int indent=2);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">bool PApplet::saveJSONObject(const std::string&amp; path,const JSONValue&amp; v,int indent){
     std::ofstream f(path); if(!f)return false; f&lt;&lt;toJSONString(v,indent); return true;
 }
+
 return saveJSONObject(path,v,indent);</div>
   </div>
 </div>

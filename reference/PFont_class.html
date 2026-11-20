@@ -55,6 +55,8 @@ PFont* font = createFont("Arial", 24)</div>
             if(h2==INVALID_HANDLE_VALUE) return;
             do { std::string nm=fd.cFileName; if(nm=="."||nm=="..") continue;
                 if(fd.dwFileAttributes&amp;FILE_ATTRIBUTE_DIRECTORY){scan(dir+"\\"+nm);continue;}
+                if(nm.size()&gt;4){std::string ext=nm.substr(nm.size()-4);
+                    if(ext==".ttf"||ext==".otf"||ext==".TTF"||ext==".OTF") fonts.push_back(nm);}
             } while(FindNextFileA(h2,&amp;fd)); FindClose(h2);
             #endif
         };
@@ -65,7 +67,8 @@ PFont* font = createFont("Arial", 24)</div>
     }
     std::string name;
     float size = 12;
-    bool loaded = false;
+    bool  loaded = false;
+
     PFont() = default;
     PFont(const std::string&amp; n, float s) : name(n), size(s), loaded(true) {}
 };</div>

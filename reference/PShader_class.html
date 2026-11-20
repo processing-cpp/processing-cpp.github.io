@@ -33,8 +33,10 @@ public:
     GLuint program = 0, vert = 0, frag = 0;
     std::string vertSrc, fragSrc;
     bool linked = false;
+
     PShader() = default;
     PShader(const std::string&amp; v, const std::string&amp; f) : vertSrc(v), fragSrc(f) {}
+
     static GLuint compileShader(GLenum type, const std::string&amp; src) {
         GLuint s = glCreateShader(type);
         const char* c = src.c_str();
@@ -44,22 +46,27 @@ public:
         if (!ok) { char log[512]; glGetShaderInfoLog(s,512,nullptr,log); std::cerr&lt;&lt;"Shader error: "&lt;&lt;log&lt;&lt;"\n"; }
         return s;
     }
+
     void compile() {
-        vert = compileShader(GL_VERTEX_SHADER, vertSrc);
-        frag = compileShader(GL_FRAGMENT_SHADER, fragSrc);
+        vert    = compileShader(GL_VERTEX_SHADER,   vertSrc);
+        frag    = compileShader(GL_FRAGMENT_SHADER, fragSrc);
         program = glCreateProgram();
         glAttachShader(program,vert); glAttachShader(program,frag);
         glLinkProgram(program);
         GLint ok; glGetProgramiv(program,GL_LINK_STATUS,&amp;ok);
         if (!ok) { char log[512]; glGetProgramInfoLog(program,512,nullptr,log); std::cerr&lt;&lt;"Link error: "&lt;&lt;log&lt;&lt;"\n"; }
         linked = ok;
-    void bind() { if (linked) glUseProgram(program); }
+    }
+
+    void bind()   { if (linked) glUseProgram(program); }
     void unbind() { glUseProgram(0); }
-    void set(const std::string&amp; n, float v) { glUniform1f(glGetUniformLocation(program,n.c_str()),v); }
-    void set(const std::string&amp; n, int v) { glUniform1i(glGetUniformLocation(program,n.c_str()),v); }
-    void set(const std::string&amp; n, float x, float y) { glUniform2f(glGetUniformLocation(program,n.c_str()),x,y); }
-    void set(const std::string&amp; n, float x, float y, float z) { glUniform3f(glGetUniformLocation(program,n.c_str()),x,y,z); }
+
+    void set(const std::string&amp; n, float v)                      { glUniform1f(glGetUniformLocation(program,n.c_str()),v); }
+    void set(const std::string&amp; n, int v)                        { glUniform1i(glGetUniformLocation(program,n.c_str()),v); }
+    void set(const std::string&amp; n, float x, float y)             { glUniform2f(glGetUniformLocation(program,n.c_str()),x,y); }
+    void set(const std::string&amp; n, float x, float y, float z)    { glUniform3f(glGetUniformLocation(program,n.c_str()),x,y,z); }
     void set(const std::string&amp; n, float x, float y, float z, float w){ glUniform4f(glGetUniformLocation(program,n.c_str()),x,y,z,w); }
+
     ~PShader() { if(program)glDeleteProgram(program); if(vert)glDeleteShader(vert); if(frag)glDeleteShader(frag); }
     PShader(const PShader&amp;) __attribute__((error(
         "E0003: PShader value-style copying is not supported. "
@@ -68,6 +75,9 @@ public:
     )));
     PShader&amp; operator=(const PShader&amp;) __attribute__((error(
         "E0003: PShader value-style assignment is not supported. "
+        "Declare PShader* instead of PShader. "
+        "See https://processing-cpp.github.io/error/E0003.html"
+    )));
     PShader(PShader&amp;&amp; o) noexcept
         : program(o.program),vert(o.vert),frag(o.frag),
           vertSrc(o.vertSrc),fragSrc(o.fragSrc),linked(o.linked)

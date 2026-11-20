@@ -30,36 +30,44 @@
     <h2>Related</h2><div class="related-links"><a href="loadTable.html">loadTable</a><a href="saveTable.html">saveTable</a><a href="TableRow_class.html">TableRow_class</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">class Table {
 public:
-    std::vector&lt;std::string&gt; columns;
+    std::vector&lt;std::string&gt;              columns;
     std::vector&lt;std::vector&lt;std::string&gt;&gt; rows;
-    Table() = default;
+
+Table() = default;
+
     void addColumn(const std::string&amp; name) { columns.push_back(name); }
-    int getColumnCount() const { return (int)columns.size(); }
-    int getRowCount() const { return (int)rows.size(); }
+    int  getColumnCount() const { return (int)columns.size(); }
+    int  getRowCount()    const { return (int)rows.size();    }
     std::string getColumnTitle(int i) const { return i&lt;(int)columns.size()?columns[i]:""; }
-    int getColumnIndex(const std::string&amp; n) const {
+    int  getColumnIndex(const std::string&amp; n) const {
         for (int i=0;i&lt;(int)columns.size();i++) if(columns[i]==n) return i;
         return -1;
     }
-    std::vector&lt;std::string&gt;&amp; addRow() { rows.push_back(std::vector&lt;std::string&gt;(columns.size())); return rows.back(); }
-    std::string getString(int row, int col) const { return row&lt;(int)rows.size()&amp;&amp;col&lt;(int)rows[row].size()?rows[row][col]:""; }
+
+std::vector&lt;std::string&gt;&amp; addRow() { rows.push_back(std::vector&lt;std::string&gt;(columns.size())); return rows.back(); }
+
+    std::string getString(int row, int col)                const { return row&lt;(int)rows.size()&amp;&amp;col&lt;(int)rows[row].size()?rows[row][col]:""; }
     std::string getString(int row, const std::string&amp; col) const { return getString(row,getColumnIndex(col)); }
-    int getInt(int row, int col) const { auto s=getString(row,col); return s.empty()?0:std::stoi(s); }
-    int getInt(int row, const std::string&amp; col) const { return getInt(row,getColumnIndex(col)); }
-    float getFloat(int row, int col) const { auto s=getString(row,col); return s.empty()?0:std::stof(s); }
-    float getFloat(int row, const std::string&amp; col) const { return getFloat(row,getColumnIndex(col)); }
+    int         getInt(int row, int col)                   const { auto s=getString(row,col); return s.empty()?0:std::stoi(s); }
+    int         getInt(int row, const std::string&amp; col)    const { return getInt(row,getColumnIndex(col)); }
+    float       getFloat(int row, int col)                 const { auto s=getString(row,col); return s.empty()?0:std::stof(s); }
+    float       getFloat(int row, const std::string&amp; col)  const { return getFloat(row,getColumnIndex(col)); }
+
     void setString(int row, int col, const std::string&amp; v) { if(row&lt;(int)rows.size()&amp;&amp;col&lt;(int)rows[row].size()) rows[row][col]=v; }
     void setString(int row, const std::string&amp; col, const std::string&amp; v) { setString(row,getColumnIndex(col),v); }
-    void setInt(int row, int col, int v) { setString(row,col,std::to_string(v)); }
+    void setInt(int row, int col, int v)     { setString(row,col,std::to_string(v)); }
     void setFloat(int row, int col, float v) { setString(row,col,std::to_string(v)); }
+
     std::vector&lt;int&gt; findRowsWithValue(const std::string&amp; col, const std::string&amp; val) const {
         std::vector&lt;int&gt; r; int c=getColumnIndex(col);
         for (int i=0;i&lt;(int)rows.size();i++) if(getString(i,c)==val) r.push_back(i);
         return r;
+    }
     int findFirstRowWithValue(const std::string&amp; col, const std::string&amp; val) const {
         auto r=findRowsWithValue(col,val); return r.empty()?-1:r[0];
+    }
     void removeRow(int i) { if(i&lt;(int)rows.size()) rows.erase(rows.begin()+i); }
-    void clearRows() { rows.clear(); }
+    void clearRows()      { rows.clear(); }
 };</div>
   </div>
 </div>

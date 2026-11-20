@@ -32,12 +32,15 @@
         if (x&lt;0||x&gt;=width||y&lt;0||y&gt;=height) return 0;
         return pixels[y*width+x];
     }
+
 PImage get(int x, int y, int w, int h) const {
         PImage out(w, h);
         for (int iy=0; iy&lt;h; iy++)
             for (int ix=0; ix&lt;w; ix++)
                 out.pixels[iy*w+ix] = get(x+ix, y+iy);
         return out;
+    }
+
 int get(int i) const { return data[i]; }
 float get(int i) const { return data[i]; }
 std::string get(int i) const { return data[i]; }

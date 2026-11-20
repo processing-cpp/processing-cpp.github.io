@@ -32,8 +32,8 @@
 inline void PGraphics::lightFalloff(float c, float l, float q) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;lightFalloff(c,l,q); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::lightFalloff(float c, float l, float q) {
     for (int i = 0; i &lt; lightIndex; i++) {
         GLenum lt = GL_LIGHT0 + i;
-        glLightf(lt, GL_CONSTANT_ATTENUATION, c);
-        glLightf(lt, GL_LINEAR_ATTENUATION, l);
+        glLightf(lt, GL_CONSTANT_ATTENUATION,  c);
+        glLightf(lt, GL_LINEAR_ATTENUATION,    l);
         glLightf(lt, GL_QUADRATIC_ATTENUATION, q);
     }
 }</div>

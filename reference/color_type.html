@@ -32,8 +32,10 @@ color c = color(gray)</div>
     <h2>Related</h2><div class="related-links"><a href="color_fn.html">color_fn</a><a href="fill.html">fill</a><a href="stroke.html">stroke</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">struct color {
     unsigned int value;
-    color() : value(0xFF000000) {} // default: opaque black
-    color(unsigned int v) : value(v) {} // allows color pix = img-&gt;get(x,y)
+
+    color() : value(0xFF000000) {}         // default: opaque black
+    color(unsigned int v) : value(v) {}  // allows color pix = img-&gt;get(x,y)
+
     // Defined in Processing.cpp so the colorMode globals are accessible.
     //
     // 3-arg and 4-arg int overloads were intentionally removed: they were
@@ -42,6 +44,7 @@ color c = color(gray)</div>
     // changes no runtime behavior -- it only removes the possibility of
     // ambiguous overload resolution on mixed-type calls like
     // color(map(...), map(...), 50).
+    //
     // 1-arg and 2-arg int overloads are KEPT: color(int) would otherwise be
     // ambiguous between color(float) (grayscale) and color(unsigned int)
     // (raw packed ARGB pixel value, e.g. color pix = img-&gt;get(x,y)) -- two
@@ -55,6 +58,7 @@ color c = color(gray)</div>
     color(float gray, float a);
     color(float r, float g, float b);
     color(float r, float g, float b, float a);
+
     explicit operator unsigned int() const { return value; }
     unsigned int toInt() const { return value; }
     // In Processing Java, color IS int. Allow implicit color&lt;-&gt;int conversion
@@ -65,6 +69,7 @@ color c = color(gray)</div>
     bool operator==(const color&amp; o) const { return value == o.value; }
     bool operator!=(const color&amp; o) const { return value != o.value; }
 };
+
 return color((unsigned int)(((clamp8(a))&lt;&lt;24)|((clamp8(r))&lt;&lt;16)|((clamp8(g))&lt;&lt;8)|(clamp8(b))));</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color::color(int gray) { value = _makeColor((float)gray, _colorMaxA()).value; }
 color::color(int gray, int a) { value = _makeColor((float)gray, (float)a).value; }
 color::color(float gray) { value = _makeColor(gray, _colorMaxA()).value; }

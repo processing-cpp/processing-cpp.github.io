@@ -32,11 +32,11 @@
     std::ofstream f;
 public:
     explicit PrintWriter(const std::string&amp; path) : f(path) {}
-    template&lt;typename T&gt; void print(const T&amp; v) { f &lt;&lt; v; }
+    template&lt;typename T&gt; void print(const T&amp; v)   { f &lt;&lt; v; }
     template&lt;typename T&gt; void println(const T&amp; v) { f &lt;&lt; v &lt;&lt; "\n"; }
     void println() { f &lt;&lt; "\n"; }
-    void flush() { f.flush(); }
-    void close() { f.close(); }
+    void flush()   { f.flush(); }
+    void close()   { f.close(); }
 };</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">PrintWriter* PApplet::createWriter(const std::string&amp; path){ return new PrintWriter(path);</div>
   </div>
 </div>

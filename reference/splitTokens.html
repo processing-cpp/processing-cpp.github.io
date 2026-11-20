@@ -37,6 +37,7 @@
     if (!cur.empty()) o.push_back(cur);
     return o;
 }
+
 static std::vector&lt;std::string&gt; splitTokens(const std::string&amp; s, const std::string&amp; d);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::vector&lt;std::string&gt; PApplet::splitTokens(const std::string&amp; s, const std::string&amp; delims) {
     std::vector&lt;std::string&gt; r; std::string t;
     for (char c : s) { if (delims.find(c)!=std::string::npos){if(!t.empty()){r.push_back(t);t.clear();}}else t+=c; }

@@ -30,9 +30,9 @@
     
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void hint(int which);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::hint(int which){
     switch(which){
-        case ENABLE_DEPTH_TEST: glEnable(GL_DEPTH_TEST); break;
+        case ENABLE_DEPTH_TEST:  glEnable(GL_DEPTH_TEST);  break;
         case DISABLE_DEPTH_TEST: glDisable(GL_DEPTH_TEST); break;
-        case ENABLE_DEPTH_SORT: glEnable(GL_DEPTH_TEST);glDepthFunc(GL_LEQUAL); break;
+        case ENABLE_DEPTH_SORT:  glEnable(GL_DEPTH_TEST);glDepthFunc(GL_LEQUAL); break;
         case DISABLE_DEPTH_SORT: glDepthFunc(GL_LESS); break;
         default: break;
     }

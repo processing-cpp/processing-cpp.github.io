@@ -32,11 +32,12 @@
 void updatePixels();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::updatePixels() {
     int total = winWidth * winHeight;
     std::vector&lt;unsigned char&gt; rgba(total * 4);
+
     for (int i = 0; i &lt; total; i++) {
-        rgba[i*4 + 0] = (pixels[i] &gt;&gt; 16) &amp; 0xFF; // R
-        rgba[i*4 + 1] = (pixels[i] &gt;&gt; 8) &amp; 0xFF; // G
-        rgba[i*4 + 2] = pixels[i] &amp; 0xFF; // B
-        rgba[i*4 + 3] = (pixels[i] &gt;&gt; 24) &amp; 0xFF; // A
+        rgba[i*4 + 0] = (pixels[i] &gt;&gt; 16) &amp; 0xFF;  // R
+        rgba[i*4 + 1] = (pixels[i] &gt;&gt;  8) &amp; 0xFF;  // G
+        rgba[i*4 + 2] =  pixels[i]        &amp; 0xFF;  // B
+        rgba[i*4 + 3] = (pixels[i] &gt;&gt; 24) &amp; 0xFF;  // A
     }
     glDrawPixels(winWidth, winHeight, GL_RGBA, GL_UNSIGNED_BYTE, rgba.data());
 }</div>

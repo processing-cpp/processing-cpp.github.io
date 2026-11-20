@@ -34,17 +34,18 @@ int v = map.get("key")</div>
 class HashMap {
 public:
     std::map&lt;K,V&gt; data;
-    void put(const K&amp; k, const V&amp; v) { data[k]=v; }
-    V&amp; get(const K&amp; k) { return data[k]; }
-    bool containsKey(const K&amp; k) const { return data.count(k)&gt;0; }
-    bool containsValue(const V&amp; v) const { for(auto&amp; p:data) if(p.second==v) return true; return false; }
-    void remove(const K&amp; k) { data.erase(k); }
-    int size() const { return (int)data.size(); }
-    bool isEmpty() const { return data.empty(); }
-    void clear() { data.clear(); }
-    std::vector&lt;K&gt; keySet() const { std::vector&lt;K&gt; r; for(auto&amp; p:data) r.push_back(p.first); return r; }
-    std::vector&lt;V&gt; values() const { std::vector&lt;V&gt; r; for(auto&amp; p:data) r.push_back(p.second); return r; }
-    V&amp; operator[](const K&amp; k) { return data[k]; }
+
+    void put(const K&amp; k, const V&amp; v)         { data[k]=v; }
+    V&amp;   get(const K&amp; k)                     { return data[k]; }
+    bool containsKey(const K&amp; k)   const     { return data.count(k)&gt;0; }
+    bool containsValue(const V&amp; v) const     { for(auto&amp; p:data) if(p.second==v) return true; return false; }
+    void remove(const K&amp; k)                  { data.erase(k); }
+    int  size()                    const     { return (int)data.size(); }
+    bool isEmpty()                 const     { return data.empty(); }
+    void clear()                             { data.clear(); }
+    std::vector&lt;K&gt; keySet() const            { std::vector&lt;K&gt; r; for(auto&amp; p:data) r.push_back(p.first); return r; }
+    std::vector&lt;V&gt; values() const            { std::vector&lt;V&gt; r; for(auto&amp; p:data) r.push_back(p.second); return r; }
+    V&amp; operator[](const K&amp; k)               { return data[k]; }
 };</div>
   </div>
 </div>

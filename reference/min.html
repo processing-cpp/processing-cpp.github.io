@@ -33,8 +33,12 @@ float min(float a, float b, float c)</div>
         if (data.empty()) throw std::runtime_error("Cannot use min() on an empty IntList.");
         return *std::min_element(data.begin(), data.end());
     }
+
 float min() const {
         if (data.empty()) throw std::runtime_error("Cannot use min() on an empty FloatList.");
+        return *std::min_element(data.begin(), data.end());
+    }
+
 static float min(float a,float b) { return a&lt;b?a:b; }
 static float min(float a,float b,float c) { float m=a&lt;b?a:b; return m&lt;c?m:c; }</div>
   </div>

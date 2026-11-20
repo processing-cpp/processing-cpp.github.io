@@ -49,21 +49,28 @@
             if(sz&lt;100) return false;
             return (h[0]==0x89&amp;&amp;h[1]=='P')|| // PNG
                    (h[0]==0xFF&amp;&amp;h[1]==0xD8)|| // JPEG
-                   (h[0]=='G'&amp;&amp;h[1]=='I')|| // GIF
-                   (h[0]=='B'&amp;&amp;h[1]=='M')|| // BMP
-                   (h[0]=='R'&amp;&amp;h[1]=='I'); // WEBP
+                   (h[0]=='G'&amp;&amp;h[1]=='I')||   // GIF
+                   (h[0]=='B'&amp;&amp;h[1]=='M')||   // BMP
+                   (h[0]=='R'&amp;&amp;h[1]=='I');    // WEBP
         };
         // Try curl
+#ifdef _WIN32
         system(("curl -sL --max-time 15 -o \""+tmp+"\" \""+path+"\"").c_str());
+#else
         system(("curl -sL --max-time 15 -o '"+tmp+"' '"+path+"'").c_str());
+#endif
         if(!isValidImg()){
             // Try wget as fallback
+#ifdef _WIN32
             system(("wget -q -O \""+tmp+"\" \""+path+"\"").c_str());
+#else
             system(("wget -q -O '"+tmp+"' '"+path+"'").c_str());
+#endif
         }
         if(isValidImg()){
             PImage* r2=loadImage(tmp);
             if(r2&amp;&amp;r2-&gt;width&gt;0) return r2;
+        }
         fprintf(stderr,"[loadImage] URL download failed: %s\n",path.c_str());
         return nullptr;
     }
@@ -76,13 +83,18 @@
     std::string _exeDir;
     {
         char _buf[4096] = {};
+#ifdef _WIN32
         GetModuleFileNameA(nullptr, _buf, sizeof(_buf));
         std::string _ep(_buf);
         size_t _sl = _ep.find_last_of("\\\\");
+#else
         ssize_t _len = readlink("/proc/self/exe", _buf, sizeof(_buf)-1);
         if (_len &gt; 0) _buf[_len] = 0;
+        std::string _ep(_buf);
         size_t _sl = _ep.find_last_of("/");
+#endif
         if (_sl != std::string::npos) _exeDir = _ep.substr(0, _sl+1);
+    }
     std::vector&lt;std::string&gt; tries = {
         path,
         "data/" + path,
@@ -91,7 +103,7 @@
         _sketchDir + path,
         _sketchDir + "data/" + path,
         _exeDir + path,
-        _exeDir + "data/" + path, // in case running from a subdirectory
+        _exeDir + "data/" + path,    // in case running from a subdirectory
     };
 #ifdef PROCESSING_HAS_STB_IMAGE
     for (auto&amp; p : tries) {
@@ -102,9 +114,12 @@
         for (int i = 0; i &lt; w*h; i++) {
             unsigned char r=data[i*4+0], g=data[i*4+1], b=data[i*4+2], a=data[i*4+3];
             img-&gt;pixels[i] = ((unsigned int)a&lt;&lt;24)|((unsigned int)r&lt;&lt;16)|((unsigned int)g&lt;&lt;8)|b;
+        }
         stbi_image_free(data);
         img-&gt;dirty = true;
         return img;
+    }
+#endif
     for (auto&amp; p : tries)
         std::cerr &lt;&lt; "[loadImage] not found: " &lt;&lt; p &lt;&lt; "\n";
     std::cerr &lt;&lt; "[loadImage] returning empty image -- check the path above\n";

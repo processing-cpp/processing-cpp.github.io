@@ -38,9 +38,7 @@ inline void PGraphics::clear() { if(PApplet::g_papplet) PApplet::g_papplet-&gt;c
 shapeVerts.clear();
 shapeVerts3D.clear();
 void PApplet::beginContour(){inContour=true;contourVerts.clear();
-inShape=false; shape3D=false; shapeVerts.clear();
 inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
-inShape=false; shapeVerts.clear();
 inShape=false; shapeVerts.clear(); shapeVerts3D.clear();
 for (char c : msg) { if(c=='\n'){ls.push_back(cur);cur.clear();
 if (!cur.empty()) { tokens.push_back(cur); cur.clear();

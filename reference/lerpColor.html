@@ -31,10 +31,12 @@
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">color lerpColor(color c1, color c2, float t);</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">color PApplet::lerpColor(color c1, color c2, float t) {
     unsigned int v1 = c1.value;
     unsigned int v2 = c2.value;
-    int r1 = (v1 &gt;&gt; 16) &amp; 0xFF, r2 = (v2 &gt;&gt; 16) &amp; 0xFF;
-    int g1 = (v1 &gt;&gt; 8) &amp; 0xFF, g2 = (v2 &gt;&gt; 8) &amp; 0xFF;
-    int b1 = v1 &amp; 0xFF, b2 = v2 &amp; 0xFF;
-    int a1 = (v1 &gt;&gt; 24) &amp; 0xFF, a2 = (v2 &gt;&gt; 24) &amp; 0xFF;
+
+    int r1 = (v1 &gt;&gt; 16) &amp; 0xFF,  r2 = (v2 &gt;&gt; 16) &amp; 0xFF;
+    int g1 = (v1 &gt;&gt;  8) &amp; 0xFF,  g2 = (v2 &gt;&gt;  8) &amp; 0xFF;
+    int b1 =  v1        &amp; 0xFF,  b2 =  v2        &amp; 0xFF;
+    int a1 = (v1 &gt;&gt; 24) &amp; 0xFF,  a2 = (v2 &gt;&gt; 24) &amp; 0xFF;
+
     return colorVal(
         (int)(r1 + t * (r2 - r1)),
         (int)(g1 + t * (g2 - g1)),
