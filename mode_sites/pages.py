@@ -7,7 +7,10 @@ generic rebrand. DROP[key] are pages the mode has no equivalent for.
 
 C = 'style="font-family:monospace;background:#f4f4f4;padding:1px 5px;border-radius:3px;"'
 
-REPO = {"lua": "https://github.com/llamasjc/processing-lua", "rust": "https://github.com/llamasjc/processing-rust"}
+REPO = {"lua": "https://github.com/llamasjc/processing-lua", "rust": "https://github.com/llamasjc/processing-rust",
+        "scheme": "https://github.com/llamasjc/processing-scheme"}
+DL = {k: v + "/releases/latest/download/" for k, v in REPO.items()}
+KEYS = ("lua", "rust", "scheme")
 
 FIRST = {
     "lua": """function setup()
@@ -26,6 +29,12 @@ fn draw() {
     background(20);
     ellipse(mouse_x(), mouse_y(), 40.0, 40.0);
 }""",
+    "scheme": """(define (setup)
+  (size 640 360))
+
+(define (draw)
+  (background 20)
+  (ellipse mouse-x mouse-y 40 40))""",
 }
 
 CPP_FIRST = """void setup() {
@@ -39,7 +48,7 @@ void draw() {
 
 
 def install_steps(key):
-    name = {"lua": "Lua", "rust": "Rust"}[key]
+    name = {"lua": "Lua", "rust": "Rust", "scheme": "Scheme"}[key]
     return f"""<ol class="step-list">
         <li>Download the {name} Mode zip from the <a href="{REPO[key]}/releases/latest" style="border-bottom:1px solid #ddd;">latest release</a>.</li>
         <li>Unzip it into the <strong>modes</strong> folder of your sketchbook (Processing shows where the sketchbook is in <strong>File &gt; Preferences</strong>), so you have <code>sketchbook/modes/{name}Mode</code>.</li>
@@ -132,6 +141,49 @@ TUTORIALS = {
       <p>Still not sure which one fits? If you know Processing and just want to keep working the same way, go with <a href="/gettingstarted">Getting Started</a>. If you already have a Cargo project, use <a href="/downloads#crate">the crate</a>.</p>
     </div>
   </div>""",
+
+    "scheme": f"""<div class="content">
+    <h1>Tutorials</h1>
+    <p class="subtitle">Scheme Mode is a plugin for the Processing IDE. You write sketches in Scheme inside Processing, hit Run, and a window opens.</p>
+
+    <div class="path">
+      <h2>Using Scheme Mode inside the Processing IDE</h2>
+      <p class="section-desc">Write <code {C}>(define (setup) ...)</code> and <code {C}>(define (draw) ...)</code>, hit Run, and a window opens. Processing's functions keep their names, written with dashes: <code {C}>noStroke()</code> is <code {C}>(no-stroke)</code> and <code {C}>mouseX</code> is <code {C}>mouse-x</code>.</p>
+
+      <a class="tutorial-card" href="/gettingstarted">
+        <div class="tc-body">
+          <div class="tc-title">Getting Started with Scheme Mode</div>
+          <div class="tc-desc">How to install Scheme Mode and write your first sketch in the Processing IDE.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+
+      <a class="tutorial-card" href="/downloads#scheme-mode">
+        <div class="tc-body">
+          <div class="tc-title">Installing the mode</div>
+          <div class="tc-desc">Where to download Scheme Mode and where to put it.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+
+      <a class="tutorial-card" href="/whats-new">
+        <div class="tc-body">
+          <div class="tc-title">Coming from Processing Java</div>
+          <div class="tc-desc">How the same sketch looks when it's written in Scheme.</div>
+        </div>
+        <div class="tc-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="path">
+      <h2>Sharing what you made</h2>
+      <p class="section-desc"><strong>File &gt; Export Application</strong> makes a folder with your sketch, its data folder and its own Python, ready to run on a computer without Processing.</p>
+    </div>
+
+    <div class="help-box">
+      <p>New to all of this? Start with <a href="/gettingstarted">Getting Started</a>, then open any of the <a href="/examples">examples</a>. Every one of them is the Processing example you may already know, written in Scheme.</p>
+    </div>
+  </div>""",
 }
 
 DOWNLOADS = {
@@ -144,7 +196,12 @@ DOWNLOADS = {
       <p>Lua Mode isn't in the Contribution Manager yet, so it's installed by hand. It takes a minute.</p>
       {install_steps("lua")}
       <p>To draw with the libprocessing renderer (Bevy and wgpu, on your graphics card) pick it from the renderer menu in the toolbar. The default renderer draws on the CPU and needs nothing else.</p>
+      <div class="dl-actions"><a class="dl-btn dl-btn-primary" href="{DL['lua']}LuaMode.zip">Download Lua Mode</a></div>
     </div>
+
+    <h2 id="standalone">Without the Processing IDE</h2>
+    <p>The standalone pack has the same runner and the examples, for running a <code>.lua</code> sketch from your own editor. Unzip it and run <code>run.sh sketch.lua</code> (or <code>run.bat sketch.lua</code> on Windows).</p>
+    <div class="dl-actions"><a class="dl-btn dl-btn-secondary" href="{DL['lua']}processing-lua-standalone.zip">Download the standalone pack</a></div>
 
     <h2>The source</h2>
     <p>Lua Mode is open source. The code, the issues and every release are on <a href="{REPO['lua']}" style="border-bottom:1px solid #ddd;">GitHub</a>.</p>
@@ -158,12 +215,21 @@ DOWNLOADS = {
       <p>Rust Mode isn't in the Contribution Manager yet, so it's installed by hand. You also need Rust itself: get it from <a href="https://rustup.rs" style="border-bottom:1px solid #ddd;">rustup.rs</a> if you don't have it.</p>
       {install_steps("rust")}
       <p>The zip comes with the engine already compiled for some computers, so your first Run is quick there. On the others the first Run builds the engine once, which takes a few minutes.</p>
+      <div class="dl-actions"><a class="dl-btn dl-btn-primary" href="{DL['rust']}RustMode.zip">Download Rust Mode</a></div>
     </div>
 
     <h2 id="crate">The engine as a crate</h2>
-    <p>For writing plain Rust in your own editor, with no Processing IDE involved. Add the engine to your <code>Cargo.toml</code>:</p>
+    <p>For writing plain Rust in your own editor, with no Processing IDE involved. The quickest start is the starter project: unzip it and <code>cargo run</code>.</p>
+    <div class="dl-actions">
+      <a class="dl-btn dl-btn-primary" href="{DL['rust']}processing-rust-starter.zip">Download the starter project</a>
+      <a class="dl-btn dl-btn-secondary" href="{DL['rust']}processing-rust-crate.zip">Download the crate</a>
+    </div>
+    <p>To add the engine to a project you already have, put this in its <code>Cargo.toml</code>. The <code>[patch]</code> part points Bevy at the Processing fork the engine is built on. Cargo only reads it from your own top-level <code>Cargo.toml</code>, so it has to be there too:</p>
     <pre><code>[dependencies]
-processing = {{ git = "{REPO['rust']}" }}</code></pre>
+processing = {{ git = "{REPO['rust']}" }}
+
+[patch."https://github.com/bevyengine/bevy"]
+bevy = {{ git = "https://github.com/processing/bevy", branch = "main" }}</code></pre>
     <p>and give it your sketch:</p>
     <pre><code>use processing::*;
 
@@ -183,6 +249,25 @@ fn main() {{
     App::new(Sketch {{ x: 0.0 }}, setup, draw).run();
 }}</code></pre>
     <p>Then <code>cargo run</code>. The code and every release are on <a href="{REPO['rust']}" style="border-bottom:1px solid #ddd;">GitHub</a>.</p>
+  </div>""",
+
+    "scheme": f"""<div class="content">
+    <h1>Downloads</h1>
+    <p class="subtitle">Scheme Mode is one zip. It has the mode, a Python with the drawing engine for your computer, and the examples.</p>
+
+    <div class="mode-callout" id="scheme-mode">
+      <h2>Installing Scheme Mode</h2>
+      <p>Scheme Mode isn't in the Contribution Manager yet, so it's installed by hand. It takes a minute, and there's nothing else to install.</p>
+      {install_steps("scheme")}
+      <div class="dl-actions"><a class="dl-btn dl-btn-primary" href="{DL['scheme']}SchemeMode.zip">Download Scheme Mode</a></div>
+    </div>
+
+    <h2 id="standalone">Without the Processing IDE</h2>
+    <p>The standalone pack runs a <code>.scm</code> sketch from your own editor. Unzip it and run <code>run.sh sketch.scm</code> (or <code>run.bat sketch.scm</code> on Windows). It needs Java 17 or newer.</p>
+    <div class="dl-actions"><a class="dl-btn dl-btn-secondary" href="{DL['scheme']}processing-scheme-standalone.zip">Download the standalone pack</a></div>
+
+    <h2>The source</h2>
+    <p>Scheme Mode is open source. The code, the issues and every release are on <a href="{REPO['scheme']}" style="border-bottom:1px solid #ddd;">GitHub</a>.</p>
   </div>""",
 }
 
@@ -227,6 +312,20 @@ LIBRARIES = {
         LIB("Json / Xml", "load_json_object(), json.get_json_array(\"items\"), load_xml(), xml.get_children(\"item\")."),
         LIB("Images and layers", "Images are ids (u64): img.width(), img.get(x, y), img.load_pixels(). Layers from create_graphics() draw between begin_graphics(pg) and end_graphics()."),
         LIB("PShape / fonts / PShader", "SVG and OBJ shapes, create_shape(), fonts from create_font(), and GLSL shaders."),
+    ]) + "\n </div>\n </div>",
+
+    "scheme": "<div class=\"content\">\n <h1>Libraries</h1>\n <p class=\"subtitle\">Everything available in Scheme Mode out of the box.</p>\n\n <div class=\"tip\">\n None of these need an <code>import</code> beyond the <code>(import (processing))</code> every sketch starts with.\n </div>\n\n"
+    + " <h2>Scheme</h2>\n <div class=\"lib-grid\">\n " + "\n ".join([
+        LIB("lists", "cons, car, cdr, list-ref, append, map, filter, fold-left, for-each, sort."),
+        LIB("vectors", "make-vector, vector-ref, vector-set!, vector-length. Java's arrays become vectors."),
+        LIB("strings", "string-append, substring, string-length, string-upcase, and Processing's split, join and trim."),
+        LIB("records", "define-record-type, for the classes in Java examples."),
+        LIB("hash tables", "make-hash-table, hash-table-set!, hash-table-ref. JSON objects are hash tables too."),
+    ]) + "\n </div>\n\n <h2>Processing's classes</h2>\n <div class=\"lib-grid\">\n " + "\n ".join([
+        LIB("PVector", "(PVector x y), (add v w), (mag v), (vec-x v), (set-vec-x! v 3)."),
+        LIB("Images and layers", "(load-image \"a.png\"), (width img), (pixels img), (create-graphics 200 200), (begin-draw pg)."),
+        LIB("Table / JSON / XML", "(load-table \"data.csv\" \"header\"), (get-float row \"x\"), (load-json-object \"data.json\"), (load-xml \"data.xml\")."),
+        LIB("Shapes", "(load-shape \"bot.svg\"), (shape s 0 0), (get-child s \"MI\")."),
     ]) + "\n </div>\n </div>",
 }
 
@@ -321,13 +420,33 @@ impl Ball {
         card("Same", "Overloads by number of arguments", """          <p><code>fill(255)</code>, <code>fill(255, 0, 0)</code> and <code>fill(255, 0, 0, 128)</code> all work. Rust Mode picks the right engine function for you (<code>fill_rgb</code>, <code>fill_rgba</code>...).</p>"""),
         card("New", "Two renderers", """          <p>The toolbar has a renderer menu. The default draws on the CPU. <strong>libprocessing</strong> draws with Bevy and wgpu on your graphics card, with real 3D lights and shaders.</p>"""),
     ]) + "\n    </div>\n  </div>",
+
+    "scheme": """<div class="content">
+    <h1>What's New</h1>
+    <p class="prelude">
+      Scheme Mode keeps Processing's names, written the Scheme way: lowercase with dashes.
+      <code>noStroke()</code> is <code>(no-stroke)</code>, <code>mouseX</code> is <code>mouse-x</code>,
+      <code>TWO_PI</code> is <code>TWO-PI</code>. These are the other things to know.
+    </p>
+    <div class="wn-grid">
+""" + "\n".join([
+        card("Changed", "Everything is a list", """          <p>A call puts the function first, inside parentheses: <code>ellipse(x, y, 20, 20)</code> is <code>(ellipse x y 20 20)</code>, and <code>a + b * c</code> is <code>(+ a (* b c))</code>.</p>"""),
+        card("Changed", "Variables are defined and set", """          <p><code>(define x 10)</code> makes a variable, and <code>(set! x (+ x 1))</code> changes it. There are no types to write.</p>"""),
+        card("Changed", "Loops", """          <p>A Java <code>for</code> loop is a <code>do</code> loop:</p>
+          <pre>(do ((i 0 (+ i 1))) ((>= i 10))
+  (rect (* i 20) 0 10 10))</pre>"""),
+        card("Changed", "Classes are records", """          <p>A class becomes a <code>define-record-type</code> with a function for each method, so <code>ball.move()</code> is <code>(ball-move ball)</code> and <code>ball.x = 5</code> is <code>(set-ball-x! ball 5)</code>.</p>"""),
+        card("Changed", "Methods take the object first", """          <p><code>img.get(x, y)</code> is <code>(get img x y)</code>, <code>v.add(w)</code> is <code>(add v w)</code> and <code>pg.beginDraw()</code> is <code>(begin-draw pg)</code>.</p>"""),
+        card("Same", "mousePressed works both ways", """          <p><code>(define (mouse-pressed) ...)</code> runs once per click, and <code>mouse-is-pressed</code> is true while the mouse is held.</p>"""),
+    ]) + "\n    </div>\n  </div>",
 }
 
 CONTENT = {k: {"tutorials/index.html": TUTORIALS[k], "downloads/index.html": DOWNLOADS[k],
-               "libraries/index.html": LIBRARIES[k], "whats-new/index.html": WHATS_NEW[k]} for k in ("lua", "rust")}
+               "libraries/index.html": LIBRARIES[k], "whats-new/index.html": WHATS_NEW[k]} for k in KEYS}
 
 ENGINE = {"lua": "a small native runner (the same drawing engine as Rust Mode)",
-          "rust": "Rust's compiler against a prebuilt engine"}
+          "rust": "Rust's compiler against a prebuilt engine",
+          "scheme": "Python with the same engine as C++ Mode"}
 
 TEXT = {
     k: [
@@ -340,17 +459,20 @@ TEXT = {
          f'More about installing: see <a href="/downloads#{k}-mode" style="border-bottom:1px solid #ddd;">Installing C++ Mode</a> on the Downloads page.'),
         ("That's a complete sketch. Under the hood it's compiling to real C++ and running natively, but everything about writing it looks and feels like any other Processing mode.",
          "That's a complete sketch. " + ("It runs on a native runner, so it starts right away, and everything about writing it looks and feels like any other Processing mode."
-                                          if k == "lua" else "Under the hood it's compiled to a native program, but everything about writing it looks and feels like any other Processing mode.")),
+                                          if k == "lua" else "Under the hood it runs as Python on the same engine as C++ Mode, but everything about writing it looks and feels like any other Processing mode."
+                                          if k == "scheme" else "Under the hood it's compiled to a native program, but everything about writing it looks and feels like any other Processing mode.")),
         ('<a href="/downloads">Using your own editor instead? →</a>',
-         '<a href="/whats-new">Coming from Java? →</a>' if k == "lua" else '<a href="/downloads#crate">Using your own editor instead? →</a>'),
+         '<a href="/whats-new">Coming from Java? →</a>' if k in ("lua", "scheme") else '<a href="/downloads#crate">Using your own editor instead? →</a>'),
         ("built-in <code>mouseX</code> and <code>mouseY</code> variables",
          "built-in <code>mouseX</code> and <code>mouseY</code> variables" if k == "lua"
+         else "built-in <code>mouse-x</code> and <code>mouse-y</code> variables" if k == "scheme"
          else "mouse position from <code>mouse_x()</code> and <code>mouse_y()</code> (Processing's <code>mouseX</code> and <code>mouseY</code>)"),
         # home page
         ("Using your own editor and build system? Drop the engine into your project as a plug-and-play folder or a CMake target.",
-         "Want the code? Lua Mode is open source, and every release is on GitHub." if k == "lua"
+         "Want to run sketches from your own editor? The standalone pack runs a .scm file with nothing else installed." if k == "scheme"
+         else "Want the code? Lua Mode is open source, and every release is on GitHub." if k == "lua"
          else "Using your own editor? The engine is a Rust crate you can add to any Cargo project."),
-        ("Download the headers", "Get the source" if k == "lua" else "Use the crate"),
+        ("Download the headers", "Get the source" if k == "lua" else "Get the standalone pack" if k == "scheme" else "Use the crate"),
         ("Install C++ Mode straight from the Processing IDE's Contribution Manager. No separate download needed.",
          "Download one zip, unzip it into your sketchbook's modes folder, and restart Processing."),
         # about
@@ -358,8 +480,8 @@ TEXT = {
          "The window, the event loop, the drawing engine, all of it is taken care of."),
         ('<a href="https://github.com/processing-cpp/processing.cpp" style="border-bottom:1px solid #ddd;">GitHub</a>',
          f'<a href="{REPO[k]}" style="border-bottom:1px solid #ddd;">GitHub</a>'),
-    ] for k in ("lua", "rust")
+    ] for k in KEYS
 }
 
 # The C++ site's copy for these has no Lua or Rust version
-DROP = {k: ["downloads/cmake-setup.html", "downloads/plugandplay-setup.html", "editor", "error"] for k in ("lua", "rust")}
+DROP = {k: ["downloads/cmake-setup.html", "downloads/plugandplay-setup.html", "editor", "error"] for k in KEYS}
