@@ -1,4 +1,15 @@
 (function () {
+  // Code blocks are as tall as their code, and as wide: a long line stays
+  // one line, and the block scrolls sideways (shift + wheel, or the bar)
+  if (!document.getElementById('cm-fit-style')) {
+    var st = document.createElement('style');
+    st.id = 'cm-fit-style';
+    st.textContent =
+      'html body .cm-static-wrap .CodeMirror { height: auto; }' +
+      'html body .cm-static-wrap .CodeMirror-scroll { height: auto; max-height: none; overflow-x: auto !important; overflow-y: hidden !important; }' +
+      'html body .cm-static-wrap .CodeMirror-hscrollbar { display: block !important; }';
+    document.head.appendChild(st);
+  }
   function highlight() {
     // Handle <pre> blocks
     document.querySelectorAll('pre').forEach(function (pre) {
@@ -10,16 +21,17 @@
       wrapper.className = 'cm-static-wrap';
       pre.parentNode.insertBefore(wrapper, pre);
       pre.style.display = 'none';
-      CodeMirror(wrapper, {
+      var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
         theme: 'cppmode',
         readOnly: true,
         lineNumbers: false,
         lineWrapping: false,
-        scrollbarStyle: 'null',
+        scrollbarStyle: 'native',
         viewportMargin: Infinity,
       });
+      cm.setSize(null, 'auto');
     });
 
     // Handle .syntax-block divs (reference pages)
@@ -31,16 +43,17 @@
       wrapper.className = 'cm-static-wrap cm-syntax-wrap';
       el.parentNode.insertBefore(wrapper, el);
       el.style.display = 'none';
-      CodeMirror(wrapper, {
+      var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
         theme: 'cppmode',
         readOnly: true,
         lineNumbers: false,
         lineWrapping: false,
-        scrollbarStyle: 'null',
+        scrollbarStyle: 'native',
         viewportMargin: Infinity,
       });
+      cm.setSize(null, 'auto');
     });
 
     // Handle .impl-block divs (reference pages - dark background)
@@ -52,7 +65,7 @@
       wrapper.className = 'cm-static-wrap cm-impl-wrap';
       el.parentNode.insertBefore(wrapper, el);
       el.style.display = 'none';
-      CodeMirror(wrapper, {
+      var cm = CodeMirror(wrapper, {
         value: text,
         mode: 'cppmode',
         theme: 'cppmode',
@@ -62,6 +75,7 @@
         scrollbarStyle: 'native',
         viewportMargin: Infinity,
       });
+      cm.setSize(null, 'auto');
     });
   }
 

@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>thread() - Processing for C++ Reference</title>
   <style>* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; } a { color: #111; text-decoration: none; } nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; } .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; } .nav-logo img { width: 28px; height: 28px; } .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; } .layout { display: flex; min-height: calc(100vh - 60px); } .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); } #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; } #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; } #site-sidebar a:hover { color: #111; } #site-sidebar a.active { color: #111; font-weight: 500; } .ref-sidebar { flex: 1; overflow-y: auto; padding: 0.5rem 0; } .ref-cat-title { font-size: 11px; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.85rem 1.5rem 0.25rem; } .ref-subcat-title { font-size: 10px; font-weight: 600; color: #aaa; padding: 0.5rem 1.5rem 0.1rem; } .ref-sidebar a { display: block; font-size: 12px; color: #555; padding: 0.2rem 1.5rem; font-family: "SF Mono","Fira Code",monospace; } .ref-sidebar a.ref-sidebar-sub { padding-left: 2rem; } .ref-sidebar a:hover { color: #111; background: #f8f8f8; } .ref-sidebar a.active { color: #111 !important; font-weight: 600; background: #f4f4f4; } .content { flex: 1; padding: 3rem 4rem; max-width: 860px; } .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.25rem; font-family: "SF Mono","Fira Code",monospace; } .cat-tag { font-size: 12px; color: #aaa; margin-bottom: 2rem; display: block; } .content h2 { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; margin-bottom: 0.75rem; } .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; } .syntax-block { background: #f8f8f8; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 0.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.8; white-space: pre; overflow-x: auto; } .params-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 13px; } .params-table th { text-align: left; font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.5rem 0.75rem; border-bottom: 1px solid #e0e0e0; } .params-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #f0f0f0; vertical-align: top; } .params-table td:first-child { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #333; width: 130px; } .params-table td:nth-child(2) { color: #888; font-family: "SF Mono","Fira Code",monospace; font-size: 12px; width: 90px; } .returns-badge { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; background: #f0f0f0; border-radius: 4px; padding: 3px 10px; color: #555; display: inline-block; margin-bottom: 1rem; } .related-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; } .related-links a { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; background: #f4f4f4; border-radius: 4px; padding: 3px 10px; color: #555; } .related-links a:hover { background: #e0e0e0; color: #111; } .methods-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 13px; } .methods-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #f0f0f0; } .methods-table td:first-child { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #333; width: 280px; } .impl-block { background: #0d0d0d; border-radius: 6px; padding: 1rem 1.25rem; font-family: "SF Mono","Fira Code",monospace; font-size: 12px; line-height: 1.7; color: #ccc; white-space: pre; overflow-x: auto; max-height: 400px; overflow-y: auto; } .topic-block { margin-bottom: 3rem; } .topic-title { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #111; } .subtopic { margin-bottom: 1.5rem; } .subtopic-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; } .fn-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.2rem 1.5rem; } .fn-list a { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #555; padding: 0.15rem 0; display: block; } .fn-list a:hover { color: #111; } footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; } @media (max-width: 768px) { .hamburger { display: block; } .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); } .sidebar-outer.open { left: 0; } .content { padding: 2rem 1.25rem; } }</style>
-    </head>
+  <link rel="stylesheet" href="../assets/cppmode-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+</head>
 <body>
 <nav id="site-nav"></nav>
 <div class="layout">
@@ -27,12 +29,7 @@
     
     <h2>Related</h2><div class="related-links"><a href="delay.html">delay</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">inline void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach(); }
-
-inline void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();
-
-void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach(); }
-
-void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::thread([img, path]{
+void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach(); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">std::thread([img, path]{
         // Resolve search paths same as loadImage
         // Check PROCESSING_SKETCH_PATH env var set by IDE
     std::string _sketchDir;
@@ -49,7 +46,6 @@ void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();</div><h2
 #else
         ssize_t _len = readlink("/proc/self/exe", _buf, sizeof(_buf)-1);
         if (_len &gt; 0) _buf[_len] = 0;
-        std::string _ep(_buf);
         size_t _sl = _ep.find_last_of("/");
 #endif
         if (_sl != std::string::npos) _exeDir = _ep.substr(0, _sl+1);
@@ -66,41 +62,37 @@ void thread(std::function&lt;void()&gt; fn) { std::thread(fn).detach();</div><h2
         }
         if (found.empty()) {
             // Not found: mark as failed (width=0)
-            img-&gt;width  = 0;
+            img-&gt;width = 0;
             img-&gt;height = 0;
             std::cerr &lt;&lt; "requestImage: file not found: " &lt;&lt; path &lt;&lt; "\n";
             return;
-        }
 #ifdef PROCESSING_HAS_STB_IMAGE
         int w=0, h=0, ch=0;
         unsigned char* data = stbi_load(found.c_str(), &amp;w, &amp;h, &amp;ch, 4);
         if (!data || w&lt;=0 || h&lt;=0) {
-            img-&gt;width  = 0;
-            img-&gt;height = 0;
             std::cerr &lt;&lt; "requestImage: failed to decode: " &lt;&lt; path &lt;&lt; "\n";
-            return;
-        }
         img-&gt;pixels.resize((size_t)w * h);
         for (int i = 0; i &lt; w*h; i++) {
             unsigned char r=data[i*4+0], g=data[i*4+1],
                           b=data[i*4+2], a=data[i*4+3];
             img-&gt;pixels[i] = ((unsigned int)a&lt;&lt;24)|((unsigned int)r&lt;&lt;16)|
                               ((unsigned int)g&lt;&lt;8)|(unsigned int)b;
-        }
         stbi_image_free(data);
-        img-&gt;dirty  = true;
+        img-&gt;dirty = true;
         // Write width/height last so the sketch sees a consistent state
         img-&gt;height = h;
-        img-&gt;width  = w;   // width != -1 signals "done"
-#else
-        img-&gt;width  = 0;
+        img-&gt;width = w; // width != -1 signals "done"
+        img-&gt;width = 0;
         img-&gt;height = 0;
         std::cerr &lt;&lt; "requestImage: rebuild with -DPROCESSING_HAS_STB_IMAGE: " &lt;&lt; path &lt;&lt; "\n";
-#endif
     }).detach();</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>

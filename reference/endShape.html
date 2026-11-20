@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>endShape() - Processing for C++ Reference</title>
   <style>* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #fff; } a { color: #111; text-decoration: none; } nav { border-bottom: 1px solid #e0e0e0; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: #fff; z-index: 100; } .nav-logo { display: flex; align-items: center; gap: 10px; color: #111; } .nav-logo img { width: 28px; height: 28px; } .hamburger { background: none; border: none; cursor: pointer; font-size: 22px; padding: 4px 8px; display: none; } .layout { display: flex; min-height: calc(100vh - 60px); } .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; position: sticky; top: 60px; height: calc(100vh - 60px); } #site-sidebar { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0; display: flex; flex-direction: column; } #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; } #site-sidebar a:hover { color: #111; } #site-sidebar a.active { color: #111; font-weight: 500; } .ref-sidebar { flex: 1; overflow-y: auto; padding: 0.5rem 0; } .ref-cat-title { font-size: 11px; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.85rem 1.5rem 0.25rem; } .ref-subcat-title { font-size: 10px; font-weight: 600; color: #aaa; padding: 0.5rem 1.5rem 0.1rem; } .ref-sidebar a { display: block; font-size: 12px; color: #555; padding: 0.2rem 1.5rem; font-family: "SF Mono","Fira Code",monospace; } .ref-sidebar a.ref-sidebar-sub { padding-left: 2rem; } .ref-sidebar a:hover { color: #111; background: #f8f8f8; } .ref-sidebar a.active { color: #111 !important; font-weight: 600; background: #f4f4f4; } .content { flex: 1; padding: 3rem 4rem; max-width: 860px; } .content h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.25rem; font-family: "SF Mono","Fira Code",monospace; } .cat-tag { font-size: 12px; color: #aaa; margin-bottom: 2rem; display: block; } .content h2 { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; margin-bottom: 0.75rem; } .content p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; } .syntax-block { background: #f8f8f8; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 0.5rem; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; line-height: 1.8; white-space: pre; overflow-x: auto; } .params-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 13px; } .params-table th { text-align: left; font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.5rem 0.75rem; border-bottom: 1px solid #e0e0e0; } .params-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #f0f0f0; vertical-align: top; } .params-table td:first-child { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #333; width: 130px; } .params-table td:nth-child(2) { color: #888; font-family: "SF Mono","Fira Code",monospace; font-size: 12px; width: 90px; } .returns-badge { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; background: #f0f0f0; border-radius: 4px; padding: 3px 10px; color: #555; display: inline-block; margin-bottom: 1rem; } .related-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; } .related-links a { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; background: #f4f4f4; border-radius: 4px; padding: 3px 10px; color: #555; } .related-links a:hover { background: #e0e0e0; color: #111; } .methods-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 13px; } .methods-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #f0f0f0; } .methods-table td:first-child { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #333; width: 280px; } .impl-block { background: #0d0d0d; border-radius: 6px; padding: 1rem 1.25rem; font-family: "SF Mono","Fira Code",monospace; font-size: 12px; line-height: 1.7; color: #ccc; white-space: pre; overflow-x: auto; max-height: 400px; overflow-y: auto; } .topic-block { margin-bottom: 3rem; } .topic-title { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #111; } .subtopic { margin-bottom: 1.5rem; } .subtopic-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; } .fn-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.2rem 1.5rem; } .fn-list a { font-family: "SF Mono","Fira Code",monospace; font-size: 12px; color: #555; padding: 0.15rem 0; display: block; } .fn-list a:hover { color: #111; } footer { border-top: 1px solid #e0e0e0; padding: 2rem; text-align: center; font-size: 13px; color: #888; } @media (max-width: 768px) { .hamburger { display: block; } .sidebar-outer { position: fixed; top: 60px; left: -240px; width: 240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); } .sidebar-outer.open { left: 0; } .content { padding: 2rem 1.25rem; } }</style>
-    </head>
+  <link rel="stylesheet" href="../assets/cppmode-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+</head>
 <body>
 <nav id="site-nav"></nav>
 <div class="layout">
@@ -28,31 +30,26 @@ void endShape(int mode)</div>
     
     <h2>Related</h2><div class="related-links"><a href="beginShape.html">beginShape</a><a href="vertex.html">vertex</a></div>
     <h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.h:</p><div class="impl-block">void beginShape(); void endShape(int mode=0);
-
-void endShape(bool close=false)   { closed=close; }
-
+void endShape(bool close=false) { closed=close; }
 void endShape(int mode=0);
-
-inline void PGraphics::endShape(int mode)                           { if(PApplet::g_papplet) PApplet::g_papplet-&gt;endShape(mode); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::endShape(int mode){
+inline void PGraphics::endShape(int mode) { if(PApplet::g_papplet) PApplet::g_papplet-&gt;endShape(mode); }</div><h2>Under the Hood</h2><p style="font-size:13px;color:#888;margin-bottom:0.75rem;">From Processing.cpp:</p><div class="impl-block">void PApplet::endShape(int mode){
     if(!inShape){return;}
     bool cl=(mode==CLOSE);
-    int  n3 = (int)shapeVerts3D.size();
-
+    int n3 = (int)shapeVerts3D.size();
     // -- Explicit shape kinds (QUADS, QUAD_STRIP, TRIANGLES, etc.) ----------
     // Draw fill and/or stroke from the collected vertex arrays.
     if(shapeKind != -1 &amp;&amp; n3 &gt; 0){
         GLenum gm;
         switch(shapeKind){
-            case POINTS:        gm=GL_POINTS;        break;
-            case LINES:         gm=GL_LINES;         break;
-            case TRIANGLES:     gm=GL_TRIANGLES;     break;
-            case TRIANGLE_FAN:  gm=GL_TRIANGLE_FAN;  break;
+            case POINTS: gm=GL_POINTS; break;
+            case LINES: gm=GL_LINES; break;
+            case TRIANGLES: gm=GL_TRIANGLES; break;
+            case TRIANGLE_FAN: gm=GL_TRIANGLE_FAN; break;
             case TRIANGLE_STRIP:gm=GL_TRIANGLE_STRIP;break;
-            case QUADS:         gm=GL_QUADS;         break;
-            case QUAD_STRIP:    gm=GL_QUAD_STRIP;    break;
-            default:            gm=GL_POLYGON;       break;
+            case QUADS: gm=GL_QUADS; break;
+            case QUAD_STRIP: gm=GL_QUAD_STRIP; break;
+            default: gm=GL_POLYGON; break;
         }
-
         if(doFill &amp;&amp; shapeKind != POINTS &amp;&amp; shapeKind != LINES){
             glEnable(GL_POLYGON_OFFSET_FILL);
             glPolygonOffset(1.0f, 1.0f);
@@ -61,30 +58,19 @@ inline void PGraphics::endShape(int mode)                           { if(PApplet
             for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
             glEnd();
             glDisable(GL_POLYGON_OFFSET_FILL);
-        }
         // POINTS and LINES use stroke color drawn directly
         if(shapeKind == POINTS){
             applyStroke();
             glPointSize(strokeW);
             glBegin(GL_POINTS);
-            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
-            glEnd();
             restoreLighting();
             inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
             return;
-        }
         if(shapeKind == LINES){
             applyStroke(); glLineWidth(strokeW);
             glBegin(GL_LINES);
-            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
-            glEnd();
-            restoreLighting();
-            inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
-            return;
-        }
         // Draw stroke outlines -- shapeVerts was collected in vertex()
         if(doStroke &amp;&amp; !shapeVerts.empty()){
-            applyStroke(); glLineWidth(strokeW);
             int n=(int)shapeVerts.size();
             // Use 3D verts for correct depth in transformed space
             auto lv=[&amp;](int i)-&gt;std::array&lt;float,3&gt;{ return shapeVerts3D[i]; };
@@ -100,67 +86,33 @@ inline void PGraphics::endShape(int mode)                           { if(PApplet
                     glEnd();
                     break;
                 case TRIANGLE_FAN:
-                    glBegin(GL_LINES);
                     for(int i=1;i+1&lt;n;i++){
                         auto a=lv(0),b=lv(i),c=lv(i+1);
-                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
-                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
-                        glVertex3f(c[0],c[1],c[2]);glVertex3f(a[0],a[1],a[2]);
-                    }
-                    glEnd();
-                    break;
                 case TRIANGLES:
-                    glBegin(GL_LINES);
                     for(int i=0;i+2&lt;n;i+=3){
-                        auto a=lv(i),b=lv(i+1),c=lv(i+2);
-                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
-                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
-                        glVertex3f(c[0],c[1],c[2]);glVertex3f(a[0],a[1],a[2]);
-                    }
-                    glEnd();
-                    break;
                 case QUADS:
-                    glBegin(GL_LINES);
                     for(int i=0;i+3&lt;n;i+=4){
                         auto a=lv(i),b=lv(i+1),c=lv(i+2),d=lv(i+3);
-                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
-                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
                         glVertex3f(c[0],c[1],c[2]);glVertex3f(d[0],d[1],d[2]);
                         glVertex3f(d[0],d[1],d[2]);glVertex3f(a[0],a[1],a[2]);
-                    }
-                    glEnd();
-                    break;
                 case QUAD_STRIP:
-                    glBegin(GL_LINES);
                     for(int i=0;i+3&lt;n;i+=2){
                         auto a=lv(i),b=lv(i+1),c=lv(i+3),d=lv(i+2);
-                        glVertex3f(a[0],a[1],a[2]);glVertex3f(b[0],b[1],b[2]);
-                        glVertex3f(b[0],b[1],b[2]);glVertex3f(c[0],c[1],c[2]);
-                        glVertex3f(c[0],c[1],c[2]);glVertex3f(d[0],d[1],d[2]);
-                        glVertex3f(d[0],d[1],d[2]);glVertex3f(a[0],a[1],a[2]);
-                    }
-                    glEnd();
-                    break;
                 default:
                     glBegin(cl?GL_LINE_LOOP:GL_LINE_STRIP);
                     for(auto&amp; v:shapeVerts3D)glVertex3f(v[0],v[1],v[2]);
-                    glEnd();
-                    break;
             }
-        }
         restoreLighting();
         inShape=false; shape3D=false; shapeVerts.clear(); shapeVerts3D.clear();
         return;
     }
     if(shapeVerts.empty()){inShape=false;return;}
-
     // Default beginShape() / endShape(CLOSE) path.
     // Use stencil buffer to fill arbitrary (including concave) polygons correctly.
     // This matches Java Processing's polygon fill behavior.
     if(shapeKind==-1 || shapeKind==CLOSE){
         if(doFill &amp;&amp; shapeVerts.size()&gt;=3){
             glDisable(GL_CULL_FACE);
-
             // Step 1: Write polygon to stencil buffer using odd-even fill rule
             glEnable(GL_STENCIL_TEST);
             glClear(GL_STENCIL_BUFFER_BIT);
@@ -168,14 +120,10 @@ inline void PGraphics::endShape(int mode)                           { if(PApplet
             glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT); // toggle stencil bit
             glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE); // don't write color
             glBegin(GL_TRIANGLE_FAN);
-            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
-            glEnd();
             glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
             // Step 2: Draw fill color only where stencil != 0
             glStencilFunc(GL_NOTEQUAL, 0, ~0);
             glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-            applyFill();
             // Draw a bounding quad covering the shape
             float minx=shapeVerts3D[0][0], maxx=minx;
             float miny=shapeVerts3D[0][1], maxy=miny;
@@ -184,29 +132,23 @@ inline void PGraphics::endShape(int mode)                           { if(PApplet
                 minx=std::min(minx,v[0]); maxx=std::max(maxx,v[0]);
                 miny=std::min(miny,v[1]); maxy=std::max(maxy,v[1]);
                 minz=std::min(minz,v[2]); maxz=std::max(maxz,v[2]);
-            }
             float mz=(minz+maxz)*0.5f;
             glBegin(GL_QUADS);
             glVertex3f(minx,miny,mz); glVertex3f(maxx,miny,mz);
             glVertex3f(maxx,maxy,mz); glVertex3f(minx,maxy,mz);
-            glEnd();
-
             glDisable(GL_STENCIL_TEST);
-        }
         if(doStroke){
-            applyStroke(); glLineWidth(strokeW);
             glBegin(cl ? GL_LINE_LOOP : GL_LINE_STRIP);
             // Use 3D coords so transforms (rotateX/Y) are respected
-            for(auto&amp; v : shapeVerts3D) glVertex3f(v[0], v[1], v[2]);
-            glEnd();
-            restoreLighting();
-        }
-    }
     inShape=false; shapeVerts.clear(); shapeVerts3D.clear();
 }</div>
   </div>
 </div>
 <footer><p>Processing for C++</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cppmode-keywords.js"></script>
+<script src="../assets/cm-cppmode.js"></script>
+<script src="../assets/code-highlight.js"></script>
 <script src="../assets/nav.js"></script>
 </body>
 </html>

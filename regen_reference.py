@@ -77,7 +77,28 @@ def render_returns(returns):
     return f'<h2>Returns</h2>\n    <span class="returns-badge">{returns}</span>'
 
 
+def tidy_code(code):
+    """Snippets pulled from the sources: no blank lines between one-liners,
+    no column padding inside a line, and each distinct line once."""
+    import re as _re
+    out, seen = [], set()
+    for line in code.split("\n"):
+        if not line.strip():
+            continue
+        lead = line[:len(line) - len(line.lstrip())]
+        body = _re.sub(r"[ \t]{2,}", " ", line.strip())
+        key = lead + body
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(key)
+    # a one-liner cut short is the same line as the whole one
+    full = [l for l in out if len(out) > 1 and not any(o != l and o.startswith(l) and "{" in l for o in out)]
+    return "\n".join(full or out)
+
+
 def render_under_the_hood_block(label, code):
+    code = tidy_code(code) if code else code
     if not code:
         return ""
     return (
