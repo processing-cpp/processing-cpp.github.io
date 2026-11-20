@@ -311,6 +311,12 @@
       // opts.emscripten is the factory its -sMODULARIZE script defines
       ready = opts.emscripten({
         wasmBinary: opts.wasm,
+        // hand emscripten the module ourselves so it never tries to fetch the .wasm by name
+        locateFile: f => f,
+        instantiateWasm: (imports, done) => {
+          WebAssembly.instantiate(opts.wasm, imports).then(r => done(r.instance, r.module), e => fail(e));
+          return {};
+        },
         arguments: args.slice(1),
         noExitRuntime: true,
         preRun: [m => { for (const [k, v] of files) { const d = k.split('/').slice(0, -1).join('/'); if (d) m.FS.mkdirTree(d); m.FS.writeFile(k, v); } }],
