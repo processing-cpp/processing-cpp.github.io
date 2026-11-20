@@ -151,6 +151,21 @@ window.addEventListener('message', async e => {
   const d = e.data; if (!d || d.id !== ID || d.type !== 'start') return;
   let factory = null;
   try {
+    if (d.scheme) {
+      // Scheme: Processing's drawing functions (p5 underneath) and the sketch, compiled on the server
+      for (const text of d.scheme.runtimes) {
+        const url = URL.createObjectURL(new Blob([text], { type: 'application/javascript' }));
+        await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = url; s.onload = ok; s.onerror = () => bad(new Error('runtime script')); document.head.appendChild(s); });
+      }
+      document.getElementById('c').remove();
+      const box = document.createElement('div'); document.body.appendChild(box);
+      let started = false;
+      SchemeWeb.run({ code: d.scheme.code, js: d.scheme.js, parent: box,
+        print: t => say({ type: 'print', text: String(t) }),
+        error: m => say({ type: 'error', text: String(m) }),
+        ready: () => { if (!started) { started = true; say({ type: 'running' }); } } });
+      return;
+    }
     if (d.runnerJs) {
       const url = URL.createObjectURL(new Blob([d.runnerJs], { type: 'application/javascript' }));
       await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = url; s.onload = ok; s.onerror = () => bad(new Error('runner script')); document.head.appendChild(s); });
@@ -219,7 +234,10 @@ async function runSketch() {
   overlay(true, 'Starting...');
   try {
     let start;
-    if (KIND === 'lua') {
+    if (KIND === 'scheme') {
+      const [runtimes, js] = await Promise.all([Promise.all(data.runtime_urls.map(u => fetchAsset(u, 'text'))), fetchAsset(data.sketch_url, 'text')]);
+      start = { scheme: { runtimes, js, code: editor.getValue() } };
+    } else if (KIND === 'lua') {
       const [runnerJs, wasm, sketch] = await Promise.all([fetchAsset(data.runner_js_url, 'text'),
         fetchAsset(data.runner_wasm_url, 'bin'), fetchAsset(data.sketch_url, 'text')]);
       start = { runnerJs, wasm: wasm.slice(0), files: { 'sketch.lua': sketch }, args: ['sketch.lua'] };

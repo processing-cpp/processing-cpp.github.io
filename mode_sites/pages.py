@@ -490,4 +490,5 @@ DROP = {k: ["downloads/cmake-setup.html", "downloads/plugandplay-setup.html", "e
 EDITOR = {
     "lua": dict(api="https://wlua.llamasj.com", file="sketch.lua", indent=2, loading="Starting..."),
     "rust": dict(api="https://wrust.llamasj.com", file="sketch.rs", indent=4, loading="Compiling..."),
+    "scheme": dict(api="https://wscheme.llamasj.com", file="sketch.scm", indent=2, loading="Compiling..."),
 }
