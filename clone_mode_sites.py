@@ -225,6 +225,20 @@ def readme(key):
     return "\n".join(lines)
 
 
+def write_editor(key, src, dst):
+    """The mode's web editor and the runtime that runs its sketches."""
+    import json
+    m, conf = MODES[key], PAGES.EDITOR[key]
+    shutil.copy2(src / "mode_sites" / "web" / "pr-runtime.js", dst / "assets" / "pr-runtime.js")
+    html = (src / "mode_sites" / "editor.html").read_text()
+    for a, b in [("__NAME__", m["name"]), ("__KEY__", key), ("__COLOR__", m["color"]), ("__API__", conf["api"]),
+                 ("__FILE__", conf["file"]), ("__INDENT__", str(conf["indent"])), ("__LOADING__", conf["loading"]),
+                 ("__DEFAULT__", json.dumps(PAGES.FIRST[key]))]:
+        html = html.replace(a, b)
+    (dst / "editor").mkdir(exist_ok=True)
+    (dst / "editor" / "index.html").write_text(html)
+
+
 def clone(key, src):
     m = MODES[key]
     dst = src.parent / f"processing-{key}.github.io"
@@ -258,11 +272,14 @@ def clone(key, src):
                 b = text.index("</div>\n<footer", a) if "</div>\n<footer" in text[a:] else text.index("<footer", a)
                 text = text[:a] + PAGES.CONTENT[key][rel.as_posix()] + "\n" + text[b:]
             if key in PAGES.DROP and rel.as_posix() == "index.html":
-                # no web editor for this mode
-                text = re.sub(r'<a[^>]*href="[^"]*editor[^"]*"[^>]*>.*?</a>', "", text, flags=re.S)
+                # the home page's live C++ sketch has no counterpart here; the
+                # Open Editor link stays when the mode has its own editor
+                if key not in PAGES.EDITOR:
+                    text = re.sub(r'<a[^>]*href="[^"]*editor[^"]*"[^>]*>.*?</a>', "", text, flags=re.S)
                 text = text.replace("</head>", "<style>button[onclick=\"toggleHeroEditor()\"], #hero-sketch-run-btn { display: none !important; }</style>\n</head>", 1)
             if key in PAGES.DROP and rel.as_posix() == "assets/nav.js":
-                text = text.replace("      ${link('editor', 'Editor')}\n", "")
+                if key not in PAGES.EDITOR:
+                    text = text.replace("      ${link('editor', 'Editor')}\n", "")
                 text = re.sub(r"\s*<a href=\"\$\{prefix\}error/index.html\"[^\n]*Errors</a>", "", text)
             text = rebrand(text, m)
             if START in text:
@@ -284,6 +301,8 @@ def clone(key, src):
     if hl.exists():
         shutil.copy2(hl, dst / "assets" / f"{key}mode.js")
         shutil.copy2(hl, dst / "assets" / f"cm-{key}mode.js")
+    if key in PAGES.EDITOR:
+        write_editor(key, src, dst)
     (dst / "README.md").write_text(readme(key))
     print(f"{key}: {count} files -> {dst}")
 

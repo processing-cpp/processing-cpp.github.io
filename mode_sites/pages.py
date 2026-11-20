@@ -485,3 +485,9 @@ TEXT = {
 
 # The C++ site's copy for these has no Lua or Rust version
 DROP = {k: ["downloads/cmake-setup.html", "downloads/plugandplay-setup.html", "editor", "error"] for k in KEYS}
+# the editor is the mode's own (mode_sites/editor.html), not the C++ one: the
+# sketch runs on the mode's engine built for the web, from its compile server
+EDITOR = {
+    "lua": dict(api="https://wlua.llamasj.com", file="sketch.lua", indent=2, loading="Starting..."),
+    "rust": dict(api="https://wrust.llamasj.com", file="sketch.rs", indent=4, loading="Compiling..."),
+}

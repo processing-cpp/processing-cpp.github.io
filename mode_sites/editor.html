@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor - __NAME__ Mode for Processing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="../assets/__KEY__mode-theme.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fff; color: #111; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    #site-nav { flex-shrink: 0; position: static !important; }
+    .layout { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+    .sidebar-outer { width: 220px; min-width: 220px; border-right: 1px solid #e0e0e0; flex-shrink: 0; overflow-y: auto; }
+    @media (max-width: 768px) {
+      .sidebar-outer { position: fixed; top: 60px; left: -240px; height: calc(100vh - 60px); background: #fff; z-index: 200; transition: left 0.25s ease; box-shadow: 2px 0 12px rgba(0,0,0,0.08); }
+      .sidebar-outer.open { left: 0; }
+      .editor-layout { flex-direction: column; }
+      .editor-pane, .preview-pane { width: 100% !important; height: 50%; }
+    }
+    #site-sidebar { padding: 1.5rem 1.5rem 1rem; display: flex; flex-direction: column; }
+    #site-sidebar a { font-size: 14px; color: #555; padding: 0.4rem 0; display: block; text-decoration: none; }
+    .editor-layout { display: flex; flex: 1; overflow: hidden; }
+    .editor-pane { display: flex; flex-direction: column; width: 50%; border-right: 1px solid #e0e0e0; overflow: hidden; }
+    .preview-pane { display: flex; flex-direction: column; width: 50%; overflow: hidden; }
+    .pane-bar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8f8f8; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; }
+    .pane-label { font-size: 12px; color: #888; font-family: monospace; flex: 1; }
+    #status { font-size: 12px; color: #888; }
+    #status.compiling { color: #b07000; }
+    #status.error { color: #c00; }
+    #status.ok { color: #080; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-run { background: __COLOR__; color: #fff; border: none; padding: 5px 14px; border-radius: 4px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-run:disabled { background: #ccc; color: #888; cursor: not-allowed; }
+    .btn-stop { background: #eee; color: #555; border: 1px solid #ccc; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+    #code { flex: 1; min-height: 0; }
+    .CodeMirror { height: 100%; font-size: 13px; line-height: 1.5; }
+    #preview-area { flex: 1; background: #000; overflow: hidden; position: relative; }
+    #preview-area iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    #preview-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #888; font-size: 13px; text-align: center; pointer-events: none; }
+    #loading-overlay { display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.75); z-index: 10; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+    #error-panel { display: none; background: #fff5f5; border-top: 1px solid #fcc; padding: 8px 12px; font-family: monospace; font-size: 12px; color: #c00; max-height: 160px; overflow: auto; white-space: pre; flex-shrink: 0; }
+    #console { background: #111; color: #ddd; font-family: monospace; font-size: 12px; padding: 6px 10px; height: 110px; overflow: auto; white-space: pre; flex-shrink: 0; border-top: 1px solid #333; }
+    #console .err { color: #ff8080; }
+    #error-copy { display: none; margin: 4px 0; font-size: 12px; padding: 2px 10px; cursor: pointer; }
+    footer { border-top: 1px solid #e0e0e0; padding: 1rem 2rem; text-align: center; font-size: 13px; color: #888; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<nav id="site-nav"></nav>
+<div class="layout">
+<div class="sidebar-outer"><div id="site-sidebar"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;">
+<div class="editor-layout">
+  <div class="editor-pane">
+    <div class="pane-bar">
+      <span class="pane-label">__FILE__</span>
+      <span id="status"></span>
+      <button class="btn-run" id="btn-run" onclick="runSketch()">&#9654; Run</button>
+    </div>
+    <div id="code"></div>
+    <button id="error-copy" type="button">Copy error</button>
+    <div id="error-panel"></div>
+  </div>
+  <div class="preview-pane">
+    <div class="pane-bar">
+      <span class="pane-label">Output</span>
+      <button class="btn-stop" onclick="stopSketch()">&#9632; Stop</button>
+    </div>
+    <div id="preview-area">
+      <div id="loading-overlay">
+        <div style="width:40px;height:40px;border:3px solid #444;border-top-color:__COLOR__;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+        <div id="loading-text" style="color:#eee;font-size:13px;font-family:monospace;">__LOADING__</div>
+      </div>
+      <div id="preview-placeholder">Press Run or Ctrl+Enter</div>
+    </div>
+    <div id="console"></div>
+  </div>
+</div>
+</div>
+</div>
+<footer><p>__NAME__ Mode for Processing</p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="../assets/cm-__KEY__mode.js"></script>
+<script>
+// The __NAME__ Mode web editor. The server (__API__) checks or builds the
+// sketch and replies with links to the files; the browser keeps them, so a
+// run usually downloads only what changed. The sketch runs in an iframe on
+// the same engine as the desktop mode, built for the web.
+const API = '__API__';
+const KIND = '__KEY__';
+const START_TIMEOUT_MS = 30000;
+const DEFAULT = __DEFAULT__;
+
+const editor = CodeMirror(document.getElementById('code'), {
+  mode: '__KEY__mode', theme: '__KEY__mode', lineNumbers: true, indentUnit: __INDENT__, tabSize: __INDENT__,
+  indentWithTabs: false, autofocus: true,
+  extraKeys: { Tab: cm => cm.replaceSelection(' '.repeat(__INDENT__)), 'Ctrl-Enter': () => runSketch(), 'Cmd-Enter': () => runSketch() },
+});
+let saved = null;
+try { saved = localStorage.getItem('__KEY__-editor-sketch'); } catch (e) {}
+editor.setValue(saved || DEFAULT);
+editor.on('change', () => { try { localStorage.setItem('__KEY__-editor-sketch', editor.getValue()); } catch (e) {} });
+
+const $ = id => document.getElementById(id);
+function setStatus(msg, cls) { $('status').textContent = msg; $('status').className = cls || ''; }
+function overlay(on, text) { $('loading-overlay').style.display = on ? 'flex' : 'none'; if (text) $('loading-text').textContent = text; }
+function showError(msg) {
+  overlay(false); $('btn-run').disabled = false;
+  setStatus('Error', 'error');
+  $('error-panel').textContent = msg; $('error-panel').style.display = 'block'; $('error-copy').style.display = 'inline-block';
+}
+function clearError() { $('error-panel').textContent = ''; $('error-panel').style.display = 'none'; $('error-copy').style.display = 'none'; }
+function log(text, err) {
+  const c = $('console'), line = document.createElement('div');
+  if (err) line.className = 'err';
+  line.textContent = text; c.appendChild(line);
+  while (c.childNodes.length > 500) c.removeChild(c.firstChild);
+  c.scrollTop = c.scrollHeight;
+}
+$('error-copy').onclick = async () => {
+  const text = $('error-panel').textContent;
+  try { await navigator.clipboard.writeText(text); } catch (e) {}
+  $('error-copy').textContent = 'Copied'; setTimeout(() => { $('error-copy').textContent = 'Copy error'; }, 1500);
+};
+
+// files from the server, kept for the session (the browser's cache keeps them across visits)
+const got = new Map();
+async function fetchAsset(url, as) {
+  const key = url + ':' + as;
+  if (!got.has(key)) got.set(key, fetch(API + url).then(r => { if (!r.ok) throw new Error(url + ': ' + r.status); return as === 'text' ? r.text() : r.arrayBuffer(); }));
+  try { return await got.get(key); } catch (e) { got.delete(key); throw e; }
+}
+let runtimeText = null;
+async function runtime() {
+  if (!runtimeText) runtimeText = await fetch('../assets/pr-runtime.js').then(r => { if (!r.ok) throw new Error('pr-runtime.js: ' + r.status); return r.text(); });
+  return runtimeText;
+}
+
+let startTimer = null, frameId = 0;
+function finishStart() { if (startTimer) { clearTimeout(startTimer); startTimer = null; } overlay(false); $('btn-run').disabled = false; }
+
+function iframeHTML(runtimeJs, id) {
+  return `<!DOCTYPE html><html><head><style>*{margin:0;padding:0}html,body{height:100%;background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}canvas{display:block;max-width:100%;max-height:100%;image-rendering:pixelated}</style>
+</head><body><canvas id="c" width="100" height="100" tabindex="0"></canvas><script>${runtimeJs.replace(/<\/script/gi, '<\\/script')}<\/script><script>
+const ID = ${id};
+function say(m) { m.id = ID; parent.postMessage(m, '*'); }
+window.addEventListener('message', async e => {
+  const d = e.data; if (!d || d.id !== ID || d.type !== 'start') return;
+  let factory = null;
+  try {
+    if (d.runnerJs) {
+      const url = URL.createObjectURL(new Blob([d.runnerJs], { type: 'application/javascript' }));
+      await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = url; s.onload = ok; s.onerror = () => bad(new Error('runner script')); document.head.appendChild(s); });
+      factory = window.createLuaRunner;
+    }
+    const c = document.getElementById('c'); c.focus();
+    PRRuntime.start({ wasm: d.wasm, canvas: c, files: d.files, args: d.args, emscripten: factory,
+      print: t => say({ type: 'print', text: t }), printErr: t => say({ type: 'printErr', text: t }),
+      onRunning: () => say({ type: 'running' }), onError: m => say({ type: 'error', text: m }) });
+  } catch (err) { say({ type: 'error', text: String(err && err.message || err) }); }
+});
+window.addEventListener('error', e => say({ type: 'error', text: e.message }));
+say({ type: 'loaded' });
+<\/script></body></html>`;
+}
+
+let pending = null;
+window.addEventListener('message', e => {
+  const d = e.data;
+  if (!d || d.id !== frameId) return;
+  if (d.type === 'loaded' && pending) {
+    const f = document.querySelector('#preview-area iframe');
+    const transfer = pending.wasm ? [pending.wasm] : [];
+    f.contentWindow.postMessage(Object.assign({ type: 'start', id: frameId }, pending), '*', transfer);
+    pending = null;
+  } else if (d.type === 'running') { finishStart(); setStatus('Running', 'ok'); }
+  else if (d.type === 'print') log(d.text);
+  else if (d.type === 'printErr') log(d.text, true);
+  else if (d.type === 'error') { finishStart(); showError(d.text); }
+});
+
+function launch(start) {
+  const area = $('preview-area');
+  const old = area.querySelector('iframe');
+  if (old) { try { URL.revokeObjectURL(old.src); } catch (e) {} old.remove(); }
+  $('preview-placeholder').style.display = 'none';
+  frameId++;
+  pending = start;
+  return runtime().then(js => {
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('sandbox', 'allow-scripts');
+    iframe.src = URL.createObjectURL(new Blob([iframeHTML(js, frameId)], { type: 'text/html' }));
+    area.appendChild(iframe);
+  });
+}
+
+function stopSketch() {
+  const f = document.querySelector('#preview-area iframe');
+  if (f) { try { URL.revokeObjectURL(f.src); } catch (e) {} f.remove(); }
+  $('preview-placeholder').style.display = '';
+  frameId++; pending = null; finishStart(); setStatus('');
+  editor.focus();
+}
+
+async function runSketch() {
+  clearError(); $('console').textContent = '';
+  $('btn-run').disabled = true;
+  setStatus('__LOADING__', 'compiling'); overlay(true, '__LOADING__');
+  let resp, data;
+  try {
+    resp = await fetch(API + '/compile', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                           body: JSON.stringify({ code: editor.getValue() }) });
+    data = await resp.json();
+  } catch (e) { showError('The server could not be reached: ' + e.message); return; }
+  if (!resp.ok || data.error) { showError(data.error || ('The server replied ' + resp.status)); return; }
+  overlay(true, 'Starting...');
+  try {
+    let start;
+    if (KIND === 'lua') {
+      const [runnerJs, wasm, sketch] = await Promise.all([fetchAsset(data.runner_js_url, 'text'),
+        fetchAsset(data.runner_wasm_url, 'bin'), fetchAsset(data.sketch_url, 'text')]);
+      start = { runnerJs, wasm: wasm.slice(0), files: { 'sketch.lua': sketch }, args: ['sketch.lua'] };
+    } else {
+      const wasm = await fetchAsset(data.sketch_url, 'bin');
+      start = { wasm: wasm.slice(0), files: {}, args: [] };
+    }
+    await launch(start);
+  } catch (e) { showError('Could not download the sketch: ' + e.message); return; }
+  if (startTimer) clearTimeout(startTimer);
+  startTimer = setTimeout(() => { if ($('loading-overlay').style.display !== 'none') showError('The sketch did not start within ' + START_TIMEOUT_MS / 1000 + ' seconds.'); }, START_TIMEOUT_MS);
+}
+</script>
+<script src="../assets/nav.js"></script>
+</body>
+</html>
